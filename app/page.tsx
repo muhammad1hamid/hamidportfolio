@@ -11,7 +11,7 @@ import { Contact } from "@/components/sections/Contact";
 export default function Home() {
   return (
     <main id="main">
-      <Hero />
+      <Hero year={new Date().getFullYear()} />
       <section id="story" className="story wrap" aria-labelledby="story-title">
         <span className="eyebrow">Beyond the first impression</span>
         <div className="story-composition">

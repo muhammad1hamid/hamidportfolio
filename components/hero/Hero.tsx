@@ -3,8 +3,9 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { Arrow } from "@/components/ui/Arrow";
+import { CurrentYear } from "@/components/ui/CurrentYear";
 
-export function Hero() {
+export function Hero({ year }: { year: number }) {
   const section = useRef<HTMLElement>(null);
   const onMove = (e: React.PointerEvent<HTMLElement>) => {
     if (
@@ -91,7 +92,7 @@ export function Hero() {
           <span>Chatbot development</span>
         </div>
         <span className="hero-edition">
-          PORTFOLIO — {new Date().getFullYear()}
+          PORTFOLIO — <CurrentYear initialYear={year} />
         </span>
       </div>
       <span className="hero-watermark" aria-hidden="true">

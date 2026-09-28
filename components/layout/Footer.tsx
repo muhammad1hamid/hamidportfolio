@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/data/site";
+import { CurrentYear } from "@/components/ui/CurrentYear";
 
 export function Footer() {
   const socials = [
@@ -23,7 +24,7 @@ export function Footer() {
         </a>
       </div>
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Hamid</span>
+        <span>© <CurrentYear initialYear={new Date().getFullYear()} /> Hamid</span>
         <span>Based in Pakistan · Working worldwide</span>
         <div>
           {socials.map((s) => (
