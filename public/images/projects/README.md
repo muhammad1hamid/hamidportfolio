@@ -1,0 +1,1 @@
+Add real project images here as WebP or AVIF. The placeholder entries render illustrative layouts and do not request missing files. Update the thumbnail paths in data/projects.ts when publishing a real project.
