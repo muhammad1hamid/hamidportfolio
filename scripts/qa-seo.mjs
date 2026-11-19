@@ -290,7 +290,12 @@ const queryPage = await (
 assert.ok(
   queryPage.includes(`rel="canonical" href="${origin}/web-development/"`),
 );
-assert.equal((await fetch(base + "/llms.txt")).status, 200);
+const overview = await fetch(base + "/llms.txt");
+assert.equal(overview.status, 200);
+assert.match(overview.headers.get("content-type"), /^text\/plain/);
+const overviewText = await overview.text();
+for (const pathname of servicePaths)
+  assert.ok(overviewText.includes(`(${origin}${pathname})`), pathname);
 const compressed = await fetch(base + "/services/", {
   headers: { "Accept-Encoding": "br" },
 });
