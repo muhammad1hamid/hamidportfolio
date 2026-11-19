@@ -44,7 +44,9 @@ Review at 30, 60 and 90 days after the real public launch. These are comparison 
 
 Ahrefs Web Analytics is installed in the `<head>` of the public export. Ahrefs skips traffic events from localhost, and the tag is omitted from noindex builds. After deployment, use **Recheck installation** in the Ahrefs project. [Ahrefs installation guide](https://help.ahrefs.com/en/articles/10247870-about-ahrefs-web-analytics)
 
-Google Analytics remains inactive unless a real `NEXT_PUBLIC_GA_MEASUREMENT_ID` is configured. Existing privacy/consent and SPA setup guidance in `MANUAL-SEO-SETUP.md` still applies.
+Google Tag Manager container `GTM-KF5WH37L` loads asynchronously on the canonical site. The data layer is initialized before the container loads. Google analytics and advertising consent start denied. The tags and any consent updates are managed in the GTM container. Use [Google Tag Assistant](https://tagassistant.google.com/) to verify published tags and triggers on the live site.
+
+The separate Google Analytics integration activates when a real `NEXT_PUBLIC_GA_MEASUREMENT_ID` is configured. Use one installation for each GA4 property to avoid counting events twice. Existing privacy/consent and SPA setup guidance in `MANUAL-SEO-SETUP.md` still applies.
 
 The site requests the Microsoft Clarity tag for project `zg7lo4zxy4` on `https://itshamid.com` after a visitor allows Clarity analytics. The footer provides Clarity settings to change that choice. The site requests analytics storage only and masks project form fields and the enquiry handover preview. WhatsApp draft text is added only when the visitor opens WhatsApp. Localhost and noindex builds skip Clarity. Verify the project ID under Settings → Setup if the tag returns an empty response. After deployment, allow analytics on the live site and use the [Clarity installation check](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-setup#verify-your-installation) to confirm data reaches the project.
 

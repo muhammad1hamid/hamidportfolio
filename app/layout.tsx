@@ -13,6 +13,27 @@ import "./content.css";
 import "./discovery.css";
 import "./analytics.css";
 
+const tagManager = `
+  (function (w, d) {
+    if (w.location.origin !== ${JSON.stringify(site.url)}) return;
+
+    w.dataLayer = w.dataLayer || [];
+    w.gtag = w.gtag || function () { w.dataLayer.push(arguments); };
+    w.gtag("consent", "default", {
+      analytics_storage: "denied",
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied"
+    });
+    w.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+
+    const tag = d.createElement("script");
+    tag.async = true;
+    tag.src = "https://www.googletagmanager.com/gtm.js?id=GTM-KF5WH37L";
+    d.head.appendChild(tag);
+  })(window, document);
+`;
+
 export const metadata: Metadata = {
   ...pageMeta(site.title, site.description, "/"),
   metadataBase: new URL(site.url),
@@ -32,6 +53,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {!site.noindex && (
+          <script
+            id="hamid-google-tag-manager"
+            dangerouslySetInnerHTML={{ __html: tagManager }}
+          />
+        )}
         {!site.noindex && (
           <script
             src="https://analytics.ahrefs.com/analytics.js"
