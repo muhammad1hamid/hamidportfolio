@@ -1,0 +1,55 @@
+.analytics-settings {
+  min-height: 44px;
+  padding: 0;
+  color: var(--text);
+  border: 0;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.analytics-choice {
+  position: fixed;
+  z-index: 350;
+  inset-inline-start: max(20px, env(safe-area-inset-left));
+  inset-block-end: max(20px, env(safe-area-inset-bottom));
+  width: min(392px, calc(100vw - 40px));
+  padding: 18px;
+  border: 1px solid #57534e;
+  border-radius: 16px;
+  background: #181715;
+  color: #f0f0ec;
+  box-shadow: 0 8px 36px #0007;
+}
+
+.analytics-choice h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.analytics-choice p {
+  margin: 6px 0 12px;
+  color: #d0cbc5;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.analytics-choice p a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.analytics-choice-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.analytics-choice-actions .button {
+  min-height: 44px;
+  padding: 8px 14px;
+  font-size: 13px;
+}

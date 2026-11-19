@@ -42,7 +42,11 @@ Review at 30, 60 and 90 days after the real public launch. These are comparison 
 
 ## Analytics events
 
-Analytics remains inactive unless a real `NEXT_PUBLIC_GA_MEASUREMENT_ID` is configured. Existing privacy/consent and SPA setup guidance in `MANUAL-SEO-SETUP.md` still applies.
+Ahrefs Web Analytics is installed in the `<head>` of the public export. Ahrefs skips traffic events from localhost, and the tag is omitted from noindex builds. After deployment, use **Recheck installation** in the Ahrefs project. [Ahrefs installation guide](https://help.ahrefs.com/en/articles/10247870-about-ahrefs-web-analytics)
+
+Google Analytics remains inactive unless a real `NEXT_PUBLIC_GA_MEASUREMENT_ID` is configured. Existing privacy/consent and SPA setup guidance in `MANUAL-SEO-SETUP.md` still applies.
+
+The site requests the Microsoft Clarity tag for project `zg7lo4zxy4` on `https://itshamid.com` after a visitor allows Clarity analytics. The footer provides Clarity settings to change that choice. The site requests analytics storage only and masks project form fields and the enquiry handover preview. WhatsApp draft text is added only when the visitor opens WhatsApp. Localhost and noindex builds skip Clarity. Verify the project ID under Settings → Setup if the tag returns an empty response. After deployment, allow analytics on the live site and use the [Clarity installation check](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-setup#verify-your-installation) to confirm data reaches the project.
 
 - `page_view`: query-free page location and title; `discovery_source` is an identified referring AI hostname or `unattributed`.
 - `contact_click`: `method=whatsapp`, page path and `context` (`planner`, `demo` or `contact_link`). This records an attempt, not a delivered enquiry.

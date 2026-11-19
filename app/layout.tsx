@@ -11,6 +11,7 @@ import "./refinements.css";
 import "./testimonials.css";
 import "./content.css";
 import "./discovery.css";
+import "./analytics.css";
 
 export const metadata: Metadata = {
   ...pageMeta(site.title, site.description, "/"),
@@ -30,6 +31,15 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        {!site.noindex && (
+          <script
+            src="https://analytics.ahrefs.com/analytics.js"
+            data-key="L1aEAAdlomx6G0yGbFaaUA"
+            async
+          />
+        )}
+      </head>
       <body suppressHydrationWarning>
         <a href="#main" className="skip-link">
           Skip to content

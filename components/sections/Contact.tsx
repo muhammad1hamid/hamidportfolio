@@ -181,7 +181,11 @@ export function Contact() {
           Put your idea into a short brief, then share the downloaded file with
           me on WhatsApp. Your brief stays on your device until you share it.
         </p>
-        <form onSubmit={prepare} onChange={() => setSaved(false)}>
+        <form
+          data-clarity-mask="true"
+          onSubmit={prepare}
+          onChange={() => setSaved(false)}
+        >
           <label>
             Your name or business
             <input

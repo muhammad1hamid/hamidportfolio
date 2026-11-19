@@ -72,8 +72,32 @@ try {
   await context.route(/https?:\/\/(?!localhost|127\.0\.0\.1)/, (route) =>
     route.abort(),
   );
+  await context.route("https://wa.me/**", (route) =>
+    route.fulfill({
+      contentType: "text/plain",
+      body: "Test WhatsApp destination",
+    }),
+  );
   const page = await context.newPage();
   page.on("pageerror", (e) => errors.push(e.message));
+  const checkWhatsAppDraft = async (name, expectedText) => {
+    const link = page.getByRole("link", { name });
+    const beforeClick = new URL(await link.getAttribute("href"));
+    assert.equal(beforeClick.hostname, "wa.me");
+    assert.equal(
+      beforeClick.search,
+      "",
+      "draft text stays out of the page URL",
+    );
+    const opened = context.waitForEvent("page");
+    await link.click();
+    const draft = await opened;
+    await draft.waitForURL("https://wa.me/**");
+    assert.ok(
+      new URL(draft.url()).searchParams.get("text").includes(expectedText),
+    );
+    await draft.close();
+  };
   await page.goto(`${base}/plan/`);
   await page.getByLabel("Main goal").selectOption("Promote one offer");
   assert.match(
@@ -94,11 +118,7 @@ try {
   const brief = await readFile(await download.path(), "utf8");
   assert.ok(brief.includes("café website"));
   assert.ok(brief.includes("payment-provider"));
-  const href = await page
-    .getByRole("link", { name: "Open draft in WhatsApp" })
-    .getAttribute("href");
-  assert.equal(new URL(href).hostname, "wa.me");
-  assert.ok(new URL(href).searchParams.get("text").includes("café website"));
+  await checkWhatsAppDraft("Open draft in WhatsApp", "café website");
   assert.match(
     await page.getByRole("status").innerText(),
     /Nothing has been sent/,
@@ -123,15 +143,7 @@ try {
   await page
     .getByLabel("Project context", { exact: false })
     .fill("Please discuss the scope, no booking yet.");
-  assert.ok(
-    new URL(
-      await page
-        .getByRole("link", { name: "Review in WhatsApp" })
-        .getAttribute("href"),
-    ).searchParams
-      .get("text")
-      .includes("no booking yet"),
-  );
+  await checkWhatsAppDraft("Review in WhatsApp", "no booking yet");
   await page
     .getByRole("button", {
       name: "What should I include in a website brief?",

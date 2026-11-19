@@ -45,6 +45,7 @@ export function WebsitePlanner() {
     <div className="planner-layout">
       <form
         className="tool-panel"
+        data-clarity-mask="true"
         onSubmit={(event) => event.preventDefault()}
         aria-label="Website project planner"
       >
@@ -176,10 +177,19 @@ export function WebsitePlanner() {
           </button>
           <a
             className="button button-outline"
-            href={`${site.whatsapp}?text=${encodeURIComponent(`Hi Hamid, I'd like to discuss this website brief.\n\n${plan.text}`)}`}
+            href={site.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             data-contact-context="planner"
+            onClick={(event) => {
+              event.preventDefault();
+              const draft = `Hi Hamid, I'd like to discuss this website brief.\n\n${plan.text}`;
+              window.open(
+                `${site.whatsapp}?text=${encodeURIComponent(draft)}`,
+                "_blank",
+                "noopener,noreferrer",
+              );
+            }}
           >
             Open draft in WhatsApp
           </a>

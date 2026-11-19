@@ -36,6 +36,7 @@ export function EnquiryDemo() {
           ))}
         </div>
         <form
+          data-clarity-mask="true"
           onSubmit={(event) => {
             event.preventDefault();
             ask(question);
@@ -82,6 +83,7 @@ export function EnquiryDemo() {
         <label className="tool-field">
           Project context <span className="tool-optional">Optional</span>
           <textarea
+            data-clarity-mask="true"
             rows={4}
             maxLength={600}
             value={notes}
@@ -89,7 +91,7 @@ export function EnquiryDemo() {
             placeholder="What are you trying to build?"
           />
         </label>
-        <div className="handover-draft">
+        <div className="handover-draft" data-clarity-mask="true">
           <h3>Draft preview</h3>
           <p>
             {submitted ||
@@ -102,7 +104,19 @@ export function EnquiryDemo() {
           target="_blank"
           rel="noopener noreferrer"
           data-contact-context="demo"
-          href={`${site.whatsapp}?text=${encodeURIComponent(`Hi Hamid, ${submitted || "I’d like to discuss a website or automation project."}${notes.trim() ? `\n\n${notes.trim()}` : ""}`)}`}
+          href={site.whatsapp}
+          onClick={(event) => {
+            event.preventDefault();
+            const question =
+              submitted ||
+              "I’d like to discuss a website or automation project.";
+            const draft = `Hi Hamid, ${question}${notes.trim() ? `\n\n${notes.trim()}` : ""}`;
+            window.open(
+              `${site.whatsapp}?text=${encodeURIComponent(draft)}`,
+              "_blank",
+              "noopener,noreferrer",
+            );
+          }}
         >
           Review in WhatsApp
         </a>
