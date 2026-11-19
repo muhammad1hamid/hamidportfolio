@@ -1,0 +1,53 @@
+{
+  "bridal-house": {
+    "type": "Self-directed demo",
+    "role": "Website development by Hamid",
+    "summary": "A bridal website demo exploring how a photography-led collection can lead into a consultation enquiry.",
+    "decisions": [
+      {
+        "title": "Let the collection lead",
+        "text": "Large collection photography gives the visitor a visual starting point. This is useful for comparing a look before reading the supporting details."
+      },
+      {
+        "title": "Separate exploration from enquiry",
+        "text": "Collection browsing and consultation links serve different visitor needs: discovering a style and asking a specific question."
+      }
+    ],
+    "scope": "The published example demonstrates a bridal browsing and enquiry interface. It does not establish inventory accuracy, a working checkout or completed customer bookings.",
+    "lesson": "For a real commission, confirm who maintains collection availability, whether sale and rental rules differ, and where consultation requests are received."
+  },
+  "editing-julian": {
+    "type": "Self-directed demo",
+    "role": "Website development by Hamid",
+    "summary": "A video-editor portfolio demo that connects examples of creative work with service information and a route to discuss a project.",
+    "decisions": [
+      {
+        "title": "Put the work in the journey",
+        "text": "Featured edits let a visitor inspect the type of creative output being presented before deciding whether to enquire."
+      },
+      {
+        "title": "Connect examples with the next step",
+        "text": "Service information and consultation links give the portfolio a practical enquiry path alongside the visual presentation."
+      }
+    ],
+    "scope": "This demo presents an editor's portfolio experience. It is not evidence of a commission from the named brand, ownership of the featured media or measured booking outcomes.",
+    "lesson": "For a real editor portfolio, agree which media can be published, how it should load on mobile and whether consultation links point to a staffed, current booking process."
+  },
+  "qadeer-jewellers": {
+    "type": "Self-directed demo",
+    "role": "Website development by Hamid",
+    "summary": "A jewellery showroom demo organised around gold, diamond and bridal collections, with a path from browsing to an enquiry.",
+    "decisions": [
+      {
+        "title": "Group the collection clearly",
+        "text": "Collection categories offer an initial route through different types of jewellery without requiring a visitor to know an exact item."
+      },
+      {
+        "title": "Use the website to support an enquiry",
+        "text": "Showroom and enquiry information give the visitor a next step after exploring the product photography."
+      }
+    ],
+    "scope": "The website demonstrates a collection and showroom interface. Product availability, live prices, purchases and business performance are not verified by this demo.",
+    "lesson": "For a real jewellery catalogue, define responsibility for product details and price updates, and clarify whether visitors are browsing examples or purchasing available stock."
+  }
+}

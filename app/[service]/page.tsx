@@ -1,0 +1,175 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { servicePages, serviceBySlug } from "@/data/services";
+import { site } from "@/data/site";
+import { absolute, pageMeta } from "@/data/seo";
+import { ContentPage, ProjectCta } from "@/components/seo/ContentPage";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ServiceDecisions } from "@/components/seo/ServiceDecisions";
+
+export const dynamicParams = false;
+export function generateStaticParams() {
+  return servicePages.map((service) => ({ service: service.slug }));
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ service: string }>;
+}) {
+  const service = serviceBySlug((await params).service);
+  if (!service) notFound();
+  return pageMeta(service.title, service.description, `/${service.slug}/`);
+}
+export default async function ServicePage({
+  params,
+}: {
+  params: Promise<{ service: string }>;
+}) {
+  const service = serviceBySlug((await params).service);
+  if (!service) notFound();
+  const path = `/${service.slug}/`;
+  return (
+    <ContentPage
+      path={path}
+      title={service.title.replace(" — Hamid", "")}
+      intro={service.intro}
+      label={service.name}
+      crumbs={[
+        { label: "Services", href: "/services/" },
+        { label: service.name, href: path },
+      ]}
+    >
+      <div className="content-actions hero-page-actions">
+        <a
+          className="button button-accent"
+          href={site.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Discuss this service ↗
+        </a>
+        <Link className="text-link" href="/work/">
+          Explore actual website work ↗
+        </Link>
+      </div>
+      <ServiceDecisions slug={service.slug} />
+      <div className="content-two-columns">
+        <section>
+          <h2>The problem to solve</h2>
+          <p>{service.problem}</p>
+        </section>
+        <section>
+          <h2>Who it suits</h2>
+          <p>{service.audience}</p>
+        </section>
+      </div>
+      <section className="content-section">
+        <span className="eyebrow">An agreed scope</span>
+        <h2>What we can build around.</h2>
+        <ul className="feature-grid">
+          {service.features.map((feature, i) => (
+            <li key={feature}>
+              <span aria-hidden="true">0{i + 1}</span>
+              <p>{feature}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section className="content-section">
+        <h2>How the work moves forward</h2>
+        <ol className="content-steps">
+          {service.flow.map((step, i) => (
+            <li key={step}>
+              <span aria-hidden="true">0{i + 1}</span>
+              <p>{step}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+      <div className="content-two-columns">
+        <section>
+          <h2>A practical use case</h2>
+          <p>{service.example}</p>
+        </section>
+        <section>
+          <h2>Tools and integration decisions</h2>
+          <p>{service.integration}</p>
+        </section>
+      </div>
+      {service.slug === "web-development" ||
+      service.slug === "landing-page-development" ? (
+        <aside className="content-proof">
+          <h2>See the work, then discuss your direction.</h2>
+          <p>
+            Explore supplied live websites, actual desktop and mobile
+            screenshots, and the experience notes behind selected projects.
+          </p>
+          <Link href="/case-studies/" className="text-link">
+            Read project experience notes ↗
+          </Link>
+          <Link href="/testimonials/" className="text-link">
+            Watch client video testimonials ↗
+          </Link>
+        </aside>
+      ) : (
+        <aside className="content-proof">
+          <h2>Start with your process.</h2>
+          <p>
+            Bring an example of the enquiry or task you want to improve. We can
+            assess feasibility and define a small pilot. Published website work
+            is available in the portfolio; completed automation results are not
+            claimed here.
+          </p>
+          <Link href="/blog/" className="text-link">
+            Read practical planning guides ↗
+          </Link>
+        </aside>
+      )}
+      <section className="content-section content-faq">
+        <h2>Questions before we start</h2>
+        {service.faqs.map((faq) => (
+          <details key={faq.q}>
+            <summary>{faq.q}</summary>
+            <p>{faq.a}</p>
+          </details>
+        ))}
+      </section>
+      <section className="content-section">
+        <h2>Connected services</h2>
+        <div className="related-links">
+          {service.related.map((slug) => {
+            const related = serviceBySlug(slug)!;
+            return (
+              <Link key={slug} href={`/${slug}/`}>
+                {related.name} ↗
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+      <ProjectCta />
+      <p className="article-byline">
+        Scope discussed with <Link href="/about/">Hamid</Link> ·{" "}
+        <Link href="/answers/">Project questions</Link> ·{" "}
+        <Link href="/editorial-policy/">Content standards</Link>
+      </p>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "@id": absolute(`${path}#service`),
+          name: service.name,
+          serviceType: service.name,
+          description: service.description,
+          url: absolute(path),
+          provider: { "@id": absolute("/#organization") },
+          areaServed: [
+            { "@type": "Country", name: "Pakistan" },
+            { "@type": "Place", name: "Remote / worldwide" },
+          ],
+          mainEntityOfPage: { "@id": absolute(`${path}#webpage`) },
+        }}
+      />
+    </ContentPage>
+  );
+}

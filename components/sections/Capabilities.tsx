@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { services } from "@/data/content";
 import { Arrow } from "@/components/ui/Arrow";
+import { ChromeMark } from "@/components/hero/ChromeMark";
+import { WorkflowPreview } from "./WorkflowPreview";
 
 export function Capabilities() {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(-1);
   return (
     <section
       id="services"
@@ -13,7 +16,7 @@ export function Capabilities() {
       aria-labelledby="services-title"
     >
       <div className="section-marker" data-reveal>
-        <span>01 / What I bring</span>
+        <span>02 / What I bring</span>
         <span>One builder. A connected skill set.</span>
       </div>
       <div className="capability-heading" data-reveal>
@@ -22,9 +25,14 @@ export function Capabilities() {
           <br />
           <em>Smart underneath.</em>
         </h2>
-        <p>
-          From the first impression to the work happening behind the scenes.
-        </p>
+        <div className="capability-signature">
+          <ChromeMark />
+          <p>
+            Design you can feel.
+            <br />
+            Technology you can put to work.
+          </p>
+        </div>
       </div>
       <div className="service-list">
         {services.map((service, index) => (
@@ -68,6 +76,8 @@ export function Capabilities() {
           </div>
         ))}
       </div>
+      <Link href="/services/" className="service-directory-link">Explore services, process & FAQs <Arrow diagonal /></Link>
+      <WorkflowPreview />
     </section>
   );
 }

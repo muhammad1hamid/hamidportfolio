@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { ResponsiveImage } from "@/components/seo/ResponsiveImage";
 import { useRef } from "react";
 import { Arrow } from "@/components/ui/Arrow";
 import { CurrentYear } from "@/components/ui/CurrentYear";
@@ -25,7 +25,7 @@ export function Hero({ year }: { year: number }) {
   };
   return (
     <section
-      className="hero"
+      className="hero hero-v2"
       ref={section}
       onPointerMove={onMove}
       onPointerLeave={() => {
@@ -36,7 +36,9 @@ export function Hero({ year }: { year: number }) {
     >
       <div className="hero-grid" aria-hidden="true" />
       <div className="hero-topline wrap">
-        <span className="eyebrow">Independent developer & AI builder</span>
+        <span className="eyebrow">
+          <i className="accent-dot" /> Independent developer & AI builder
+        </span>
         <span className="eyebrow hero-coordinate">Pakistan ↗ Worldwide</span>
       </div>
       <div className="hero-body wrap">
@@ -47,25 +49,31 @@ export function Hero({ year }: { year: number }) {
             WHAT’S <em>next.</em>
           </h1>
           <p>
-            Distinctive web experiences.
-            <br />
-            Intelligent systems. Built with intent.
+            I’m Hamid. I build websites, chatbots and AI workflows for
+            businesses and agencies in Pakistan and worldwide.
           </p>
-          <a href="#contact" className="button button-light" data-magnetic>
-            Let’s build something <Arrow diagonal />
-          </a>
+          <div className="hero-actions">
+            <a href="#work" className="button button-accent">
+              Explore my work <Arrow diagonal />
+            </a>
+            <a href="#contact" className="hero-secondary">
+              Let’s talk <Arrow diagonal />
+            </a>
+          </div>
           <span className="hero-caption">
             For ambitious businesses & the agencies behind them.
           </span>
         </div>
         <div className="hero-portrait">
-          <Image
+          <span className="portrait-orbit" aria-hidden="true" />
+          <ResponsiveImage
             src="/images/hamid-hero.webp"
             alt="Hamid, web developer and AI automation builder"
             width={1000}
             height={1000}
             sizes="(max-width: 700px) 95vw, 55vw"
-            priority
+            loading="eager"
+            fetchPriority="high"
           />
           <span className="portrait-cross cross-one" aria-hidden="true">
             +
@@ -80,11 +88,11 @@ export function Hero({ year }: { year: number }) {
         </div>
       </div>
       <div className="hero-bottom wrap">
-        <a href="#story" className="scroll-link">
+        <a href="#work" className="scroll-link">
           <span className="scroll-track">
             <i />
           </span>
-          Scroll to explore
+          Selected work below
         </a>
         <div className="hero-disciplines">
           <span>Web development</span>

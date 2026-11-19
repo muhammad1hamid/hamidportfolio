@@ -8,6 +8,12 @@ export function Contact() {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const [saved, setSaved] = useState(false);
+  const primaryContact = site.email ? `mailto:${site.email}` : site.whatsapp;
+  const openBrief = () => {
+    setSaved(false);
+    dialog.current?.showModal();
+    document.body.style.overflow = "hidden";
+  };
   useEffect(() => {
     const previous = document.body.style.overflow;
     return () => {
@@ -80,38 +86,47 @@ export function Contact() {
               <br />
               the code, and the curiosity.
             </p>
-            {site.email ? (
-              <a
-                href={`mailto:${site.email}`}
-                className="contact-orbit"
-                onPointerMove={magnetic}
-                onPointerLeave={(e) => {
-                  e.currentTarget.style.setProperty("--tx", "0px");
-                  e.currentTarget.style.setProperty("--ty", "0px");
-                }}
-              >
-                <Arrow diagonal />
-                <span>Let’s talk</span>
-              </a>
-            ) : (
-              <button
-                ref={trigger}
-                className="contact-orbit"
-                onClick={() => {
-                  setSaved(false);
-                  dialog.current?.showModal();
-                  document.body.style.overflow = "hidden";
-                }}
-                onPointerMove={magnetic}
-                onPointerLeave={(e) => {
-                  e.currentTarget.style.setProperty("--tx", "0px");
-                  e.currentTarget.style.setProperty("--ty", "0px");
-                }}
-              >
-                <Arrow diagonal />
-                <span>Prepare a brief</span>
-              </button>
-            )}
+            <div className="contact-actions">
+              {primaryContact ? (
+                <a
+                  href={primaryContact}
+                  target={site.email ? undefined : "_blank"}
+                  rel={site.email ? undefined : "noopener noreferrer"}
+                  className="contact-orbit"
+                  onPointerMove={magnetic}
+                  onPointerLeave={(e) => {
+                    e.currentTarget.style.setProperty("--tx", "0px");
+                    e.currentTarget.style.setProperty("--ty", "0px");
+                  }}
+                >
+                  <Arrow diagonal />
+                  <span>{site.email ? "Let’s talk" : "Let’s WhatsApp"}</span>
+                </a>
+              ) : (
+                <button
+                  ref={trigger}
+                  className="contact-orbit"
+                  onClick={openBrief}
+                  onPointerMove={magnetic}
+                  onPointerLeave={(e) => {
+                    e.currentTarget.style.setProperty("--tx", "0px");
+                    e.currentTarget.style.setProperty("--ty", "0px");
+                  }}
+                >
+                  <Arrow diagonal />
+                  <span>Prepare a brief</span>
+                </button>
+              )}
+              {primaryContact && (
+                <button
+                  ref={trigger}
+                  className="contact-brief-link"
+                  onClick={openBrief}
+                >
+                  Prepare a brief <Arrow diagonal />
+                </button>
+              )}
+            </div>
           </div>
         </div>
         <div className="contact-bottom">
@@ -163,8 +178,8 @@ export function Contact() {
           <em>your mind?</em>
         </h2>
         <p className="brief-intro">
-          Prepare your idea while direct contact details are being added. Your
-          brief is saved to your device. It is not sent.
+          Put your idea into a short brief, then share the downloaded file with
+          me on WhatsApp. Your brief stays on your device until you share it.
         </p>
         <form onSubmit={prepare} onChange={() => setSaved(false)}>
           <label>
@@ -212,9 +227,19 @@ export function Contact() {
           </button>
           <p className="brief-status" role="status">
             {saved
-              ? "Your download is ready. Keep the file to share with Hamid once contact details are available."
+              ? "Your download is ready. Share the file with Hamid on WhatsApp when you’re ready."
               : "Private to you. Nothing is submitted or stored on a server."}
           </p>
+          {saved && site.whatsapp && (
+            <a
+              className="project-live-link"
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open WhatsApp <Arrow diagonal />
+            </a>
+          )}
         </form>
       </dialog>
     </section>

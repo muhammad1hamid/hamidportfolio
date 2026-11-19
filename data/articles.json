@@ -1,0 +1,228 @@
+[
+  {
+    "slug": "business-website-brief",
+    "title": "How to Write a Useful Business Website Brief",
+    "description": "Plan your business website before requesting a quote: audience, pages, content, enquiry paths, ownership and launch checks, with a practical example brief.",
+    "category": "Web Development",
+    "date": "2026-09-30",
+    "related": [
+      "web-development",
+      "landing-page-development"
+    ],
+    "intro": "A useful website brief explains who the site is for, what visitors need to know and what action they should take. It also identifies the content you already have and the decisions still open. This makes a scope discussion more useful than starting with a price alone.",
+    "sections": [
+      {
+        "id": "audience",
+        "heading": "Start with the visitor and the decision",
+        "paragraphs": [
+          "Describe the person arriving on the site and why they are there. A bridal collection visitor may want to compare looks before requesting a consultation. A service buyer may want to understand the offer and see relevant work. The page structure should support that decision.",
+          "Write one main action for the site: request a quote, book a conversation, visit a showroom or explore a collection. Secondary actions can exist, but a visitor should be able to find the main route without guessing."
+        ]
+      },
+      {
+        "id": "pages",
+        "heading": "List pages by purpose, not by habit",
+        "paragraphs": [
+          "For each proposed page, write what it needs to answer. A service page explains the work and whom it suits. An about page identifies the person or business. A portfolio provides actual examples. A contact page explains how to start and what information to send.",
+          "A focused campaign may only need a landing page. A business with several offers usually needs more context. Avoid publishing several near-identical pages simply to repeat different location keywords."
+        ],
+        "items": [
+          "Page name and visitor question",
+          "Content or imagery already available",
+          "Main action and its destination",
+          "Any functionality beyond reading and navigation"
+        ]
+      },
+      {
+        "id": "proof",
+        "heading": "Gather content and genuine proof",
+        "paragraphs": [
+          "Prepare approved descriptions, brand files, useful photography and real project examples. If you have testimonials, confirm the name, role and permission to publish. If results have not been measured, show the work without adding a guessed percentage improvement.",
+          "Content readiness affects the schedule. An unfinished menu, service list or enquiry process can delay decisions even when the design is ready. Identify an owner for each content item and decide who approves changes."
+        ]
+      },
+      {
+        "id": "enquiry",
+        "heading": "Describe what happens after an enquiry",
+        "paragraphs": [
+          "A form is not complete simply because its button works. Specify who receives the enquiry, which details are required and how your team follows up. Decide whether WhatsApp, email, a booking tool or a CRM is the right destination.",
+          "For example, a consultation request might ask for a name, preferred contact route and a short project outline. It should explain whether the request is sent immediately or saved as a draft. Avoid collecting details your team does not need."
+        ]
+      },
+      {
+        "id": "ownership",
+        "heading": "Agree on ownership and ongoing work",
+        "paragraphs": [
+          "The brief should cover who owns the domain and hosting accounts, who can edit content and who maintains the site. Separate development work from third-party subscriptions and clarify what support is included after launch.",
+          "Before launch, review the site on a narrow phone screen as well as desktop. Check navigation, enquiry delivery, page titles, image text alternatives, keyboard access and missing pages. These checks matter even when the visual design already looks finished."
+        ]
+      },
+      {
+        "id": "example",
+        "heading": "A short example brief",
+        "paragraphs": [
+          "Illustrative brief: We need a website for a consultation-based service. Visitors should understand three offers, see approved work and request a conversation. We have a logo and project images, but service descriptions still need review. Enquiries should reach our existing team inbox. We need to agree on editing access, hosting ownership and the launch checklist.",
+          "That outline is enough to start a practical scope conversation. Add references for visual direction, a target date and any fixed constraints. A quote and timeline can then follow the actual requirements rather than assumptions."
+        ]
+      }
+    ],
+    "sources": []
+  },
+  {
+    "slug": "ai-agent-chatbot-workflow",
+    "title": "AI Agent, Chatbot or Workflow: Which Do You Need?",
+    "description": "Compare a chatbot, a fixed workflow and an AI agent using their purpose, tool access and approval needs, then scope a small business pilot you can evaluate.",
+    "category": "AI Agents",
+    "date": "2026-09-30",
+    "related": [
+      "ai-agents",
+      "website-chatbot",
+      "workflow-automation"
+    ],
+    "intro": "Choose a chatbot when the main need is conversation, a workflow when the steps are predictable and an agent when the task needs decisions about what to do next. These approaches can overlap. Start with the simplest system that can handle the task reliably.",
+    "sections": [
+      {
+        "id": "chatbot",
+        "heading": "A chatbot is the conversation interface",
+        "paragraphs": [
+          "A chatbot lets a person ask questions through an interface such as a website. It may use fixed responses, approved content or an AI model. Calling it a chatbot does not explain whether it can use business tools or take actions.",
+          "For a service website, useful chat may mean explaining the offers and linking to the right page. Collecting an enquiry can be another step. Quoting a custom price or confirming a booking requires additional rules and reliable information."
+        ]
+      },
+      {
+        "id": "workflow",
+        "heading": "A workflow follows defined steps",
+        "paragraphs": [
+          "A workflow suits a process you can describe in advance: receive a form, check required fields, create a record and notify its owner. The routing rules are explicit, making individual steps easier to inspect and test.",
+          "AI can be included in one step without turning the whole system into an agent. For example, a model might prepare an enquiry summary while ordinary rules decide where to save it. The summary can be reviewed before anyone sends a reply."
+        ]
+      },
+      {
+        "id": "agent",
+        "heading": "An agent chooses steps within a task",
+        "paragraphs": [
+          "Anthropic's engineering guidance distinguishes predefined workflows from agents whose models direct their process and tool use. That distinction helps describe the scope: an agent has more discretion about how to pursue an objective.",
+          "More discretion also means more decisions to evaluate. Define the objective, available tools, permitted actions and stopping conditions. An assistant allowed to retrieve information has a different risk profile from one allowed to change records or contact customers."
+        ]
+      },
+      {
+        "id": "choose",
+        "heading": "Use the operating question to choose",
+        "paragraphs": [
+          "Ask what your team actually needs to get done. If visitors cannot find answers, improve the content and consider chat. If staff repeatedly copy information between tools, map a workflow. If the task requires choosing among tools based on changing inputs, assess whether an agent adds enough value to justify its complexity."
+        ],
+        "items": [
+          "Does the process have predictable steps? Start with a workflow.",
+          "Is the main need a conversation? Start with a chatbot and approved answers.",
+          "Must the system choose its next tool or action? Evaluate a bounded agent.",
+          "Would a wrong action matter? Define human approval before adding write access."
+        ]
+      },
+      {
+        "id": "pilot",
+        "heading": "Define a small pilot before a large system",
+        "paragraphs": [
+          "Bring examples of the inputs your team sees and the outcomes you consider correct. Include missing details, conflicting requests and unsupported questions. Agree on how a failed or uncertain result is escalated.",
+          "An illustrative pilot could prepare internal enquiry summaries without sending messages or changing customer records. Review usefulness, mistakes, latency and usage cost before considering additional permissions. This describes a planning approach, not a claimed deployment or benchmark."
+        ]
+      },
+      {
+        "id": "handover",
+        "heading": "Keep ownership and a fallback visible",
+        "paragraphs": [
+          "Someone must own the business information, tool permissions and review process. Document how to pause the system, recover a failed request and update the approved knowledge. A human route should remain available when the automated route cannot help.",
+          "The right solution is the one your team can operate and assess. A narrower, understandable system is often a better first project than a broad assistant with an unclear definition of success."
+        ]
+      },
+      {
+        "id": "inspect-a-demo",
+        "heading": "Inspect a small enquiry flow before choosing a system",
+        "paragraphs": [
+          "The enquiry demonstration on this site lets you inspect four published answers, source links and a handover draft. It uses fixed rules, so it is useful for discussing the conversation and escalation flow without suggesting that a language model has been evaluated.",
+          "Try an unsupported price or booking request as well as an ordinary website question. The difference between an answer and a commitment should be visible. A production AI assistant would need a model, account access, delivery handling and its own representative evaluation."
+        ],
+        "links": [
+          {
+            "label": "Try the enquiry demonstration",
+            "href": "/demos/enquiry-assistant/"
+          },
+          {
+            "label": "Plan human handover",
+            "href": "/blog/chatbot-human-handover/"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "Anthropic: Building effective agents",
+        "url": "https://www.anthropic.com/engineering/building-effective-agents"
+      }
+    ],
+    "modified": "2026-10-05"
+  },
+  {
+    "slug": "website-enquiry-follow-up-workflow",
+    "title": "Plan a Website Enquiry-to-Follow-up Workflow",
+    "description": "Design a reliable lead workflow from website enquiry to human follow-up: required fields, duplicate checks, routing, approvals and practical failure handling.",
+    "category": "Business Automation",
+    "date": "2026-09-30",
+    "related": [
+      "workflow-automation",
+      "business-dashboards",
+      "whatsapp-ai-chatbot"
+    ],
+    "intro": "A useful enquiry workflow captures a request, checks the essential details and assigns a person to follow up. Automate the repeated steps while keeping responsibility and important decisions visible. Start by documenting the process before connecting tools.",
+    "sections": [
+      {
+        "id": "capture",
+        "heading": "Capture only what the next step needs",
+        "paragraphs": [
+          "Decide what qualifies as a usable enquiry. A name, contact route and short explanation may be enough for a first conversation. More fields are only helpful when the team uses them to decide what happens next.",
+          "Make the destination clear. A submitted form, a locally saved brief and an opened WhatsApp conversation are different actions. The visitor should know which action occurred and what they need to do next."
+        ]
+      },
+      {
+        "id": "validate",
+        "heading": "Validate and identify duplicates",
+        "paragraphs": [
+          "Check required fields before routing. A missing contact detail should lead to an understandable error or review step. Do not silently discard the request or pretend the process completed.",
+          "Decide how repeated submissions are recognised. A stable request identifier can help prevent duplicate records when a connection retries. Matching records purely by name may combine different people or miss a repeat enquiry."
+        ]
+      },
+      {
+        "id": "routing",
+        "heading": "Assign an owner and a visible status",
+        "paragraphs": [
+          "The receiving system should show who is responsible and what stage the enquiry is in. Start with a few useful statuses such as new, assigned and awaiting a response. Agree on the meaning of each before adding a dashboard.",
+          "An illustrative service enquiry could be saved to a spreadsheet or CRM and assigned to the person handling that offer. The destination depends on access and tool capabilities; a public website should never contain private credentials."
+        ]
+      },
+      {
+        "id": "approval",
+        "heading": "Separate preparation from sending",
+        "paragraphs": [
+          "Automation can prepare a summary or draft response without sending it. This is a useful boundary when a reply includes a price, delivery promise or custom commitment. A person reviews the message before it reaches the customer.",
+          "If the workflow later includes outbound WhatsApp or email, verify the account setup, messaging requirements and permissions first. Do not assume that receiving an enquiry allows every type of future message."
+        ]
+      },
+      {
+        "id": "failure",
+        "heading": "Plan the failure path",
+        "paragraphs": [
+          "A disconnected account or unavailable receiving tool should produce a visible failure state. Agree on which errors can retry, how long a request is retained and who receives a notification. The team needs a way to recover the request.",
+          "Test missing fields, duplicate requests, failed connections and delayed execution alongside the normal path. Check that a retry cannot send the same message twice or create an unexplained second record."
+        ]
+      },
+      {
+        "id": "measure",
+        "heading": "Measure the process before expanding it",
+        "paragraphs": [
+          "Track operational questions your team can act on: how many requests are waiting, which have no owner and which need a follow-up. Define timestamps and status changes consistently so the view is meaningful.",
+          "Start with one enquiry source and one destination. Review the pilot with the team, improve exception handling and then decide whether AI categorisation, additional channels or a dashboard are useful. This guide is an illustrative design checklist; it does not claim measured results from a client project."
+        ]
+      }
+    ],
+    "sources": []
+  }
+]

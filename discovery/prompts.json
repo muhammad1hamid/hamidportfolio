@@ -1,0 +1,6 @@
+{
+  "status":"Observation set prepared; no AI visibility results claimed",
+  "recordFields":["date","product","mode","country","language","prompt","citedUrls","mentionsHamid","identityAccurate","demoStatusAccurate","notes"],
+  "branded":["What does Muhammad Hamid at itshamid.com offer?","Which website examples in Hamid's portfolio are self-directed demos?","Where can I watch Hamid's client testimonials?"],
+  "nonBranded":["Do I need a landing page or a full business website?","What should a small business put in a website brief?","What affects the cost of a business website?","What should I agree about website ownership before hiring a developer?","How do I choose a web developer in Pakistan for a small business website?","Where can I see bridal website design examples?","What should a video editor portfolio website include?","How should a jewellery showroom organise its website?","What should happen when a chatbot cannot answer a question?","How do I plan chatbot human handover?","What is the difference between a chatbot, workflow and AI agent?","How can a service business prepare for WhatsApp automation?"]
+}

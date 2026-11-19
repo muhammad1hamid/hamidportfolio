@@ -1,0 +1,390 @@
+[
+  {
+    "slug": "ai-automation",
+    "name": "AI automation",
+    "title": "AI Automation for Business Workflows in Pakistan",
+    "description": "Work with Hamid to plan AI automation for enquiries, documents and routine operations, with clear approval steps, practical integrations and human oversight.",
+    "intro": "AI automation combines software rules with AI to handle parts of a business process, such as organising enquiries or drafting a reply. I help businesses scope systems around their actual work, with clear limits on what the system can decide and when a person takes over.",
+    "problem": "Repeated copying, sorting and follow-ups create a queue that grows with your business. The first step is identifying one recurring task, its inputs and the outcome your team needs. A predictable task may only need ordinary automation; AI becomes useful when the input includes varied language or documents.",
+    "audience": "Small businesses and agencies handling repeated enquiries, internal document work or information moving between tools. Projects can be discussed remotely across Pakistan and internationally.",
+    "features": [
+      "Enquiry categorisation with a review queue for ambiguous requests",
+      "Draft replies grounded in approved business information",
+      "Structured extraction from agreed document types",
+      "Logs, retry handling and notifications when a step fails"
+    ],
+    "flow": [
+      "Map a single process and identify decisions requiring approval.",
+      "Confirm the source data, tool access and permitted actions.",
+      "Build a small pilot and compare outputs against representative examples.",
+      "Review exceptions with your team before expanding the scope."
+    ],
+    "example": "For example, a website enquiry could be checked for required fields, summarised for your team and assigned to the right person. A proposed reply can stay in draft until approved. This is an example scope, rather than a claim of a deployed client system.",
+    "integration": "Potential connections include forms, email, spreadsheets, CRMs and AI APIs. Access, provider capabilities, usage costs and data handling are checked during discovery; integrations are selected for the task.",
+    "faqs": [
+      {
+        "q": "Does every automation need AI?",
+        "a": "No. Fixed rules are often easier to test for predictable tasks. AI is considered when the process involves language, documents or inputs that vary."
+      },
+      {
+        "q": "How is accuracy checked?",
+        "a": "Agree on representative test cases and acceptable outcomes before launch. Uncertain outputs should go to a person, and consequential actions should have explicit approval rules."
+      },
+      {
+        "q": "What determines the price?",
+        "a": "Scope, integrations, data preparation, safeguards and ongoing provider usage. Share your current process for a scoped proposal; there is no fixed public package price."
+      }
+    ],
+    "related": ["workflow-automation", "ai-agents", "business-dashboards"]
+  },
+  {
+    "slug": "whatsapp-ai-chatbot",
+    "name": "WhatsApp AI chatbot",
+    "title": "WhatsApp AI Chatbot Development for Businesses",
+    "description": "Plan a WhatsApp AI chatbot with Hamid for business FAQs, enquiry capture and human handover. Scope the knowledge, integrations and approval rules before launch.",
+    "intro": "A WhatsApp AI chatbot helps customers ask questions through WhatsApp and receive answers from approved business information. I can scope a conversational system that collects useful enquiry details and hands the conversation to a person when needed.",
+    "problem": "The same questions about services, hours and next steps can interrupt your team throughout the day. A chatbot needs more than a welcome message: it needs a reliable information source, boundaries for its replies and a clear way to reach a human.",
+    "audience": "Service businesses and teams receiving repeat WhatsApp enquiries. It is most useful when someone owns the information and a team member can handle exceptions.",
+    "features": [
+      "Answers using an approved FAQ or product information source",
+      "Step-by-step collection of enquiry details",
+      "Human handover with conversation context",
+      "Optional CRM or spreadsheet connection, subject to available APIs"
+    ],
+    "flow": [
+      "Review the business account, message requirements and provider options.",
+      "Organise approved answers and define escalation conditions.",
+      "Prototype customer journeys with realistic test conversations.",
+      "Verify permissions, handover and failure handling before launch."
+    ],
+    "example": "A visitor might ask which service suits their need, share their contact details and request a callback. The chatbot can collect the information while reserving pricing exceptions or commitments for your team. Message availability and outbound behaviour depend on the approved platform setup.",
+    "integration": "The official WhatsApp Business Platform or a suitable provider is assessed during discovery. Business verification, messaging requirements, language quality and usage charges must be confirmed for your account. Existing personal WhatsApp access alone does not establish API readiness.",
+    "faqs": [
+      {
+        "q": "Can it transfer a customer to a person?",
+        "a": "Human handover can be included in the design. The receiving inbox, notification method and team responsibilities are agreed before implementation."
+      },
+      {
+        "q": "Can it answer in Urdu and English?",
+        "a": "Language support can be evaluated with your approved content and sample conversations. It should be tested before being advertised as a supported feature."
+      },
+      {
+        "q": "Can it connect to a CRM?",
+        "a": "Potentially, when the CRM provides suitable access. Field mapping, authentication, duplicates and consent requirements are checked first."
+      }
+    ],
+    "related": [
+      "restaurant-whatsapp-automation",
+      "website-chatbot",
+      "workflow-automation"
+    ]
+  },
+  {
+    "slug": "ai-receptionist",
+    "name": "AI receptionist",
+    "title": "AI Receptionist Planning and Development — Hamid",
+    "description": "Scope an AI receptionist with Hamid to answer routine questions, collect callback requests and route enquiries, with clear human handover and booking rules.",
+    "intro": "An AI receptionist is a conversational front desk that handles a defined set of enquiries and routes requests to your team. The right starting point is the reception work you want help with, rather than assuming every call or conversation can be automated.",
+    "problem": "A missed enquiry and an incorrect booking can both create extra work. Reception automation must know the business hours, available services and when to stop. It should make no commitment beyond the information and permissions you approve.",
+    "audience": "Appointment-based businesses and service teams needing a consistent first response. Text reception, appointment requests and voice reception are separate scopes, with channel feasibility assessed individually.",
+    "features": [
+      "Approved answers about services and opening hours",
+      "Callback requests with contact and enquiry details",
+      "Routing to a relevant team member",
+      "Booking requests or confirmed bookings only with verified calendar access"
+    ],
+    "flow": [
+      "List the enquiries reception handles most often.",
+      "Choose a channel and confirm technical and account requirements.",
+      "Define booking, cancellation and escalation permissions.",
+      "Test ambiguous requests, unavailable times and human takeover."
+    ],
+    "example": "For a consultation business, reception could explain the appointment process and collect preferred times. If the calendar cannot be checked reliably, the system should send a request for staff confirmation instead of claiming a booking is complete.",
+    "integration": "Calendar, inbox and CRM connections depend on provider APIs and account access. Voice work also requires a separate assessment of telephony availability, language quality, recording arrangements and ongoing costs.",
+    "faqs": [
+      {
+        "q": "Is this a voice service or a chatbot?",
+        "a": "Both are possible project directions, but they need different infrastructure. The channel and its feasibility are confirmed in the proposal; voice coverage is not assumed."
+      },
+      {
+        "q": "Can it confirm appointments?",
+        "a": "Only when the agreed system can reliably check availability and create a booking. Otherwise it collects a request for a person to confirm."
+      },
+      {
+        "q": "What happens when it cannot help?",
+        "a": "The design should provide a human route and retain the relevant enquiry context, with a fallback if the receiving team is unavailable."
+      }
+    ],
+    "related": ["website-chatbot", "whatsapp-ai-chatbot", "workflow-automation"]
+  },
+  {
+    "slug": "restaurant-whatsapp-automation",
+    "name": "Restaurant WhatsApp automation",
+    "title": "Restaurant WhatsApp Enquiry and Order Automation",
+    "description": "Plan restaurant WhatsApp automation with Hamid for menu enquiries, structured order requests and staff confirmation, with clear availability and delivery checks.",
+    "intro": "Restaurant WhatsApp automation can help guests find menu information and submit structured order requests. A useful system checks what it knows, gathers the details staff need and distinguishes an order request from an accepted order.",
+    "problem": "Free-form order messages can omit quantities, addresses or collection times. Menus also change. Automation must use an owned, up-to-date source and keep unavailable items or delivery exceptions visible to staff.",
+    "audience": "Restaurants, cafés and delivery teams receiving WhatsApp menu and ordering enquiries. It suits a team willing to maintain menu data and define who confirms requests.",
+    "features": [
+      "Menu questions using approved item and price data",
+      "Structured collection of items, quantities and contact details",
+      "Delivery or collection requests with explicit confirmation status",
+      "Staff notifications and a human path for special requests"
+    ],
+    "flow": [
+      "Review the menu source, ordering process and fulfilment responsibilities.",
+      "Confirm WhatsApp platform access and any ordering-system integration.",
+      "Design the cart, request summary and staff approval steps.",
+      "Test unavailable items, address changes and duplicate submissions."
+    ],
+    "example": "A guest could ask about a dish, choose quantities and receive a request summary. Staff then confirm availability and fulfilment. Payment collection, live stock and automatic acceptance are separate features that require reliable integrations.",
+    "integration": "A maintained spreadsheet may suit a small menu, while a POS or ordering API may support a more connected workflow. Compatibility and access are checked rather than assumed. Provider charges are separate from development scope.",
+    "faqs": [
+      {
+        "q": "Can it take restaurant orders?",
+        "a": "It can be designed to collect order requests. Automatic acceptance requires verified availability, pricing and fulfilment logic; staff approval is a practical starting point."
+      },
+      {
+        "q": "Will it know when an item sells out?",
+        "a": "Only if availability is maintained in its approved source or a connected system. Otherwise staff confirmation is needed."
+      },
+      {
+        "q": "Can delivery fees be calculated?",
+        "a": "An agreed rule or supported delivery integration is needed. Ambiguous addresses and exceptions should be reviewed by staff."
+      }
+    ],
+    "related": ["whatsapp-ai-chatbot", "business-dashboards", "web-development"]
+  },
+  {
+    "slug": "website-chatbot",
+    "name": "Website chatbot",
+    "title": "Website Chatbot Development for Helpful Enquiries",
+    "description": "Add a helpful website chatbot with Hamid for approved FAQs, enquiry capture and human handover. Plan its content, accessibility and integrations around visitors.",
+    "intro": "A website chatbot gives visitors a conversational route to information and your team. I can plan a chatbot around approved FAQs, relevant pages and structured enquiry capture, while keeping the website usable without opening the chat.",
+    "problem": "Visitors may not know which service page answers their question. A chatbot can guide them, but it should not invent an answer, block navigation or replace clear website content. The business needs ownership of the answers and an escalation path.",
+    "audience": "Businesses with repeated website questions, complex service choices or a useful lead qualification step. Existing sites can be assessed without assuming they need a full rebuild.",
+    "features": [
+      "Answers grounded in approved website or knowledge content",
+      "Links to the relevant service and contact pages",
+      "Optional lead details with clear field labels",
+      "Accessible controls, mobile layout and a human contact route"
+    ],
+    "flow": [
+      "Review the existing site, common questions and content gaps.",
+      "Choose the knowledge source and define what the assistant may answer.",
+      "Build a lightweight interface and optional lead connection.",
+      "Test keyboard use, narrow screens, wrong questions and failures."
+    ],
+    "example": "A visitor deciding between a landing page and a business website could receive a short explanation and links to both services. If they need a custom quote, the assistant can collect a brief or direct them to you rather than guessing a price.",
+    "integration": "Embedding depends on the current website and hosting access. Optional email, CRM or spreadsheet connections need suitable permissions. Third-party scripts are assessed for their loading cost and data handling.",
+    "faqs": [
+      {
+        "q": "Can a chatbot work with my existing website?",
+        "a": "Often, if the site permits an embed or code change. The platform, hosting restrictions and required integrations are checked first."
+      },
+      {
+        "q": "Does it replace my contact page?",
+        "a": "No. Visitors should still have direct contact options and readable service information, including when chat is unavailable."
+      },
+      {
+        "q": "How does it avoid made-up answers?",
+        "a": "Use an approved knowledge source, test likely questions and define a fallback for unsupported topics. Review and maintenance remain necessary."
+      }
+    ],
+    "related": ["web-development", "whatsapp-ai-chatbot", "ai-receptionist"]
+  },
+  {
+    "slug": "ai-agents",
+    "name": "AI agents",
+    "title": "Custom AI Agent Development with Clear Boundaries",
+    "description": "Scope an AI agent with Hamid for a defined business task. Agree on tool access, human approvals, evaluation examples and monitoring before allowing actions.",
+    "intro": "An AI agent can choose steps and use tools within an assigned task, rather than following only a fixed sequence. I help define where that flexibility is useful and where predictable workflows or human decisions are a better fit.",
+    "problem": "Giving a model access to tools without clear permissions can create confusing or incorrect actions. A useful agent starts with a narrow objective, approved information, bounded tool access and a measurable definition of completion.",
+    "audience": "Teams with tasks that vary enough to need decisions about the next step, and who can provide examples and review outputs. A simple rules-based process may be more suitable for repetitive, predictable work.",
+    "features": [
+      "A defined task with explicit permitted actions",
+      "Read-only access before consequential tool use where practical",
+      "Human approval for important changes or communications",
+      "Evaluation cases, activity logs and a stopping condition"
+    ],
+    "flow": [
+      "Compare the task against a simpler workflow alternative.",
+      "Define the tools, permissions and acceptable outcomes.",
+      "Prototype against representative and difficult examples.",
+      "Review reliability and operating cost before expanding access."
+    ],
+    "example": "An internal assistant might retrieve approved information, prepare a summary and propose a next step. Sending messages, altering records or making financial commitments would require separately agreed controls. This is an illustrative design, not a claimed client deployment.",
+    "integration": "AI APIs and business tools are chosen after confirming their capabilities and credentials. Secrets stay outside public website code. Evaluation and usage costs form part of the project discussion.",
+    "faqs": [
+      {
+        "q": "How is an agent different from a chatbot?",
+        "a": "A chatbot is a conversational interface. An agent additionally decides how to use available tools to pursue a task; not every chatbot needs that behaviour."
+      },
+      {
+        "q": "Should an agent run without approval?",
+        "a": "That depends on the consequences. Start with narrow access and require a person to approve consequential actions until the controls and reliability are established."
+      },
+      {
+        "q": "What should I bring to discovery?",
+        "a": "A description of the task, examples of successful outcomes, the tools involved and the actions that must remain under human control."
+      }
+    ],
+    "related": ["ai-automation", "workflow-automation", "business-dashboards"]
+  },
+  {
+    "slug": "workflow-automation",
+    "name": "Workflow automation",
+    "title": "Workflow Automation for Forms, Leads and Operations",
+    "description": "Connect routine business steps with Hamid: forms, lead routing, follow-ups and operational updates, with duplicate checks, retries and clear ownership.",
+    "intro": "Workflow automation connects a trigger to a defined series of actions: a form arrives, information is checked and the right person is notified. I help turn a repeated business process into a maintainable flow with clear exception handling.",
+    "problem": "Moving the same information between a form, spreadsheet and inbox takes attention away from customers. Automating the happy path alone is not enough: duplicate submissions, missing fields and unavailable tools also need a plan.",
+    "audience": "Agencies and businesses managing enquiries, assignments, status updates or regular operational tasks. The process should have a named owner who can decide how exceptions are handled.",
+    "features": [
+      "Triggers from supported forms, schedules or webhooks",
+      "Field validation and duplicate detection",
+      "Routing and updates between approved tools",
+      "Failure notifications, retry rules and an activity trail"
+    ],
+    "flow": [
+      "Draw the current process and remove unnecessary steps.",
+      "Choose the trigger, required fields and receiving tools.",
+      "Build and test normal, duplicate and failed executions.",
+      "Hand over the workflow with an owner and maintenance notes."
+    ],
+    "example": "A new enquiry can create a record, notify the assigned person and prepare a follow-up task. If a receiving tool is unavailable, the process should retain the request and flag it rather than silently losing the lead.",
+    "integration": "Make, webhooks and supported APIs can be considered according to the task. Google Sheets or a CRM may be a useful destination when access is available. AI is optional and should serve a specific step.",
+    "faqs": [
+      {
+        "q": "Can workflows connect with Google Sheets?",
+        "a": "That can be included when the account and integration provide suitable access. Sheet structure, permissions and duplicate handling are agreed first."
+      },
+      {
+        "q": "What happens if an integration fails?",
+        "a": "The design should include appropriate retries, a visible error notification and a way to recover the affected request."
+      },
+      {
+        "q": "Is ongoing maintenance needed?",
+        "a": "Yes. Provider changes, expired access and changes to your process can affect a workflow. Ownership and support scope are agreed before handover."
+      }
+    ],
+    "related": ["ai-automation", "business-dashboards", "whatsapp-ai-chatbot"]
+  },
+  {
+    "slug": "web-development",
+    "name": "Web development",
+    "title": "Web Development in Pakistan for Businesses — Hamid",
+    "description": "Work directly with Hamid on a business website with clear content, responsive design and useful enquiries. Explore real portfolio sites and discuss your scope.",
+    "intro": "I build business websites that explain what you offer and give visitors a clear next step. Projects bring content, visual direction and practical functionality together, with attention to mobile screens and the everyday work behind the site.",
+    "problem": "A good-looking homepage is only part of the job. Visitors also need to understand the service, trust the information and find a way to enquire. The site needs an agreed content structure, reliable contact paths and a plan for updates after launch.",
+    "audience": "Independent businesses, creative professionals and agencies looking for a technical partner. I work from Pakistan with remote clients; project discussions can include businesses in Islamabad, Rawalpindi and other markets without requiring an office visit.",
+    "features": [
+      "A page structure built around your actual offer",
+      "Responsive layouts with practical mobile navigation",
+      "Portfolio, collection or service content as appropriate",
+      "Enquiry paths, page metadata and launch checks"
+    ],
+    "flow": [
+      "Agree on the audience, page list, content and project scope.",
+      "Develop a visual direction and representative page layouts.",
+      "Build the site and connect the agreed forms or contact routes.",
+      "Review accessibility, mobile use and deployment before handover."
+    ],
+    "example": "The portfolio includes bridal, jewellery, photography, creative and service websites. Open their live demos and desktop/mobile previews to assess the visual direction and enquiry journeys. Detailed overviews cover visible features without claiming unverified conversion results.",
+    "integration": "The framework and hosting are selected for the site's needs. This portfolio uses Next.js and static rendering; a client project may require a different setup. Payments, ecommerce and editable content are scoped separately when needed.",
+    "faqs": [
+      {
+        "q": "How much does a business website cost?",
+        "a": "The page count, content, visual complexity, editing needs and integrations determine the quote. Share an outline or references for a scoped proposal rather than a guessed price."
+      },
+      {
+        "q": "How long does development take?",
+        "a": "A schedule follows discovery and depends on content readiness, functionality and review rounds. A fixed delivery promise is not made before the scope is agreed."
+      },
+      {
+        "q": "Can you work with an agency?",
+        "a": "Yes. I work directly with businesses and alongside agencies needing a technical partner. Responsibilities and communication are agreed for each project."
+      }
+    ],
+    "related": [
+      "landing-page-development",
+      "website-chatbot",
+      "business-dashboards"
+    ]
+  },
+  {
+    "slug": "landing-page-development",
+    "name": "Landing page development",
+    "title": "Landing Page Development for a Clear Next Step",
+    "description": "Build a focused landing page with Hamid for your service or campaign: clear messaging, real proof, mobile-friendly layouts and a measurable enquiry path.",
+    "intro": "A landing page presents one offer and guides visitors towards one main action. I help shape the message, supporting proof and page flow so a campaign visitor can understand the offer before deciding to enquire.",
+    "problem": "Sending campaign traffic to a broad homepage can leave the next step unclear. A focused page needs a specific audience, a truthful promise and an appropriate call to action. Design supports that message; it cannot guarantee conversions on its own.",
+    "audience": "Businesses launching a service, promoting a campaign or collecting qualified enquiries. It is useful when the traffic source and desired visitor action are known.",
+    "features": [
+      "An offer-led introduction and clear primary action",
+      "Real screenshots, examples or approved testimonials",
+      "A readable mobile page with well-spaced tap targets",
+      "Form or WhatsApp enquiry routes and optional measurement setup"
+    ],
+    "flow": [
+      "Define the campaign audience, traffic source and action.",
+      "Organise the offer, objections and available proof.",
+      "Design and build the page around a straightforward journey.",
+      "Check the enquiry path and measurement before sending traffic."
+    ],
+    "example": "A service campaign page could explain who the offer suits, show relevant work and answer the questions that hold visitors back. Its form should ask only what your team needs for a useful first response.",
+    "integration": "Forms, booking links, WhatsApp and analytics can be considered depending on the campaign. Tracking IDs and destination accounts must belong to the business; no placeholder analytics is enabled on a live page.",
+    "faqs": [
+      {
+        "q": "Do I need a landing page or a full website?",
+        "a": "A landing page suits one focused offer. A full website is usually more useful when visitors need to explore several services, projects and business information."
+      },
+      {
+        "q": "Can you guarantee a conversion rate?",
+        "a": "No. Offer quality, traffic, pricing and follow-up all affect outcomes. Clear messaging and measurement make informed improvements possible."
+      },
+      {
+        "q": "Can it use my existing branding?",
+        "a": "Yes. Share brand files, approved content and examples. A focused page can extend your existing visual identity."
+      }
+    ],
+    "related": ["web-development", "workflow-automation", "website-chatbot"]
+  },
+  {
+    "slug": "business-dashboards",
+    "name": "Business dashboards",
+    "title": "Custom Business Dashboards for Clear Operations",
+    "description": "Plan a business dashboard with Hamid for enquiries, status and operational data, with agreed metrics, role-based access and clear ownership of each source.",
+    "intro": "A business dashboard brings relevant information into one place so a team can see what needs attention. I can scope a custom interface around your operating questions, data sources and the actions each person is allowed to take.",
+    "problem": "A dashboard cannot fix conflicting or incomplete records by itself. Useful reporting begins with shared definitions: what counts as a lead, who owns it and when its status changes. Data freshness and access need to be visible rather than assumed.",
+    "audience": "Teams tracking enquiries, tasks, orders or operational status across several tools. It is best scoped around the decisions a team makes each day, rather than a collection of decorative charts.",
+    "features": [
+      "An agreed set of metrics and status views",
+      "Search and filters appropriate to the team's workflow",
+      "Access controls defined for each role",
+      "Clear source, update time and unavailable-data states"
+    ],
+    "flow": [
+      "Identify the decisions the dashboard should support.",
+      "Audit available data sources and agree on metric definitions.",
+      "Prototype the views and permissions with representative records.",
+      "Test accuracy, access boundaries and updates before use."
+    ],
+    "example": "An enquiry dashboard might show new requests, assigned owners and follow-ups due. A useful first version can focus on this queue before adding charts or automated actions. This is a possible scope, not an existing client result.",
+    "integration": "Spreadsheets, databases and supported business APIs may provide the data. Private dashboards require a separate application with appropriate authentication and server-side credentials; they should not be exposed as public marketing pages.",
+    "faqs": [
+      {
+        "q": "Can it show data from multiple tools?",
+        "a": "Potentially, if each source provides suitable access and records can be matched reliably. Data definitions and update frequency need to be agreed first."
+      },
+      {
+        "q": "Will the data update in real time?",
+        "a": "That depends on source capabilities and the required operating cost. The proposal should state the actual refresh behaviour rather than promise real-time updates by default."
+      },
+      {
+        "q": "Who can access the dashboard?",
+        "a": "Access is scoped by role and verified through authentication. Public website visitors should not have access to private operational records."
+      }
+    ],
+    "related": ["workflow-automation", "ai-automation", "web-development"]
+  }
+]

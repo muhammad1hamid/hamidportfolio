@@ -4,6 +4,27 @@ import assert from "node:assert/strict";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+const baseURL = process.env.QA_BASE_URL || "http://127.0.0.1:3000";
+const projectURLs = [
+  "https://bridal-house-canvas-main.vercel.app/",
+  "https://safa-s-beauty-unveiled.vercel.app/",
+  "https://infinity-salon-swart.vercel.app/",
+  "https://ink-grail-canvas.vercel.app/",
+  "https://qadeerjewellers.vercel.app/",
+  "https://fortress-vision.vercel.app/",
+  "https://photography-studio-green.vercel.app/",
+  "https://carpe-diem-digital.vercel.app/",
+  "https://defence-marquee.vercel.app/",
+  "https://islamabad-tailors-main.vercel.app/",
+  "https://bloom-boutique-smoky.vercel.app/",
+  "https://iron-lodge-ascend.vercel.app/",
+  "https://apex-detailing-studio-phi.vercel.app/",
+  "https://friendly-haupia-a1f91e.netlify.app/",
+  "https://editingjulian.com/",
+  "https://service-site-project1.netlify.app/",
+  "https://watch-project4.netlify.app/",
+  "https://www.elevatexlab.com/",
+];
 const output = path.resolve("qa-output");
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
@@ -29,7 +50,40 @@ const check = async (name, fn) => {
     checks.push({ name, passed: false, error: e.message });
   }
 };
-await page.goto("http://127.0.0.1:3000", { waitUntil: "networkidle" });
+const checkProjectImages = async (selector, expected) => {
+  const images = page.locator(`${selector} .site-preview-screen img`);
+  assert.equal(await images.count(), expected);
+  for (const image of await images.all()) {
+    await image.scrollIntoViewIfNeeded();
+    await image.evaluate(
+      (element) =>
+        new Promise((resolve, reject) => {
+          const timeout = setTimeout(
+            () => reject(new Error(`Preview timed out: ${element.src}`)),
+            15000,
+          );
+          const validate = () => {
+            clearTimeout(timeout);
+            if (element.naturalWidth > 0) resolve();
+            else reject(new Error(`Preview failed to load: ${element.src}`));
+          };
+          if (element.complete) validate();
+          else {
+            element.addEventListener("load", validate, { once: true });
+            element.addEventListener(
+              "error",
+              () => {
+                clearTimeout(timeout);
+                reject(new Error(`Preview failed to load: ${element.src}`));
+              },
+              { once: true },
+            );
+          }
+        }),
+    );
+  }
+};
+await page.goto(baseURL, { waitUntil: "networkidle" });
 await page.evaluate(() => document.fonts.ready);
 for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
   await page.setViewportSize({ width, height: 1000 });
@@ -48,9 +102,37 @@ for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
       dimensions.page <= dimensions.viewport,
       JSON.stringify(dimensions),
     );
+    const containers = await page.locator(".wrap").evaluateAll((elements) =>
+      elements.map((el) => {
+        const r = el.getBoundingClientRect();
+        return { left: r.left, right: innerWidth - r.right };
+      }),
+    );
+    for (const container of containers) {
+      assert.ok(
+        container.left >= 19 && Math.abs(container.left - container.right) < 2,
+        JSON.stringify(container),
+      );
+    }
   });
 }
 await page.setViewportSize({ width: 1440, height: 1000 });
+await check(
+  "Home has six live featured projects with loaded previews",
+  async () => {
+    assert.equal(await page.locator(".featured-grid .project").count(), 6);
+    assert.equal(
+      await page.locator(".featured-grid .project-live-link").count(),
+      6,
+    );
+    assert.doesNotMatch(
+      await page.locator(".featured-grid").innerText(),
+      /Presentation preview/,
+    );
+    await checkProjectImages(".featured-grid", 6);
+  },
+);
+await page.evaluate(() => window.scrollTo(0, 0));
 await page.screenshot({ path: path.join(output, "desktop-hero.png") });
 await page
   .locator("#services")
@@ -65,7 +147,10 @@ await page
   .locator("#contact")
   .screenshot({ path: path.join(output, "desktop-contact.png") });
 await check("Home accessibility", async () => {
+  // Google's player owns its internal markup. Its known ARIA issue is
+  // recorded in VIDEO-TESTIMONIALS.md; check the portfolio UI here.
   const result = await new AxeBuilder({ page })
+    .exclude("#testimonials iframe")
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();
   await writeFile(
@@ -94,17 +179,79 @@ await check("Services expand and collapse", async () => {
   await ai.click();
   assert.equal(await ai.getAttribute("aria-expanded"), "false");
 });
-await check("Project details stay truthful and restore focus", async () => {
-  const button = page.locator(".project-trigger").first();
-  await button.click();
-  assert.ok(await page.locator(".project-dialog").isVisible());
-  assert.match(
-    await page.locator(".project-dialog").innerText(),
-    /not a published client project/,
+await check(
+  "Project details show the selected project and restore focus",
+  async () => {
+    const button = page.locator(".project-trigger").first();
+    await button.click();
+    assert.ok(await page.locator(".project-dialog").isVisible());
+    assert.equal(
+      await page.locator("#project-dialog-title").innerText(),
+      "Bridal House",
+    );
+    const liveLink = page.locator(".project-dialog a.button");
+    assert.equal(
+      await liveLink.getAttribute("href"),
+      "https://bridal-house-canvas-main.vercel.app/",
+    );
+    assert.equal(await liveLink.getAttribute("target"), "_blank");
+    assert.match(await liveLink.getAttribute("rel"), /noopener/);
+    assert.equal(await page.locator(".placeholder-explanation").count(), 0);
+    assert.equal(
+      await page.locator(".project-story h3").first().innerText(),
+      "Inside the experience",
+    );
+    await page
+      .locator(".preview-controls")
+      .getByRole("button", { name: "Mobile", exact: true })
+      .click();
+    assert.match(
+      await page.locator(".project-dialog .project-image").getAttribute("src"),
+      /-mobile.webp$/,
+    );
+    await page
+      .locator(".preview-controls")
+      .getByRole("button", { name: "Desktop", exact: true })
+      .click();
+    assert.match(
+      await page.locator(".project-dialog .project-image").getAttribute("src"),
+      /bridal-house.webp$/,
+    );
+    await page.keyboard.press("Escape");
+    assert.ok(!(await page.locator(".project-dialog").isVisible()));
+    assert.ok(await button.evaluate((el) => el === document.activeElement));
+  },
+);
+await check("Verified contact links and WhatsApp primary action", async () => {
+  assert.equal(
+    await page.locator(".contact-orbit").getAttribute("href"),
+    "https://wa.me/923356709222",
   );
-  assert.equal(await page.locator(".project-dialog a").count(), 0);
-  await page.keyboard.press("Escape");
-  assert.ok(await button.evaluate((el) => el === document.activeElement));
+  for (const [label, url] of [
+    ["WhatsApp", "https://wa.me/923356709222"],
+    ["LinkedIn", "https://www.linkedin.com/in/muhammad-hamid-2072b6401/"],
+    ["Instagram", "https://www.instagram.com/m.hamid_2006/?hl=en"],
+  ]) {
+    for (const scope of [".contact-links", ".footer-bottom"]) {
+      const link = page
+        .locator(scope)
+        .getByRole("link", { name: new RegExp(label) });
+      assert.equal(await link.getAttribute("href"), url);
+      assert.equal(await link.getAttribute("target"), "_blank");
+      assert.match(await link.getAttribute("rel"), /noopener/);
+    }
+  }
+  const nodes = await page
+    .locator('script[type="application/ld+json"]')
+    .evaluateAll((scripts) =>
+      scripts.flatMap((script) => {
+        const data = JSON.parse(script.textContent);
+        return data["@graph"] || [data];
+      }),
+    );
+  const person = nodes.find((node) => node["@type"] === "Person");
+  assert.ok(person, "Person entity exists in the linked graph");
+  assert.equal(person.sameAs.length, 2);
 });
 await check("Contact brief downloads and never claims submission", async () => {
   await page.getByRole("button", { name: "Prepare a brief" }).click();
@@ -122,7 +269,14 @@ await check("Contact brief downloads and never claims submission", async () => {
     await page.locator(".brief-status").innerText(),
     /download is ready/,
   );
+  assert.equal(
+    await page
+      .getByRole("link", { name: "Open WhatsApp" })
+      .getAttribute("href"),
+    "https://wa.me/923356709222",
+  );
   const result = await new AxeBuilder({ page })
+    .exclude("#testimonials iframe")
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();
   await writeFile(
@@ -141,6 +295,113 @@ if (await page.locator(".brief-dialog").isVisible())
 await page.setViewportSize({ width: 390, height: 844 });
 await page.evaluate(() => window.scrollTo(0, 0));
 await page.screenshot({ path: path.join(output, "mobile-hero.png") });
+await check(
+  "Selected work is close to the hero on mobile and desktop",
+  async () => {
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      const top = await page
+        .locator(".featured-grid .project")
+        .first()
+        .evaluate((el) => el.getBoundingClientRect().top + scrollY);
+      assert.ok(
+        top < 1350,
+        `First project at ${top}px for ${width}px viewport`,
+      );
+    }
+    await page.setViewportSize({ width: 390, height: 844 });
+  },
+);
+await check(
+  "Mobile previews, project dialog and contextual contact work",
+  async () => {
+    const first = page.locator(".featured-grid .project-trigger").first();
+    await first.scrollIntoViewIfNeeded();
+    await page.waitForFunction(() =>
+      document
+        .querySelector(".featured-grid .project-image")
+        .currentSrc.includes("-mobile.webp"),
+    );
+    await page.locator(".mobile-contact").waitFor({ state: "visible" });
+    assert.equal(
+      await page.locator(".mobile-contact").getAttribute("href"),
+      "https://wa.me/923356709222",
+    );
+    await first.click();
+    assert.ok(!(await page.locator(".mobile-contact").isVisible()));
+    assert.equal(
+      await page
+        .locator(".preview-controls")
+        .getByRole("button", { name: "Mobile", exact: true })
+        .getAttribute("aria-pressed"),
+      "true",
+    );
+    await page.screenshot({
+      path: path.join(output, "mobile-project-detail.png"),
+    });
+    const result = await new AxeBuilder({ page })
+      .exclude("#testimonials iframe")
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .analyze();
+    assert.equal(
+      result.violations.length,
+      0,
+      result.violations.map((v) => v.id).join(", "),
+    );
+    await page.locator(".project-dialog").evaluate((el) => {
+      el.scrollTop = el.scrollHeight;
+    });
+    const closeBounds = await page
+      .getByRole("button", { name: "Close project details" })
+      .boundingBox();
+    assert.ok(
+      closeBounds &&
+        closeBounds.y >= 0 &&
+        closeBounds.y + closeBounds.height <= 844,
+      "Close button remains on screen after scrolling details",
+    );
+    await page.getByRole("button", { name: "Close project details" }).click();
+    assert.ok(await first.evaluate((el) => el === document.activeElement));
+    await page.locator("#contact").scrollIntoViewIfNeeded();
+    await page.locator(".mobile-contact").waitFor({ state: "hidden" });
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.locator(".mobile-contact").waitFor({ state: "hidden" });
+  },
+);
+await check(
+  "Workflow illustration changes steps without sending data",
+  async () => {
+    const requests = [];
+    const listener = (req) => {
+      // The illustration runs in our page; Drive's separate player may send
+      // its own telemetry while the unrelated video iframe remains mounted.
+      if (["fetch", "xhr"].includes(req.resourceType()) && req.frame() === page.mainFrame())
+        requests.push(req.url());
+    };
+    page.on("request", listener);
+    for (const [name, content] of [
+      ["Capture", "An enquiry comes in"],
+      ["Organise", "right details"],
+      ["Respond", "ready to review"],
+    ]) {
+      const button = page
+        .locator(".workflow-steps")
+        .getByRole("button", { name: new RegExp(name) });
+      await button.click();
+      assert.equal(await button.getAttribute("aria-pressed"), "true");
+      assert.match(
+        await page.locator("#workflow-example").innerText(),
+        new RegExp(content),
+      );
+    }
+    page.off("request", listener);
+    assert.deepEqual(requests, []);
+    assert.match(
+      await page.locator(".workflow-disclaimer").innerText(),
+      /illustration/,
+    );
+  },
+);
 await check("Mobile menu opens, navigates and restores focus", async () => {
   await page.getByRole("button", { name: "Open navigation" }).click();
   assert.ok(await page.locator("#mobile-menu").isVisible());
@@ -157,27 +418,74 @@ await check("Mobile menu opens, navigates and restores focus", async () => {
     .getByRole("link", { name: /About/ })
     .click();
   assert.ok(!(await page.locator("#mobile-menu").isVisible()));
+  await page.waitForURL(/#about$/, { timeout: 10000 });
   assert.match(page.url(), /#about$/);
+  await page.waitForFunction(
+    () => {
+      const section = document.querySelector("#about");
+      if (!section) return false;
+      const top = section.getBoundingClientRect().top;
+      return top >= -1 && top < innerHeight / 2;
+    },
+    undefined,
+    { timeout: 10000 },
+  );
 });
-await page.goto("http://127.0.0.1:3000/work/", { waitUntil: "networkidle" });
+await page.goto(new URL("/work/", baseURL).href, { waitUntil: "networkidle" });
+await check("Archive has all eighteen supplied live websites", async () => {
+  const links = page.locator(".archive-list .project-live-link");
+  const actual = await links.evaluateAll((elements) =>
+    elements.map((element) => element.getAttribute("href")),
+  );
+  assert.deepEqual(actual.sort(), [...projectURLs].sort());
+  for (const link of await links.all()) {
+    assert.equal(await link.getAttribute("target"), "_blank");
+    assert.match(await link.getAttribute("rel"), /noopener/);
+    assert.match(await link.getAttribute("rel"), /noreferrer/);
+  }
+  assert.doesNotMatch(
+    await page.locator(".archive-list").innerText(),
+    /Presentation preview/,
+  );
+});
+await check("All archive screenshots load", async () => {
+  await checkProjectImages(".archive-list", 18);
+});
 await check("Archive filters match project categories", async () => {
   for (const [category, count] of [
-    ["All", 6],
-    ["Web", 3],
-    ["AI Systems", 1],
-    ["Automation", 1],
-    ["Chatbots", 1],
+    ["All", 18],
+    ["Web", 18],
   ]) {
-    await page
-      .getByRole("button", { name: new RegExp(`^${category}`) })
-      .click();
+    const filter = page.getByRole("button", {
+      name: new RegExp(`^${category}`),
+    });
+    await filter.click();
+    assert.equal(await filter.getAttribute("aria-pressed"), "true");
     assert.equal(
       await page.locator(".archive-list .project").count(),
       count,
       category,
     );
+    assert.equal(
+      await page.locator(".empty-work").count(),
+      count === 0 ? 1 : 0,
+    );
+    if (count === 0)
+      assert.match(
+        await page.locator(".empty-work").innerText(),
+        /being prepared/,
+      );
   }
   await page.getByRole("button", { name: /^All/ }).click();
+  for (const category of ["AI Systems", "Automation", "Chatbots"]) {
+    assert.equal(
+      await page
+        .locator(".filter-bar")
+        .getByRole("button", { name: new RegExp(category) })
+        .count(),
+      0,
+    );
+  }
 });
 for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
   await page.setViewportSize({ width, height: 1000 });
@@ -195,6 +503,12 @@ for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
     ),
   );
 }
+await page.setViewportSize({ width: 390, height: 844 });
+await page.evaluate(() => window.scrollTo(0, 0));
+await page.screenshot({
+  path: path.join(output, "mobile-archive.png"),
+  fullPage: true,
+});
 await page.setViewportSize({ width: 1440, height: 1000 });
 await page.screenshot({
   path: path.join(output, "desktop-archive.png"),
@@ -215,10 +529,18 @@ await check("Archive accessibility", async () => {
   );
 });
 await check("Archive SEO is route-specific", async () => {
-  assert.match(await page.title(), /Work archive/);
+  assert.match(await page.title(), /Website Portfolio.*Hamid/);
   assert.match(
     await page.locator("link[rel=canonical]").getAttribute("href"),
     /\/work\/$/,
+  );
+  assert.match(
+    await page.locator('meta[property="og:image"]').getAttribute("content"),
+    /\/images\/share\/work.png$/,
+  );
+  assert.equal(
+    await page.locator('meta[name="twitter:card"]').getAttribute("content"),
+    "summary_large_image",
   );
 });
 const animated = await browser.newContext({
@@ -230,7 +552,7 @@ motionPage.on("pageerror", (e) => errors.push(e.message));
 await check(
   "Intro finishes and does not replay; WebGL has fallback",
   async () => {
-    await motionPage.goto("http://127.0.0.1:3000", {
+    await motionPage.goto(baseURL, {
       waitUntil: "networkidle",
     });
     await motionPage
@@ -238,10 +560,10 @@ await check(
       .waitFor({ state: "hidden", timeout: 7000 });
     await motionPage.reload({ waitUntil: "networkidle" });
     assert.equal(await motionPage.locator(".signature-intro").count(), 0);
-    await motionPage.locator("#story").scrollIntoViewIfNeeded();
+    await motionPage.locator("#services").scrollIntoViewIfNeeded();
     assert.equal(await motionPage.locator(".chrome-mark").count(), 1);
     await motionPage.screenshot({
-      path: path.join(output, "desktop-story-motion.png"),
+      path: path.join(output, "desktop-services-motion.png"),
     });
   },
 );

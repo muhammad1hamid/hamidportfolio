@@ -9,6 +9,8 @@ const links = [
   { title: "Work", href: "/#work" },
   { title: "About", href: "/#about" },
   { title: "Services", href: "/#services" },
+  { title: "Reviews", href: "/#testimonials" },
+  { title: "Plan", href: "/plan/" },
 ];
 
 export function Navigation() {

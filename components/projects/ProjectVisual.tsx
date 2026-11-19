@@ -3,16 +3,62 @@
 import Image from "next/image";
 import type { Project } from "@/data/projects";
 
-export function ProjectVisual({ project }: { project: Project }) {
+export function ProjectVisual({
+  project,
+  device = "responsive",
+  animate = false,
+}: {
+  project: Project;
+  device?: "responsive" | "desktop" | "mobile";
+  animate?: boolean;
+}) {
+  const desktopSource =
+    animate && project.preview ? project.preview : project.thumbnail;
   if (project.status === "published")
     return (
-      <Image
-        src={project.thumbnail}
-        alt={project.title}
-        fill
-        sizes="(max-width: 700px) 100vw, 60vw"
-        className="project-image"
-      />
+      <div
+        className={`site-preview device-${device} ${animate ? "preview-scrollable" : ""}`}
+      >
+        <div className="site-preview-toolbar" aria-hidden="true">
+          <span className="preview-dots">
+            <i />
+            <i />
+            <i />
+          </span>
+          <span className="preview-address">
+            {project.liveUrl
+              ? new URL(project.liveUrl).hostname
+              : project.title}
+          </span>
+          <span className="preview-window-mark">↗</span>
+        </div>
+        <div className="site-preview-screen">
+          <picture>
+            {device === "responsive" && project.mobileThumbnail && (
+              <source
+                media="(max-width: 700px)"
+                srcSet={project.mobileThumbnail}
+              />
+            )}
+            {device !== "mobile" && <source srcSet={`/images/responsive/${desktopSource.split("/").pop()!.replace(".webp", "-640.webp")} 640w, /images/responsive/${desktopSource.split("/").pop()!.replace(".webp", "-960.webp")} 960w, ${desktopSource} 1440w`} sizes="(max-width: 700px) 90vw, (max-width: 1440px) 45vw, 640px" />}
+            <Image
+              src={
+                device === "mobile" && project.mobileThumbnail
+                  ? project.mobileThumbnail
+                  : desktopSource
+              }
+              alt={`${project.title} website ${device === "mobile" ? "on mobile" : "homepage"}`}
+              fill
+              sizes={
+                device === "mobile"
+                  ? "340px"
+                  : "(max-width: 700px) 90vw, (max-width: 1440px) 45vw, 640px"
+              }
+              className="project-image"
+            />
+          </picture>
+        </div>
+      </div>
     );
   return (
     <div className={`project-art art-${project.visual}`} aria-hidden="true">

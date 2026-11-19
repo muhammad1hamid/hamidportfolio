@@ -1,4 +1,5 @@
-import Image from "next/image";
+import { ResponsiveImage } from "@/components/seo/ResponsiveImage";
+import Link from "next/link";
 
 export function About() {
   return (
@@ -13,11 +14,11 @@ export function About() {
       </div>
       <div className="about-grid">
         <div className="about-photo" data-reveal>
-          <Image
-            src="/images/hamid-about.webp"
-            alt="Hamid standing with his arms folded"
-            width={800}
-            height={1067}
+          <ResponsiveImage
+            src="/images/hamid-hero.webp"
+            alt="Hamid, web developer and AI automation builder"
+            width={1000}
+            height={1000}
             sizes="(max-width: 700px) 90vw, 40vw"
           />
           <span className="photo-caption">HAMID / PAKISTAN</span>
@@ -44,6 +45,7 @@ export function About() {
             dependable technical partner. I’m also the founder of{" "}
             <span className="text-light">ElevateX.</span>
           </p>
+          <Link href="/about/" className="text-link">More about Hamid ↗</Link>
           <div className="about-location">
             <span aria-hidden="true">↗</span>
             <span>

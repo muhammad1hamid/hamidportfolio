@@ -23,8 +23,29 @@ export function Footer() {
           Back to top ↑
         </a>
       </div>
+      <nav className="footer-pages" aria-label="Explore Hamid’s website">
+        {[
+          ["Services", "/services/"],
+          ["Work", "/work/"],
+          ["Project walkthroughs", "/case-studies/"],
+          ["Client perspectives", "/testimonials/"],
+          ["Guides", "/blog/"],
+          ["Questions", "/answers/"],
+          ["Website planner", "/plan/"],
+          ["Enquiry demo", "/demos/enquiry-assistant/"],
+          ["About Hamid", "/about/"],
+          ["Contact", "/contact/"],
+          ["Content standards", "/editorial-policy/"],
+        ].map(([label, href]) => (
+          <Link href={href} key={href}>
+            {label}
+          </Link>
+        ))}
+      </nav>
       <div className="footer-bottom">
-        <span>© <CurrentYear initialYear={new Date().getFullYear()} /> Hamid</span>
+        <span>
+          © <CurrentYear initialYear={new Date().getFullYear()} /> Hamid
+        </span>
         <span>Based in Pakistan · Working worldwide</span>
         <div>
           {socials.map((s) => (

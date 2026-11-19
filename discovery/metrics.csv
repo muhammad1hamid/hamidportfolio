@@ -1,0 +1,7 @@
+period_start,period_end,metric,value,status,source,notes
+,,google_ai_impressions,,unavailable,Google Search Console,Requires verified public property and sufficient report data
+,,microsoft_ai_citations,,unavailable,Bing Webmaster Tools,Requires verified public property and report data
+,,identified_ai_referral_sessions,,unavailable,Owner analytics,Analytics not configured
+,,whatsapp_contact_attempts,,unavailable,Owner analytics,Clicks are not confirmed leads
+,,qualified_enquiries,,unavailable,Owner records,Confirm actual enquiry quality
+,,projects_started,,unavailable,Owner records,Confirm actual projects

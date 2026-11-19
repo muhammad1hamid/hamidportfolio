@@ -3,11 +3,20 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/seo-assets.mjs",
+    "prebuild": "node scripts/seo-assets.mjs",
     "dev": "node scripts/next.mjs dev --hostname 127.0.0.1",
     "build": "node scripts/next.mjs build --webpack",
+    "postbuild": "node scripts/postbuild-seo.mjs",
     "typecheck": "tsc --noEmit",
+    "assets:brand": "node scripts/brand-assets.mjs",
     "start": "node scripts/serve.mjs",
-    "test:browser": "node scripts/qa.mjs"
+    "test:browser": "node scripts/qa.mjs",
+    "test:seo": "node scripts/qa-seo.mjs",
+    "test:performance": "node scripts/qa-performance.mjs",
+    "test:discovery": "node scripts/qa-discovery.mjs",
+    "check:public": "node scripts/check-public-launch.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@fontsource/instrument-serif": "^5.3.0",

@@ -1,0 +1,44 @@
+[
+  {
+    "path": "/answers/",
+    "title": "Website & Automation Questions Answered | Hamid",
+    "description": "Practical answers about website scope, content, ownership, chatbot handover and working with Hamid, with links to examples and detailed guides.",
+    "label": "Project questions"
+  },
+  {
+    "path": "/plan/",
+    "title": "Plan Your Website — Free Project Brief Builder | Hamid",
+    "description": "Turn your website goal, pages, content and integrations into a useful project brief. Download it or choose to discuss it with Hamid.",
+    "label": "Website planner"
+  },
+  {
+    "path": "/demos/enquiry-assistant/",
+    "title": "FAQ & Human Handover Demo | Hamid",
+    "description": "Try a rules-based enquiry assistant demonstration: supported questions, source links, unknown-answer handling and a local handover draft.",
+    "label": "Interactive demonstration"
+  },
+  {
+    "path": "/testimonials/",
+    "title": "Client Video Testimonials | Hamid",
+    "description": "Watch video testimonials supplied by Abdullah Abbasii of Nexus Growth and Usman of Prestige Media about working with Hamid.",
+    "label": "Client perspectives"
+  },
+  {
+    "path": "/testimonials/abdullah-abbasii/",
+    "title": "Abdullah Abbasii — Nexus Growth Video Testimonial | Hamid",
+    "description": "Watch Abdullah Abbasii, co-founder of Nexus Growth, share his perspective on working with Hamid in this portrait video testimonial.",
+    "label": "Abdullah Abbasii"
+  },
+  {
+    "path": "/testimonials/usman/",
+    "title": "Usman — Prestige Media Video Testimonial | Hamid",
+    "description": "Watch Usman, co-founder of Prestige Media, share his perspective on working with Hamid in this portrait video testimonial.",
+    "label": "Usman"
+  },
+  {
+    "path": "/editorial-policy/",
+    "title": "How Portfolio Examples & Guides Are Presented | Hamid",
+    "description": "How Hamid distinguishes demo projects, client testimonials, planning advice and measured results, and how to request a correction.",
+    "label": "Content standards"
+  }
+]

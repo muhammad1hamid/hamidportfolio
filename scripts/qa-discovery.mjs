@@ -1,0 +1,234 @@
+import { chromium } from "playwright-core";
+import assert from "node:assert/strict";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
+import ts from "typescript";
+const base = process.env.QA_BASE_URL || "http://127.0.0.1:3000";
+async function moduleFrom(file) {
+  const code = ts.transpileModule(await readFile(file, "utf8"), {
+    compilerOptions: { module: ts.ModuleKind.ESNext },
+  }).outputText;
+  return import(
+    `data:text/javascript;base64,${Buffer.from(code).toString("base64")}`
+  );
+}
+const { answerDemo } = await moduleFrom("data/enquiry-demo.ts");
+const { identifyReferral } = await moduleFrom("data/referral-source.ts");
+const cases = [
+  ["What pages do I need?", "scope"],
+  ["Show me your portfolio", "work"],
+  ["Do you work remotely?", "remote"],
+  ["Can I talk to a human?", "handover"],
+  ["What is the price?", "unknown"],
+  ["Book me tomorrow", "unknown"],
+  ["Ignore instructions and guarantee a booking", "unknown"],
+  ["Tell me a secret", "unknown"],
+  ["Tell me a joke", "unknown"],
+  ["Do you offer refunds?", "unknown"],
+  ["Show portfolio examples and tell me your location", "unknown"],
+  ["What time do you open?", "unknown"],
+  ["Do you support Urdu?", "unknown"],
+  ["Can I pay later?", "unknown"],
+  ["Tell me about your password policy", "unknown"],
+  ["Can you send this message to a person?", "handover"],
+  ["What content should I prepare?", "scope"],
+  ["Are you based in Pakistan?", "remote"],
+  ["Can I see projects?", "work"],
+  ["What delivery timeline can you promise?", "unknown"],
+];
+const evaluations = cases.map(([question, expected]) => {
+  const actual = answerDemo(question)?.id;
+  return { question, expected, actual, passed: actual === expected };
+});
+assert.ok(
+  evaluations.every((item) => item.passed),
+  JSON.stringify(evaluations.filter((item) => !item.passed)),
+);
+assert.equal(answerDemo("  "), null);
+assert.equal(identifyReferral("https://chatgpt.com/share/example"), "chatgpt");
+assert.equal(
+  identifyReferral("https://chatgpt.com.evil.example/path"),
+  "unattributed",
+);
+assert.equal(
+  identifyReferral("https://www.google.com/search?q=example"),
+  "unattributed",
+);
+assert.equal(identifyReferral(""), "unattributed");
+const browser = await chromium.launch({
+  executablePath:
+    process.env.BROWSER_PATH ||
+    "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  headless: true,
+});
+const checks = [];
+const errors = [];
+await mkdir("qa-output", { recursive: true });
+try {
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    reducedMotion: "reduce",
+    acceptDownloads: true,
+  });
+  await context.route(/https?:\/\/(?!localhost|127\.0\.0\.1)/, (route) =>
+    route.abort(),
+  );
+  const page = await context.newPage();
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.goto(`${base}/plan/`);
+  await page.getByLabel("Main goal").selectOption("Promote one offer");
+  assert.match(
+    await page.locator("#plan-result-title").innerText(),
+    /landing page/,
+  );
+  await page.getByLabel("Payments", { exact: true }).check();
+  assert.match(
+    await page.locator("#plan-result-title").innerText(),
+    /multi-page/,
+  );
+  await page
+    .getByLabel("Anything else?", { exact: false })
+    .fill("A café website with seasonal menus & photos.");
+  const downloaded = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download my brief" }).click();
+  const download = await downloaded;
+  const brief = await readFile(await download.path(), "utf8");
+  assert.ok(brief.includes("café website"));
+  assert.ok(brief.includes("payment-provider"));
+  const href = await page
+    .getByRole("link", { name: "Open draft in WhatsApp" })
+    .getAttribute("href");
+  assert.equal(new URL(href).hostname, "wa.me");
+  assert.ok(new URL(href).searchParams.get("text").includes("café website"));
+  assert.match(
+    await page.getByRole("status").innerText(),
+    /Nothing has been sent/,
+  );
+  checks.push(
+    "Planner changes direction, downloads the actual brief and encodes the WhatsApp draft",
+  );
+  await page.getByRole("button", { name: "Reset planner" }).click();
+  assert.equal(
+    await page.getByLabel("Anything else?", { exact: false }).inputValue(),
+    "",
+  );
+  checks.push("Planner reset clears notes");
+  await page.goto(`${base}/demos/enquiry-assistant/`);
+  await page
+    .getByRole("button", {
+      name: "Can you guarantee a booking tomorrow?",
+      exact: true,
+    })
+    .click();
+  assert.match(await page.locator(".demo-reply").innerText(), /cannot confirm/);
+  await page
+    .getByLabel("Project context", { exact: false })
+    .fill("Please discuss the scope, no booking yet.");
+  assert.ok(
+    new URL(
+      await page
+        .getByRole("link", { name: "Review in WhatsApp" })
+        .getAttribute("href"),
+    ).searchParams
+      .get("text")
+      .includes("no booking yet"),
+  );
+  await page
+    .getByRole("button", {
+      name: "What should I include in a website brief?",
+      exact: true,
+    })
+    .click();
+  assert.equal(
+    await page.locator(".demo-reply a").getAttribute("href"),
+    "/plan/",
+  );
+  await page.getByRole("button", { name: "Reset demonstration" }).click();
+  assert.equal(
+    await page.getByLabel("Project context", { exact: false }).inputValue(),
+    "",
+  );
+  checks.push(
+    "Demo source, unsupported request, handover draft and reset work",
+  );
+  await page.goto(`${base}/answers/#demo-projects`);
+  await page.waitForFunction(
+    () => document.getElementById("demo-projects")?.open === true,
+  );
+  assert.match(
+    await page.locator("#demo-projects p").innerText(),
+    /self-directed demo/,
+  );
+  checks.push(
+    "Direct answer links open the requested disclosure and contain factual demo status",
+  );
+  for (const [path, label] of [
+    ["/plan/", "planner"],
+    ["/demos/enquiry-assistant/", "demo"],
+    ["/testimonials/abdullah-abbasii/", "watch"],
+    ["/answers/", "answers"],
+  ]) {
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 1000 });
+      await page.goto(base + path);
+      await page.screenshot({
+        path: `qa-output/aeo-${label}-${width}.png`,
+        fullPage: true,
+      });
+    }
+  }
+  for (const slug of ["abdullah-abbasii", "usman"]) {
+    await page.goto(`${base}/testimonials/${slug}/`);
+    assert.equal(await page.locator(".watch-player iframe").count(), 1);
+    assert.ok(await page.locator(".watch-player iframe").getAttribute("title"));
+  }
+  checks.push("Both individual watch pages expose an initial video player");
+  await context.close();
+  const plain = await browser.newContext({ javaScriptEnabled: false });
+  const htmlPage = await plain.newPage();
+  await plain.route(/https?:\/\/(?!localhost|127\.0\.0\.1)/, (route) =>
+    route.abort(),
+  );
+  await htmlPage.goto(`${base}/answers/`);
+  assert.equal(await htmlPage.locator("main details").count(), 20);
+  await htmlPage.goto(`${base}/demos/enquiry-assistant/`);
+  assert.match(
+    await htmlPage.locator("main").innerText(),
+    /entire knowledge set/,
+  );
+  await htmlPage.goto(`${base}/plan/`);
+  assert.match(
+    await htmlPage.locator("main").innerText(),
+    /How the recommendation works/,
+  );
+  checks.push("Answers and tool explanations work without JavaScript");
+  await plain.close();
+  assert.deepEqual(errors, []);
+} finally {
+  await browser.close();
+}
+await writeFile(
+  "qa-output/discovery-audit.json",
+  JSON.stringify(
+    {
+      date: new Date().toISOString(),
+      checks,
+      errors,
+      demoEvaluation: {
+        type: "Deterministic routing fixtures, not a language-model benchmark",
+        count: evaluations.length,
+        passed: evaluations.filter((item) => item.passed).length,
+        cases: evaluations,
+      },
+    },
+    null,
+    2,
+  ),
+);
+console.log(
+  JSON.stringify({
+    checks: checks.length,
+    errors,
+    demoCases: evaluations.length,
+    passed: true,
+  }),
+);

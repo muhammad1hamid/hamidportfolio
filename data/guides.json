@@ -1,0 +1,255 @@
+[
+  {
+    "slug": "landing-page-or-full-website",
+    "title": "Landing Page or Full Website: Choose Around the Visitor's Decision",
+    "description": "Compare a focused landing page with a multi-page business website using scope, content, visitor intent and maintenance, with examples from Hamid's demos.",
+    "category": "Web Development",
+    "date": "2026-10-05",
+    "related": ["landing-page-development", "web-development"],
+    "intro": "Choose a landing page when one audience needs to understand one offer and take one main action. Choose a full website when visitors need to compare services, browse a body of work or return for different kinds of information. The useful distinction is the journey, not just the number of screens.",
+    "sections": [
+      {
+        "id": "compare",
+        "heading": "Compare the work the page needs to do",
+        "paragraphs": [
+          "A landing page can contain several sections: the offer, context, proof, practical questions and a contact action. A full website gives important topics their own locations. Neither choice automatically produces better enquiries; the information and follow-up still need to fit your audience."
+        ],
+        "table": {
+          "headers": ["Decision", "Landing page", "Full website"],
+          "rows": [
+            ["Main purpose", "One offer or campaign", "Several visitor needs"],
+            [
+              "Content structure",
+              "A focused sequence of sections",
+              "Separate, connected pages"
+            ],
+            [
+              "Portfolio depth",
+              "Selected relevant examples",
+              "A browsable body of work"
+            ],
+            [
+              "Ongoing updates",
+              "Changes to one offer",
+              "Updates across services and resources"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "example",
+        "heading": "Apply the choice to a real kind of project",
+        "paragraphs": [
+          "A campaign for a single consultation offer may only need an explanation, approved proof and an enquiry route. A jewellery collection has a different problem: visitors may want to browse categories before asking about an item. Hamid's Qadeer Jewellers demo illustrates a collection-led interface; it is a self-directed example, not evidence of customer sales.",
+          "An editor's portfolio may need visitors to inspect several examples and understand services before making contact. The Editing Julian demo shows that type of journey. It does not establish that a one-page version could not work; it provides something concrete to compare with your own brief."
+        ],
+        "links": [
+          {
+            "label": "Explore the jewellery demo",
+            "href": "/work/qadeer-jewellers/"
+          },
+          {
+            "label": "Explore the editor portfolio demo",
+            "href": "/work/editing-julian/"
+          }
+        ]
+      },
+      {
+        "id": "questions",
+        "heading": "Ask three questions before choosing",
+        "paragraphs": [
+          "First, where is the visitor coming from? Someone following a specific campaign often has a different question from someone researching a business. Second, what do they need to inspect before acting? Third, what will your team need to update after launch?"
+        ],
+        "items": [
+          "Write the visitor's question in one sentence.",
+          "List the evidence needed to answer it: examples, process, service detail or availability.",
+          "Name the action and who receives the enquiry.",
+          "Identify content that needs its own stable page for sharing or returning visitors."
+        ]
+      },
+      {
+        "id": "growth",
+        "heading": "Leave room to grow without building everything now",
+        "paragraphs": [
+          "A focused first release can grow as new needs become clear. Preserve useful page addresses and add pages when they answer a distinct question. Avoid copying the same offer onto many near-identical pages for different keyword variations.",
+          "A small page count does not always mean a small build. A page connected to booking, payments or a CRM may need more work than several informational pages. Record those connections separately in the brief."
+        ],
+        "links": [
+          { "label": "Build a website brief", "href": "/plan/" },
+          {
+            "label": "Understand cost factors",
+            "href": "/blog/what-affects-website-cost/"
+          }
+        ]
+      }
+    ],
+    "sources": []
+  },
+  {
+    "slug": "what-affects-website-cost",
+    "title": "What Affects a Website Quote? A Practical Scope Checklist",
+    "description": "Understand page types, content, integrations, editing, hosting and handover before comparing website quotes. Includes two illustrative scope examples.",
+    "category": "Web Development",
+    "date": "2026-10-05",
+    "related": [
+      "web-development",
+      "landing-page-development",
+      "workflow-automation"
+    ],
+    "intro": "A useful website quote describes the work and responsibilities behind the price. Page types, content readiness, integrations, editing needs and handover all affect the scope. Compare those details before comparing totals; this guide explains the factors without inventing a price for your project.",
+    "sections": [
+      {
+        "id": "scope",
+        "heading": "Separate pages from features",
+        "paragraphs": [
+          "Five pages built from one consistent layout are a different scope from five pages with custom media, product filtering and a booking integration. Record what each page helps a visitor do, then describe any behavior beyond reading and navigation."
+        ],
+        "table": {
+          "headers": ["Scope item", "Question to resolve"],
+          "rows": [
+            [
+              "Content",
+              "Who supplies and approves copy, photography and video?"
+            ],
+            ["Interactions", "Which elements require custom behavior?"],
+            [
+              "Integrations",
+              "A simple link, an embed or a connection that updates records?"
+            ],
+            [
+              "Editing",
+              "Who changes the content, and what access do they need?"
+            ],
+            ["Handover", "Which files, accounts and instructions are included?"]
+          ]
+        }
+      },
+      {
+        "id": "examples",
+        "heading": "Two briefs with different amounts of work",
+        "paragraphs": [
+          "Illustrative scope A: a service business supplies its final copy and images, needs Home, Services and Contact, and wants a WhatsApp link. The main work is presentation, navigation, responsive behavior and checking the contact journey.",
+          "Illustrative scope B: the same business needs copy development, a frequently updated catalogue and enquiries saved into a CRM. It now needs content preparation, editing decisions, integration access, field mapping and failure handling. Even with a similar visible page count, the delivery work is different.",
+          "These examples explain scope differences. They are not quotes, past client stories or delivery commitments."
+        ]
+      },
+      {
+        "id": "ongoing",
+        "heading": "Identify ongoing costs and responsibilities",
+        "paragraphs": [
+          "Domain registration, hosting and third-party subscriptions may sit outside development work. Confirm who pays for them, who owns each account and what happens when a subscription expires. Ask whether post-launch updates are included or separately scoped.",
+          "If the site uses payments or messaging, confirm provider availability and account requirements before treating the integration as agreed. The provider and account setup can change both the work and the ongoing charges."
+        ]
+      },
+      {
+        "id": "compare",
+        "heading": "Compare proposals against the same brief",
+        "paragraphs": [
+          "Use the same list of pages, content and features when discussing proposals. Ask what is included, what is excluded and what depends on your team. Clarify feedback rounds and acceptance checks instead of assuming they are identical across quotes."
+        ],
+        "items": [
+          "What will be delivered and how will it be checked?",
+          "Which content and approvals must I provide?",
+          "Which external services do I need to pay for?",
+          "Who owns the domain, hosting and source files?",
+          "What support or editing access is included after launch?"
+        ]
+      },
+      {
+        "id": "next",
+        "heading": "Prepare enough detail to start a useful conversation",
+        "paragraphs": [
+          "You do not need a complete specification to start. An audience, main action, required pages, known integrations and list of missing content give the discussion a clear starting point. Add a target date and any fixed constraints so feasibility can be discussed."
+        ],
+        "links": [
+          { "label": "Create your brief", "href": "/plan/" },
+          {
+            "label": "Read the website-brief guide",
+            "href": "/blog/business-website-brief/"
+          }
+        ]
+      }
+    ],
+    "sources": []
+  },
+  {
+    "slug": "chatbot-human-handover",
+    "title": "Plan Chatbot Human Handover Before Adding More Answers",
+    "description": "Define escalation triggers, handover context, delivery status and human follow-up for a website or WhatsApp assistant. Try a transparent demonstration.",
+    "category": "AI Chatbots",
+    "date": "2026-10-05",
+    "related": [
+      "website-chatbot",
+      "whatsapp-ai-chatbot",
+      "workflow-automation"
+    ],
+    "intro": "A useful handover identifies when the assistant should stop, what information a person needs and how the request reaches that person. An answer fallback is only the beginning. A production system also needs a receiving inbox, delivery confirmation and a plan for failed or unanswered requests.",
+    "sections": [
+      {
+        "id": "triggers",
+        "heading": "Decide what requires a person",
+        "paragraphs": [
+          "Use a small set of explicit triggers: information is unavailable, the customer asks for a person, the request needs an exception, or the action would create a commitment. Confirming a custom price or booking from uncertain information can create work for the team instead of saving it."
+        ],
+        "items": [
+          "The answer is missing from approved business information.",
+          "The visitor asks for an exception, complaint resolution or a human.",
+          "The request needs account-specific information the assistant cannot access.",
+          "The action needs approval before a record or commitment is created."
+        ]
+      },
+      {
+        "id": "context",
+        "heading": "Transfer useful context, not an unexplained alert",
+        "paragraphs": [
+          "A useful handover includes the visitor's question, relevant context and the reason it needs attention. Ask only for the details the receiving team needs. A summary should distinguish the visitor's own words from the assistant's interpretation.",
+          "The public enquiry demo prepares a draft containing the selected question and optional project context. The visitor must choose to open WhatsApp and send it. The demo does not claim that a team has been notified."
+        ],
+        "links": [
+          {
+            "label": "Try the handover demonstration",
+            "href": "/demos/enquiry-assistant/"
+          }
+        ]
+      },
+      {
+        "id": "states",
+        "heading": "Make the status match what actually happened",
+        "paragraphs": [
+          "A prepared draft, a submitted request and a delivered inbox item are different states. Use status messages that reflect the system's evidence. If delivery fails, preserve the draft and provide a usable alternative rather than showing a success message."
+        ],
+        "table": {
+          "headers": ["State", "What the visitor should understand"],
+          "rows": [
+            ["Draft prepared", "Nothing has been sent yet"],
+            ["Submission attempted", "Delivery is being checked"],
+            ["Delivery confirmed", "The receiving system accepted the request"],
+            [
+              "Delivery failed",
+              "The request needs another attempt or contact route"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "evaluate",
+        "heading": "Test the exceptions as well as the ordinary questions",
+        "paragraphs": [
+          "Before launch, test known questions, unsupported questions, mixed requests, repeated submissions and integration failures. Include the languages and writing styles your customers actually use. Record the test set, date and failures so an improvement can be compared with the same baseline.",
+          "A scripted demo can check the interaction and escalation flow. It cannot establish a live language model's accuracy or the reliability of a real inbox connection. Evaluate those components once they are actually connected."
+        ],
+        "links": [
+          {
+            "label": "Compare chatbots, workflows and agents",
+            "href": "/blog/ai-agent-chatbot-workflow/"
+          },
+          {
+            "label": "Explore WhatsApp assistant scope",
+            "href": "/whatsapp-ai-chatbot/"
+          }
+        ]
+      }
+    ],
+    "sources": []
+  }
+]

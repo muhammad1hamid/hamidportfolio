@@ -1,0 +1,162 @@
+[
+  {
+    "id": "website-or-landing-page",
+    "group": "Choosing a website",
+    "question": "Do I need a landing page or a full website?",
+    "answer": "A landing page suits one offer and one main action. A full website suits visitors comparing several services, exploring your work or learning about the business. Choose around the decisions visitors need to make, then plan the smallest structure that answers them.",
+    "href": "/blog/landing-page-or-full-website/",
+    "label": "Compare the two approaches"
+  },
+  {
+    "id": "website-cost",
+    "group": "Choosing a website",
+    "question": "What affects the cost of a website?",
+    "answer": "The scope depends on page types, content readiness, custom interactions, integrations and editing needs. Hosting, domain registration and third-party subscriptions are separate decisions. Share these requirements before asking for a quote; a page count alone does not describe the work.",
+    "href": "/blog/what-affects-website-cost/",
+    "label": "Understand the scope factors"
+  },
+  {
+    "id": "project-timing",
+    "group": "Choosing a website",
+    "question": "How long will my website take?",
+    "answer": "Timing needs an agreed scope and a clear picture of content, feedback and integration dependencies. Prepare your required pages, available content and target date. Hamid can then discuss a schedule for that specific project; this site does not promise a universal delivery time.",
+    "href": "/plan/",
+    "label": "Prepare your scope"
+  },
+  {
+    "id": "mobile-design",
+    "group": "Choosing a website",
+    "question": "How can I assess the mobile experience?",
+    "answer": "Try the key journey on a narrow screen: read the offer, inspect examples and reach the contact action. Check text size, menu access, loading behavior and whether controls cover content. The portfolio includes real mobile screenshots alongside desktop captures.",
+    "href": "/work/",
+    "label": "Explore website examples"
+  },
+  {
+    "id": "site-redesign",
+    "group": "Choosing a website",
+    "question": "Should I redesign my website or improve the existing one?",
+    "answer": "Identify the problem first. Unclear messaging, a broken enquiry path or slow loading may have a focused fix. A broader redesign is useful when the structure no longer fits your services or editing needs. Bring your current URL and the journey you want to improve.",
+    "href": "/web-development/",
+    "label": "Discuss web development"
+  },
+  {
+    "id": "content-needed",
+    "group": "Planning the work",
+    "question": "What should I prepare before requesting a website?",
+    "answer": "Prepare your audience, main goal, service information, brand assets, approved images and examples you like. Identify who will approve the content and what is still missing. The brief builder turns these choices into a checklist you can keep.",
+    "href": "/plan/",
+    "label": "Build a project brief"
+  },
+  {
+    "id": "ownership",
+    "group": "Planning the work",
+    "question": "What should we agree about domain and website ownership?",
+    "answer": "Agree in writing who owns the domain, hosting account, source files, content and third-party licenses. Confirm handover access and ongoing responsibilities before work starts. These are points to settle in your project agreement, rather than an automatic promise that every external asset can be transferred.",
+    "href": "/blog/business-website-brief/#ownership",
+    "label": "Read the ownership checklist"
+  },
+  {
+    "id": "editing",
+    "group": "Planning the work",
+    "question": "Will I be able to update my website?",
+    "answer": "Editing can be part of the scope. Describe what changes, how often and who makes those changes. An occasionally updated portfolio has different needs from a frequently changing catalogue. Choose the editing approach before the build so access and training can be planned.",
+    "href": "/web-development/",
+    "label": "Explore website scope"
+  },
+  {
+    "id": "integration",
+    "group": "Planning the work",
+    "question": "Can my website connect to bookings or a CRM?",
+    "answer": "A connection depends on the booking or CRM provider, its available interfaces and your account access. Define which information moves, where confirmation happens and who handles failures. A booking link is different from a live integration that creates and updates records.",
+    "href": "/workflow-automation/",
+    "label": "Explore workflow integration"
+  },
+  {
+    "id": "remote-work",
+    "group": "Planning the work",
+    "question": "Can I discuss a project with Hamid remotely?",
+    "answer": "Hamid is based in Pakistan and works with businesses and agencies remotely. Share your goal, current website or process, references and target date through the contact page. Availability and the working arrangement are agreed for the particular project.",
+    "href": "/contact/",
+    "label": "Contact Hamid"
+  },
+  {
+    "id": "chatbot-or-agent",
+    "group": "Chatbots and automation",
+    "question": "Do I need a chatbot, workflow or AI agent?",
+    "answer": "A chatbot provides a conversation interface. A workflow follows known steps. An agent can choose steps within an assigned task. These can overlap, so start with the simplest approach that reliably solves your process rather than choosing by label.",
+    "href": "/blog/ai-agent-chatbot-workflow/",
+    "label": "Compare chatbots, workflows and agents"
+  },
+  {
+    "id": "human-handover",
+    "group": "Chatbots and automation",
+    "question": "Can a chatbot hand a conversation to a person?",
+    "answer": "Yes, human handover can be designed into a system. Agree which requests should escalate, which team receives them and what context accompanies the request. Opening a message draft is not the same as delivering it into a staffed inbox.",
+    "href": "/blog/chatbot-human-handover/",
+    "label": "Plan a useful handover"
+  },
+  {
+    "id": "unknown-answer",
+    "group": "Chatbots and automation",
+    "question": "What should happen when an assistant does not know the answer?",
+    "answer": "It should say the information is unavailable and offer a useful next step. Prices, appointments and exceptions should not be invented. The enquiry demo shows a conservative fallback and a local handover draft; a live AI system needs additional evaluation.",
+    "href": "/demos/enquiry-assistant/",
+    "label": "Try the handover demonstration"
+  },
+  {
+    "id": "whatsapp-account",
+    "group": "Chatbots and automation",
+    "question": "Is my personal WhatsApp number enough for a business chatbot?",
+    "answer": "A personal contact link does not establish business messaging API access. The account, provider, approved messaging setup and team inbox need to be assessed before an integration is promised. The WhatsApp link on this site opens a conversation with Hamid; it is not a deployed chatbot.",
+    "href": "/whatsapp-ai-chatbot/",
+    "label": "Explore WhatsApp chatbot planning"
+  },
+  {
+    "id": "languages",
+    "group": "Chatbots and automation",
+    "question": "Can an assistant support English and Urdu?",
+    "answer": "Language support should be tested using the business's actual information and representative questions. Include mixed-language messages and requests that need a person. Treat it as an evaluated capability, not an assumption based on the model or interface name.",
+    "href": "/whatsapp-ai-chatbot/",
+    "label": "Discuss language requirements"
+  },
+  {
+    "id": "automation-results",
+    "group": "Chatbots and automation",
+    "question": "How should I measure whether automation helps?",
+    "answer": "Choose one task and record a baseline, such as handling time or correctly routed enquiries. Run representative cases, record mistakes and account for review time. Compare the same task and conditions after the pilot rather than treating a demo as evidence of business savings.",
+    "href": "/ai-automation/",
+    "label": "Scope an automation pilot"
+  },
+  {
+    "id": "demo-projects",
+    "group": "Work and evidence",
+    "question": "Are the portfolio examples client projects or demos?",
+    "answer": "Bridal House, Editing Julian and Qadeer Jewellers are self-directed demo websites built by Hamid. Their pages explain the visible experience and development contribution. They are not presented as commissioned client work or measured business results. Other portfolio entries retain their available project context.",
+    "href": "/case-studies/",
+    "label": "Read project walkthroughs"
+  },
+  {
+    "id": "video-testimonials",
+    "group": "Work and evidence",
+    "question": "Where can I watch the client testimonials?",
+    "answer": "There are two supplied recordings: Abdullah Abbasii, co-founder of Nexus Growth, and Usman, co-founder of Prestige Media. Each has its own watch page. These recordings are separate from the self-directed portfolio demos; no connection to those demo brands is implied.",
+    "href": "/testimonials/",
+    "label": "Watch client perspectives"
+  },
+  {
+    "id": "ai-demo-scope",
+    "group": "Work and evidence",
+    "question": "Is the enquiry demo a live AI or WhatsApp service?",
+    "answer": "No. It is an interactive, rules-based demonstration using a small published answer set. It shows source links, unsupported-question handling and a draft that stays in your browser. It does not use a language model, send messages or make bookings.",
+    "href": "/demos/enquiry-assistant/",
+    "label": "Inspect the demonstration"
+  },
+  {
+    "id": "next-step",
+    "group": "Work and evidence",
+    "question": "What is the best next step if I want a similar website?",
+    "answer": "Choose an example for direction, then describe your own audience and main action. Use the planner to record the pages, content and integrations you need. You can download that brief or choose to open it in WhatsApp for a scope discussion.",
+    "href": "/plan/",
+    "label": "Plan your website"
+  }
+]
