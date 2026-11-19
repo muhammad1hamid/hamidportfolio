@@ -3,6 +3,7 @@ import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { identifyReferral } from "@/data/referral-source";
+import { isActionEvent, trackSiteEvent } from "@/data/site-events";
 
 declare global {
   interface Window {
@@ -39,20 +40,29 @@ export function Analytics() {
     });
   }, [pathname]);
   useEffect(() => {
-    if (!measurementId) return;
     const click = (event: MouseEvent) => {
       const target =
-        event.target instanceof Element ? event.target.closest("a") : null;
-      if (target?.hostname === "wa.me")
+        event.target instanceof Element
+          ? event.target.closest<HTMLElement>("[data-site-event], a")
+          : null;
+      const action = target?.dataset.siteEvent;
+      if (isActionEvent(action)) {
+        trackSiteEvent(action, target?.dataset.sitePillar);
+      }
+      if (!(target instanceof HTMLAnchorElement) || target.hostname !== "wa.me")
+        return;
+      trackSiteEvent("contact_whatsapp_click");
+      if (measurementId) {
         window.gtag?.("event", "contact_click", {
           method: "whatsapp",
           page_path: window.location.pathname,
           context: target.dataset.contactContext || "contact_link",
           discovery_source: identifyReferral(document.referrer),
         });
+      }
     };
-    document.addEventListener("click", click);
-    return () => document.removeEventListener("click", click);
+    document.addEventListener("click", click, true);
+    return () => document.removeEventListener("click", click, true);
   }, []);
   if (!measurementId) return null;
   return (

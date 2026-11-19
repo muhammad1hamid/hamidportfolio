@@ -18,7 +18,7 @@ export function Footer() {
         <p>
           Web development.
           <br />
-          AI automation. Chatbot development.
+          Search & AI visibility. Automation.
         </p>
         <a href="#main" className="back-top">
           Back to top ↑
@@ -27,6 +27,7 @@ export function Footer() {
       <nav className="footer-pages" aria-label="Explore Hamid’s website">
         {[
           ["Services", "/services/"],
+          ["Growth Engine", "/growth/"],
           ["Work", "/work/"],
           ["Project walkthroughs", "/case-studies/"],
           ["Client perspectives", "/testimonials/"],
@@ -39,7 +40,11 @@ export function Footer() {
           ["Contact", "/contact/"],
           ["Content standards", "/editorial-policy/"],
         ].map(([label, href]) => (
-          <Link href={href} key={href}>
+          <Link
+            href={href}
+            key={href}
+            data-site-event={href === "/plan/" ? "planner_open" : undefined}
+          >
             {label}
           </Link>
         ))}

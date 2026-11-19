@@ -51,11 +51,27 @@ The separate Google Analytics integration activates when a real `NEXT_PUBLIC_GA_
 The site requests the Microsoft Clarity tag for project `zg7lo4zxy4` on `https://itshamid.com` after a visitor allows Clarity analytics. The footer provides Clarity settings to change that choice. The site requests analytics storage only and masks project form fields and the enquiry handover preview. WhatsApp draft text is added only when the visitor opens WhatsApp. Localhost and noindex builds skip Clarity. Verify the project ID under Settings → Setup if the tag returns an empty response. After deployment, allow analytics on the live site and use the [Clarity installation check](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-setup#verify-your-installation) to confirm data reaches the project.
 
 - `page_view`: query-free page location and title; `discovery_source` is an identified referring AI hostname or `unattributed`.
-- `contact_click`: `method=whatsapp`, page path and `context` (`planner`, `demo` or `contact_link`). This records an attempt, not a delivered enquiry.
+- `contact_click`: `method=whatsapp`, page path and a fixed context such as `planner`, `demo`, `contact_page` or `growth_engine`. This records a click.
 - `brief_download`: planner download action and page path.
 - `demo_question`: interaction with the demo and page path. Question text is not sent.
 
 The custom events never include the project notes, question, form values or WhatsApp message URL. Review GA4 automatic measurement separately. Referrer data is incomplete and may be stripped; Google and Bing referrals are not automatically classified as AI traffic. No single source measures all AI recommendations.
+
+### Homepage and Growth Engine actions
+
+The site pushes these events to the existing data layer. Each event includes the pathname. The pillar click also includes the fixed pillar ID.
+
+| Event | Action |
+| --- | --- |
+| `hero_primary_cta_click` | Select **Discuss your project** in the homepage hero |
+| `hero_portfolio_cta_click` | Select **Explore selected work** in the homepage hero |
+| `service_pillar_click` | Select one of the four homepage service cards |
+| `growth_cta_click` | Select a Growth Engine enquiry CTA on `/growth/` |
+| `contact_whatsapp_click` | Select a WhatsApp contact link |
+| `planner_open` | Open the homepage brief or follow a featured link to the planner |
+| `planner_growth_option_select` | Select Growth Engine as the planner goal |
+
+Use the existing pageview setup to measure visits to `/growth/`. Verify any custom-event triggers and destination tags in GTM Preview before publishing container changes. Use one WhatsApp click event per report and count qualified enquiries from conversations actually received. If you track an enquiry rate, document its denominator and the qualification criteria before comparing periods.
 
 ## Prompt observations
 

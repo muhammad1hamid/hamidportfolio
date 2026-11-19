@@ -7,6 +7,10 @@ import { Arrow } from "@/components/ui/Arrow";
 import { ProjectVisual } from "./ProjectVisual";
 import { projectDetails } from "@/data/project-details";
 
+const homepageProjects = ["bridal-house", "ink-grail", "editing-julian", "elevate-x"]
+  .map((id) => projects.find((project) => project.id === id))
+  .filter((project) => project !== undefined);
+
 export function Work({ archive = false }: { archive?: boolean }) {
   const [filter, setFilter] = useState<string>("All");
   const [selected, setSelected] = useState<Project | null>(null);
@@ -18,9 +22,8 @@ export function Work({ archive = false }: { archive?: boolean }) {
   const details = selected ? projectDetails[selected.id] : undefined;
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
-  const visible = projects.filter(
-    (p) =>
-      (archive || p.featured) && (filter === "All" || p.category === filter),
+  const visible = (archive ? projects : homepageProjects).filter(
+    (project) => filter === "All" || project.category === filter,
   );
   const placeholderCount = visible.filter(
     (p) => p.status === "placeholder",
@@ -55,8 +58,7 @@ export function Work({ archive = false }: { archive?: boolean }) {
       {!archive && (
         <>
           <div className="section-marker" data-reveal>
-            <span>01 / Selected work</span>
-            <span>A few things worth a closer look</span>
+            <span>Selected work</span>
           </div>
           <div className="section-heading work-heading" data-reveal>
             <h2 id="work-title">
@@ -65,9 +67,8 @@ export function Work({ archive = false }: { archive?: boolean }) {
               <em>The same attention.</em>
             </h2>
             <p>
-              Distinct businesses. Distinct experiences.
-              <br />
-              Explore the websites, live.
+              Explore websites I’ve built and the decisions behind each
+              experience.
             </p>
           </div>
         </>
@@ -187,9 +188,8 @@ export function Work({ archive = false }: { archive?: boolean }) {
       </div>
       {!archive && (
         <Link href="/work/" className="archive-link" data-reveal>
-          <span>More to discover.</span>
           <strong>
-            Explore all work <Arrow diagonal />
+            View all website work <Arrow diagonal />
           </strong>
           <span className="archive-link-note">
             {projects.length} projects in the archive

@@ -35,7 +35,10 @@
         "a": "Scope, integrations, data preparation, safeguards and ongoing provider usage. Share your current process for a scoped proposal; there is no fixed public package price."
       }
     ],
-    "related": ["workflow-automation", "ai-agents", "business-dashboards"]
+    "related": ["workflow-automation", "ai-agents", "business-dashboards"],
+    "pillar": "smart-systems",
+    "displayName": "AI-Powered Automation",
+    "descriptor": "AI automation for repeatable business tasks"
   },
   {
     "slug": "whatsapp-ai-chatbot",
@@ -77,7 +80,10 @@
       "restaurant-whatsapp-automation",
       "website-chatbot",
       "workflow-automation"
-    ]
+    ],
+    "pillar": "ai-conversations",
+    "displayName": "WhatsApp AI Assistants",
+    "descriptor": "WhatsApp chatbot development"
   },
   {
     "slug": "ai-receptionist",
@@ -115,7 +121,14 @@
         "a": "The design should provide a human route and retain the relevant enquiry context, with a fallback if the receiving team is unavailable."
       }
     ],
-    "related": ["website-chatbot", "whatsapp-ai-chatbot", "workflow-automation"]
+    "related": [
+      "website-chatbot",
+      "whatsapp-ai-chatbot",
+      "workflow-automation"
+    ],
+    "pillar": "ai-conversations",
+    "displayName": "AI Front Desk",
+    "descriptor": "AI receptionist and enquiry routing"
   },
   {
     "slug": "restaurant-whatsapp-automation",
@@ -153,7 +166,14 @@
         "a": "An agreed rule or supported delivery integration is needed. Ambiguous addresses and exceptions should be reviewed by staff."
       }
     ],
-    "related": ["whatsapp-ai-chatbot", "business-dashboards", "web-development"]
+    "related": [
+      "whatsapp-ai-chatbot",
+      "business-dashboards",
+      "web-development"
+    ],
+    "pillar": "ai-conversations",
+    "displayName": "Restaurant WhatsApp Assistants",
+    "descriptor": "WhatsApp automation for restaurant enquiries"
   },
   {
     "slug": "website-chatbot",
@@ -191,7 +211,10 @@
         "a": "Use an approved knowledge source, test likely questions and define a fallback for unsupported topics. Review and maintenance remain necessary."
       }
     ],
-    "related": ["web-development", "whatsapp-ai-chatbot", "ai-receptionist"]
+    "related": ["web-development", "whatsapp-ai-chatbot", "ai-receptionist"],
+    "pillar": "ai-conversations",
+    "displayName": "Website AI Assistants",
+    "descriptor": "Website chatbot development"
   },
   {
     "slug": "ai-agents",
@@ -229,7 +252,10 @@
         "a": "A description of the task, examples of successful outcomes, the tools involved and the actions that must remain under human control."
       }
     ],
-    "related": ["ai-automation", "workflow-automation", "business-dashboards"]
+    "related": ["ai-automation", "workflow-automation", "business-dashboards"],
+    "pillar": "smart-systems",
+    "displayName": "AI Task Agents",
+    "descriptor": "AI agent development with defined controls"
   },
   {
     "slug": "workflow-automation",
@@ -267,7 +293,10 @@
         "a": "Yes. Provider changes, expired access and changes to your process can affect a workflow. Ownership and support scope are agreed before handover."
       }
     ],
-    "related": ["ai-automation", "business-dashboards", "whatsapp-ai-chatbot"]
+    "related": ["ai-automation", "business-dashboards", "whatsapp-ai-chatbot"],
+    "pillar": "smart-systems",
+    "displayName": "Connected Workflows",
+    "descriptor": "Workflow automation and integrations"
   },
   {
     "slug": "web-development",
@@ -308,8 +337,12 @@
     "related": [
       "landing-page-development",
       "website-chatbot",
-      "business-dashboards"
-    ]
+      "business-dashboards",
+      "growth"
+    ],
+    "pillar": "web-experiences",
+    "displayName": "Signature Websites",
+    "descriptor": "Custom website design and development"
   },
   {
     "slug": "landing-page-development",
@@ -347,7 +380,15 @@
         "a": "Yes. Share brand files, approved content and examples. A focused page can extend your existing visual identity."
       }
     ],
-    "related": ["web-development", "workflow-automation", "website-chatbot"]
+    "related": [
+      "web-development",
+      "workflow-automation",
+      "website-chatbot",
+      "growth"
+    ],
+    "pillar": "web-experiences",
+    "displayName": "Conversion Landing Pages",
+    "descriptor": "Landing page design and development"
   },
   {
     "slug": "business-dashboards",
@@ -385,6 +426,117 @@
         "a": "Access is scoped by role and verified through authentication. Public website visitors should not have access to private operational records."
       }
     ],
-    "related": ["workflow-automation", "ai-automation", "web-development"]
+    "related": ["workflow-automation", "ai-automation", "web-development"],
+    "pillar": "web-experiences",
+    "displayName": "Business Dashboards",
+    "descriptor": "Custom dashboards and internal tools"
+  },
+  {
+    "slug": "growth",
+    "name": "Growth Engine",
+    "pillar": "growth-engine",
+    "displayName": "Growth Engine",
+    "descriptor": "Search & AI visibility, including SEO, AEO and GEO",
+    "title": "Growth Engine: SEO, AEO & GEO Services | Hamid",
+    "description": "Improve your technical SEO, answer clarity and AI search readiness with Hamid’s Growth Engine service. Agree practical fixes and a measurement plan.",
+    "headline": [
+      "Be easier to find.",
+      "Easier to understand.",
+      "Easier to choose."
+    ],
+    "intro": "Growth Engine is a practical optimization service that combines SEO foundations, answer-focused content, AI search readiness and clearer conversion paths. The aim is to make your website more useful, more discoverable and easier to act on, then measure what actually changes.",
+    "problem": "Search engines need to understand your pages, visitors need answers that match their questions, and the next step needs to feel obvious. We review those connections to see which improvements matter most for your business.",
+    "deliverables": [
+      {
+        "id": "search-foundations",
+        "title": "Search Foundations",
+        "detail": "Review how public pages can be crawled and indexed. Check titles, canonical URLs, internal links, useful structured data and page performance. Prioritize fixes on the pages that matter to customers."
+      },
+      {
+        "id": "answer-readiness",
+        "title": "Content & Answer Readiness",
+        "detail": "Answer engine optimization (AEO) starts with questions buyers ask before they contact you. Give those questions direct, specific answers backed by examples, sources and clear authorship."
+      },
+      {
+        "id": "ai-discoverability",
+        "title": "AI Search Discoverability",
+        "detail": "Generative engine optimization (GEO) helps AI search systems discover and understand the information you publish. Clarify who is behind the business, what it offers and which pages explain each service. Check public references and bot access."
+      },
+      {
+        "id": "conversion-paths",
+        "title": "Conversion Paths",
+        "detail": "Walk through the path from a search landing page to a call, project brief or WhatsApp enquiry. Make the next action easy to find and check that it works on mobile and desktop."
+      },
+      {
+        "id": "measurement",
+        "title": "Measurement & Iteration",
+        "detail": "Use Search Console and analytics where available to establish a baseline. Separate search impressions, visits, contact actions and qualified enquiries. If useful, record AI referrals and examples of AI answers alongside the date, product and query."
+      }
+    ],
+    "fit": [
+      {
+        "title": "A business with an existing website",
+        "text": "People know your business, but priority service pages get little relevant search traffic or have no clear route to an enquiry."
+      },
+      {
+        "title": "A founder preparing a launch",
+        "text": "You want an understandable offer, crawlable pages and useful measurement in place when the site goes live."
+      },
+      {
+        "title": "An agency supporting a client",
+        "text": "You need help turning content or technical findings into a scoped implementation with clear handover notes."
+      }
+    ],
+    "process": [
+      {
+        "title": "Review",
+        "text": "Confirm the offer, audience, priority pages and what data we can use."
+      },
+      {
+        "title": "Prioritize",
+        "text": "Agree the fixes worth doing first, the pages in scope and how to verify the work."
+      },
+      {
+        "title": "Implement",
+        "text": "Make the agreed changes and check published pages, links and contact actions."
+      },
+      {
+        "title": "Measure",
+        "text": "Record the baseline and checks, then review available signals at an agreed date."
+      }
+    ],
+    "outputs": [
+      "A prioritized review with affected URLs, reasons for each fix and a clear owner for the next action.",
+      "Agreed page, content and tracking improvements, with checks showing what changed.",
+      "A measurement plan covering available search data, contact actions and a follow-up review."
+    ],
+    "limits": "Before work begins, we agree which pages, systems and measurements the project covers. Search and AI platforms decide what to rank or cite. Traffic and enquiries also depend on competition, customer demand and other factors outside the scope of one project.",
+    "faqs": [
+      {
+        "q": "Is AEO different from SEO?",
+        "a": "AEO builds on SEO. It focuses on how easily people and answer engines can find and understand a useful response to a specific question."
+      },
+      {
+        "q": "Can GEO guarantee that ChatGPT or Gemini recommends my business?",
+        "a": "AI systems decide which businesses to recommend or cite. The work improves the access, clarity and evidence those systems can draw on. Recommendations vary by question and context."
+      },
+      {
+        "q": "Do I need a new website?",
+        "a": "Often the existing website is a good place to start. We look at the current pages, publishing access and technical limits before deciding whether updates or a rebuild fit the scope."
+      },
+      {
+        "q": "When will results show?",
+        "a": "Agreed fixes can be checked as soon as they go live. The time it takes to see changes in rankings or enquiries depends on the starting point, competition and search engine behavior. We agree when to check the data again."
+      },
+      {
+        "q": "Can you help with both Google and AI search?",
+        "a": "Yes. Crawlable pages, useful content, trustworthy information and clear structure support both. We agree which improvements to make and what data is available to assess discovery."
+      }
+    ],
+    "related": [
+      "web-development",
+      "landing-page-development",
+      "business-dashboards"
+    ]
   }
 ]

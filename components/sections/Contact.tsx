@@ -1,14 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/data/site";
+import { growthGoal } from "@/data/planner";
 import { Arrow } from "@/components/ui/Arrow";
 
 export function Contact() {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const [saved, setSaved] = useState(false);
-  const primaryContact = site.email ? `mailto:${site.email}` : site.whatsapp;
   const openBrief = () => {
     setSaved(false);
     dialog.current?.showModal();
@@ -47,22 +48,6 @@ export function Contact() {
     setTimeout(() => URL.revokeObjectURL(url), 1500);
     setSaved(true);
   };
-  const magnetic = (e: React.PointerEvent<HTMLElement>) => {
-    if (
-      e.pointerType !== "mouse" ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty(
-      "--tx",
-      `${((e.clientX - r.left) / r.width - 0.5) * 14}px`,
-    );
-    e.currentTarget.style.setProperty(
-      "--ty",
-      `${((e.clientY - r.top) / r.height - 0.5) * 14}px`,
-    );
-  };
   return (
     <section
       id="contact"
@@ -71,66 +56,34 @@ export function Contact() {
     >
       <div className="wrap">
         <div className="section-marker" data-reveal>
-          <span>06 / The next good thing</span>
-          <span>Starts with a conversation</span>
+          <span>A good next step</span>
         </div>
         <div className="contact-composition" data-reveal>
           <h2 id="contact-title">
-            YOU HAVE
-            <br />
-            THE <em>idea.</em>
+            Tell me what you’re building. <em>Or what’s getting in the way.</em>
           </h2>
           <div className="contact-aside">
             <p>
-              I’ll bring the craft,
-              <br />
-              the code, and the curiosity.
+              Share the goal, the current setup or the problem you want to
+              solve. I’ll help shape a practical starting scope.
             </p>
             <div className="contact-actions">
-              {primaryContact ? (
-                <a
-                  href={primaryContact}
-                  target={site.email ? undefined : "_blank"}
-                  rel={site.email ? undefined : "noopener noreferrer"}
-                  className="contact-orbit"
-                  onPointerMove={magnetic}
-                  onPointerLeave={(e) => {
-                    e.currentTarget.style.setProperty("--tx", "0px");
-                    e.currentTarget.style.setProperty("--ty", "0px");
-                  }}
-                >
-                  <Arrow diagonal />
-                  <span>{site.email ? "Let’s talk" : "Let’s WhatsApp"}</span>
-                </a>
-              ) : (
-                <button
-                  ref={trigger}
-                  className="contact-orbit"
-                  onClick={openBrief}
-                  onPointerMove={magnetic}
-                  onPointerLeave={(e) => {
-                    e.currentTarget.style.setProperty("--tx", "0px");
-                    e.currentTarget.style.setProperty("--ty", "0px");
-                  }}
-                >
-                  <Arrow diagonal />
-                  <span>Prepare a brief</span>
-                </button>
-              )}
-              {primaryContact && (
-                <button
-                  ref={trigger}
-                  className="contact-brief-link"
-                  onClick={openBrief}
-                >
-                  Prepare a brief <Arrow diagonal />
-                </button>
-              )}
+              <Link href="/contact/" className="button button-light">
+                Discuss your project <Arrow diagonal />
+              </Link>
+              <button
+                ref={trigger}
+                type="button"
+                className="contact-brief-link"
+                data-site-event="planner_open"
+                onClick={openBrief}
+              >
+                Prepare a project brief <Arrow diagonal />
+              </button>
             </div>
           </div>
         </div>
         <div className="contact-bottom">
-          <span>Let’s make something worth putting your name on.</span>
           {contacts.length ? (
             <div className="contact-links">
               {contacts.map((c) => (
@@ -201,6 +154,7 @@ export function Contact() {
             What do you need?
             <select name="service" defaultValue="Web development">
               <option>Web development</option>
+              <option>{growthGoal}</option>
               <option>AI automation</option>
               <option>Chatbot development</option>
               <option>Agency partnership</option>

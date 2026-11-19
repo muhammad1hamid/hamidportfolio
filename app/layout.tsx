@@ -13,6 +13,7 @@ import "./content.css";
 import "./discovery.css";
 import "./analytics.css";
 import "./insights.css";
+import "./home-growth.css";
 
 const tagManager = `
   (function (w, d) {

@@ -7,8 +7,8 @@ export default function PlanPage() {
   return (
     <ContentPage
       path="/plan/"
-      title="Your next website starts here."
-      intro="Choose your goal, content and connections. Build a practical brief to keep, refine or discuss with Hamid."
+      title="Find a practical starting point."
+      intro="Plan a new website or a Growth Engine review of an existing one. Build a brief to keep, refine or discuss with Hamid."
       label="Website planner"
     >
       <WebsitePlanner />
@@ -24,8 +24,9 @@ export default function PlanPage() {
         <p>
           One offer with a small page scope suggests a focused landing page.
           Collection browsing suggests a collection-led site. Broader service
-          and portfolio needs suggest separate pages. These are starting points;
-          the planner does not estimate prices or promise a delivery date.
+          and portfolio needs suggest separate pages. For Growth Engine, the
+          planner helps you choose priority pages and prepare for a visibility
+          review. Cost and timing are agreed once the scope is clear.
         </p>
         <div className="content-two-columns">
           <div>
@@ -49,6 +50,7 @@ export default function PlanPage() {
         </div>
         <div className="related-links">
           <Link href="/blog/business-website-brief/">Write a useful brief</Link>
+          <Link href="/growth/">Explore Growth Engine</Link>
           <Link href="/blog/what-affects-website-cost/">
             Understand website scope and cost
           </Link>

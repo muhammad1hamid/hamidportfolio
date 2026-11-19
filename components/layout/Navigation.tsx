@@ -6,12 +6,11 @@ import { useEffect, useRef, useState } from "react";
 import { Arrow } from "@/components/ui/Arrow";
 
 const links = [
-  { title: "Work", href: "/#work" },
-  { title: "About", href: "/#about" },
-  { title: "Services", href: "/#services" },
+  { title: "Work", href: "/work/" },
+  { title: "Services", href: "/services/" },
+  { title: "About", href: "/about/" },
   { title: "Reviews", href: "/#testimonials" },
   { title: "Insights", href: "/insights/" },
-  { title: "Plan", href: "/plan/" },
 ];
 
 export function Navigation() {
@@ -62,8 +61,12 @@ export function Navigation() {
             </Link>
           ))}
         </nav>
-        <Link className="nav-contact" href="/#contact">
-          Let’s talk <Arrow diagonal />
+        <Link
+          className="nav-contact"
+          href="/contact/"
+          aria-current={pathname === "/contact/" ? "page" : undefined}
+        >
+          Discuss a project <Arrow diagonal />
         </Link>
         <button
           ref={button}
@@ -93,20 +96,17 @@ export function Navigation() {
           </button>
         </div>
         <nav aria-label="Mobile navigation">
-          {[...links, { title: "Contact", href: "/#contact" }].map(
-            (link, i) => (
-              <Link
-                key={link.title}
-                href={link.href}
-                onClick={close}
-                aria-current={pathname === link.href ? "page" : undefined}
-              >
-                <small>0{i + 1}</small>
-                {link.title}
-                <Arrow diagonal />
-              </Link>
-            ),
-          )}
+          {[...links, { title: "Contact", href: "/contact/" }].map((link) => (
+            <Link
+              key={link.title}
+              href={link.href}
+              onClick={close}
+              aria-current={pathname === link.href ? "page" : undefined}
+            >
+              {link.title}
+              <Arrow diagonal />
+            </Link>
+          ))}
         </nav>
         <p className="eyebrow">Based in Pakistan · Working worldwide</p>
       </dialog>

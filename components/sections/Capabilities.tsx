@@ -1,14 +1,9 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-import { services } from "@/data/content";
+import { servicePillars } from "@/data/services";
 import { Arrow } from "@/components/ui/Arrow";
 import { ChromeMark } from "@/components/hero/ChromeMark";
-import { WorkflowPreview } from "./WorkflowPreview";
 
 export function Capabilities() {
-  const [active, setActive] = useState(-1);
   return (
     <section
       id="services"
@@ -16,68 +11,49 @@ export function Capabilities() {
       aria-labelledby="services-title"
     >
       <div className="section-marker" data-reveal>
-        <span>02 / What I bring</span>
-        <span>One builder. A connected skill set.</span>
+        <span>What I build & improve</span>
       </div>
       <div className="capability-heading" data-reveal>
-        <h2 id="services-title">
-          Good on the surface.
-          <br />
-          <em>Smart underneath.</em>
-        </h2>
-        <div className="capability-signature">
-          <ChromeMark />
-          <p>
-            Design you can feel.
+        <div>
+          <h2 id="services-title">
+            The right pieces.
             <br />
-            Technology you can put to work.
+            <em>Working together.</em>
+          </h2>
+          <p className="capability-intro">
+            Start with a website, improve how people discover it, or make the
+            processes around it easier to run. Each project starts with a clear
+            scope.
           </p>
         </div>
+        <div className="capability-signature">
+          <ChromeMark />
+        </div>
       </div>
-      <div className="service-list">
-        {services.map((service, index) => (
-          <div
-            key={service.number}
-            className={`service-row ${active === index ? "active" : ""}`}
+      <ul className="pillar-grid">
+        {servicePillars.map((pillar) => (
+          <li
+            key={pillar.id}
+            className={`pillar-card pillar-card-${pillar.id}`}
           >
-            <button
-              className="service-trigger"
-              aria-expanded={active === index}
-              aria-controls={`service-panel-${index}`}
-              onClick={() => setActive(active === index ? -1 : index)}
+            <Link
+              href={pillar.href}
+              data-site-event="service_pillar_click"
+              data-site-pillar={pillar.id}
             >
-              <span className="service-number">{service.number}</span>
-              <h3>{service.title}</h3>
-              <span className="service-teaser">{service.note}</span>
-              <span className="service-toggle">
-                {active === index ? "−" : "+"}
+              <span className="eyebrow">{pillar.action}</span>
+              <h3>{pillar.name}</h3>
+              <p>{pillar.summary}</p>
+              <span className="pillar-arrow">
+                <Arrow diagonal />
               </span>
-            </button>
-            <div
-              className="service-panel"
-              id={`service-panel-${index}`}
-              hidden={active !== index}
-            >
-              <span className="service-word" aria-hidden="true">
-                {service.word}
-              </span>
-              <div className="service-detail">
-                <p>{service.description}</p>
-                <ul>
-                  {service.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <a href="#contact">
-                  Let’s discuss your project <Arrow diagonal />
-                </a>
-              </div>
-            </div>
-          </div>
+            </Link>
+          </li>
         ))}
-      </div>
-      <Link href="/services/" className="service-directory-link">Explore services, process & FAQs <Arrow diagonal /></Link>
-      <WorkflowPreview />
+      </ul>
+      <Link href="/services/" className="service-directory-link">
+        Explore all services <Arrow diagonal />
+      </Link>
     </section>
   );
 }

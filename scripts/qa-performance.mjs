@@ -96,8 +96,8 @@ try {
     if (label !== "baseline") {
       await page.getByRole("button", { name: "Open navigation" }).click();
       await page.getByRole("button", { name: "Close navigation" }).click();
-      await page.locator(".service-trigger").first().click();
-      await page.locator(".service-trigger").first().click();
+      await page.locator(".faq-item button").first().click();
+      await page.locator(".faq-item button").first().click();
       await page.waitForTimeout(300);
       runs.at(-1).sampledTapLatencyMs = await page.evaluate(() => Math.max(0, ...window.tapDurations));
     }

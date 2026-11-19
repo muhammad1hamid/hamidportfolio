@@ -113,11 +113,17 @@ export const entityGraph = {
       alternateName: "Muhammad Hamid",
       url: absolute("/about/"),
       image: absolute("/images/hamid-hero.webp"),
-      jobTitle: "Independent Web Developer & AI Automation Builder",
+      jobTitle: "Independent Developer & Digital Growth Builder",
       description: site.description,
       homeLocation: { "@type": "Country", name: "Pakistan" },
       sameAs: [site.linkedin, site.instagram],
-      knowsAbout: ["Web development", "AI automation", "Chatbot development"],
+      knowsAbout: [
+        "Web development",
+        "Search engine optimization",
+        "AI search visibility",
+        "AI automation",
+        "Chatbot development",
+      ],
       worksFor: { "@id": absolute("/#organization") },
     },
     {
@@ -126,7 +132,7 @@ export const entityGraph = {
       name: "Hamid",
       url: site.url,
       description:
-        "Hamid's independent web development and AI automation practice, based in Pakistan and working remotely with businesses and agencies.",
+        "Hamid's independent web development, search and AI visibility, and automation practice, based in Pakistan and working remotely with businesses and agencies.",
       logo: absolute("/apple-touch-icon.png"),
       founder: { "@id": absolute("/#person") },
       contactPoint: {
@@ -172,5 +178,27 @@ export function pageSchema(
     isPartOf: { "@id": absolute("/#website") },
     about: { "@id": absolute("/#person") },
     inLanguage: "en",
+  };
+}
+
+export function serviceSchema(
+  service: { slug: string; name: string; description: string },
+  serviceType = service.name,
+) {
+  const path = `/${service.slug}/`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": absolute(`${path}#service`),
+    name: service.name,
+    serviceType,
+    description: service.description,
+    url: absolute(path),
+    provider: { "@id": absolute("/#organization") },
+    areaServed: [
+      { "@type": "Country", name: "Pakistan" },
+      { "@type": "Place", name: "Remote / worldwide" },
+    ],
+    mainEntityOfPage: { "@id": absolute(`${path}#webpage`) },
   };
 }

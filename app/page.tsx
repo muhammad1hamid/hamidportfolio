@@ -17,12 +17,12 @@ export const metadata = pageMeta(site.title, site.description, "/");
 export default function Home() {
   return (
     <main id="main">
-      <Hero year={new Date().getFullYear()} />
+      <Hero />
       <Work />
       <Capabilities />
       <About />
-      <Process />
       <Testimonials />
+      <Process />
       <ExploreFurther />
       <Faq />
       <Contact />

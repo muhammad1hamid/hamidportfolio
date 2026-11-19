@@ -4,13 +4,12 @@ export function Process() {
   return (
     <section className="process wrap" aria-labelledby="process-title">
       <div className="section-marker" data-reveal>
-        <span>04 / From idea to out there</span>
-        <span>A clear way forward</span>
+        <span>How we work</span>
       </div>
       <h2 id="process-title" data-reveal>
-        Good work doesn’t happen
+        A clear process.
         <br />
-        <em>by accident.</em>
+        <em>No guesswork about the scope.</em>
       </h2>
       <div className="process-track">
         <span className="process-progress" aria-hidden="true" />

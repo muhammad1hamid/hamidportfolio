@@ -29,10 +29,10 @@ const { projectDetails } = await import(
 const cards = [
   [
     "home",
-    "Websites. Workflows. What's next.",
+    "Stand out online. Get found. Work smarter.",
     "INDEPENDENT DEVELOPER / PAKISTAN",
   ],
-  ["services", "A connected skill set. A clear scope.", "SERVICES"],
+  ["services", "Find the right starting point.", "SERVICES"],
   ["about", "The person behind the work.", "ABOUT HAMID"],
   ["contact", "A good project starts here.", "CONTACT"],
   ["work", "18 websites. Different worlds.", "THE PORTFOLIO"],
@@ -44,7 +44,11 @@ const cards = [
     p.title.replace(/ \| Hamid$/, ""),
     p.label.toUpperCase(),
   ]),
-  ...services.map((s) => [s.slug, s.name, "SERVICES / HAMID"]),
+  ...services.map((s) => [
+    s.slug,
+    s.slug === "growth" ? "Growth Engine. Search & AI visibility." : s.name,
+    "SERVICES / HAMID",
+  ]),
   ...articles.map((a) => [`blog-${a.slug}`, a.title, a.category.toUpperCase()]),
   ...projects
     .filter((p) => projectDetails[p.id])

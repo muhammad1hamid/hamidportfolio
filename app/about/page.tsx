@@ -5,7 +5,7 @@ import { pageMeta } from "@/data/seo";
 import { ContentPage, ProjectCta } from "@/components/seo/ContentPage";
 export const metadata = pageMeta(
   "About Hamid — Independent Developer & ElevateX Founder",
-  "Meet Muhammad Hamid, a Pakistan-based web developer, AI automation builder and founder of ElevateX. Explore his work, approach and social profiles.",
+  "Meet Muhammad Hamid, a Pakistan-based developer and ElevateX founder working across websites, search and AI visibility, and automation.",
   "/about/",
 );
 export default function AboutPage() {
@@ -13,7 +13,7 @@ export default function AboutPage() {
     <ContentPage
       path="/about/"
       title="The person behind the work."
-      intro="I’m Hamid — an independent web developer and AI automation builder based in Pakistan. I work directly with businesses and alongside agencies, and I’m the founder of ElevateX."
+      intro="I’m Hamid, an independent developer and the founder of ElevateX. I work from Pakistan with businesses and agencies worldwide."
       label="About"
       type="AboutPage"
     >
@@ -22,10 +22,8 @@ export default function AboutPage() {
         <h2>Work with a builder, directly.</h2>
         <p>
           My work connects visual direction with practical implementation:
-          websites that explain an offer, enquiry journeys that make the next
-          step clear, and automation scopes grounded in the way a team operates.
-          I collaborate remotely with clients across Pakistan and
-          internationally.
+          websites that explain an offer, pages that answer the questions buyers
+          search for, and automation grounded in the way a team operates.
         </p>
         <div className="related-links">
           <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
@@ -55,9 +53,12 @@ export default function AboutPage() {
         <div className="related-links">
           <Link href="/work/">Website portfolio ↗</Link>
           <Link href="/services/">Explore services ↗</Link>
+          <Link href="/growth/">Search and AI visibility ↗</Link>
           <Link href="/testimonials/">Client video testimonials ↗</Link>
           <Link href="/editorial-policy/">How examples are presented</Link>
-          <Link href="/plan/">Prepare a project brief</Link>
+          <Link href="/plan/" data-site-event="planner_open">
+            Prepare a project brief
+          </Link>
         </div>
       </section>
       <ProjectCta />

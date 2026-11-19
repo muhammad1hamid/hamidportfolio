@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { faqs } from "@/data/content";
 
@@ -7,7 +8,7 @@ export function Faq() {
   return (
     <section className="faq-section wrap" aria-labelledby="faq-title">
       <div data-reveal>
-        <span className="eyebrow">05 / A few things to know</span>
+        <span className="eyebrow">Project questions</span>
         <h2 id="faq-title">
           Before we
           <br />
@@ -36,6 +37,11 @@ export function Faq() {
               hidden={active !== i}
             >
               <p>{faq.answer}</p>
+              {faq.link && (
+                <Link className="text-link" href={faq.link}>
+                  Explore Growth Engine ↗
+                </Link>
+              )}
             </div>
           </div>
         ))}

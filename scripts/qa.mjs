@@ -114,22 +114,74 @@ for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
         JSON.stringify(container),
       );
     }
+    const statements = await page
+      .locator("#hero-title > *")
+      .evaluateAll((elements) =>
+        elements.map((element) => {
+          const range = document.createRange();
+          range.selectNodeContents(element);
+          return range.getClientRects().length;
+        }),
+      );
+    assert.deepEqual(
+      statements,
+      [1, 1, 1],
+      "Each hero statement fits on one line",
+    );
   });
 }
 await page.setViewportSize({ width: 1440, height: 1000 });
 await check(
-  "Home has six live featured projects with loaded previews",
+  "The homepage states the offer and shows two working CTA destinations",
   async () => {
-    assert.equal(await page.locator(".featured-grid .project").count(), 6);
+    const headings = page.locator("main h1");
+    assert.equal(await headings.count(), 1);
+    assert.deepEqual(await headings.locator("> *").allTextContents(), [
+      "Stand out online.",
+      "Get found.",
+      "Work smarter.",
+    ]);
+    for (const [width, height] of [
+      [320, 568],
+      [390, 844],
+      [768, 800],
+      [1440, 768],
+    ]) {
+      await page.setViewportSize({ width, height });
+      for (const [label, path] of [
+        ["Discuss your project", "/contact/"],
+        ["Explore selected work", "/work/"],
+      ]) {
+        const link = page
+          .locator(".hero-actions")
+          .getByRole("link", { name: label });
+        assert.equal(await link.getAttribute("href"), path);
+        const bounds = await link.boundingBox();
+        assert.ok(
+          bounds &&
+            bounds.x >= 0 &&
+            bounds.y >= 0 &&
+            bounds.y + bounds.height <= height,
+          `${label} should be above the fold at ${width}×${height}`,
+        );
+      }
+    }
+    await page.setViewportSize({ width: 1440, height: 1000 });
+  },
+);
+await check(
+  "Home has four selected projects with loaded previews and live links",
+  async () => {
+    assert.equal(await page.locator(".featured-grid .project").count(), 4);
     assert.equal(
       await page.locator(".featured-grid .project-live-link").count(),
-      6,
+      4,
     );
     assert.doesNotMatch(
       await page.locator(".featured-grid").innerText(),
       /Presentation preview/,
     );
-    await checkProjectImages(".featured-grid", 6);
+    await checkProjectImages(".featured-grid", 4);
   },
 );
 await page.evaluate(() => window.scrollTo(0, 0));
@@ -163,22 +215,64 @@ await check("Home accessibility", async () => {
     result.violations.map((v) => `${v.id}: ${v.nodes.length}`).join(", "),
   );
 });
-await check("Three FAQ accordions work", async () => {
+await check("Six FAQ accordions work", async () => {
   const buttons = page.locator(".faq-item button");
-  assert.equal(await buttons.count(), 3);
+  assert.equal(await buttons.count(), 6);
   await buttons.nth(0).click();
   assert.equal(await buttons.nth(0).getAttribute("aria-expanded"), "true");
   await buttons.nth(1).click();
   assert.equal(await buttons.nth(0).getAttribute("aria-expanded"), "false");
   assert.equal(await buttons.nth(1).getAttribute("aria-expanded"), "true");
 });
-await check("Services expand and collapse", async () => {
-  const ai = page.locator(".service-trigger").nth(1);
-  await ai.click();
-  assert.equal(await ai.getAttribute("aria-expanded"), "true");
-  await ai.click();
-  assert.equal(await ai.getAttribute("aria-expanded"), "false");
-});
+await check(
+  "The four homepage pillars lead to the service groups and Growth Engine",
+  async () => {
+    const links = page.locator(".pillar-grid li a");
+    assert.deepEqual(await links.locator("h3").allTextContents(), [
+      "Web Experiences",
+      "Growth Engine",
+      "Smart Systems",
+      "AI Conversations",
+    ]);
+    assert.deepEqual(
+      await links.evaluateAll((items) =>
+        items.map((item) => item.getAttribute("href")),
+      ),
+      [
+        "/services/#web-experiences",
+        "/growth/",
+        "/services/#smart-systems",
+        "/services/#ai-conversations",
+      ],
+    );
+    await links.first().focus();
+    await page.keyboard.press("Enter");
+    await page.waitForURL("**/services/#web-experiences");
+    const groups = page.locator(".service-group");
+    await groups.first().waitFor({ state: "visible" });
+    assert.equal(await groups.count(), 4);
+    const destinations = await groups
+      .locator(".service-group-links a")
+      .evaluateAll((items) => items.map((item) => item.getAttribute("href")));
+    assert.deepEqual(
+      destinations.sort(),
+      [
+        "/ai-agents/",
+        "/ai-automation/",
+        "/ai-receptionist/",
+        "/business-dashboards/",
+        "/growth/",
+        "/landing-page-development/",
+        "/restaurant-whatsapp-automation/",
+        "/web-development/",
+        "/website-chatbot/",
+        "/whatsapp-ai-chatbot/",
+        "/workflow-automation/",
+      ].sort(),
+    );
+  },
+);
+await page.goto(baseURL, { waitUntil: "domcontentloaded" });
 await check(
   "Project details show the selected project and restore focus",
   async () => {
@@ -222,10 +316,10 @@ await check(
     assert.ok(await button.evaluate((el) => el === document.activeElement));
   },
 );
-await check("Verified contact links and WhatsApp primary action", async () => {
+await check("Verified contact links and contact page CTA", async () => {
   assert.equal(
-    await page.locator(".contact-orbit").getAttribute("href"),
-    "https://wa.me/923356709222",
+    await page.locator(".contact-actions .button").getAttribute("href"),
+    "/contact/",
   );
   for (const [label, url] of [
     ["WhatsApp", "https://wa.me/923356709222"],
@@ -254,7 +348,7 @@ await check("Verified contact links and WhatsApp primary action", async () => {
   assert.equal(person.sameAs.length, 2);
 });
 await check("Contact brief downloads and never claims submission", async () => {
-  await page.getByRole("button", { name: "Prepare a brief" }).click();
+  await page.getByRole("button", { name: "Prepare a project brief" }).click();
   await page.getByLabel("Your name or business").fill("Portfolio QA");
   await page
     .getByLabel("A little about your idea")
@@ -375,7 +469,10 @@ await check(
     const listener = (req) => {
       // The illustration runs in our page; Drive's separate player may send
       // its own telemetry while the unrelated video iframe remains mounted.
-      if (["fetch", "xhr"].includes(req.resourceType()) && req.frame() === page.mainFrame())
+      if (
+        ["fetch", "xhr"].includes(req.resourceType()) &&
+        req.frame() === page.mainFrame()
+      )
         requests.push(req.url());
     };
     page.on("request", listener);
@@ -418,17 +515,10 @@ await check("Mobile menu opens, navigates and restores focus", async () => {
     .getByRole("link", { name: /About/ })
     .click();
   assert.ok(!(await page.locator("#mobile-menu").isVisible()));
-  await page.waitForURL(/#about$/, { timeout: 10000 });
-  assert.match(page.url(), /#about$/);
-  await page.waitForFunction(
-    () => {
-      const section = document.querySelector("#about");
-      if (!section) return false;
-      const top = section.getBoundingClientRect().top;
-      return top >= -1 && top < innerHeight / 2;
-    },
-    undefined,
-    { timeout: 10000 },
+  await page.waitForURL("**/about/", { timeout: 10000 });
+  assert.equal(
+    await page.locator("main h1").innerText(),
+    "The person behind the work.",
   );
 });
 await page.goto(new URL("/work/", baseURL).href, { waitUntil: "networkidle" });
@@ -570,7 +660,9 @@ await check(
 await check("Brief dialog scrolls with motion enabled", async () => {
   await motionPage.setViewportSize({ width: 1440, height: 650 });
   await motionPage.locator("#contact").scrollIntoViewIfNeeded();
-  await motionPage.getByRole("button", { name: "Prepare a brief" }).click();
+  await motionPage
+    .getByRole("button", { name: "Prepare a project brief" })
+    .click();
   const modal = motionPage.locator(".brief-dialog");
   await modal.evaluate((el) => {
     el.scrollTop = 0;

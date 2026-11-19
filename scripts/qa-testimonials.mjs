@@ -41,6 +41,12 @@ await check("Both client names and company selectors are present", async () => {
 });
 for (const width of [320, 390, 430, 768, 1024, 1440]) {
   await page.setViewportSize({ width, height: 1000 });
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await new Promise((resolve) =>
+      requestAnimationFrame(() => requestAnimationFrame(resolve)),
+    );
+  });
   await check(`Portrait player and page fit ${width}px`, async () => {
     const bounds = await page.locator(".testimonial-portrait").boundingBox();
     assert.ok(bounds && Math.abs(bounds.width / bounds.height - 9 / 16) < 0.01);

@@ -18,9 +18,9 @@ if (
 
 export const site = {
   name: "Hamid",
-  title: "Web Development & AI Automation in Pakistan | Hamid",
+  title: "Web Development, SEO & AI Automation | Hamid",
   description:
-    "Premium web development, useful AI automation, and chatbot development. Hamid is an independent developer based in Pakistan, collaborating with businesses and agencies worldwide.",
+    "I’m Hamid, an independent developer building distinctive websites, improving search and AI visibility, and creating practical automations for businesses and agencies.",
   url: configuredOrigin.origin,
   noindex: process.env.SEO_NOINDEX === "true",
   telephone: "+923356709222",

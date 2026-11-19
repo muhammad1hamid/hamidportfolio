@@ -16,7 +16,7 @@ For an insight, add the record in `data/insights.json` and a matching 1200 × 67
 - `data/testimonial-pages.ts`: watch-page slugs and optional verified transcripts/video metadata. VideoObject and video-sitemap output wait for actual thumbnail/publication data.
 - `data/planner.ts` and `data/enquiry-demo.ts`: transparent planning and demo rules. Changes to these rules require meaningful interaction/edge-case checks.
 
-- `data/services.json`: ten substantial service scopes. A new entry must include its own problem, audience, features, process, example, integration considerations, FAQ answers and related service slugs.
+- `data/services.json`: eleven service scopes, with display names, conventional descriptors and a pillar assignment. `data/services.ts` groups the catalog for the homepage and Services index. Growth Engine uses its own scope and delivery sections at `/growth/`. Preserve published slugs when editing service copy.
 - `data/articles.json`: articles with stable slugs, actual publication/update dates, category, introduction, sections and source links. Categories are maintained in `data/articles.ts`; empty categories do not produce indexable pages.
 - `data/projects.ts`: supplied website names, links, descriptions and captures. `data/project-details.ts` adds a publishable experience overview. Current detail pages are the six entries with actual notes.
 - `data/site.ts`: factual identity, contact links, canonical origin and staging setting.

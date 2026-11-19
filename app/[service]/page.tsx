@@ -2,10 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { servicePages, serviceBySlug } from "@/data/services";
 import { site } from "@/data/site";
-import { absolute, pageMeta } from "@/data/seo";
+import { pageMeta, serviceSchema } from "@/data/seo";
 import { ContentPage, ProjectCta } from "@/components/seo/ContentPage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceDecisions } from "@/components/seo/ServiceDecisions";
+import { GrowthEngine } from "@/components/seo/GrowthEngine";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -27,6 +28,7 @@ export default async function ServicePage({
 }) {
   const service = serviceBySlug((await params).service);
   if (!service) notFound();
+  if (service.deliverables) return <GrowthEngine service={service} />;
   const path = `/${service.slug}/`;
   return (
     <ContentPage
@@ -153,23 +155,7 @@ export default async function ServicePage({
         <Link href="/answers/">Project questions</Link> ·{" "}
         <Link href="/editorial-policy/">Content standards</Link>
       </p>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "@id": absolute(`${path}#service`),
-          name: service.name,
-          serviceType: service.name,
-          description: service.description,
-          url: absolute(path),
-          provider: { "@id": absolute("/#organization") },
-          areaServed: [
-            { "@type": "Country", name: "Pakistan" },
-            { "@type": "Place", name: "Remote / worldwide" },
-          ],
-          mainEntityOfPage: { "@id": absolute(`${path}#webpage`) },
-        }}
-      />
+      <JsonLd data={serviceSchema(service)} />
     </ContentPage>
   );
 }

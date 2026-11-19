@@ -15,6 +15,11 @@ assert.equal(new Set(urls).size, urls.length);
 assert.ok(urls.length >= 26);
 const origin = new URL(urls[0]).origin;
 const paths = urls.map((url) => new URL(url).pathname);
+const servicePaths = JSON.parse(
+  await readFile("data/services.json", "utf8"),
+).map((service) => `/${service.slug}/`);
+assert.equal(servicePaths.length, 11);
+assert.ok(servicePaths.every((service) => paths.includes(service)));
 const browser = await chromium.launch({
   executablePath:
     process.env.BROWSER_PATH ||
@@ -88,6 +93,15 @@ try {
       assert.equal(record.overflow, false, "mobile overflow");
       if (pathname !== "/") assert.ok(record.breadcrumb, "visible breadcrumbs");
       const nodes = record.schema.flatMap((item) => item["@graph"] || [item]);
+      if (servicePaths.includes(pathname)) {
+        const service = nodes.find((node) => node["@type"] === "Service");
+        assert.equal(service?.url, record.canonical, "Service canonical URL");
+        assert.equal(service?.provider?.["@id"], `${origin}/#organization`);
+        assert.equal(
+          service?.mainEntityOfPage?.["@id"],
+          `${record.canonical}#webpage`,
+        );
+      }
       for (const type of ["Person", "Organization", "WebSite"])
         assert.ok(
           nodes.some((node) => node["@type"] === type),
@@ -205,7 +219,10 @@ try {
       failures.push(
         `${pathname}: axe ${JSON.stringify(results.violations.map((item) => ({ id: item.id, nodes: item.nodes.map((node) => node.target) })))}`,
       );
-    for (const width of [320, 390, 768, 1440]) {
+    const widths = ["/growth/", "/services/", "/contact/"].includes(pathname)
+      ? [320, 375, 390, 768, 1024, 1440]
+      : [320, 390, 768, 1440];
+    for (const width of widths) {
       await interactive.setViewportSize({ width, height: 900 });
       assert.equal(
         await interactive.evaluate(
@@ -219,6 +236,8 @@ try {
   }
   for (const [pathname, file] of [
     ["/web-development/", "seo-service"],
+    ["/growth/", "seo-growth"],
+    ["/services/", "seo-service-index"],
     ["/blog/business-website-brief/", "seo-article"],
     ["/work/bridal-house/", "seo-project"],
     ["/", "seo-home"],
@@ -228,7 +247,7 @@ try {
       await interactive.goto(base + pathname, { waitUntil: "networkidle" });
       await interactive.screenshot({
         path: `qa-output/${file}-${width}.png`,
-        fullPage: true,
+        fullPage: !["/growth/", "/services/"].includes(pathname),
       });
     }
   }

@@ -1,50 +1,24 @@
-export const services = [
-  {
-    number: "01",
-    title: "Web development",
-    note: "A presence worth paying attention to.",
-    description:
-      "Fast, considered websites that make the right impression and move people to act.",
-    items: [
-      "Business websites & landing pages",
-      "E-commerce experiences",
-      "Redesigns & interactive frontends",
-    ],
-    word: "Experience",
-  },
-  {
-    number: "02",
-    title: "AI automation",
-    note: "Less busywork. More room to grow.",
-    description:
-      "Connected workflows that take repetitive work off your plate and keep your business moving.",
-    items: [
-      "Business & operational workflows",
-      "Lead and customer automation",
-      "API integrations & AI-powered systems",
-    ],
-    word: "Connection",
-  },
-  {
-    number: "03",
-    title: "Chatbot development",
-    note: "The right answer. At the right moment.",
-    description:
-      "Useful assistants that understand your business, support customers, and qualify the next conversation.",
-    items: [
-      "Website & WhatsApp AI assistants",
-      "AI receptionists & customer support",
-      "Lead qualification & custom chatbots",
-    ],
-    word: "Conversation",
-  },
-];
-
 export const faqs = [
   {
     question: "What can we build together?",
     answer:
-      "A new website, a sharper landing page, an e-commerce experience, an AI workflow, or a chatbot built for your business. I also partner with agencies that need an extra pair of technical hands.",
+      "A distinctive business website, a landing page, an internal tool, a chatbot or a workflow. I also partner with agencies that need development or automation support.",
+  },
+  {
+    question: "Can you work on an existing website?",
+    answer:
+      "Yes. Depending on the goal, I can review an existing site for design, development, search visibility or workflow improvements. The scope starts with what is already in place.",
+  },
+  {
+    question: "What does Growth Engine cover?",
+    answer:
+      "Growth Engine brings together technical SEO, clear answers to buyer questions, AI search readiness and practical improvements to your enquiry paths. An audit guides the work. Search and AI platforms decide which pages they rank or cite.",
+    link: "/growth/",
+  },
+  {
+    question: "Do I need every service?",
+    answer:
+      "We start with the problem. That might call for a website, a focused SEO improvement or a single automation.",
   },
   {
     question: "Do you work with clients outside Pakistan?",
@@ -54,14 +28,26 @@ export const faqs = [
   {
     question: "Can you help after the launch?",
     answer:
-      "Yes. We can discuss ongoing development, automation improvements, and support alongside the initial project. The scope is shaped around what your business actually needs.",
+      "Yes. We can discuss ongoing development, search visibility, automation improvements or support. The scope is shaped around what your business actually needs.",
   },
 ];
 
 export const process = [
-  { title: "Discover", text: "Find the real problem." },
-  { title: "Strategize", text: "Give the idea a direction." },
-  { title: "Build", text: "Make every detail count." },
-  { title: "Refine", text: "Test. Question. Improve." },
-  { title: "Launch", text: "Put good work into the world." },
+  {
+    title: "Discover",
+    text: "Understand the goal and what is already in place.",
+  },
+  {
+    title: "Define",
+    text: "Agree the scope, deliverables and how to check the work.",
+  },
+  {
+    title: "Build",
+    text: "Make the agreed changes or document what to tackle first.",
+  },
+  { title: "Check", text: "Test the changes and review them together." },
+  {
+    title: "Launch & improve",
+    text: "Hand over the work and agree what to revisit.",
+  },
 ];

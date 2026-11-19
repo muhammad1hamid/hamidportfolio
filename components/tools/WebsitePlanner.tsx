@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   goals,
+  growthGoal,
   businessTypes,
   pageOptions,
   integrationOptions,
@@ -11,6 +12,7 @@ import {
   type PlanInput,
 } from "@/data/planner";
 import { site } from "@/data/site";
+import { trackSiteEvent } from "@/data/site-events";
 
 export function WebsitePlanner() {
   const [input, setInput] = useState<PlanInput>(defaultPlan);
@@ -68,7 +70,12 @@ export function WebsitePlanner() {
           Main goal
           <select
             value={input.goal}
-            onChange={(event) => update("goal", event.target.value)}
+            onChange={(event) => {
+              const goal = event.currentTarget.value;
+              update("goal", goal);
+              if (goal === growthGoal)
+                trackSiteEvent("planner_growth_option_select");
+            }}
           >
             {goals.map((item) => (
               <option key={item}>{item}</option>
@@ -76,7 +83,11 @@ export function WebsitePlanner() {
           </select>
         </label>
         <fieldset className="tool-options">
-          <legend>Pages you have in mind</legend>
+          <legend>
+            {input.goal === growthGoal
+              ? "Pages you want to review"
+              : "Pages you have in mind"}
+          </legend>
           {pageOptions.map((item) => (
             <label key={item}>
               <input
@@ -165,7 +176,7 @@ export function WebsitePlanner() {
         </ul>
         <div className="related-links">
           <Link href={plan.related}>Explore the relevant service</Link>
-          <Link href={plan.example}>See a related website demo</Link>
+          <Link href={plan.example}>{plan.exampleLabel}</Link>
         </div>
         <div className="tool-actions">
           <button
@@ -183,7 +194,7 @@ export function WebsitePlanner() {
             data-contact-context="planner"
             onClick={(event) => {
               event.preventDefault();
-              const draft = `Hi Hamid, I'd like to discuss this website brief.\n\n${plan.text}`;
+              const draft = `Hi Hamid, I'd like to discuss this project brief.\n\n${plan.text}`;
               window.open(
                 `${site.whatsapp}?text=${encodeURIComponent(draft)}`,
                 "_blank",

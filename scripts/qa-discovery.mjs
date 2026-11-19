@@ -78,6 +78,9 @@ try {
       body: "Test WhatsApp destination",
     }),
   );
+  await context.addInitScript(() => {
+    window.dataLayer = [];
+  });
   const page = await context.newPage();
   page.on("pageerror", (e) => errors.push(e.message));
   const checkWhatsAppDraft = async (name, expectedText) => {
@@ -132,6 +135,97 @@ try {
     "",
   );
   checks.push("Planner reset clears notes");
+  await page.goto(base, { waitUntil: "networkidle" });
+  await page
+    .locator(".hero-actions")
+    .getByRole("link", { name: "Discuss your project" })
+    .click();
+  await page.waitForURL("**/contact/");
+  assert.equal(
+    await page
+      .getByRole("link", { name: "Message Hamid on WhatsApp" })
+      .getAttribute("href"),
+    "https://wa.me/923356709222",
+  );
+  const actionEvents = () =>
+    page.evaluate(() =>
+      window.dataLayer.filter((message) => typeof message.event === "string"),
+    );
+  assert.deepEqual(await actionEvents(), [
+    { event: "hero_primary_cta_click", page_path: "/" },
+  ]);
+  await page.goto(base, { waitUntil: "networkidle" });
+  await page
+    .locator(".hero-actions")
+    .getByRole("link", { name: "Explore selected work" })
+    .click();
+  await page.waitForURL("**/work/");
+  assert.deepEqual(await actionEvents(), [
+    { event: "hero_portfolio_cta_click", page_path: "/" },
+  ]);
+  await page.goto(base, { waitUntil: "networkidle" });
+  await page.locator(".pillar-card-growth-engine a").click();
+  await page.waitForURL("**/growth/");
+  assert.equal(await page.locator(".growth-deliverables h3").count(), 5);
+  assert.equal(
+    await page.locator(".growth-page .content-faq details").count(),
+    5,
+  );
+  await page
+    .locator(".growth-hero")
+    .getByRole("link", { name: /See what’s included/ })
+    .click();
+  await page.waitForURL("**/growth/#whats-included");
+  await page
+    .locator(".growth-hero")
+    .getByRole("link", { name: "Discuss Growth Engine" })
+    .click();
+  await page.waitForURL("**/contact/#growth-enquiry");
+  const popup = context.waitForEvent("page");
+  await page.getByRole("link", { name: "Message about Growth Engine" }).click();
+  const growthDraft = await popup;
+  await growthDraft.waitForURL("https://wa.me/**");
+  assert.equal(new URL(growthDraft.url()).pathname, "/923356709222");
+  assert.match(
+    new URL(growthDraft.url()).searchParams.get("text"),
+    /Growth Engine for my website/,
+  );
+  await growthDraft.close();
+  await page.getByRole("link", { name: /Prepare a project brief/ }).click();
+  await page.waitForURL("**/plan/");
+  await page
+    .getByLabel("Anything else?", { exact: false })
+    .fill("Private Growth Engine test notes.");
+  await page
+    .getByLabel("Main goal")
+    .selectOption("Growth Engine (SEO & AI visibility)");
+  assert.equal(
+    await page.locator("#plan-result-title").innerText(),
+    "Review an existing website",
+  );
+  assert.equal(
+    await page
+      .getByRole("link", { name: "Explore the relevant service" })
+      .getAttribute("href"),
+    "/growth/",
+  );
+  assert.deepEqual(await actionEvents(), [
+    { event: "service_pillar_click", page_path: "/", pillar: "growth-engine" },
+    { event: "growth_cta_click", page_path: "/growth/" },
+    { event: "contact_whatsapp_click", page_path: "/contact/" },
+    { event: "planner_open", page_path: "/contact/" },
+    { event: "planner_growth_option_select", page_path: "/plan/" },
+  ]);
+  const growthDownload = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download my brief" }).click();
+  const growthFile = await growthDownload;
+  const growthBrief = await readFile(await growthFile.path(), "utf8");
+  assert.match(growthBrief, /GROWTH ENGINE PROJECT BRIEF/);
+  assert.match(growthBrief, /Search Console or analytics/);
+  assert.match(growthBrief, /Private Growth Engine test notes/);
+  checks.push(
+    "Hero CTAs, Growth Engine enquiry and private planner brief work with safe action events",
+  );
   await page.goto(`${base}/demos/enquiry-assistant/`);
   await page
     .getByRole("button", {
@@ -212,7 +306,23 @@ try {
     await htmlPage.locator("main").innerText(),
     /How the recommendation works/,
   );
-  checks.push("Answers and tool explanations work without JavaScript");
+  await htmlPage.goto(`${base}/growth/`);
+  assert.equal(await htmlPage.locator("main h1").count(), 1);
+  assert.equal(
+    await htmlPage.locator(".growth-deliverables section").count(),
+    5,
+  );
+  assert.equal(
+    await htmlPage.locator(".growth-page .content-faq details").count(),
+    5,
+  );
+  assert.match(
+    await htmlPage.locator("main").innerText(),
+    /AI Search Discoverability/,
+  );
+  checks.push(
+    "Answers, tool explanations and Growth Engine content work without JavaScript",
+  );
   await plain.close();
   assert.deepEqual(errors, []);
 } finally {
