@@ -1,10 +1,17 @@
 # Content maintenance
 
+## Editorial standard
+
+Apply the ElevateX AI Visibility Master Prompt to content for Hamid's portfolio. Give each page a distinct buyer question, a direct opening answer, useful examples, relevant service and reading links, and source links for factual claims. Keep the portfolio's name, domain and verified contact details consistent. Label illustrative examples and self-directed demos clearly. Publish case results, client quotes and business facts only with evidence and permission.
+
+For an insight, add the record in `data/insights.json` and a matching 1200 × 675 WebP cover in `public/images/insights/`. Include concise poster text, meaningful alt text, a date that reflects actual editorial work, approved source links and a topic-specific WhatsApp message. Generated editorial art illustrates the topic. Use identified project screenshots when the visual needs to substantiate a real project claim. The existing template builds the article route, responsive cover, social card, related reading, schema and sitemap entry.
+
 ## Sources of truth
 
 - `data/experience-pages.json`: metadata/share-card/sitemap registration for the answer library, tools, watch pages and content standards.
 - `data/answers.json`: the 20 visible buyer questions and contextual destinations. Avoid publishing separate URLs for near-identical questions.
 - `data/guides.json`: additional decision guides with optional comparison tables and internal references; merged with existing articles by `data/articles.ts`.
+- `data/insights.json`: original editorial articles with cover art, next reads, and a contextual WhatsApp action. Existing `/blog/` URLs remain stable.
 - `data/demo-projects.json`: owner-confirmed self-directed demo status, development role and visible interface commentary. Do not relabel demos as client results.
 - `data/testimonial-pages.ts`: watch-page slugs and optional verified transcripts/video metadata. VideoObject and video-sitemap output wait for actual thumbnail/publication data.
 - `data/planner.ts` and `data/enquiry-demo.ts`: transparent planning and demo rules. Changes to these rules require meaningful interaction/edge-case checks.
@@ -35,6 +42,7 @@ After an edit, run `npm run build`. This regenerates the static pages, metadata,
 | `/work/` | Inspect supplied website examples | Live demos, mobile/desktop captures |
 | `/case-studies/` | Read verified experience notes | Features and visitor journeys |
 | `/blog/` | Make project-planning decisions | Website briefs, agents/workflows, lead handling |
+| `/insights/` | Learn from practical website and automation articles | Enquiry design, measurement, launch QA, workflow selection, project evidence |
 
 Pakistan is the factual base; Islamabad/Rawalpindi are mentioned only as remote service markets. Do not create near-duplicate city pages or invent an office.
 

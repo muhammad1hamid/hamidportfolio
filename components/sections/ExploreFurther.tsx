@@ -49,9 +49,14 @@ export function ExploreFurther() {
           </article>
         ))}
       </div>
-      <Link className="text-link" href="/answers/">
-        Browse website and automation questions
-      </Link>
+      <div className="related-links">
+        <Link className="text-link" href="/insights/">
+          Read website and automation insights
+        </Link>
+        <Link className="text-link" href="/answers/">
+          Browse website and automation questions
+        </Link>
+      </div>
     </section>
   );
 }

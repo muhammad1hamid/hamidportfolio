@@ -8,6 +8,7 @@ const articles = [
   ...JSON.parse(await readFile("data/articles.json", "utf8")),
   ...JSON.parse(await readFile("data/guides.json", "utf8")),
 ];
+const insights = JSON.parse(await readFile("data/insights.json", "utf8"));
 const experiencePages = JSON.parse(
   await readFile("data/experience-pages.json", "utf8"),
 );
@@ -37,6 +38,7 @@ const cards = [
   ["work", "18 websites. Different worlds.", "THE PORTFOLIO"],
   ["case-studies", "The details behind the experience.", "PROJECT NOTES"],
   ["blog", "Better questions. Clearer projects.", "PRACTICAL GUIDES"],
+  ["insights", "Website and automation insights", "HAMID / INSIGHTS"],
   ...experiencePages.map((p) => [
     p.path.split("/").filter(Boolean).join("-"),
     p.title.replace(/ \| Hamid$/, ""),
@@ -75,6 +77,32 @@ for (const [slug, title, label] of cards) {
   await sharp(Buffer.from(svg)).png().toFile(`public/images/share/${slug}.png`);
 }
 await mkdir("public/images/responsive", { recursive: true });
+for (const { slug, cover } of insights) {
+  const source = `public/images/insights/${slug}.webp`;
+  const blue = cover.tone === "blue";
+  const colors = blue ? ["#ffffff", "#ffe3a8"] : ["#101112", "#1239bc"];
+  const text = cover.poster
+    .map(
+      (line, index) =>
+        `<text x="60" y="${370 + index * 78}" fill="${colors[index] || colors[0]}" font-size="78" font-weight="800" letter-spacing="-4">${escape(line.toUpperCase())}</text>`,
+    )
+    .join("");
+  const typography = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" font-family="Arial, sans-serif"><text x="60" y="61" fill="${colors[0]}" font-size="24" font-weight="700">HAMID / INSIGHTS</text>${text}</svg>`;
+
+  await sharp(source)
+    .resize(1200, 630)
+    .composite([{ input: Buffer.from(typography) }])
+    .jpeg({ quality: 87, mozjpeg: true })
+    .toFile(`public/images/share/insights-${slug}.jpg`);
+
+  for (const width of [480, 768]) {
+    await sharp(source)
+      .resize({ width })
+      .webp({ quality: 82 })
+      .toFile(`public/images/responsive/insight-${slug}-${width}.webp`);
+  }
+}
+
 for (const width of [480, 768]) {
   await sharp("public/images/hamid-hero.webp")
     .resize({ width })
@@ -95,5 +123,5 @@ for (const name of originals) {
   }
 }
 console.log(
-  `Prepared ${cards.length} page-specific share images and responsive portrait/project assets.`,
+  `Prepared ${cards.length + insights.length} page-specific share images and responsive portrait, project and insight assets.`,
 );

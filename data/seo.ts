@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { site } from "./site";
 import { servicePages } from "./services";
 import { articles } from "./articles";
+import { insights, insightPath } from "./insights";
 import { projects } from "./projects";
 import { projectDetails } from "./project-details";
 import experiencePages from "./experience-pages.json";
@@ -73,9 +74,15 @@ export const publicRoutes: {
 }[] = [
   { path: "/", priority: 1 },
   ...experiencePages.map((page) => ({ path: page.path, priority: 0.7 })),
-  ...["services", "about", "contact", "work", "case-studies", "blog"].map(
-    (slug) => ({ path: `/${slug}/`, priority: 0.7 }),
-  ),
+  ...[
+    "services",
+    "about",
+    "contact",
+    "work",
+    "case-studies",
+    "blog",
+    "insights",
+  ].map((slug) => ({ path: `/${slug}/`, priority: 0.7 })),
   ...servicePages.map((service) => ({
     path: `/${service.slug}/`,
     priority: 0.8,
@@ -88,6 +95,11 @@ export const publicRoutes: {
     path: `/blog/${article.slug}/`,
     priority: 0.6,
     modified: article.modified || article.date,
+  })),
+  ...insights.map((insight) => ({
+    path: insightPath(insight.slug),
+    priority: 0.6,
+    modified: insight.modified || insight.date,
   })),
 ];
 

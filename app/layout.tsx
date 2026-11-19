@@ -12,6 +12,7 @@ import "./testimonials.css";
 import "./content.css";
 import "./discovery.css";
 import "./analytics.css";
+import "./insights.css";
 
 const tagManager = `
   (function (w, d) {

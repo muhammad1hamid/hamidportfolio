@@ -46,6 +46,7 @@ export function ContentPage({
   crumbs,
   children,
   type,
+  className,
 }: {
   path: string;
   title: string;
@@ -54,9 +55,13 @@ export function ContentPage({
   crumbs?: Crumb[];
   children: React.ReactNode;
   type?: string;
+  className?: string;
 }) {
   return (
-    <main id="main" className="content-page wrap">
+    <main
+      id="main"
+      className={`content-page wrap${className ? ` ${className}` : ""}`}
+    >
       <Breadcrumbs items={crumbs || [{ label, href: path }]} />
       <header className="content-hero">
         <span className="eyebrow">
@@ -73,10 +78,15 @@ export function ContentPage({
 export function ProjectCta({
   title = "Let’s scope your next move.",
   text = "Share your goal, current setup and any references. I’ll help identify the work needed before we agree on scope and timing.",
+  whatsappMessage,
 }: {
   title?: string;
   text?: string;
+  whatsappMessage?: string;
 }) {
+  const whatsapp = whatsappMessage
+    ? `${site.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`
+    : site.whatsapp;
   return (
     <section className="content-cta">
       <div>
@@ -86,12 +96,19 @@ export function ProjectCta({
       </div>
       <div className="content-actions">
         <a
-          href={site.whatsapp}
+          href={whatsapp}
           target="_blank"
           rel="noopener noreferrer"
           className="button button-accent"
+          data-contact-context={whatsappMessage ? "insight" : undefined}
+          aria-label={
+            whatsappMessage
+              ? "Discuss on WhatsApp (opens in a new tab)"
+              : undefined
+          }
         >
-          Discuss your project <Arrow diagonal />
+          {whatsappMessage ? "Discuss on WhatsApp" : "Discuss your project"}{" "}
+          <Arrow diagonal />
         </a>
         <Link href="/contact/" className="text-link">
           Contact details ↗

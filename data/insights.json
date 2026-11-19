@@ -1,0 +1,659 @@
+[
+  {
+    "slug": "whatsapp-enquiry-path",
+    "title": "Make Your WhatsApp Enquiry Path Easy to Use",
+    "description": "Design a clear path from a service page to WhatsApp. Choose the right button placement, write a useful draft and test the handoff on a phone.",
+    "category": "Website design",
+    "date": "2026-11-20",
+    "excerpt": "A practical way to get from a service page to a useful first conversation, with fewer decisions for the visitor.",
+    "intro": "Put a clear WhatsApp action where a visitor has enough information to ask a useful question. Name the action, carry the service context into a short editable draft, and test the whole journey on a real phone.",
+    "cover": {
+      "alt": "A pale route leads directly to a phone on a cobalt blue background.",
+      "poster": ["From tap", "to chat."],
+      "tone": "blue"
+    },
+    "related": [
+      "web-development",
+      "landing-page-development",
+      "whatsapp-ai-chatbot"
+    ],
+    "relatedReads": [
+      "/insights/measure-whatsapp-enquiries/",
+      "/insights/mobile-website-launch-checklist/",
+      "/blog/landing-page-or-full-website/"
+    ],
+    "cta": {
+      "title": "Review your enquiry path.",
+      "text": "Share the page you want people to enquire from and what a useful first message would contain.",
+      "message": "Hi Hamid, I read your guide about website enquiry paths. Can we review how visitors reach WhatsApp from my site?"
+    },
+    "sections": [
+      {
+        "id": "choose-the-moment",
+        "heading": "Choose the moment the visitor is ready",
+        "paragraphs": [
+          "Start with one page and one visitor. Someone arriving on a service page from search usually needs three pieces of information before they start a conversation: whether the service covers their problem, whether there is a relevant example, and what happens when they get in touch. Give them a short route through those answers.",
+          "For a custom furniture business, that could mean showing the types of spaces it works on, a real finished piece with dimensions, and a sentence explaining that a first reply will ask about measurements and materials. A button resting beside those details carries more context than one floating over an unrelated photograph.",
+          "On a short landing page, a clear action after the opening offer and another after the proof can be enough. On a longer page, repeat the action only when the reader has answered a new question about fit or cost. Put a fallback contact link near the main action so someone on a shared device can choose their own route."
+        ],
+        "links": [
+          {
+            "label": "Compare a landing page and a full website",
+            "href": "/blog/landing-page-or-full-website/"
+          }
+        ]
+      },
+      {
+        "id": "name-the-action",
+        "heading": "Give the button a specific job",
+        "paragraphs": [
+          "Use a verb that tells the visitor what they are opening. “Ask about a bridal consultation on WhatsApp” gives more information than an arrow or an isolated chat icon. Keep the wording compact when space is tight, and mention WhatsApp in the accessible name if you use an icon beside it.",
+          "Separate the decision to browse from the decision to enquire. The Bridal House walkthrough is a self-directed interface demo. Its collection and consultation routes illustrate two different intentions: someone still comparing styles, and someone who has a specific question. The useful design choice is giving those intentions clear paths. The example shows interface structure and makes no booking claim.",
+          "A quiet secondary link such as “See collections” lets a visitor keep learning. Use the same primary action label each time you repeat it on a page. A change of label should correspond to a real change in what the link does."
+        ],
+        "links": [
+          {
+            "label": "Inspect the Bridal House demo walkthrough",
+            "href": "/work/bridal-house/"
+          }
+        ]
+      },
+      {
+        "id": "write-the-draft",
+        "heading": "Carry just enough context into the chat",
+        "paragraphs": [
+          "The first message starts the conversation. Keep it short and editable. A suitable draft for a website service could be “Hi, I’m looking at your business website service. Can we discuss the scope?” The person receiving the enquiry now knows which service attracted the visitor without needing the visitor to copy a page name.",
+          "For a secondhand watch listing, the useful context is the model reference. For a service page, it could be the type of project. For a neutral contact page, a short greeting is enough. Do not prefill an availability claim, a discount, a promise to reply in a set period, or personal details the visitor has entered elsewhere.",
+          "Verify the central WhatsApp number with the business, use international digits in the wa.me path, and URL-encode the preset text. Treat “opens a draft” as the interface outcome. The visitor still chooses whether to send it. Where a brief includes typed project notes, construct the sharing link when the visitor chooses to open it."
+        ]
+      },
+      {
+        "id": "mobile-placement",
+        "heading": "Make the mobile action easy to reach",
+        "paragraphs": [
+          "Open the page at a narrow width and use one thumb. A button should sit beside the content it acts on and have enough space away from other actions. WCAG 2.2 specifies a 24 by 24 CSS pixel minimum pointer target or qualifying spacing and exceptions. For a main mobile CTA, a larger tap area is usually more comfortable.",
+          "A sticky action can be useful once the first visible enquiry button has scrolled away. Check it over videos, menus, forms and the last line of each section. If an overlay covers a player control or an input, make the action part of the regular page flow there. Verify that keyboard focus stays visible below any fixed header and above the sticky action.",
+          "Keep WhatsApp available without turning the screen into a collection of repeated floating buttons. The visitor should be able to read the offer, choose a next step and back out of it without a surprise."
+        ]
+      },
+      {
+        "id": "run-the-handoff",
+        "heading": "Test the complete handoff before launch",
+        "paragraphs": [
+          "A correct-looking button can still have the wrong number, lose its message, or open a tab with no useful fallback. Test from the same entry point a prospect would use and write down what you observed. If a test opens an app or tab, stop at the draft unless the business agrees to receive a test message.",
+          "Ask the person handling enquiries to read one draft from each of the main services. They should be able to tell which service it refers to, what question to ask next, and who follows up. Test support for a visitor who uses the contact page instead."
+        ],
+        "items": [
+          "Open the page from a phone and a desktop browser, including an entry from a deep link.",
+          "Check that the CTA label, destination number and draft all describe the same service.",
+          "Tab to the link, activate it with the keyboard, and check that focus remains clear when returning.",
+          "Verify the destination on a device without an active WhatsApp session and check the alternate contact route.",
+          "Test one draft containing punctuation and a line break to catch encoding mistakes."
+        ],
+        "links": [
+          {
+            "label": "Run the mobile release checklist",
+            "href": "/insights/mobile-website-launch-checklist/"
+          }
+        ]
+      },
+      {
+        "id": "review-one-improvement",
+        "heading": "Change one enquiry decision at a time",
+        "paragraphs": [
+          "Review enquiries for questions the page should already have answered. If people keep asking whether a service is available in their area, review the scope copy. If they ask for an item shown in the portfolio, add an appropriate next step beside that example. If a team cannot tell which page sent a visitor, improve the service-specific draft and the click event context.",
+          "Pick one improvement and record what you changed and why. Keep a short comparison period with similar traffic sources if you can. A click shows the button was used. A conversation and a qualified enquiry need separate evidence from the team handling it."
+        ],
+        "links": [
+          {
+            "label": "Set up a simple enquiry measurement model",
+            "href": "/insights/measure-whatsapp-enquiries/"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "WhatsApp Help Center: Use click to chat",
+        "url": "https://faq.whatsapp.com/5913398998672934"
+      },
+      {
+        "title": "W3C: WCAG 2.2 target size",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"
+      },
+      {
+        "title": "W3C: Keep keyboard focus visible",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html"
+      }
+    ]
+  },
+  {
+    "slug": "measure-whatsapp-enquiries",
+    "title": "What a WhatsApp Click Actually Measures",
+    "description": "Separate clicks, conversations and qualified enquiries. Build a measurement plan for a service website and test the events without collecting private messages.",
+    "category": "Measurement",
+    "date": "2026-11-20",
+    "excerpt": "Define four stages from a website tap to a business outcome, and know exactly which ones your tools can observe.",
+    "intro": "A WhatsApp click measures an attempt to leave the site and open a chat. Use an on-site event for that attempt, then record real conversations and qualified enquiries separately using evidence from the people handling them.",
+    "cover": {
+      "alt": "A black pointer presses a cobalt button beside a separate clear acrylic chat bubble.",
+      "poster": ["After", "the click."],
+      "tone": "paper"
+    },
+    "related": [
+      "business-dashboards",
+      "web-development",
+      "whatsapp-ai-chatbot"
+    ],
+    "relatedReads": [
+      "/insights/whatsapp-enquiry-path/",
+      "/insights/first-workflow-to-automate/",
+      "/blog/website-enquiry-follow-up-workflow/"
+    ],
+    "cta": {
+      "title": "Define your enquiry events.",
+      "text": "Share where leads arrive, what your team considers qualified, and which tools you already use.",
+      "message": "Hi Hamid, I read your guide about measuring WhatsApp clicks. I'd like help defining website enquiry events and lead stages."
+    },
+    "sections": [
+      {
+        "id": "define-stages",
+        "heading": "Give each stage an observable definition",
+        "paragraphs": [
+          "Start with the question your report needs to answer. A page owner may need to know which pages prompt people to get in touch. An enquiry manager needs to know which messages fit the service and who owns the next action. Those questions require different evidence.",
+          "Write the definitions before implementing tags or building a dashboard. Keep them stable while you compare periods. Pick a single rule for follow-up messages in existing threads, repeat clicks, and enquiries that arrive through more than one channel."
+        ],
+        "table": {
+          "headers": ["Stage", "Count when", "Evidence"],
+          "rows": [
+            [
+              "CTA click",
+              "Someone deliberately activates the WhatsApp link",
+              "Website click event"
+            ],
+            [
+              "Conversation",
+              "The business receives a project-related message",
+              "Inbox or approved integration"
+            ],
+            [
+              "Qualified enquiry",
+              "A person confirms the enquiry fits agreed service criteria",
+              "Lead record with a defined stage"
+            ],
+            [
+              "Outcome",
+              "The business confirms an appointment, quote or sale",
+              "Appointment, proposal or sales record"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "choose-the-event",
+        "heading": "Send one event for an intentional click",
+        "paragraphs": [
+          "Pick one implementation owner for the event. If a site emits the event itself, a GTM custom event trigger can receive it. If GTM measures link clicks directly, make sure a second listener in the site is not sending the same action to the same property. Run one test interaction and inspect the destination before using the report.",
+          "Use a small event payload. A useful starting set is a normalized page path, a placement such as hero or article end, and a service or topic label. Those fields are enough to compare whether visitors use the service-page action or wait until the contact section. Keep customer phone numbers, message drafts, clipboard content and form notes out of event fields and URLs.",
+          "For Ahrefs Web Analytics, custom tracked events can be defined in the site's integration. For Google Tag Manager, a custom event trigger has to match the event name the website actually pushes. Confirm which tool is collecting which event. A script visible on the site shows installation, while a test in the analytics destination shows receipt."
+        ]
+      },
+      {
+        "id": "qualify-within-the-inbox",
+        "heading": "Make qualification a shared team decision",
+        "paragraphs": [
+          "Give the person handling the inbox a definition they can apply consistently. For a custom web development enquiry, useful criteria might include an identifiable business need, work within the team's scope, and someone available to discuss the next step. Decide whether the team records timing or budget after the first reply or at a later stage.",
+          "A simple lead log can be enough at low volume. Use the date, broad source when known, service, status and next action. Keep private conversation details in the system your team already uses for the inbox. If a visitor says they came from the website, record that as self-reported rather than assuming you can identify the exact click.",
+          "When a CRM or approved messaging integration exists, set a deduplication rule and a record owner before connecting it. A forwarded conversation, a follow-up from the same person or a retried webhook should not create multiple qualified leads for one project."
+        ],
+        "links": [
+          {
+            "label": "Plan enquiry follow-up after the first message",
+            "href": "/blog/website-enquiry-follow-up-workflow/"
+          }
+        ]
+      },
+      {
+        "id": "read-a-report",
+        "heading": "Read the two sides of the report together",
+        "paragraphs": [
+          "Consider an illustrative month with 28 recorded WhatsApp clicks and nine enquiries that staff marked as coming from the website. The difference signals something to investigate: people may have opened the chat without sending, repeated the click, or arrived via a page the team could not identify. Without a reliable matching method, the two counts do not form a precise funnel.",
+          "Look at landing pages, device groups and traffic mix before drawing a conclusion. A large increase from one campaign can change who is visiting a page. A button experiment on a slow or broken mobile page may measure frustration more than intent. Record changes and dates alongside the numbers.",
+          "A practical weekly note is short. Name the page or action that changed, show clicks and independently verified enquiries, list unknown sources, and choose one thing to check. Keep a distinction between a display of observed counts and a claim that one design caused a result."
+        ]
+      },
+      {
+        "id": "qa-the-event",
+        "heading": "Verify the event from page to report",
+        "paragraphs": [
+          "Use a test environment or a debug view with test traffic separated where possible. Walk through the actual journey once on desktop and once on a phone. Work with a consent setting that reflects the visitor's choice. Decide what the system should do when consent is absent and verify that behavior too.",
+          "Review the event payload and the receiving tool, while keeping the test message unsent unless the inbox owner has approved it. Clicks from a sticky action and from a service page should share the event definition and have different placement values. Use a browser navigation between pages to catch accidentally duplicated listeners."
+        ],
+        "items": [
+          "Check exactly one event reaches the intended destination for a single activation.",
+          "Check that the event includes the meaningful path and placement without a private message or other free text.",
+          "Test the same action with tracking unavailable and confirm the WhatsApp link still works.",
+          "Ask the inbox owner to walk through their criteria for qualified and closed stages.",
+          "Keep an explicit unknown category for leads whose source could not be established."
+        ],
+        "links": [
+          {
+            "label": "Improve the enquiry path the event observes",
+            "href": "/insights/whatsapp-enquiry-path/"
+          }
+        ]
+      },
+      {
+        "id": "start-with-a-small-dashboard",
+        "heading": "Build the smallest report your team will use",
+        "paragraphs": [
+          "A good first dashboard can show traffic by service page, outbound clicks by placement, total received enquiries, and qualified enquiries with known or unknown source. Put the measurement window on it and define overlapping counts before deriving a rate. Keep charts of low counts simple enough that a reader can see individual values.",
+          "Review it alongside the inbox. If visitors reach the page but rarely use the button, inspect the offer and action. If chats begin but enquiries rarely fit the work, check what the page promised. When the inbox is receiving suitable enquiries and replies get delayed, the next investment may be a follow-up process rather than another analytics tag."
+        ],
+        "links": [
+          {
+            "label": "Explore business dashboard development",
+            "href": "/business-dashboards/"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "Google Tag Manager: Custom event triggers",
+        "url": "https://support.google.com/tagmanager/answer/7679219?hl=en"
+      },
+      {
+        "title": "Google Tag Platform: The data layer",
+        "url": "https://developers.google.com/tag-platform/tag-manager/datalayer"
+      },
+      {
+        "title": "Ahrefs: Tracked events in Web Analytics",
+        "url": "https://help.ahrefs.com/en/articles/11381932-tracked-events-in-ahrefs-web-analytics"
+      }
+    ]
+  },
+  {
+    "slug": "mobile-website-launch-checklist",
+    "title": "A Mobile Launch Checklist for Business Websites",
+    "description": "Test your business website on a real phone before release. Check layout, keyboard access, images, enquiry links and page speed with a repeatable checklist.",
+    "category": "Launch quality",
+    "date": "2026-11-20",
+    "excerpt": "Run six practical checks before sharing the live link, from narrow layouts and contact actions to slow connections.",
+    "intro": "Before announcing a new site, open a service page on a real phone and complete the task you want a customer to do. Check that the offer is readable, the proof loads, and the contact action reaches the right place. Repeat on a slower connection and with keyboard navigation.",
+    "cover": {
+      "alt": "A brushed-metal caliper checks a phone against a cobalt circle.",
+      "poster": ["Mobile", "fit check."],
+      "tone": "paper"
+    },
+    "related": ["web-development", "landing-page-development"],
+    "relatedReads": [
+      "/insights/whatsapp-enquiry-path/",
+      "/insights/portfolio-demo-evidence/",
+      "/blog/business-website-brief/"
+    ],
+    "cta": {
+      "title": "Plan a smoother mobile launch.",
+      "text": "Share the site, the phone or browser showing the issue, and the action customers need to complete.",
+      "message": "Hi Hamid, I read your mobile website launch checklist. Can we review the mobile experience on my site?"
+    },
+    "sections": [
+      {
+        "id": "test-real-entry-points",
+        "heading": "Start where a prospect lands",
+        "paragraphs": [
+          "Select three pages that represent real routes into the site: the homepage, a priority service page, and a project or guide someone could find directly. Open them as a first-time visitor in a clean browser session. Check that a deep link works on refresh and that the main page content appears before optional media or animation.",
+          "Write down one task for each page. On a service page the task might be “find out who the service is for and ask about a quote”. On a project page it might be “see the mobile version and decide whether to discuss similar work”. Give the same tasks to someone unfamiliar with the site and watch where they pause.",
+          "A narrow responsive viewport catches overflow and wrapping. A real iPhone or Android device adds details a screenshot can miss, such as browser bars, mobile keyboards, system font size and whether an external app opens the way a visitor expects."
+        ]
+      },
+      {
+        "id": "read-the-first-screen",
+        "heading": "Check the first screen and a long scroll",
+        "paragraphs": [
+          "At each entry point, scan the opening screen for the service name and a clear next step. Look for awkward line breaks, low-contrast descriptions, tiny captions and cards that run past an edge. Try a longer name and a browser zoom or system text-size change. Content that is readable only at one text scale will be fragile when edited later.",
+          "Scroll slowly through long sections. Images should make space before they load, and a fixed bar should leave the important parts of each section visible. Check an expanded FAQ, a large image, a video and a form with the keyboard open. Use a visible overflow affordance for any table the visitor needs to scroll sideways.",
+          "Reduce motion in your operating system and repeat. The essential content and meaning should still be available. Keep quick visual polish such as hover effects subordinate to actions people can activate with touch and keyboard."
+        ]
+      },
+      {
+        "id": "exercise-the-enquiry",
+        "heading": "Exercise the enquiry as a user",
+        "paragraphs": [
+          "Tap the main enquiry button from one service and one project. Verify that the destination and purpose match each label. For a WhatsApp handoff, stop at the draft and check the correct number, readable text and fallback path. On a form, send a test only with permission. Confirm validation, error copy, what happens after a successful submission and what the team actually receives.",
+          "Repeat with Tab and Enter on desktop. Look for a clear focus ring and make sure a sticky header or footer does not cover it. Open the menu and project preview, close each with the keyboard, and verify focus has a sensible place to return. On mobile, check that the control still makes sense without hover.",
+          "If the action opens an external browser, app or new tab, confirm there is a way back to the page. People who come back from a chat should still be able to read the service information or choose contact details."
+        ],
+        "links": [
+          {
+            "label": "Design a clear WhatsApp enquiry path",
+            "href": "/insights/whatsapp-enquiry-path/"
+          }
+        ]
+      },
+      {
+        "id": "check-slow-loading",
+        "heading": "Use a slow run to find the first bottleneck",
+        "paragraphs": [
+          "Run a cold load on a slower connection and note what appears first. A large above-the-fold photo, render-blocking styles, many font files and third-party embeds can change when the visitor sees useful content. Check whether the browser discovers the main image early and receives a size appropriate to the viewport. Reserve its dimensions to prevent a jump while it loads.",
+          "Use responsive image sizes and defer media farther down the page. Load the main visual promptly when it is likely to be the largest visible item. Measure before adding a preload; preloading several competing images can use bandwidth the page needs elsewhere.",
+          "Google's good Core Web Vitals thresholds are LCP of 2.5 seconds or less, INP of 200 milliseconds or less, and CLS of 0.1 or less, evaluated at the 75th percentile of visits. A throttled local run helps identify a bottleneck. Field data from real users establishes how the site performs across devices and networks over time. Keep the two readings labelled in your handoff."
+        ]
+      },
+      {
+        "id": "record-clear-release-criteria",
+        "heading": "Keep a release sheet you can run again",
+        "paragraphs": [
+          "Record the device and browser, URL, action, expected result, actual result and owner of any fix. Repeat just the affected task after a change, then perform one small end-to-end pass before launch. A colleague should be able to reproduce the report without guessing where the defect appeared.",
+          "Prioritise failures that hide the offer, block navigation, make contact unusable or point to the wrong destination. An awkward decorative wrap may be less urgent than a short input someone cannot reach when the keyboard opens. Use the following checks as a starting list."
+        ],
+        "items": [
+          "First screen: service is identifiable and the page offers one clear next step.",
+          "Layout: body copy remains readable at a narrow width and a larger text size.",
+          "Proof: one project or image loads properly with an appropriate crop and meaningful text.",
+          "Interaction: menu, links and dialogs can be used with touch and the keyboard.",
+          "Enquiry: the intended recipient and form or chat flow work, with a fallback route.",
+          "Production URL: the chosen HTTPS address, deep links and missing-page response behave correctly."
+        ]
+      },
+      {
+        "id": "test-after-deployment",
+        "heading": "Repeat key checks on the deployed URL",
+        "paragraphs": [
+          "Open the final HTTPS address from a device outside the development environment. Hosting can change compression, redirects, asset availability, caching and third-party script behavior. Compare a service page and one media-heavy page with your local record. Confirm that a link shared with a new browser lands on the same intended page.",
+          "Choose a next review date and one measurable improvement. If the deployed hero is slow, start with its download and paint timing. If mobile enquiries fail to complete, trace one real device route. A short repeatable test gives more useful information than a single overall score."
+        ],
+        "links": [
+          {
+            "label": "Prepare a business website brief before building",
+            "href": "/blog/business-website-brief/"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "web.dev: Web Vitals thresholds and measurement",
+        "url": "https://web.dev/articles/vitals"
+      },
+      {
+        "title": "web.dev: Optimise Largest Contentful Paint",
+        "url": "https://web.dev/articles/optimize-lcp"
+      },
+      {
+        "title": "W3C: WCAG 2.2 focus not obscured",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html"
+      }
+    ]
+  },
+  {
+    "slug": "first-workflow-to-automate",
+    "title": "Which Business Workflow Should You Automate First?",
+    "description": "Choose a first automation by mapping volume, ownership and exceptions. Use a clear scope, a human fallback and a pilot that measures completed work.",
+    "category": "Automation",
+    "date": "2026-11-20",
+    "excerpt": "A decision framework for choosing a small repeatable task with a clear owner, test cases and a safe manual fallback.",
+    "intro": "Start with a recurring task that has a reliable trigger, consistent inputs, a defined output and a person responsible for exceptions. Map a few real instances, then pilot one small step before connecting the entire workflow.",
+    "cover": {
+      "alt": "An industrial gripper precisely places one orange domino into a row.",
+      "poster": ["Automate", "one thing."],
+      "tone": "blue"
+    },
+    "related": ["workflow-automation", "ai-automation", "business-dashboards"],
+    "relatedReads": [
+      "/insights/measure-whatsapp-enquiries/",
+      "/blog/ai-agent-chatbot-workflow/",
+      "/blog/chatbot-human-handover/"
+    ],
+    "cta": {
+      "title": "Scope your first automation.",
+      "text": "Bring one recurring task, a rough volume and a few examples of what goes wrong today.",
+      "message": "Hi Hamid, I read your guide on choosing a first automation. I'd like to discuss a repeatable task my team handles."
+    },
+    "sections": [
+      {
+        "id": "start-with-real-work",
+        "heading": "Inspect actual instances of the work",
+        "paragraphs": [
+          "Ask the person who does the work to show several recent instances. Watch where information arrives, which tools they open, who makes the decision and where the result goes. Write down an ordinary example and two troublesome ones. An automation built from a tidy verbal description often misses the judgement people use to handle exceptions.",
+          "For a small agency, paperwork may begin with a contact form, a WhatsApp conversation or a forwarded email. A human decides whether the message is about a new engagement or an existing project before routing it. If the same details are copied into a board at the end of every new enquiry, that recording step might be a good first candidate.",
+          "Measure the burden in plain terms. Count the instances over a representative period and estimate the handling effort from a sample. Keep guesses separate from observed time. A task with frequent avoidable rework can be a better pilot than an interesting task that happens monthly."
+        ]
+      },
+      {
+        "id": "score-a-shortlist",
+        "heading": "Shortlist tasks by friction and certainty",
+        "paragraphs": [
+          "List three candidate tasks. For each, note frequency, repeated manual work, the quality of available input, the cost of an incorrect action, and the person who can take over. A first choice should be small enough to inspect from trigger to completion and straightforward to reverse or correct.",
+          "Consider a team that copies enquiries, sends follow-up reminders and occasionally prepares a quote. Copying a structured submission into a review queue has a clearer definition of done than setting a price. A reminder can work once the team agrees on who owns replies and which stage counts as waiting."
+        ],
+        "table": {
+          "headers": ["Candidate", "Useful first scope", "Keep with a person"],
+          "rows": [
+            [
+              "New enquiry intake",
+              "Create one draft record from a structured submission",
+              "Review incomplete or conflicting information"
+            ],
+            [
+              "Follow-up reminders",
+              "Flag items waiting past an agreed interval",
+              "Decide whether and how to contact the person"
+            ],
+            [
+              "Scope or price estimate",
+              "Collect a standard set of inputs for review",
+              "Approve scope, exclusions, price and commitments"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "define-the-contract",
+        "heading": "Write down the trigger, output and owner",
+        "paragraphs": [
+          "Describe the workflow as a small contract. A new valid form submission triggers the process. The source needs to provide the enquiry ID, service choice and a contact route. The output is one item in the review queue. An owner receives incomplete items and can recover an item if the integration fails.",
+          "A clear output is one you can check. Avoid a spec like “help with leads”. Specify where the result appears, who can see it, what state it starts in, and the next decision. Keep inputs to what the process needs, especially when messages describe a personal situation or contain contact details.",
+          "Draw the normal route and one exception route on paper before choosing a tool. If the team cannot agree what happens on an incomplete submission, resolve that process issue first. A reliable manual checklist can serve as the fallback for the automated step."
+        ],
+        "links": [
+          {
+            "label": "See a structured enquiry-to-follow-up plan",
+            "href": "/blog/website-enquiry-follow-up-workflow/"
+          }
+        ]
+      },
+      {
+        "id": "choose-mechanics",
+        "heading": "Use a rule where the decision is explicit",
+        "paragraphs": [
+          "Structured inputs and defined outcomes often suit a rule. If the service field is exactly one of three known choices, routing can follow a table the team understands. For open-ended text, a model can suggest a category or draft a reply, followed by a review step when the result matters. Start with a suggestion so the team can observe errors before authorising an action.",
+          "Keep the permissions narrow. The workflow might have permission to create a draft in one queue. A human can decide whether it should send messages, change an appointment or make a commitment. Document those boundaries especially when a system connects to more than one tool."
+        ],
+        "links": [
+          {
+            "label": "Compare an agent, chatbot and workflow",
+            "href": "/blog/ai-agent-chatbot-workflow/"
+          }
+        ]
+      },
+      {
+        "id": "plan-for-duplicates-and-errors",
+        "heading": "Make failure recoverable",
+        "paragraphs": [
+          "Test what happens when the same enquiry arrives twice or the destination times out. A retry can recover from a temporary failure, but repeated requests should not create duplicate records. When the source gives you a reliable event ID, use it to find the existing item before creating another. Treat a missing unique ID as a design question rather than silently assuming that every delivery is new.",
+          "Separate temporary errors from problems requiring action. A brief network interruption may be eligible for a bounded retry. Missing permissions or a changed field usually need a person to look. Keep an exception list with the record ID, reason and next action, and minimise stored customer text.",
+          "Decide how the team pauses the workflow and handles new items manually. Then test that fallback once. Having an approach written down is different from confirming that someone on shift can use it."
+        ]
+      },
+      {
+        "id": "pilot-with-evidence",
+        "heading": "Judge the pilot on completed work",
+        "paragraphs": [
+          "First run a small set of distinct, permitted examples. Include a standard item, missing data, a duplicate and a service outage simulation. Record how many records reached the intended state, how many went to review and how long review took. Keep counts alongside the sample size and observation window.",
+          "Next let the team run the limited workflow with a manual check before each consequential action. Compare the manual effort and quality against your observed baseline. If it reduces copying but increases the number of ambiguous records, adjust the intake fields or scope. Add a second step only when the first produces results the owner trusts and can reverse."
+        ],
+        "links": [
+          {
+            "label": "Explore workflow automation services",
+            "href": "/workflow-automation/"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "Microsoft Azure Architecture Center: Retry pattern and side effects",
+        "url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/retry"
+      },
+      {
+        "title": "Anthropic: Building effective agents",
+        "url": "https://www.anthropic.com/research/building-effective-agents"
+      }
+    ]
+  },
+  {
+    "slug": "portfolio-demo-evidence",
+    "title": "What a Portfolio Demo Can Prove",
+    "description": "Learn how to read website demos and case studies. Check the builder’s contribution, inspect real screens and ask for evidence that supports a business result.",
+    "category": "Project proof",
+    "date": "2026-11-20",
+    "excerpt": "Assess design decisions, delivery scope and business results on their own evidence before choosing a developer.",
+    "intro": "A portfolio demo can show the quality of an interface and how a visitor moves through it. A client case study can also explain the real brief and delivery scope. Claims about sales, bookings or speed improvements need a measured baseline and a source.",
+    "cover": {
+      "alt": "An orange inspection loupe enlarges the detail in an architectural proof print.",
+      "poster": ["Show", "the work."],
+      "tone": "paper"
+    },
+    "related": ["web-development", "landing-page-development"],
+    "relatedReads": [
+      "/insights/mobile-website-launch-checklist/",
+      "/insights/whatsapp-enquiry-path/",
+      "/blog/what-affects-website-cost/"
+    ],
+    "cta": {
+      "title": "Discuss a project you can inspect.",
+      "text": "Share your goal and the type of work you need to see before deciding on scope.",
+      "message": "Hi Hamid, I read your article on portfolio demos. Can we discuss the work samples and evidence relevant to my project?"
+    },
+    "sections": [
+      {
+        "id": "match-the-claim",
+        "heading": "Match each claim to the evidence it needs",
+        "paragraphs": [
+          "Read a portfolio with your own project in mind. If you are commissioning a small local service site, you probably care whether a first-time visitor can understand the offer, see the relevant work and contact a real person. Start by testing one route instead of judging a gallery by its first image.",
+          "Keep three types of evidence in view. A screen shows the interface at a particular moment. A live walkthrough lets you test a working flow, within what is available publicly. A result needs information about what was measured, when, and what else changed during the period. Each type is useful for a different decision.",
+          "A clear project label helps a buyer read what follows. Look for terms such as self-directed demo, commissioned build, agency collaboration or prototype. Then look for the named contribution. A label has more value when it connects to concrete work someone can inspect."
+        ],
+        "table": {
+          "headers": ["Evidence", "What you can check", "Question to ask"],
+          "rows": [
+            [
+              "Self-directed demo",
+              "Visual craft, layout logic and a testable visitor path",
+              "Which behavior is shown and which parts would a real project still need?"
+            ],
+            [
+              "Client case study",
+              "The brief, contribution, deliverables and documented challenges",
+              "Who owned the design, code, content and updates?"
+            ],
+            [
+              "Measured result",
+              "A defined change in a metric over a stated period",
+              "What was the baseline and what else might explain the change?"
+            ]
+          ]
+        }
+      },
+      {
+        "id": "look-beyond-the-hero",
+        "heading": "Inspect one decision behind the design",
+        "paragraphs": [
+          "Choose a project whose visitor has a similar job to yours. Open the mobile page, follow one section and try to find the next action. If the experience looks convincing only in a wide desktop crop, ask to see the smaller layout and one state where the visitor has more work to do.",
+          "On the Bridal House demo, a useful question is how collection browsing relates to a consultation decision. In the Qadeer Jewellers demo, ask how a visitor finds the right collection before an enquiry. These examples are self-directed website demos built by Hamid. The walkthroughs show interface choices and the scope of the examples.",
+          "Look for reasoning you can transfer. A fashion site can teach a useful lesson about grouping options even if your service is in another industry. Ask why the sections are in their order, what would change for different users, and which content depends on the business supplying up-to-date details."
+        ],
+        "links": [
+          {
+            "label": "See the Bridal House walkthrough",
+            "href": "/work/bridal-house/"
+          },
+          {
+            "label": "See the Qadeer Jewellers walkthrough",
+            "href": "/work/qadeer-jewellers/"
+          }
+        ]
+      },
+      {
+        "id": "name-a-contribution",
+        "heading": "Ask who did the work you need",
+        "paragraphs": [
+          "A website may combine art direction, design, development, copy, photography and hosting from different people. A useful case study tells you who contributed which part. If your requirement is to turn your agency's design into a maintainable site, evidence of implementation and handover is more useful than an ambiguous claim to have owned the full project.",
+          "Ask about one concrete constraint. For example, how did the team handle a long catalogue, resize an image-heavy layout for mobile, or give the client a way to update content? The answer should connect a real challenge with work that can be shown or explained.",
+          "Permission matters when showing third-party materials. A strong portfolio can disclose an anonymised assignment or a concept example without borrowing a client endorsement. Take the level of disclosure into account before treating a project as a reference you can independently contact."
+        ]
+      },
+      {
+        "id": "handle-numbers-carefully",
+        "heading": "Put any result in its measurement context",
+        "paragraphs": [
+          "Consider a claim that an enquiry count doubled after launch. Ask for the exact metric and the date window. The count could represent button clicks, real inbound messages, or enquiries that staff qualified. Ask how it was collected, what the comparison period looked like and whether traffic, pricing or marketing changed too.",
+          "Sometimes the most useful verified outcome is functional. A mobile user can browse a collection and reach the correct enquiry channel. A business owner can update the content in a documented workflow. Those outcomes are credible when you can see the relevant behavior or evidence, even before there are enough observations to report a commercial result.",
+          "For a performance example, ask whether the data came from a controlled browser test or real visits. Compare similar conditions, and be precise about the page and measure. This keeps a polished-looking metric from taking the place of evidence about your own scope."
+        ],
+        "links": [
+          {
+            "label": "Understand enquiry metrics before comparing results",
+            "href": "/insights/measure-whatsapp-enquiries/"
+          }
+        ]
+      },
+      {
+        "id": "use-a-review-template",
+        "heading": "Bring the same questions to each proposal",
+        "paragraphs": [
+          "Shortlist one or two examples per developer, then compare them using a consistent review. Use your project brief as the reference and note where evidence is strongest. A focused demo can be relevant for art direction or interface behavior. An approved client case can be valuable for collaboration, operations and handover.",
+          "Capture questions for a short conversation. Ask for a page you can open, a task you can try and an explanation of how their contribution relates to your project. Record any unverified result as a question to discuss. You can make a practical choice without forcing every example to contain a percentage."
+        ],
+        "items": [
+          "Name the type of example and the exact contribution it demonstrates.",
+          "Try one visitor task on a phone rather than relying on the desktop hero.",
+          "Ask what would change for your content, team or launch requirements.",
+          "Check the period, source and definition behind any number used to make the case.",
+          "Agree what evidence you expect at delivery and what proof you can share with permission."
+        ],
+        "links": [
+          {
+            "label": "Read the portfolio’s content standards",
+            "href": "/editorial-policy/"
+          }
+        ]
+      },
+      {
+        "id": "ask-for-matching-proof",
+        "heading": "Ask for the proof your decision depends on",
+        "paragraphs": [
+          "If the purchase hinges on look and feel, ask for similar work and inspect the responsive states. If it depends on a lead handover, ask for a small end-to-end demonstration and a description of the fallback. If you need ongoing edits, check the content or handover process. The best proof for a buyer is specific to what must work after launch.",
+          "Finish by writing down the decision you can already make and the evidence you still need. This makes the next conversation productive and gives the developer a concrete way to show how they would approach your project."
+        ],
+        "links": [
+          {
+            "label": "Explore Hamid’s project walkthroughs",
+            "href": "/case-studies/"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "Google Search Central: Helpful, reliable, people-first content",
+        "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      },
+      {
+        "title": "web.dev: Field and lab measurement of Web Vitals",
+        "url": "https://web.dev/articles/vitals"
+      }
+    ]
+  }
+]

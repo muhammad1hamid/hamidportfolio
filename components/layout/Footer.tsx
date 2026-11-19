@@ -30,6 +30,7 @@ export function Footer() {
           ["Work", "/work/"],
           ["Project walkthroughs", "/case-studies/"],
           ["Client perspectives", "/testimonials/"],
+          ["Insights", "/insights/"],
           ["Guides", "/blog/"],
           ["Questions", "/answers/"],
           ["Website planner", "/plan/"],

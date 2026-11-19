@@ -35,6 +35,16 @@ export default function BlogPage() {
         ))}
       </div>
       <section className="content-section">
+        <h2>More from Insights</h2>
+        <p>
+          Read the articles on enquiry design, launch quality, workflow
+          decisions and portfolio proof.
+        </p>
+        <Link href="/insights/" className="text-link">
+          Browse Insights ↗
+        </Link>
+      </section>
+      <section className="content-section">
         <h2>Topics as the library grows</h2>
         <p>
           Articles are organised under these topics when a useful guide is

@@ -10,6 +10,7 @@ const links = [
   { title: "About", href: "/#about" },
   { title: "Services", href: "/#services" },
   { title: "Reviews", href: "/#testimonials" },
+  { title: "Insights", href: "/insights/" },
   { title: "Plan", href: "/plan/" },
 ];
 
@@ -52,7 +53,11 @@ export function Navigation() {
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map((link) => (
-            <Link href={link.href} key={link.title}>
+            <Link
+              href={link.href}
+              key={link.title}
+              aria-current={pathname === link.href ? "page" : undefined}
+            >
               {link.title}
             </Link>
           ))}
@@ -90,7 +95,12 @@ export function Navigation() {
         <nav aria-label="Mobile navigation">
           {[...links, { title: "Contact", href: "/#contact" }].map(
             (link, i) => (
-              <Link key={link.title} href={link.href} onClick={close}>
+              <Link
+                key={link.title}
+                href={link.href}
+                onClick={close}
+                aria-current={pathname === link.href ? "page" : undefined}
+              >
                 <small>0{i + 1}</small>
                 {link.title}
                 <Arrow diagonal />

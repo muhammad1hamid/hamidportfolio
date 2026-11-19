@@ -108,7 +108,7 @@ try {
           nodes.some((node) => node["@type"] === "BreadcrumbList"),
           "Breadcrumb schema",
         );
-      if (pathname.startsWith("/blog/") && pathname !== "/blog/")
+      if (/^\/(blog|insights)\/[^/]+\/$/.test(pathname))
         assert.ok(
           nodes.some(
             (node) =>

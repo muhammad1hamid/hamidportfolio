@@ -19,7 +19,7 @@ await writeFile(
   text
     .replace(
       "## Scope",
-      `- [Project questions](${origin}/answers/)\n- [Website planner](${origin}/plan/)\n- [Client video testimonials](${origin}/testimonials/)\n- [Enquiry demonstration](${origin}/demos/enquiry-assistant/)\n- [Content standards](${origin}/editorial-policy/)\n\n## Scope`,
+      `- [Website and automation insights](${origin}/insights/)\n- [Project questions](${origin}/answers/)\n- [Website planner](${origin}/plan/)\n- [Client video testimonials](${origin}/testimonials/)\n- [Enquiry demonstration](${origin}/demos/enquiry-assistant/)\n- [Content standards](${origin}/editorial-policy/)\n\n## Scope`,
     )
     .replace(
       "Project notes describe visible website features, not unverified results.",
