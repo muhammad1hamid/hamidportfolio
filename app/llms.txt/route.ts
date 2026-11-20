@@ -16,6 +16,7 @@ export function GET() {
     ].join("\n"),
   );
   const resources = [
+    ["White-label web development for agencies", "/for-agencies/"],
     ["Website portfolio", "/work/"],
     ["Project experience notes", "/case-studies/"],
     ["Practical guides", "/blog/"],

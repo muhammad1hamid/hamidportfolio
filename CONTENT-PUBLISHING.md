@@ -4,7 +4,9 @@
 
 Apply the ElevateX AI Visibility Master Prompt to content for Hamid's portfolio. Give each page a distinct buyer question, a direct opening answer, useful examples, relevant service and reading links, and source links for factual claims. Keep the portfolio's name, domain and verified contact details consistent. Label illustrative examples and self-directed demos clearly. Publish case results, client quotes and business facts only with evidence and permission.
 
-For an insight, add the record in `data/insights.json` and a matching 1200 × 675 WebP cover in `public/images/insights/`. Include concise poster text, meaningful alt text, a date that reflects actual editorial work, approved source links and a topic-specific WhatsApp message. Generated editorial art illustrates the topic. Use identified project screenshots when the visual needs to substantiate a real project claim. The existing template builds the article route, responsive cover, social card, related reading, schema and sitemap entry.
+For an insight, add the record in `data/insights.json` and a matching 1200 × 675 WebP cover in `public/images/insights/`. Include meaningful alt text, the actual publication or review date, approved source links and a topic-specific WhatsApp message. Illustrated covers can use concise poster text. Evidence captures should carry a factual caption and can use an empty `poster` array to preserve the original screenshot. The existing template builds the article route, responsive cover, social card, related reading, schema and sitemap entry.
+
+Use the [brief and proof register](docs/content/authority-editorial.md) before drafting a new article. The [90-day calendar](docs/content/editorial-calendar.csv) tracks the evidence and review needed for each piece.
 
 ## Sources of truth
 
@@ -30,6 +32,7 @@ After an edit, run `npm run build`. This regenerates the static pages, metadata,
 | --- | --- | --- |
 | `/` | Identify Hamid and assess the work | Independent developer, Pakistan, remote collaboration |
 | `/web-development/` | Commission a business website | Responsive design, website brief, enquiries |
+| `/for-agencies/` | Scope a white-label agency collaboration | Approved designs, technical delivery, client communication, review and handover |
 | `/landing-page-development/` | Launch a focused offer/campaign page | Messaging, genuine proof, enquiry measurement |
 | `/ai-automation/` | Scope AI-assisted operational work | Documents, approved replies, evaluation |
 | `/whatsapp-ai-chatbot/` | Plan customer conversations on WhatsApp | Approved FAQs, leads, human handover |

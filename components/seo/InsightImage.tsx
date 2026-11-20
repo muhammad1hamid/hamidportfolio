@@ -23,14 +23,16 @@ export function InsightImage({
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : undefined}
       />
-      <div className="insight-poster-type" aria-hidden="true">
-        <span className="insight-poster-mark">Hamid / Insights</span>
-        <span className="insight-poster-title">
-          {cover.poster.map((line) => (
-            <span key={line}>{line}</span>
-          ))}
-        </span>
-      </div>
+      {cover.poster.length > 0 && (
+        <div className="insight-poster-type" aria-hidden="true">
+          <span className="insight-poster-mark">Hamid / Insights</span>
+          <span className="insight-poster-title">
+            {cover.poster.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

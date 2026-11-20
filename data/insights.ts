@@ -7,6 +7,7 @@ export type Insight = Article & {
     alt: string;
     poster: string[];
     tone: string;
+    caption?: string;
   };
   relatedReads: string[];
   cta: {

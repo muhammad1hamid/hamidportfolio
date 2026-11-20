@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { servicePages, serviceBySlug } from "@/data/services";
-import { site } from "@/data/site";
+import { enquiryHref, serviceForPath } from "@/data/project-enquiry.mjs";
 import { pageMeta, serviceSchema } from "@/data/seo";
 import { ContentPage, ProjectCta } from "@/components/seo/ContentPage";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -30,6 +30,7 @@ export default async function ServicePage({
   if (!service) notFound();
   if (service.deliverables) return <GrowthEngine service={service} />;
   const path = `/${service.slug}/`;
+  const contactHref = enquiryHref(serviceForPath(path), "services");
   return (
     <ContentPage
       path={path}
@@ -42,14 +43,9 @@ export default async function ServicePage({
       ]}
     >
       <div className="content-actions hero-page-actions">
-        <a
-          className="button button-accent"
-          href={site.whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Link className="button button-accent" href={contactHref}>
           Discuss this service ↗
-        </a>
+        </Link>
         <Link className="text-link" href="/work/">
           Explore actual website work ↗
         </Link>
@@ -112,6 +108,11 @@ export default async function ServicePage({
           <Link href="/testimonials/" className="text-link">
             Watch client video testimonials ↗
           </Link>
+          {service.slug === "web-development" && (
+            <Link href="/insights/hamid-intro-motion/" className="text-link">
+              Read how the HAMID intro works ↗
+            </Link>
+          )}
         </aside>
       ) : (
         <aside className="content-proof">
@@ -149,7 +150,7 @@ export default async function ServicePage({
           })}
         </div>
       </section>
-      <ProjectCta />
+      <ProjectCta contactHref={contactHref} />
       <p className="article-byline">
         Scope discussed with <Link href="/about/">Hamid</Link> ·{" "}
         <Link href="/answers/">Project questions</Link> ·{" "}

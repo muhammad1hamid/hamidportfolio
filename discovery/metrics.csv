@@ -1,7 +1,9 @@
 period_start,period_end,metric,value,status,source,notes
 ,,google_ai_impressions,,unavailable,Google Search Console,Requires verified public property and sufficient report data
 ,,microsoft_ai_citations,,unavailable,Bing Webmaster Tools,Requires verified public property and report data
-,,identified_ai_referral_sessions,,unavailable,Owner analytics,Analytics not configured
+,,identified_ai_referral_sessions,,not measured,GA4 Traffic acquisition,Property access and a deployed collection window are required
+,,observed_ai_landing_events,,not measured,GA4 ai_referral_landing,Count of consented documents with an observable source
+,,accepted_forms_with_ai_signal,,not measured,GA4 generate_lead,Count of accepted forms with a recognized entry signal in the same document
 ,,whatsapp_contact_attempts,,unavailable,Owner analytics,Clicks are not confirmed leads
 ,,qualified_enquiries,,unavailable,Owner records,Confirm actual enquiry quality
 ,,projects_started,,unavailable,Owner records,Confirm actual projects

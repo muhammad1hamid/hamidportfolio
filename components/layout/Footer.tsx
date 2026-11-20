@@ -27,6 +27,7 @@ export function Footer() {
       <nav className="footer-pages" aria-label="Explore Hamid’s website">
         {[
           ["Services", "/services/"],
+          ["For Agencies", "/for-agencies/"],
           ["Growth Engine", "/growth/"],
           ["Work", "/work/"],
           ["Project walkthroughs", "/case-studies/"],
@@ -38,12 +39,19 @@ export function Footer() {
           ["Enquiry demo", "/demos/enquiry-assistant/"],
           ["About Hamid", "/about/"],
           ["Contact", "/contact/"],
+          ["Privacy", "/privacy/"],
           ["Content standards", "/editorial-policy/"],
         ].map(([label, href]) => (
           <Link
-            href={href}
+            href={href === "/contact/" ? "/contact/?source=footer" : href}
             key={href}
             data-site-event={href === "/plan/" ? "planner_open" : undefined}
+            data-agency-placement={
+              href === "/for-agencies/" ? "footer" : undefined
+            }
+            data-agency-destination={
+              href === "/for-agencies/" ? "agency_page" : undefined
+            }
           >
             {label}
           </Link>

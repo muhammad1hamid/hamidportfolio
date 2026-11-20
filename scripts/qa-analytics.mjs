@@ -47,12 +47,32 @@ async function session() {
       const lines = request.postData()?.split("\n") || [""];
       for (const line of lines) {
         const data = new URLSearchParams(line);
+        const location = new URL(
+          data.get("dl") || url.searchParams.get("dl") || origin,
+        );
+        const event = data.get("en") || url.searchParams.get("en");
         requests.hits.push({
           stream: url.searchParams.get("tid"),
-          event: data.get("en") || url.searchParams.get("en"),
-          path: new URL(data.get("dl") || url.searchParams.get("dl") || origin)
-            .pathname,
+          event,
+          path: location.pathname,
+          ...(location.pathname === "/for-agencies/"
+            ? { campaignQuery: location.search }
+            : {}),
           consent: url.searchParams.get("gcs"),
+          ...(event === "ai_referral_landing"
+            ? {
+                aiSource:
+                  data.get("ep.ai_source") ||
+                  url.searchParams.get("ep.ai_source"),
+                aiSignal:
+                  data.get("ep.ai_signal") ||
+                  url.searchParams.get("ep.ai_signal"),
+                hasQuery: Boolean(location.search),
+                hasReferrer: Boolean(
+                  data.get("dr") || url.searchParams.get("dr"),
+                ),
+              }
+            : {}),
         });
       }
       // Verify the request without recording test traffic in the property.
@@ -73,6 +93,17 @@ async function waitForView(requests, path, minimum = 1) {
   while (matches().length < minimum && Date.now() < stop) await delay(100);
   assert.ok(matches().length >= minimum, `Missing GA4 page view for ${path}`);
   return matches();
+}
+
+async function waitForAiLanding(requests) {
+  const match = () =>
+    requests.hits.filter(
+      (hit) => hit.event === "ai_referral_landing" && hit.stream === stream,
+    );
+  const stop = Date.now() + 15000;
+  while (!match().length && Date.now() < stop) await delay(100);
+  assert.equal(match().length, 1, "Expected one consented AI landing event");
+  return match()[0];
 }
 
 const checks = [];
@@ -122,7 +153,7 @@ try {
     .locator(".hero-actions")
     .getByRole("link", { name: "Discuss your project" })
     .click();
-  await page.waitForURL("**/contact/");
+  await page.waitForURL("**/contact/?source=home");
   await page.getByRole("link", { name: "Message Hamid on WhatsApp" }).waitFor();
   await page.waitForFunction(() =>
     window.dataLayer.some(
@@ -225,7 +256,149 @@ try {
   );
   await legacy.context.close();
 
-  const report = { live, checks, clientPageViews, hits: requests.hits };
+  let agencyHits;
+  const aiLandings = [];
+  if (!live) {
+    const agency = await session();
+    try {
+      await agency.context.addInitScript((key) => {
+        localStorage.setItem(
+          key,
+          JSON.stringify({ google: true, clarity: false }),
+        );
+      }, preference);
+      await agency.page.goto(
+        origin +
+          "/for-agencies/?utm_source=linkedin&utm_medium=social&utm_campaign=agency-partnerships&utm_term=private%40fixture.test",
+      );
+      await waitForView(agency.requests, "/for-agencies/");
+      agencyHits = agency.requests.hits.filter(
+        ({ event, path }) => event === "page_view" && path === "/for-agencies/",
+      );
+      assert.equal(agencyHits.length, 1);
+      assert.deepEqual(
+        [...new URLSearchParams(agencyHits[0].campaignQuery)],
+        [
+          ["utm_source", "linkedin"],
+          ["utm_medium", "social"],
+          ["utm_campaign", "agency-partnerships"],
+        ],
+      );
+      checks.push(
+        "Agency page view passes allowlisted campaign tags and excludes untrusted query values",
+      );
+    } finally {
+      await agency.context.close();
+    }
+
+    const referrer = await session();
+    try {
+      await referrer.page.goto(
+        origin + "/growth/?utm_term=fixture%40example.test",
+        {
+          referer: "https://www.perplexity.ai/search/example",
+        },
+      );
+      await referrer.page
+        .getByRole("heading", { name: "Optional analytics" })
+        .waitFor();
+      assert.equal(referrer.requests.hits.length, 0);
+      await referrer.page
+        .getByRole("button", { name: "Customize", exact: true })
+        .click();
+      await referrer.page
+        .getByRole("checkbox", { name: "Google Analytics" })
+        .check();
+      await referrer.page.getByRole("button", { name: "Save choices" }).click();
+      const hit = await waitForAiLanding(referrer.requests);
+      assert.deepEqual(hit, {
+        stream,
+        event: "ai_referral_landing",
+        path: "/growth/",
+        consent: "G101",
+        aiSource: "perplexity",
+        aiSignal: "referrer",
+        hasQuery: false,
+        hasReferrer: false,
+      });
+      aiLandings.push(hit);
+      await referrer.page
+        .locator("main a[href='/contact/#growth-enquiry']")
+        .first()
+        .click();
+      await referrer.page.waitForURL("**/contact/#growth-enquiry");
+      await waitForView(referrer.requests, "/contact/");
+      assert.equal(
+        referrer.requests.hits.filter(
+          (record) => record.event === "ai_referral_landing",
+        ).length,
+        1,
+      );
+      checks.push(
+        "A recognized referrer emits one clean landing event after opt-in across client navigation",
+      );
+    } finally {
+      await referrer.context.close();
+    }
+
+    const tagged = await session();
+    try {
+      await tagged.context.addInitScript((key) => {
+        localStorage.setItem(
+          key,
+          JSON.stringify({ google: true, clarity: false }),
+        );
+      }, preference);
+      await tagged.page.goto(
+        origin + "/insights/?utm_source=chatgpt.com&note=fixture",
+      );
+      const hit = await waitForAiLanding(tagged.requests);
+      assert.deepEqual(
+        [hit.aiSource, hit.aiSignal, hit.path, hit.hasQuery],
+        ["chatgpt", "tag", "/insights/", false],
+      );
+      aiLandings.push(hit);
+      const newPage = await tagged.context.newPage();
+      await newPage.goto(
+        origin + "/blog/?utm_source=chatgpt.com.example.test",
+        {
+          referer: "https://chatgpt.com.example.test/",
+        },
+      );
+      await waitForView(tagged.requests, "/blog/");
+      await delay(400);
+      assert.equal(
+        tagged.requests.hits.filter(
+          (record) => record.event === "ai_referral_landing",
+        ).length,
+        1,
+      );
+      await newPage.goto(origin + "/work/", {
+        referer: "https://www.google.com/",
+      });
+      await waitForView(tagged.requests, "/work/");
+      assert.equal(
+        tagged.requests.hits.filter(
+          (record) => record.event === "ai_referral_landing",
+        ).length,
+        1,
+      );
+      checks.push(
+        "The documented ChatGPT tag works on later visits, with lookalike and ordinary Google referrals excluded",
+      );
+    } finally {
+      await tagged.context.close();
+    }
+  }
+
+  const report = {
+    live,
+    checks,
+    clientPageViews,
+    hits: requests.hits,
+    agencyHits,
+    aiLandings,
+  };
   await mkdir("qa-output", { recursive: true });
   await writeFile(
     `qa-output/ga4-${live ? "live" : "local"}.json`,

@@ -2,7 +2,11 @@ import http from "node:http";
 import path from "node:path";
 import { readFile, stat } from "node:fs/promises";
 import { createReadStream } from "node:fs";
+import { Readable } from "node:stream";
+import nextEnv from "@next/env";
+import { handleEnquiry } from "../api/enquiry.mjs";
 
+nextEnv.loadEnvConfig(process.cwd());
 const root = path.resolve("out");
 const port = Number(process.env.PORT || 3000);
 const types = {
@@ -24,11 +28,35 @@ const types = {
   ".txt": "text/plain",
   ".xml": "application/xml",
 };
-http
+const server = http
   .createServer(async (req, res) => {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     res.setHeader("Cache-Control", "no-cache");
+    const pathname = req.url?.split("?", 1)[0];
+    if (pathname === "/api/enquiry/" || pathname === "/api/enquiry") {
+      try {
+        const request = new Request("http://127.0.0.1/api/enquiry/", {
+          method: req.method,
+          headers: req.headers,
+          ...(!["GET", "HEAD"].includes(req.method) && {
+            body: Readable.toWeb(req),
+            duplex: "half",
+          }),
+        });
+        const reply = await handleEnquiry(request, req.socket.remoteAddress);
+        res.writeHead(reply.status, Object.fromEntries(reply.headers));
+        res.end(req.method === "HEAD" ? undefined : await reply.text());
+      } catch {
+        res
+          .writeHead(400, {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          })
+          .end(JSON.stringify({ error: "request" }));
+      }
+      return;
+    }
     if (req.method !== "GET" && req.method !== "HEAD") {
       res.writeHead(405, { Allow: "GET, HEAD" }).end();
       return;
@@ -163,5 +191,5 @@ http
     }
   })
   .listen(port, "127.0.0.1", () =>
-    console.log(`Portfolio preview: http://127.0.0.1:${port}`),
+    console.log(`Portfolio preview: http://127.0.0.1:${server.address().port}`),
   );

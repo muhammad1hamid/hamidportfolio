@@ -6,6 +6,7 @@ const entries = [
   "story_index",
   "project_story",
   "project_related",
+  "agency_proof",
 ] as const;
 const destinations = [
   "screens",

@@ -146,7 +146,7 @@ try {
     .locator(".hero-actions")
     .getByRole("link", { name: "Discuss your project" })
     .click();
-  await page.waitForURL("**/contact/");
+  await page.waitForURL("**/contact/?source=home");
   assert.equal(
     await page
       .getByRole("link", { name: "Message Hamid on WhatsApp" })

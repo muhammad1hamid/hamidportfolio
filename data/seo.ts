@@ -72,8 +72,10 @@ export const publicRoutes: {
   ...experiencePages.map((page) => ({ path: page.path, priority: 0.7 })),
   ...[
     "services",
+    "for-agencies",
     "about",
     "contact",
+    "privacy",
     "work",
     "case-studies",
     "blog",

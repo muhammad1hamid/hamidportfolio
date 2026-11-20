@@ -54,7 +54,7 @@ export function Hero() {
           </p>
           <div className="hero-actions">
             <Link
-              href="/contact/"
+              href="/contact/?source=home"
               className="button button-accent"
               data-site-event="hero_primary_cta_click"
             >

@@ -10,6 +10,8 @@ import { ContentPage, ProjectCta } from "@/components/seo/ContentPage";
 import { ProjectVisual } from "@/components/projects/ProjectVisual";
 import { ProjectLiveLink } from "@/components/projects/ProjectLinks";
 import { Arrow } from "@/components/ui/Arrow";
+import { agencyExamples } from "@/data/agency-partnerships";
+import { enquiryHref } from "@/data/project-enquiry.mjs";
 
 export const dynamicParams = false;
 
@@ -48,6 +50,7 @@ export default async function ProjectPage({
   const { project, demo } = findStory((await params).slug);
   const notes = projectDetails[project.id];
   const path = project.detailUrl;
+  const contactHref = enquiryHref("website", "work");
   const next =
     storyProjects[(storyProjects.indexOf(project) + 1) % storyProjects.length];
 
@@ -84,7 +87,7 @@ export default async function ProjectPage({
         <div className="story-header-actions">
           <Link
             className="button button-accent"
-            href="/contact/"
+            href={contactHref}
             {...projectLinkData(project.slug, "project_story", "contact")}
           >
             Discuss a similar project <Arrow diagonal />
@@ -213,6 +216,16 @@ export default async function ProjectPage({
           <Link className="text-link" href="/plan/">
             Plan a similar website <Arrow diagonal />
           </Link>
+          {agencyExamples.some(({ id }) => id === project.id) && (
+            <Link
+              className="text-link"
+              href="/for-agencies/"
+              data-agency-placement="case_study"
+              data-agency-destination="agency_page"
+            >
+              Need a build partner for your agency? <Arrow diagonal />
+            </Link>
+          )}
         </div>
         <div>
           <h3>Next project story</h3>
@@ -228,7 +241,10 @@ export default async function ProjectPage({
           </Link>
         </div>
       </section>
-      <ProjectCta title="Have a similar project in mind?" />
+      <ProjectCta
+        title="Have a similar project in mind?"
+        contactHref={contactHref}
+      />
       {demo && (
         <JsonLd
           data={{

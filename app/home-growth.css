@@ -102,7 +102,7 @@
 
 .contact-composition {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   align-items: end;
 }
 
@@ -261,6 +261,23 @@
   flex: 1 1 28ch;
 }
 
+@media (max-width: 767px) {
+  .contact-composition {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+
+  .contact-composition h2 {
+    font-size: clamp(36px, 8.6vw, 58px);
+  }
+
+  .contact-aside {
+    margin-top: 0;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 700px) {
   .hero-v2 .hero-body {
     gap: 0;
@@ -281,21 +298,6 @@
 
   .pillar-card h3 {
     margin-top: 10px;
-  }
-
-  .contact-composition {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-
-  .contact-composition h2 {
-    font-size: clamp(36px, 8.6vw, 58px);
-  }
-
-  .contact-aside {
-    margin-top: 0;
-    align-items: flex-start;
-    flex-direction: column;
   }
 
   .service-groups {

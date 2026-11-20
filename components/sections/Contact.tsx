@@ -68,7 +68,10 @@ export function Contact() {
               solve. I’ll help shape a practical starting scope.
             </p>
             <div className="contact-actions">
-              <Link href="/contact/" className="button button-light">
+              <Link
+                href="/contact/?source=home"
+                className="button button-light"
+              >
                 Discuss your project <Arrow diagonal />
               </Link>
               <button

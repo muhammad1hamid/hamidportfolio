@@ -50,6 +50,8 @@ The visitor can allow Microsoft Clarity separately in **Analytics settings**. Ex
 
 - `page_view`: The published Google tag records the initial view. The site records later route changes with a query-free location, previous path and page title.
 - `contact_click`: `method=whatsapp`, page path and a fixed context such as `planner`, `demo`, `contact_page` or `growth_engine`. This records a click.
+- `generate_lead`: New enquiry receipt accepted by the server. This records website form acceptance. Staff verify email delivery and project qualification separately.
+- `ai_referral_landing`: One consented event per document with a recognized referrer or the documented ChatGPT source tag. See the [authority measurement protocol](discovery/authority-methodology.md) for source rules, GA4 setup and the observation log.
 - `brief_download`: planner download action and page path.
 - `demo_question`: interaction with the demo and page path. Question text is not sent.
 
@@ -73,7 +75,7 @@ Use the existing pageview setup to measure visits to `/growth/`. Verify any cust
 
 ## Prompt observations
 
-Use `discovery/prompts.json` for a small manual comparison set. Keep branded and non-branded observations separate. Record the date, product/mode, language/country, exact prompt, cited URLs and whether Hamid's identity and demo status were represented correctly. Responses vary, so observations supplement owner analytics rather than establishing a universal rank.
+Use [the 30-prompt authority dataset](discovery/authority-prompts.csv) for repeatable monitoring and `discovery/prompts.json` for quick checks. Keep branded and non-branded observations separate. Record the date, product/mode, language/country, exact prompt, cited URLs and whether Hamid's identity and demo status were represented correctly. Responses vary, so observations supplement owner analytics.
 
 ## Completing the video material
 

@@ -43,7 +43,7 @@ export function ArticleDetail(props: ArticleDetailProps) {
           </>
         )}
         <time dateTime={article.date}>{articleDate(article.date)}</time>
-        {article.modified && (
+        {article.modified && article.modified !== article.date && (
           <>
             {" "}
             · Updated{" "}
@@ -60,7 +60,9 @@ export function ArticleDetail(props: ArticleDetailProps) {
             sizes="(max-width: 700px) 90vw, (max-width: 1240px) 88vw, 1120px"
             priority
           />
-          <figcaption>Editorial illustration</figcaption>
+          <figcaption>
+            {insight.cover.caption ?? "Editorial illustration"}
+          </figcaption>
         </figure>
       )}
       <div className="article-layout">

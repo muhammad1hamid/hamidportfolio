@@ -79,10 +79,12 @@ export function ProjectCta({
   title = "Let’s scope your next move.",
   text = "Share your goal, current setup and any references. I’ll help identify the work needed before we agree on scope and timing.",
   whatsappMessage,
+  contactHref = "/contact/",
 }: {
   title?: string;
   text?: string;
   whatsappMessage?: string;
+  contactHref?: string;
 }) {
   const whatsapp = whatsappMessage
     ? `${site.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`
@@ -95,24 +97,37 @@ export function ProjectCta({
         <p>{text}</p>
       </div>
       <div className="content-actions">
-        <a
-          href={whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="button button-accent"
-          data-contact-context={whatsappMessage ? "insight" : undefined}
-          aria-label={
-            whatsappMessage
-              ? "Discuss on WhatsApp (opens in a new tab)"
-              : undefined
-          }
-        >
-          {whatsappMessage ? "Discuss on WhatsApp" : "Discuss your project"}{" "}
-          <Arrow diagonal />
-        </a>
-        <Link href="/contact/" className="text-link">
-          Contact details ↗
-        </Link>
+        {whatsappMessage ? (
+          <>
+            <a
+              href={whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button button-accent"
+              data-contact-context="insight"
+              aria-label="Discuss on WhatsApp (opens in a new tab)"
+            >
+              Discuss on WhatsApp <Arrow diagonal />
+            </a>
+            <Link href={contactHref} className="text-link">
+              Contact details ↗
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link href={contactHref} className="button button-accent">
+              Discuss your project <Arrow diagonal />
+            </Link>
+            <a
+              href={whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-link"
+            >
+              Message on WhatsApp ↗
+            </a>
+          </>
+        )}
       </div>
     </section>
   );

@@ -9,6 +9,8 @@ import { entityGraph, pageMeta } from "@/data/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Analytics } from "@/components/seo/Analytics";
 import {
+  agencyCampaignTags,
+  analyticsConsentEvent,
   analyticsPreferenceKey,
   googleMeasurementId,
   googleTagManagerId,
@@ -48,8 +50,24 @@ const tagManager = `
       w.gtag("consent", "update", Object.assign({}, consent, {
         analytics_storage: allowed ? "granted" : "denied"
       }));
-      if (!allowed || d.getElementById("hamid-gtm-container")) return;
+      if (!allowed) return;
+      if (d.getElementById("hamid-gtm-container")) {
+        w.dispatchEvent(new Event(${JSON.stringify(analyticsConsentEvent)}));
+        return;
+      }
 
+      if (w.location.pathname === "/for-agencies/" || w.location.pathname === "/for-agencies") {
+        var measured = new URL(w.location.pathname, w.location.origin);
+        var requested = new URLSearchParams(w.location.search);
+        for (var [key, choices] of Object.entries(${JSON.stringify(agencyCampaignTags)})) {
+          var value = requested.get(key);
+          if (value && choices.includes(value)) measured.searchParams.set(key, value);
+        }
+        w.gtag("set", {
+          page_location: measured.href,
+          page_referrer: d.referrer ? new URL(d.referrer).origin + "/" : ""
+        });
+      }
       w.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
       var tag = d.createElement("script");
       tag.id = "hamid-gtm-container";
@@ -57,6 +75,7 @@ const tagManager = `
       tag.src = "https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}";
       tag.addEventListener("load", function () { w.hamidGoogleTagLoaded = true; });
       d.head.appendChild(tag);
+      w.dispatchEvent(new Event(${JSON.stringify(analyticsConsentEvent)}));
     };
 
     try {

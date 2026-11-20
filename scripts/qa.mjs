@@ -149,7 +149,7 @@ await check(
     ]) {
       await page.setViewportSize({ width, height });
       for (const [label, path] of [
-        ["Discuss your project", "/contact/"],
+        ["Discuss your project", "/contact/?source=home"],
         ["Explore selected work", "/work/"],
       ]) {
         const link = page
@@ -322,7 +322,7 @@ await check(
 await check("Verified contact links and contact page CTA", async () => {
   assert.equal(
     await page.locator(".contact-actions .button").getAttribute("href"),
-    "/contact/",
+    "/contact/?source=home",
   );
   for (const [label, url] of [
     ["WhatsApp", "https://wa.me/923356709222"],
@@ -694,7 +694,10 @@ await check(
       const contact = page.getByRole("link", {
         name: "Discuss a similar project",
       });
-      assert.equal(await contact.getAttribute("href"), "/contact/");
+      assert.equal(
+        await contact.getAttribute("href"),
+        "/contact/?service=website&source=work",
+      );
       assert.equal(await page.locator(".story-next-link").count(), 1);
       assert.match(
         await page.locator("#evidence").innerText(),

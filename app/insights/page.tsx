@@ -8,7 +8,7 @@ import { pageMeta } from "@/data/seo";
 
 export const metadata = pageMeta(
   "Website & Automation Insights | Hamid",
-  "Explore five practical articles on clearer WhatsApp enquiries, measurable website outcomes, mobile launch checks, workflow automation and project evidence.",
+  "Read build notes and practical articles on website design, accessible motion, WhatsApp enquiries, mobile launch checks and workflow automation.",
   "/insights/",
 );
 
@@ -59,7 +59,7 @@ export default function InsightsPage() {
     <ContentPage
       path="/insights/"
       title="Insights"
-      intro="Practical articles on building business websites, improving enquiries and deciding what to automate."
+      intro="Build notes and practical articles on designing business websites, improving enquiries and deciding what to automate."
       label="Insights"
       type="CollectionPage"
       className="insights-index"

@@ -1,5 +1,104 @@
 [
   {
+    "slug": "hamid-intro-motion",
+    "title": "How the HAMID Intro Keeps the Website Within Reach",
+    "description": "A build note on the HAMID particle intro, with the actual lockup frame, an early skip control, reduced-motion behavior and browser test results.",
+    "category": "Build notes",
+    "date": "2026-11-20",
+    "excerpt": "What happens between the first H and the page reveal, and how I tested that visitors can get straight to the content.",
+    "intro": "I render the website in HTML as usual and run the HAMID particle animation as a temporary layer. Eligible first visits can play the sequence, visitors can skip it from the first frame, and reduced-motion visitors go straight to the page.",
+    "cover": {
+      "alt": "The cream HAMID wordmark held in the center of a dark screen, with the Skip intro button at the lower right.",
+      "caption": "The wordmark during its one-second hold. Captured from the local portfolio build on 20 November 2026.",
+      "poster": [],
+      "tone": "capture"
+    },
+    "related": ["web-development"],
+    "relatedReads": [
+      "/insights/mobile-website-launch-checklist/",
+      "/blog/business-website-brief/"
+    ],
+    "cta": {
+      "title": "Discuss motion for your website.",
+      "text": "Share the effect you have in mind and the first thing visitors need to reach.",
+      "message": "Hi Hamid, I read your notes on the HAMID intro. Can we discuss motion and page access for my website?"
+    },
+    "sections": [
+      {
+        "id": "keep-the-page-underneath",
+        "heading": "Render the page before deciding whether to animate",
+        "paragraphs": [
+          "The homepage heading, links and main content are already in the exported HTML. The intro sits above that document. A small head script checks the visitor’s settings and records whether the intro has been seen in this tab before it requests the animation modules. If those modules fail or the browser cannot access session storage, the content is still there.",
+          "A fresh eligible deep link can introduce its own page. An anchor link, a history return and an ordinary in-session navigation have different jobs. Someone opening an article section or returning to a project should reach the intended content and position. I tested these paths separately from the homepage reveal."
+        ],
+        "links": [
+          {
+            "label": "Explore the website and its project previews",
+            "href": "/work/"
+          }
+        ]
+      },
+      {
+        "id": "shape-the-reveal",
+        "heading": "Hold the name long enough to read it",
+        "paragraphs": [
+          "The first H gives the sequence a visual starting point while the canvas is getting ready. Particles then assemble into the centered HAMID wordmark. I hold that frame for one second before the edges break up and the particles lift. The hold is timed from the rendered lockup, so a late frame does not consume the reading time.",
+          "I use the canvas for the type and particles, and animate the exit separately as the page comes into view. The useful division is between the time it takes to prepare the effect and the time the visitor needs to see it. If preparation misses the startup budget, the page opens without waiting for the full sequence."
+        ]
+      },
+      {
+        "id": "leave-the-toolbar",
+        "heading": "Make the skip control available on the first frame",
+        "paragraphs": [
+          "Skip intro is a real button in the HTML. The head script can respond to it before the animation modules are ready. Enter, Space or a pointer can activate the button. Escape also dismisses the layer. An intentional skip moves focus to the main content, so the next Tab starts from the page rather than the vanished intro.",
+          "Reduced motion and forced colors bypass the intro. Save-Data, some slow connection signals and device limits can also skip it. If a preference changes while the intro is running, the page can take over immediately. These checks make it possible to retain the sequence for browsers that can run it while keeping the entry path predictable."
+        ]
+      },
+      {
+        "id": "test-the-failure-path",
+        "heading": "Test the interruption as carefully as the reveal",
+        "paragraphs": [
+          "On 20 November 2026 I ran the local Chromium intro checks at seven viewport widths between 320 and 1440 CSS pixels. The checks recorded canvas frames, observed focus and opened deep links. The screenshot above comes from the same local portfolio and shows the actual held wordmark.",
+          "These are browser tests on the portfolio build. They check behavior under controlled conditions. They do not tell me what every visitor sees, how the animation performs on a particular phone, or whether motion improves enquiries."
+        ],
+        "table": {
+          "headers": ["Test", "Observed in Chromium"],
+          "rows": [
+            ["Normal motion at seven widths", "Centered wordmark, one-second hold and upward exit."],
+            ["Skip and Escape", "The layer closed and an intentional skip handed focus to the page."],
+            ["Reduced motion, slow-link and failure fixtures", "The route remained reachable when motion was suppressed or could not complete."],
+            ["History, deep links and reload", "The intended page opened and the animation did not repeat within the tab."],
+            ["JavaScript disabled", "The homepage heading and navigation were available in the document."]
+          ]
+        }
+      },
+      {
+        "id": "choose-motion-with-a-purpose",
+        "heading": "Decide where a sequence earns the time",
+        "paragraphs": [
+          "For a portfolio, a short wordmark reveal can set the tone. A booking page or urgent service route has a different priority. First decide which heading or action someone needs. Then try the page with the network slowed, with motion reduced and with a keyboard. The experience should still make sense through each path.",
+          "Use the release checklist to test the rest of the page after the effect has run. Check the contact action, mobile layout and history return alongside the visual sequence."
+        ],
+        "links": [
+          {
+            "label": "Use the mobile website launch checklist",
+            "href": "/insights/mobile-website-launch-checklist/"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "MDN guidance on the reduced-motion preference",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion"
+      },
+      {
+        "title": "W3C guidance on animation triggered by interaction",
+        "url": "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html"
+      }
+    ]
+  },
+  {
     "slug": "whatsapp-enquiry-path",
     "title": "Make Your WhatsApp Enquiry Path Easy to Use",
     "description": "Design a clear path from a service page to WhatsApp. Choose the right button placement, write a useful draft and test the handoff on a phone.",
@@ -133,6 +232,7 @@
     "description": "Separate clicks, conversations and qualified enquiries. Build a measurement plan for a service website and test the events without collecting private messages.",
     "category": "Measurement",
     "date": "2026-11-20",
+    "modified": "2026-11-20",
     "excerpt": "Define four stages from a website tap to a business outcome, and know exactly which ones your tools can observe.",
     "intro": "A WhatsApp click measures an attempt to leave the site and open a chat. Use an on-site event for that attempt, then record real conversations and qualified enquiries separately using evidence from the people handling them.",
     "cover": {
@@ -197,6 +297,25 @@
           "Pick one implementation owner for the event. If a site emits the event itself, a GTM custom event trigger can receive it. If GTM measures link clicks directly, make sure a second listener in the site is not sending the same action to the same property. Run one test interaction and inspect the destination before using the report.",
           "Use a small event payload. A useful starting set is a normalized page path, a placement such as hero or article end, and a service or topic label. Those fields are enough to compare whether visitors use the service-page action or wait until the contact section. Keep customer phone numbers, message drafts, clipboard content and form notes out of event fields and URLs.",
           "For Ahrefs Web Analytics, custom tracked events can be defined in the site's integration. For Google Tag Manager, a custom event trigger has to match the event name the website actually pushes. Confirm which tool is collecting which event. A script visible on the site shows installation, while a test in the analytics destination shows receipt."
+        ]
+      },
+      {
+        "id": "portfolio-implementation",
+        "heading": "Compare a chat click with an accepted website form",
+        "paragraphs": [
+          "On this portfolio the consented GA4 event contact_click with method set to whatsapp covers the WhatsApp links. Growth Engine and agency placements also emit a scoped click_whatsapp event. I use contact_click with that method filter for an all-site click count. Adding both event totals would count some clicks twice.",
+          "A fresh website form submission has a different confirmation path. The browser records generate_lead only after the enquiry server returns a new accepted receipt with HTTP 201. A retry that returns the same receipt, a failed response or an unavailable form emits no new lead event. Acceptance means the email provider accepted the message for delivery. Staff still verify receipt and decide whether the project qualifies.",
+          "The local tests check accepted, replayed, rejected and unavailable responses using controlled fixtures. That verifies when the event can fire. Inbox delivery and qualification require their own evidence."
+        ],
+        "links": [
+          {
+            "label": "Explore growth and enquiry measurement",
+            "href": "/growth/"
+          },
+          {
+            "label": "See how this website handles enquiry information",
+            "href": "/privacy/"
+          }
         ]
       },
       {
@@ -267,6 +386,10 @@
       {
         "title": "Google Tag Platform: The data layer",
         "url": "https://developers.google.com/tag-platform/tag-manager/datalayer"
+      },
+      {
+        "title": "Google Analytics guidance on the generate_lead event",
+        "url": "https://developers.google.com/analytics/devguides/collection/ga4/reference/events#generate_lead"
       },
       {
         "title": "Ahrefs: Tracked events in Web Analytics",

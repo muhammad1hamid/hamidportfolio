@@ -64,7 +64,7 @@ export function Navigation() {
         </nav>
         <Link
           className="nav-contact"
-          href="/contact/"
+          href="/contact/?source=navigation"
           aria-label="Discuss a project"
           aria-current={pathname === "/contact/" ? "page" : undefined}
         >
@@ -104,7 +104,11 @@ export function Navigation() {
           {[...links, { title: "Contact", href: "/contact/" }].map((link) => (
             <Link
               key={link.title}
-              href={link.href}
+              href={
+                link.href === "/contact/"
+                  ? "/contact/?source=navigation"
+                  : link.href
+              }
               onClick={close}
               aria-current={pathname === link.href ? "page" : undefined}
             >

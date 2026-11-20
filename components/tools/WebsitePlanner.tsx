@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   goals,
   growthGoal,
@@ -14,10 +14,24 @@ import {
 import { site } from "@/data/site";
 import { trackSiteEvent } from "@/data/site-events";
 import { trackGoogleEvent } from "@/data/google-analytics";
+import {
+  serviceForPath,
+  type EnquiryService,
+} from "@/data/project-enquiry.mjs";
+import { ProjectEnquiryForm } from "@/components/contact/ProjectEnquiryForm";
 
-export function WebsitePlanner() {
+export function WebsitePlanner({ siteKey }: { siteKey: string | null }) {
   const [input, setInput] = useState<PlanInput>(defaultPlan);
   const [message, setMessage] = useState("");
+  const [review, setReview] = useState<{
+    text: string;
+    service: EnquiryService | "";
+  } | null>(null);
+  const reviewHeading = useRef<HTMLHeadingElement>(null);
+  const reviewButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (review) reviewHeading.current?.focus();
+  }, [review]);
   const plan = buildPlan(input);
   const update = <K extends keyof PlanInput>(key: K, value: PlanInput[K]) => {
     setInput((previous) => ({ ...previous, [key]: value }));
@@ -206,14 +220,68 @@ export function WebsitePlanner() {
             Open draft in WhatsApp
           </a>
         </div>
+        {siteKey && (
+          <button
+            ref={reviewButton}
+            type="button"
+            className="text-link"
+            aria-expanded={Boolean(review)}
+            aria-controls={review ? "planner-enquiry" : undefined}
+            onClick={() => {
+              if (review) {
+                reviewHeading.current?.focus();
+                return;
+              }
+              setReview({
+                text: plan.text,
+                service: serviceForPath(plan.related),
+              });
+            }}
+          >
+            Review and send this outline
+          </button>
+        )}
         <p className="tool-small">
-          Your choices stay in this page. WhatsApp opens only when you choose
-          it; review the message there before sending.
+          Your choices stay on this page until you choose to share them. Review
+          your message in WhatsApp before sending.
+          {siteKey &&
+            " You can also edit a copy of the outline and send it as a website enquiry."}
         </p>
         <p role="status" className="tool-status">
           {message}
         </p>
       </section>
+      {review && siteKey && (
+        <section
+          className="planner-enquiry"
+          id="planner-enquiry"
+          aria-labelledby="planner-enquiry-heading"
+        >
+          <h2 ref={reviewHeading} tabIndex={-1} id="planner-enquiry-heading">
+            Review your outline.
+          </h2>
+          <p>
+            The project details below are a copy of your outline. Edit what you
+            want to share and send it only when you’re ready.
+          </p>
+          <ProjectEnquiryForm
+            siteKey={siteKey}
+            source="planner"
+            initialService={review.service}
+            initialMessage={review.text}
+          />
+          <button
+            type="button"
+            className="text-link tool-reset"
+            onClick={() => {
+              setReview(null);
+              reviewButton.current?.focus();
+            }}
+          >
+            Close outline review
+          </button>
+        </section>
+      )}
     </div>
   );
 }

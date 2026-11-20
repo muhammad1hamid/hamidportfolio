@@ -34,7 +34,16 @@ export function About() {
             collaborate directly with businesses and alongside agencies that
             need a dependable technical partner.
           </p>
-          <Link href="/about/" className="text-link">More about Hamid ↗</Link>
+          <div className="related-links">
+            <Link href="/about/">More about Hamid ↗</Link>
+            <Link
+              href="/for-agencies/"
+              data-agency-placement="founder"
+              data-agency-destination="agency_page"
+            >
+              For agencies ↗
+            </Link>
+          </div>
           <div className="about-location">
             <span aria-hidden="true">↗</span>
             <span>

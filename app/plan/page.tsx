@@ -2,6 +2,8 @@ import Link from "next/link";
 import { WebsitePlanner } from "@/components/tools/WebsitePlanner";
 import { ContentPage } from "@/components/seo/ContentPage";
 import { experienceMeta } from "@/data/experience";
+import { enquirySiteKey } from "@/server/enquiry/config.mjs";
+import "../contact.css";
 export const metadata = experienceMeta("/plan/");
 export default function PlanPage() {
   return (
@@ -11,7 +13,7 @@ export default function PlanPage() {
       intro="Plan a new website or a Growth Engine review of an existing one. Build a brief to keep, refine or discuss with Hamid."
       label="Website planner"
     >
-      <WebsitePlanner />
+      <WebsitePlanner siteKey={enquirySiteKey()} />
       <noscript>
         <p>
           The interactive planner needs JavaScript. You can still use the

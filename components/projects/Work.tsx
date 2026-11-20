@@ -129,6 +129,7 @@ export function Work({ archive = false }: { archive?: boolean }) {
             >
               <ProjectVisual
                 project={project}
+                eager={archive && index === 0}
                 sizes={
                   archive
                     ? "(max-width: 560px) 88vw, (max-width: 1080px) 42vw, 400px"

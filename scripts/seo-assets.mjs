@@ -51,6 +51,7 @@ const cards = [
   ["services", "Find the right starting point.", "SERVICES"],
   ["about", "The person behind the work.", "ABOUT HAMID"],
   ["contact", "A good project starts here.", "CONTACT"],
+  ["privacy", "Enquiry privacy notice.", "PRIVACY / HAMID"],
   ["work", "The work. The thinking behind it.", "THE PORTFOLIO"],
   ["case-studies", "The thinking behind the experience.", "PROJECT STORIES"],
   ["blog", "Better questions. Clearer projects.", "PRACTICAL GUIDES"],
@@ -118,6 +119,33 @@ await sharp(growthCard)
   .png()
   .toFile("public/images/share/growth.png");
 
+const agencyCard = Buffer.from(`
+  <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+    <rect width="1200" height="630" fill="#101112"/>
+    <path d="M56 126H1144M56 549H1144" stroke="#343739"/>
+    <text x="56" y="91" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#f0f0ec">HAMID</text>
+    <circle cx="244" cy="76" r="8" fill="#ff8651"/>
+    <text x="56" y="186" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#ff8651">AGENCY PARTNERSHIPS</text>
+    <text x="56" y="293" font-family="Arial,sans-serif" font-size="74" letter-spacing="-4" fill="#f0f0ec">Your client.</text>
+    <text x="56" y="376" font-family="Arial,sans-serif" font-size="74" letter-spacing="-4" fill="#f0f0ec">Your vision.</text>
+    <text x="57" y="470" font-family="Georgia,serif" font-size="92" font-style="italic" fill="#ff8651">My build.</text>
+    <rect x="664" y="185" width="275" height="254" rx="15" fill="#191b1d" stroke="#343739" transform="rotate(-8 664 185)"/>
+    <path d="M694 215H814M698 237H783M702 259H841" stroke="#a6aaa9" stroke-opacity=".55" stroke-width="3"/>
+    <rect x="727" y="220" width="417" height="290" rx="16" fill="#191b1d" stroke="#ff8651"/>
+    <circle cx="748" cy="239" r="3" fill="#a6aaa9"/>
+    <circle cx="761" cy="239" r="3" fill="#a6aaa9"/>
+    <circle cx="774" cy="239" r="3" fill="#ff8651"/>
+    <text x="56" y="592" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#a6aaa9">WHITE-LABEL WEB DEVELOPMENT FOR AGENCIES</text>
+    <text x="1144" y="592" text-anchor="end" font-family="Arial,sans-serif" font-size="19" fill="#a6aaa9">ITSHAMID.COM</text>
+  </svg>`);
+const agencyPreview = await sharp("public/images/projects/bridal-house.webp")
+  .resize(399, 239, { fit: "cover", position: "north" })
+  .toBuffer();
+await sharp(agencyCard)
+  .composite([{ input: agencyPreview, left: 736, top: 257 }])
+  .png()
+  .toFile("public/images/share/for-agencies.png");
+
 await mkdir("public/images/responsive", { recursive: true });
 for (const { slug, cover } of insights) {
   const source = `public/images/insights/${slug}.webp`;
@@ -131,9 +159,9 @@ for (const { slug, cover } of insights) {
     .join("");
   const typography = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" font-family="Arial, sans-serif"><text x="60" y="61" fill="${colors[0]}" font-size="24" font-weight="700">HAMID / INSIGHTS</text>${text}</svg>`;
 
-  await sharp(source)
-    .resize(1200, 630)
-    .composite([{ input: Buffer.from(typography) }])
+  const card = sharp(source).resize(1200, 630);
+  if (cover.poster.length) card.composite([{ input: Buffer.from(typography) }]);
+  await card
     .jpeg({ quality: 87, mozjpeg: true })
     .toFile(`public/images/share/insights-${slug}.jpg`);
 
@@ -165,5 +193,5 @@ for (const name of originals) {
   }
 }
 console.log(
-  `Prepared ${cards.length + insights.length + 1} page-specific share images and responsive portrait, project and insight assets.`,
+  `Prepared ${cards.length + insights.length + 2} page-specific share images and responsive portrait, project and insight assets.`,
 );

@@ -3,6 +3,7 @@ import { servicePillars } from "@/data/services";
 import { pageMeta } from "@/data/seo";
 import { ContentPage, ProjectCta } from "@/components/seo/ContentPage";
 import { Arrow } from "@/components/ui/Arrow";
+import { enquiryHref } from "@/data/project-enquiry.mjs";
 
 const title = "Web Development, SEO & AI Automation Services | Hamid";
 const description =
@@ -65,7 +66,26 @@ export default function ServicesPage() {
           </Link>
         </div>
       </section>
-      <ProjectCta />
+      <section
+        className="content-proof"
+        aria-labelledby="services-agency-title"
+      >
+        <h2 id="services-agency-title">Development for agencies</h2>
+        <p>
+          Bring an approved design, a scoped website or a feature that needs a
+          developer. I can work behind the scenes while your team leads the
+          client relationship.
+        </p>
+        <Link
+          href="/for-agencies/"
+          className="text-link"
+          data-agency-placement="services"
+          data-agency-destination="agency_page"
+        >
+          Explore Agency Partnerships <Arrow diagonal />
+        </Link>
+      </section>
+      <ProjectCta contactHref={enquiryHref("", "services")} />
     </ContentPage>
   );
 }
