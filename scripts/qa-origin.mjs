@@ -53,6 +53,11 @@ function recordMotion() {
         right: 0,
       };
       capture.startedAt ??= window.hamidOrigin?.startedAt;
+      if (capture.revealAt) {
+        const bounds = this.canvas.getBoundingClientRect();
+        frame.lift = (innerHeight - bounds.height) / 2 - bounds.top;
+        frame.bottom = bounds.bottom;
+      }
       capture.frames.push(frame);
     }
     return clear.apply(this, args);
@@ -133,7 +138,7 @@ const playing = (page) =>
     timeout: 2400,
   });
 const finished = (page) =>
-  page.locator(overlay).waitFor({ state: "hidden", timeout: 4000 });
+  page.locator(overlay).waitFor({ state: "hidden", timeout: 4800 });
 const focusIsMain = (page) =>
   page.evaluate(() => document.activeElement?.id === "main");
 const screenshot = (page, slug) =>
@@ -151,7 +156,7 @@ async function check(name, test) {
 try {
   for (const [width, height] of sizes) {
     await check(
-      `Centered anchor, formation, all-letter breakup and reveal at ${width}×${height}`,
+      `Centered formation, one-second hold and upward exit at ${width}×${height}`,
       () =>
         withPage(
           async (page) => {
@@ -183,9 +188,18 @@ try {
               await page.waitForFunction(
                 () => window.originCapture.frames.at(-1)?.left > 8,
                 null,
-                { timeout: 1400 },
+                { timeout: 1800 },
               );
               await screenshot(page, `${width}-breakup`);
+              await page.waitForFunction(
+                () => {
+                  const last = window.originCapture.frames.at(-1);
+                  return last?.lift > innerHeight * 0.18 && last.tiles > 10;
+                },
+                null,
+                { timeout: 1400 },
+              );
+              await screenshot(page, `${width}-lift`);
             }
             await finished(page);
             const { startedAt, frames, moves, revealAt, finish } =
@@ -212,7 +226,10 @@ try {
             const breakup = frames.find((frame) => frame.tiles > 0);
             assert.ok(breakup, "No breakup frames");
             const holdMs = breakup.t - lockup.t;
-            assert.ok(holdMs >= 250, `Full name held for ${holdMs} ms`);
+            assert.ok(
+              holdMs >= 970 && holdMs <= 1160,
+              `Full name held for ${holdMs} ms`,
+            );
             assert.ok(
               frames.some(
                 (frame) =>
@@ -225,13 +242,23 @@ try {
               "Curtain and breakup should overlap",
             );
             assert.ok(
+              frames.some(
+                (frame) => frame.lift > height * 0.2 && frame.tiles > 10,
+              ),
+              "Visible fragments should move up with the curtain",
+            );
+            assert.ok(
+              frames.some((frame) => frame.bottom <= 0),
+              "The particle canvas should leave the top of the viewport",
+            );
+            assert.ok(
               moves.some(
                 (move) =>
                   move.target === "origin-curtain" && move.duration > 250,
               ),
             );
             assert.ok(moves.some((move) => move.target === "hero-copy"));
-            assert.ok(finish - startedAt >= 2400 && finish - startedAt <= 2800);
+            assert.ok(finish - startedAt >= 3380 && finish - startedAt <= 3950);
             assert.equal(
               await page.locator(".origin-particles").getAttribute("width"),
               "1",
@@ -321,6 +348,13 @@ try {
     await check(`Skip intro with ${key} and return focus to the page`, () =>
       withPage(async (page) => {
         await visit(page);
+        if (key === "Space") {
+          await page.waitForFunction(
+            () => !!window.originCapture.frames.at(-1)?.word,
+            null,
+            { timeout: 2600 },
+          );
+        }
         await page
           .getByRole("button", { name: "Skip intro", exact: true })
           .waitFor();
@@ -333,6 +367,16 @@ try {
         await page.keyboard.press(key);
         await finished(page);
         assert.ok(await focusIsMain(page));
+        if (key === "Space") {
+          const lastFrame = await page.evaluate(
+            () => window.originCapture.frames.length,
+          );
+          await page.waitForTimeout(1100);
+          assert.equal(
+            await page.evaluate(() => window.originCapture.frames.length),
+            lastFrame,
+          );
+        }
       }),
     );
   }
@@ -343,7 +387,7 @@ try {
       await page.waitForFunction(
         () => window.originCapture.frames.at(-1)?.tiles > 45,
         null,
-        { timeout: 2400 },
+        { timeout: 3500 },
       );
       await page.keyboard.press("Escape");
       await finished(page);

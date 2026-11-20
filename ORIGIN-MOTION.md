@@ -1,12 +1,12 @@
 # HAMID / Origin
 
-The intro plays on the first eligible entry in each tab. A centered H releases warm and off-white particles that assemble AMID. The full name holds for 340 ms on the 2.48-second timeline. All five letters then separate into moving fragments as the charcoal curtain lifts and the current page settles into view. A cold start can extend the total slightly so the letter formation still has time to read.
+The intro plays on the first eligible entry in each tab. A centered H releases warm and off-white particles that assemble AMID. The full word **HAMID** stays still for one second from its first complete frame. All five letters then fragment and rise. The charcoal curtain carries the particles off the top of the screen as the current page comes into view. The sequence targets 3.42 seconds, with extra time for a cold start when needed.
 
 ## Visual direction
 
 The live homepage supplied the Manrope type, charcoal ground, warm orange accent and off-white lettering. The brief supplied the choreography. A motion-specific reference file was unavailable. The finished intro uses a soft orange aura and the five letters as its only visual focal point.
 
-The first frame comes from static markup. The browser loads the two small particle modules on eligible visits and starts them as soon as the stage and stylesheet are ready. Canvas 2D measures Manrope 800 and rasterizes HAMID once into a tight glyph strip. Occupied cells contain both a sampled ink pixel and the original piece of the letter. Seeded paths carry points from H pixels to the A, M, I and D cells. At lockup, the same raster matches the settled points. During breakup every piece moves, shrinks and fades from its glyph position. The curtain starts while pieces are still in motion.
+The first frame comes from static markup. The browser loads the two small particle modules on eligible visits and starts them as soon as the stage and stylesheet are ready. Canvas 2D measures Manrope 800 and rasterizes HAMID once into a tight glyph strip. Occupied cells contain both a sampled ink pixel and the original piece of the letter. Seeded paths carry points from H pixels to the A, M, I and D cells. One crisp canvas frame stays on screen during the pause. Each fragment then rises, shrinks and fades from its glyph position as its parent curtain slides upward.
 
 ## Integration
 
@@ -36,13 +36,13 @@ Internal navigation uses ordinary Next.js links and route commits. Fragments, mo
 | `node scripts/qa-analytics.mjs` | Seven consent and GA4 checks passed with test collection intercepted |
 | Prettier and `git diff --check` | Passed for the feature files and patch |
 
-Chrome viewport coverage included 1440×900, 1366×768, 1024×768, 768×1024, 430×932, 390×844 and 320×568. The slower sequence took 2.482–2.533 seconds in the recorded run. The complete word held for 300–333 ms before breaking into 202–656 fragments. Device pixel ratio was capped at 2. Set `QA_ORIGIN_SCREENSHOTS=1` for frame captures at 1440 and 390 pixels. Run the motion suite by itself for timing measurements.
+Chrome viewport coverage included 1440×900, 1366×768, 1024×768, 768×1024, 430×932, 390×844 and 320×568. The updated sequence took 3.427–3.619 seconds in the recorded run. The complete word held for 1,016 ms at each size before breaking into 202–656 fragments. The checks verified that visible fragments rise with the curtain and that the canvas clears the top edge. Device pixel ratio was capped at 2. Set `QA_ORIGIN_SCREENSHOTS=1` for frame captures at 1440 and 390 pixels. Run the motion suite by itself for timing measurements.
 
 The public homepage heading matched **Stand out online. Get found. Work smarter.** The export kept that heading and the same destinations, including `/growth/` and the 18-project archive. The site checks also verified structured data, canonical URLs, consent behavior and one GA4 page view on a client navigation.
 
-## Mobile lab measurements
+## Mobile lab measurements for the initial Origin release
 
-The same local static server and Chrome test used cold 390×844 contexts, 4× CPU throttling, 150 ms latency and 1.6 Mbps download. Each column is the median of three runs from `npm run test:performance`.
+The same local static server and Chrome test used cold 390×844 contexts, 4× CPU throttling, 150 ms latency and 1.6 Mbps download. Each column is the median of three runs from `npm run test:performance` before the one-second hold revision.
 
 | Metric | Before | Release |
 | --- | ---: | ---: |

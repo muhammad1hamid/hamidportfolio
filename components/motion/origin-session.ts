@@ -1,4 +1,4 @@
-export const originDuration = 2480;
+export const originDuration = 3420;
 export const originMotionQuery =
   "(prefers-reduced-motion: reduce), (forced-colors: active)";
 export const pageLeadSelector =
@@ -81,7 +81,7 @@ export const originBootstrap = `
       }
       clearTimeout(timer);
       root.dataset.originIntro = "playing";
-      timer = setTimeout(finish, Math.max(0, startedAt + duration + 370 - performance.now()));
+      timer = setTimeout(finish, Math.max(0, startedAt + duration + startupBudget - performance.now()));
       return true;
     }
   };

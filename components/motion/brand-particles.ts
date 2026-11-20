@@ -3,9 +3,10 @@ import { originFont, rasterizeOriginWord } from "./origin-word.js";
 const anchorArrival = 240;
 const emissionAt = 290;
 const lockupAt = 1360;
-const breakupAt = 1700;
-const revealAt = 1950;
-const curtainDuration = 510;
+const lockupDuration = 1000;
+const breakupAt = lockupAt + lockupDuration;
+const revealAt = breakupAt + 240;
+const curtainDuration = 800;
 const maxPlaybackRate = 1.16;
 
 const progress = (time: number, start: number, end: number) =>
@@ -68,9 +69,9 @@ function createRenderer(
       size: (viewportWidth < 700 ? 1 : 1.28) + random() * 1.48,
       warm: random() < 0.28,
       breakStart: breakupAt + random() * 141 + (1 - tile.x / width) * 46,
-      breakLength: 258 + random() * 114,
+      breakLength: 570 + random() * 220,
       driftX: scatter * (tile.x / width - 0.5 + random() - 0.5),
-      driftY: scatter * (0.13 - random() * 0.94),
+      rise: scatter * (0.22 + random() * 0.58),
     };
   });
 
@@ -138,16 +139,12 @@ function createRenderer(
         );
         if (elapsed === 1) continue;
         const drift = out(elapsed);
-        const scale = mix(1, 0.12, 1 - (1 - elapsed) ** 2);
+        const scale = mix(1, 0.12, drift);
         const tileWidth = point.width / dpr;
         const tileHeight = point.height / dpr;
         const x = wordX + point.left / dpr + point.driftX * drift;
-        const y =
-          wordY +
-          point.top / dpr +
-          point.driftY * drift -
-          9 * Math.sin(elapsed * Math.PI);
-        context.globalAlpha = 1 - elapsed * elapsed;
+        const y = wordY + point.top / dpr - point.rise * drift;
+        context.globalAlpha = 1 - smooth(progress(elapsed, 0.28, 1));
         context.drawImage(
           bitmap,
           point.left,
@@ -183,12 +180,14 @@ function mountBrandParticles(session: OriginSession, stage: HTMLElement) {
   const animations: Animation[] = [];
   let frame = 0;
   let fontTimer = 0;
+  let holdTimer = 0;
 
   signal.addEventListener(
     "abort",
     () => {
       cancelAnimationFrame(frame);
       clearTimeout(fontTimer);
+      clearTimeout(holdTimer);
       for (const animation of animations) animation.cancel();
       canvas.width = 1;
       canvas.height = 1;
@@ -230,10 +229,11 @@ function mountBrandParticles(session: OriginSession, stage: HTMLElement) {
     // Spend some of a late start on the stationary H. Cap the catch-up so
     // the letter assembly and hold keep their pace on cold visits.
     const first = Math.min(elapsed, anchorArrival);
-    const speed = Math.min(
+    const assemblyRate = Math.min(
       maxPlaybackRate,
-      (total - first) / (total - elapsed),
+      (lockupAt - first) / (lockupAt - elapsed),
     );
+    let lockupStartedAt: number | undefined;
     let revealing = false;
     window.addEventListener(
       "resize",
@@ -248,7 +248,19 @@ function mountBrandParticles(session: OriginSession, stage: HTMLElement) {
     );
 
     const render = (now: number) => {
-      const time = first + (now - readyAt) * speed;
+      const time =
+        lockupStartedAt === undefined
+          ? first + (now - readyAt) * assemblyRate
+          : lockupAt + (now - lockupStartedAt);
+      if (lockupStartedAt === undefined && time >= lockupAt) {
+        // Hold the crisp word for a full second from the actual rendered frame.
+        lockupStartedAt = now;
+        draw(lockupAt);
+        holdTimer = window.setTimeout(() => {
+          frame = requestAnimationFrame(render);
+        }, lockupDuration);
+        return;
+      }
       if (time >= total) {
         session.finish();
         return;
@@ -257,14 +269,18 @@ function mountBrandParticles(session: OriginSession, stage: HTMLElement) {
       if (!revealing && time >= revealAt) {
         revealing = true;
         document.documentElement.dataset.originIntro = "revealing";
-        const duration = Math.min(curtainDuration, total - time) / speed;
+        const duration = Math.min(curtainDuration, total - time);
         animations.push(
           curtain.animate(
             [
               { transform: "translateY(0)" },
               { transform: "translateY(-100%)" },
             ],
-            { duration, easing: "cubic-bezier(.65,0,.22,1)", fill: "forwards" },
+            {
+              duration,
+              easing: "cubic-bezier(.54,.04,.24,1)",
+              fill: "forwards",
+            },
           ),
         );
         const lead = document.querySelectorAll(
