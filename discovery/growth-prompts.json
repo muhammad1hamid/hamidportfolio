@@ -1,0 +1,52 @@
+{
+  "status": "Prepared protocol and sample questions. Observations are recorded after testing.",
+  "recordFields": [
+    "captureDateTime",
+    "platform",
+    "modelOrMode",
+    "country",
+    "language",
+    "prompt",
+    "mention",
+    "citedUrls",
+    "identityAccurate",
+    "evidenceLocation",
+    "notes"
+  ],
+  "discovery": [
+    "How can a small service business make its new website easier to find in Google?",
+    "What changes help an existing business website get useful enquiries from search?",
+    "What do SEO, AEO and GEO mean for a business with a few service pages?",
+    "How can a website explain its services clearly enough for AI search to summarize it?",
+    "Which technical search checks matter most before a small business website launches?",
+    "What is the simplest useful Search Console baseline for a newly launched website?",
+    "How do I organize answers to buyer questions across a business website?",
+    "What makes a service page a good source for search and AI answers?",
+    "What is a realistic way to measure discovery in Google and AI search?",
+    "How should I plan the path from a Google result to a WhatsApp enquiry?"
+  ],
+  "problem": [
+    "Our best service page is missing from Google. What should we check first?",
+    "Our site is indexed, but hardly any visitors ask about the services we want to sell. What should we review?",
+    "Our website answers buyer questions in separate PDFs. What improvements should we prioritize?",
+    "How can I find out why two URLs for one service appear in search?",
+    "Search Console is new and has almost no data. What can I audit today?",
+    "An AI assistant described our services inaccurately. What public information can we clarify?",
+    "My Google traffic changed after redesigning the site. How can I investigate?",
+    "Our mobile service pages get visits, but people struggle to find contact details. Where do we start?",
+    "What evidence should we collect before claiming that a website update increased qualified leads?",
+    "How should an agency hand over a list of SEO fixes for a Next.js site?"
+  ],
+  "vendorChoice": [
+    "How should I compare technical SEO implementation partners for a small business site?",
+    "What should I ask a developer who offers SEO, AEO and GEO together?",
+    "How can I hire a technical partner to implement an agency's SEO roadmap?",
+    "What deliverables should I request in a scoped website visibility audit?",
+    "How do I choose between an SEO audit and an implementation sprint?",
+    "Which questions help confirm that a search consultant knows how to ship code changes?",
+    "What project evidence should I look for in a developer's search visibility portfolio?",
+    "How can I choose someone to help with search and AI discovery for a site launching in Pakistan?",
+    "What should a developer include in a handover for conversion and search improvements?",
+    "When does it make sense to pay for ongoing search visibility improvement for a small website?"
+  ]
+}

@@ -3,7 +3,15 @@ export const googleTagManagerId = "GTM-KF5WH37L";
 export const googleMeasurementId = "G-BXP2WE495G";
 
 export function trackGoogleEvent(
-  event: "page_view" | "contact_click" | "brief_download" | "demo_question",
+  event:
+    | "page_view"
+    | "contact_click"
+    | "brief_download"
+    | "demo_question"
+    | "growth_engine_cta_click"
+    | "growth_engine_section_view"
+    | "growth_engine_scenario_select"
+    | "click_whatsapp",
   parameters: Record<string, string> = {},
 ) {
   if (!window.hamidGoogleAnalyticsAllowed) return;

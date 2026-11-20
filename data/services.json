@@ -437,100 +437,154 @@
     "pillar": "growth-engine",
     "displayName": "Growth Engine",
     "descriptor": "Search & AI visibility, including SEO, AEO and GEO",
-    "title": "Growth Engine: SEO, AEO & GEO Services | Hamid",
-    "description": "Improve your technical SEO, answer clarity and AI search readiness with Hamid’s Growth Engine service. Agree practical fixes and a measurement plan.",
+    "title": "SEO, AEO & GEO Services | Growth Engine — Hamid",
+    "description": "Technical SEO, answer-focused content, AI search readiness and clearer conversion paths. Explore Growth Engine, a developer-led visibility service by Hamid.",
     "headline": [
-      "Be easier to find.",
-      "Easier to understand.",
-      "Easier to choose."
+      "Get found.",
+      "Get understood.",
+      "Give people a reason to choose you."
     ],
-    "intro": "Growth Engine is a practical optimization service that combines SEO foundations, answer-focused content, AI search readiness and clearer conversion paths. The aim is to make your website more useful, more discoverable and easier to act on, then measure what actually changes.",
-    "problem": "Search engines need to understand your pages, visitors need answers that match their questions, and the next step needs to feel obvious. We review those connections to see which improvements matter most for your business.",
+    "intro": "I help businesses strengthen their websites for Google Search, useful AI-powered answers and the real decisions visitors make before getting in touch.",
+    "problem": "Good design makes an impression. People still need to discover your pages, understand your offer and find an easy next step. When those connections are missing, even a carefully built website can struggle to generate meaningful enquiries.",
     "deliverables": [
       {
         "id": "search-foundations",
-        "title": "Search Foundations",
-        "detail": "Review how public pages can be crawled and indexed. Check titles, canonical URLs, internal links, useful structured data and page performance. Prioritize fixes on the pages that matter to customers."
+        "title": "Search foundations",
+        "discipline": "Technical SEO",
+        "detail": "Make important pages easier for search engines to access, understand and index.",
+        "checks": "Crawl and indexation checks, canonical URLs, sitemaps, robots directives, titles, internal links, mobile performance and relevant structured data.",
+        "sample": "Prioritized technical findings with affected URLs, a proposed fix and the check used to verify it."
       },
       {
         "id": "answer-readiness",
-        "title": "Content & Answer Readiness",
-        "detail": "Answer engine optimization (AEO) starts with questions buyers ask before they contact you. Give those questions direct, specific answers backed by examples, sources and clear authorship."
+        "title": "Answer readiness",
+        "discipline": "AEO",
+        "detail": "Give people direct, accurate answers to the questions that matter before they enquire.",
+        "checks": "Buyer questions, search intent, answer-first sections, examples, attributable sources, clear authorship and contextual links.",
+        "sample": "A buyer-question map that pairs each question with a page update and the evidence it needs."
       },
       {
         "id": "ai-discoverability",
-        "title": "AI Search Discoverability",
-        "detail": "Generative engine optimization (GEO) helps AI search systems discover and understand the information you publish. Clarify who is behind the business, what it offers and which pages explain each service. Check public references and bot access."
+        "title": "AI discovery",
+        "discipline": "GEO",
+        "detail": "Improve the clarity, access and supporting evidence that AI-powered search can draw on when describing your business.",
+        "checks": "Crawlable HTML, bot access, consistent business and service details, sourceable explanations and dated observations where useful.",
+        "sample": "An AI search-readiness checklist and an observation log with dates, queries and limitations."
       },
       {
         "id": "conversion-paths",
-        "title": "Conversion Paths",
-        "detail": "Walk through the path from a search landing page to a call, project brief or WhatsApp enquiry. Make the next action easy to find and check that it works on mobile and desktop."
+        "title": "Conversion paths",
+        "discipline": "CRO",
+        "detail": "Make the next step clear when the right visitor arrives.",
+        "checks": "Page hierarchy, contact copy, mobile tap targets, form feedback and working paths to an enquiry. Track contact actions with consent.",
+        "sample": "A list of friction points, the agreed fixes and verified contact paths on desktop and mobile."
       },
       {
         "id": "measurement",
-        "title": "Measurement & Iteration",
-        "detail": "Use Search Console and analytics where available to establish a baseline. Separate search impressions, visits, contact actions and qualified enquiries. If useful, record AI referrals and examples of AI answers alongside the date, product and query."
+        "title": "Measurement and iteration",
+        "discipline": "Analytics",
+        "detail": "See what changed across discovery, site visits and meaningful enquiries.",
+        "checks": "Search Console and GA4 setup, a dated baseline, priority landing pages, contact events and AI referral or prompt observations where data is available.",
+        "sample": "A before-and-after change log, known data gaps and dates for reviewing the results."
       }
     ],
     "fit": [
       {
-        "title": "A business with an existing website",
-        "text": "People know your business, but priority service pages get little relevant search traffic or have no clear route to an enquiry."
+        "id": "business",
+        "title": "Growing business",
+        "text": "Your website is live, and you want the right visitors to understand the offer and take a clear next step.",
+        "firstStep": "Review the service page that matters most and follow its path to contact."
       },
       {
-        "title": "A founder preparing a launch",
-        "text": "You want an understandable offer, crawlable pages and useful measurement in place when the site goes live."
+        "id": "founder",
+        "title": "Startup or founder",
+        "text": "You want to launch with clear pages, technical search foundations and a way to learn what visitors do.",
+        "firstStep": "Agree the priority pages and launch checks before the site goes live."
       },
       {
-        "title": "An agency supporting a client",
-        "text": "You need help turning content or technical findings into a scoped implementation with clear handover notes."
+        "id": "agency",
+        "title": "Agency partner",
+        "text": "You need a developer who can translate technical recommendations into reliable client-site changes and clear handover notes.",
+        "firstStep": "Review your roadmap, access and the fixes that are ready to implement."
       }
     ],
     "process": [
       {
-        "title": "Review",
-        "text": "Confirm the offer, audience, priority pages and what data we can use."
+        "title": "Diagnose",
+        "text": "Understand your goals, priority pages, current visibility and what data is available."
       },
       {
         "title": "Prioritize",
-        "text": "Agree the fixes worth doing first, the pages in scope and how to verify the work."
+        "text": "Agree which technical, content or enquiry issues deserve attention first, and how to check each fix."
       },
       {
         "title": "Implement",
-        "text": "Make the agreed changes and check published pages, links and contact actions."
+        "text": "Ship the agreed improvements and verify them on real devices and published URLs."
       },
       {
-        "title": "Measure",
-        "text": "Record the baseline and checks, then review available signals at an agreed date."
+        "title": "Measure & refine",
+        "text": "Review a dated baseline, record what changed and decide what to do next."
       }
     ],
     "outputs": [
-      "A prioritized review with affected URLs, reasons for each fix and a clear owner for the next action.",
-      "Agreed page, content and tracking improvements, with checks showing what changed.",
-      "A measurement plan covering available search data, contact actions and a follow-up review."
+      {
+        "title": "Visibility audit",
+        "detail": "Affected pages, findings, reasons for prioritization and suggested fixes."
+      },
+      {
+        "title": "Page and content plan",
+        "detail": "Search topics and buyer questions mapped to the pages that should answer them."
+      },
+      {
+        "title": "Implemented improvements",
+        "detail": "Technical and on-page changes within scope, with links to the updated pages."
+      },
+      {
+        "title": "Conversion checks",
+        "detail": "A walkthrough of the contact path and checks for the agreed fixes on real devices."
+      },
+      {
+        "title": "Measurement handover",
+        "detail": "Setup notes, metric definitions, available baselines and documented data gaps."
+      }
     ],
-    "limits": "Before work begins, we agree which pages, systems and measurements the project covers. Search and AI platforms decide what to rank or cite. Traffic and enquiries also depend on competition, customer demand and other factors outside the scope of one project.",
+    "limits": "I agree the pages, deliverables and verification with you before the work starts. Content production, third-party mentions, analytics access and ongoing monitoring depend on the scope and access. Search and AI platforms decide what to index, rank, cite or recommend.",
     "faqs": [
       {
-        "q": "Is AEO different from SEO?",
-        "a": "AEO builds on SEO. It focuses on how easily people and answer engines can find and understand a useful response to a specific question."
+        "q": "What’s the difference between SEO, AEO and GEO?",
+        "a": "Search engine optimization (SEO) improves how people find relevant pages in search. Answer engine optimization (AEO) makes useful answers easier to retrieve and understand. Generative engine optimization (GEO) addresses how AI search can discover, understand and reference your business."
       },
       {
-        "q": "Can GEO guarantee that ChatGPT or Gemini recommends my business?",
-        "a": "AI systems decide which businesses to recommend or cite. The work improves the access, clarity and evidence those systems can draw on. Recommendations vary by question and context."
+        "q": "Can you guarantee the first page of Google or recommendations in ChatGPT?",
+        "a": "Google and AI platforms decide which pages to rank, cite or recommend. I can improve technical access, content clarity, evidence and measurement. Exposure varies by platform, query and context."
       },
       {
-        "q": "Do I need a new website?",
-        "a": "Often the existing website is a good place to start. We look at the current pages, publishing access and technical limits before deciding whether updates or a rebuild fit the scope."
+        "q": "Does my website need a complete redesign?",
+        "a": "An existing site is usually a good place to start. I review access, page structure and enquiry routes first. A redesign makes sense when the existing implementation limits the goal."
       },
       {
-        "q": "When will results show?",
-        "a": "Agreed fixes can be checked as soon as they go live. The time it takes to see changes in rankings or enquiries depends on the starting point, competition and search engine behavior. We agree when to check the data again."
+        "q": "What if my website has very little Search Console data?",
+        "a": "I can still check crawl access, indexing signals, internal links and contact paths. I record the starting evidence and track changes when enough data is available."
       },
       {
-        "q": "Can you help with both Google and AI search?",
-        "a": "Yes. Crawlable pages, useful content, trustworthy information and clear structure support both. We agree which improvements to make and what data is available to assess discovery."
+        "q": "How long will changes take to show results?",
+        "a": "I can verify the agreed technical fixes once they go live. Changes in indexing, traffic or enquiries depend on the starting point, competition and search platform. I agree practical dates to review the evidence."
+      },
+      {
+        "q": "Do I need a special llms.txt file or an AI-only schema?",
+        "a": "Google’s AI features use the ordinary Search requirements and eligible pages. I start with crawlable pages, useful content, appropriate structured data and genuine evidence. Other platforms publish their own discovery controls.",
+        "source": {
+          "url": "https://developers.google.com/search/docs/appearance/ai-features",
+          "label": "Google’s guidance on AI features"
+        }
+      },
+      {
+        "q": "Can you work directly with my developer or agency?",
+        "a": "Yes. I agree ownership, access, page scope, responsibilities and handover before implementing changes."
+      },
+      {
+        "q": "What will you measure?",
+        "a": "Where I have access, I check indexing, relevant search visits, contact clicks and qualified enquiries. A click records interest. Confirmed enquiries come from conversations your team actually receives. Dated AI referrals and prompt observations can add context."
       }
     ],
     "related": [

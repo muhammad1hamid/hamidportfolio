@@ -8,6 +8,7 @@ import { Arrow } from "@/components/ui/Arrow";
 const links = [
   { title: "Work", href: "/work/" },
   { title: "Services", href: "/services/" },
+  { title: "Growth Engine", href: "/growth/" },
   { title: "About", href: "/about/" },
   { title: "Reviews", href: "/#testimonials" },
   { title: "Insights", href: "/insights/" },
@@ -64,9 +65,13 @@ export function Navigation() {
         <Link
           className="nav-contact"
           href="/contact/"
+          aria-label="Discuss a project"
           aria-current={pathname === "/contact/" ? "page" : undefined}
         >
-          Discuss a project <Arrow diagonal />
+          <span>
+            Discuss<span className="nav-contact-detail"> a project</span>
+          </span>
+          <Arrow diagonal />
         </Link>
         <button
           ref={button}

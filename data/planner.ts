@@ -1,4 +1,4 @@
-export const growthGoal = "Growth Engine (SEO & AI visibility)";
+export const growthGoal = "Growth Engine — SEO, AEO & GEO";
 
 export const goals = [
   "Generate enquiries",

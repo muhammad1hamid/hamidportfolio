@@ -81,6 +81,11 @@ try {
   await context.addInitScript(() => {
     window.dataLayer = [];
     window.hamidGoogleAnalyticsAllowed = true;
+    window.qaGoogleEvents = [];
+    window.gtag = (command, event, parameters) => {
+      if (command === "event")
+        window.qaGoogleEvents.push({ event, ...parameters });
+    };
   });
   const page = await context.newPage();
   page.on("pageerror", (e) => errors.push(e.message));
@@ -167,19 +172,35 @@ try {
   await page.goto(base, { waitUntil: "networkidle" });
   await page.locator(".pillar-card-growth-engine a").click();
   await page.waitForURL("**/growth/");
-  assert.equal(await page.locator(".growth-deliverables h3").count(), 5);
-  assert.equal(
-    await page.locator(".growth-page .content-faq details").count(),
-    5,
-  );
+  await page.locator(".growth-workstream h3").first().waitFor();
+  assert.equal(await page.locator(".growth-workstream h3").count(), 5);
+  assert.equal(await page.locator(".growth-faq details").count(), 8);
   await page
     .locator(".growth-hero")
-    .getByRole("link", { name: /See what’s included/ })
+    .getByRole("link", { name: "Explore Growth Engine" })
     .click();
   await page.waitForURL("**/growth/#whats-included");
+  await page.waitForFunction(() =>
+    window.qaGoogleEvents.some(
+      (event) =>
+        event.event === "growth_engine_section_view" &&
+        event.section === "workstreams",
+    ),
+  );
+  await page.getByRole("radio", { name: "Launching a website" }).focus();
+  await page.keyboard.press("ArrowRight");
+  assert.ok(await page.locator("#journey-business").isVisible());
+  await page.evaluate(() => {
+    window.hamidGoogleAnalyticsAllowed = false;
+  });
+  await page.keyboard.press("ArrowRight");
+  assert.ok(await page.locator("#journey-agency").isVisible());
+  await page.evaluate(() => {
+    window.hamidGoogleAnalyticsAllowed = true;
+  });
   await page
     .locator(".growth-hero")
-    .getByRole("link", { name: "Discuss Growth Engine" })
+    .getByRole("link", { name: "Discuss your growth goals" })
     .click();
   await page.waitForURL("**/contact/#growth-enquiry");
   const popup = context.waitForEvent("page");
@@ -189,7 +210,7 @@ try {
   assert.equal(new URL(growthDraft.url()).pathname, "/923356709222");
   assert.match(
     new URL(growthDraft.url()).searchParams.get("text"),
-    /Growth Engine for my website/,
+    /Growth Engine\.\nWebsite: \[your website\]\nMain goal: \[your goal\]/,
   );
   await growthDraft.close();
   await page.getByRole("link", { name: /Prepare a project brief/ }).click();
@@ -199,7 +220,7 @@ try {
     .fill("Private Growth Engine test notes.");
   await page
     .getByLabel("Main goal")
-    .selectOption("Growth Engine (SEO & AI visibility)");
+    .selectOption("Growth Engine — SEO, AEO & GEO");
   assert.equal(
     await page.locator("#plan-result-title").innerText(),
     "Review an existing website",
@@ -217,6 +238,48 @@ try {
     { event: "planner_open", page_path: "/contact/" },
     { event: "planner_growth_option_select", page_path: "/plan/" },
   ]);
+  const sent = await page.evaluate(() => window.qaGoogleEvents);
+  assert.deepEqual(
+    sent.filter(({ event }) => event === "growth_engine_cta_click"),
+    [
+      {
+        event: "growth_engine_cta_click",
+        placement: "hero",
+        destination: "growth_contact",
+        service: "growth_engine",
+        page_path: "/growth/",
+      },
+    ],
+  );
+  assert.deepEqual(
+    sent.filter(({ event }) => event === "growth_engine_scenario_select"),
+    [
+      {
+        event: "growth_engine_scenario_select",
+        scenario: "business",
+        service: "growth_engine",
+        page_path: "/growth/",
+      },
+    ],
+  );
+  assert.equal(
+    sent.filter(
+      ({ event, section }) =>
+        event === "growth_engine_section_view" && section === "workstreams",
+    ).length,
+    1,
+  );
+  assert.deepEqual(
+    sent.filter(({ event }) => event === "click_whatsapp"),
+    [
+      {
+        event: "click_whatsapp",
+        destination: "whatsapp",
+        service: "growth_engine",
+        page_path: "/contact/",
+      },
+    ],
+  );
   const growthDownload = page.waitForEvent("download");
   await page.getByRole("button", { name: "Download my brief" }).click();
   const growthFile = await growthDownload;
@@ -309,18 +372,16 @@ try {
   );
   await htmlPage.goto(`${base}/growth/`);
   assert.equal(await htmlPage.locator("main h1").count(), 1);
-  assert.equal(
-    await htmlPage.locator(".growth-deliverables section").count(),
-    5,
-  );
-  assert.equal(
-    await htmlPage.locator(".growth-page .content-faq details").count(),
-    5,
-  );
-  assert.match(
-    await htmlPage.locator("main").innerText(),
-    /AI Search Discoverability/,
-  );
+  assert.equal(await htmlPage.locator(".growth-workstream").count(), 5);
+  assert.equal(await htmlPage.locator(".growth-faq details").count(), 8);
+  assert.match(await htmlPage.locator("main").innerText(), /AI discovery/);
+  assert.ok(await htmlPage.locator("#journey-founder").isVisible());
+  await htmlPage
+    .locator(".growth-journey-options label")
+    .filter({ hasText: "Implementing a roadmap" })
+    .click();
+  assert.ok(await htmlPage.locator("#journey-agency").isVisible());
+  assert.ok(!(await htmlPage.locator("#journey-founder").isVisible()));
   checks.push(
     "Answers, tool explanations and Growth Engine content work without JavaScript",
   );

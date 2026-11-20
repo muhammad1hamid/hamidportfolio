@@ -33,6 +33,14 @@ export function Analytics() {
       if (isActionEvent(action)) {
         trackSiteEvent(action, target?.dataset.sitePillar);
       }
+      const placement = target?.dataset.growthPlacement;
+      if (placement) {
+        trackGoogleEvent("growth_engine_cta_click", {
+          placement,
+          destination: "growth_contact",
+          service: "growth_engine",
+        });
+      }
       if (!(target instanceof HTMLAnchorElement) || target.hostname !== "wa.me")
         return;
       trackSiteEvent("contact_whatsapp_click");
@@ -41,6 +49,12 @@ export function Analytics() {
         context: target.dataset.contactContext || "contact_link",
         discovery_source: identifyReferral(document.referrer),
       });
+      if (target.dataset.contactContext === "growth_engine") {
+        trackGoogleEvent("click_whatsapp", {
+          destination: "whatsapp",
+          service: "growth_engine",
+        });
+      }
     };
     document.addEventListener("click", click, true);
     return () => document.removeEventListener("click", click, true);

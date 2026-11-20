@@ -248,6 +248,7 @@ summary:focus-visible {
 }
 .desktop-nav a {
   padding: 10px 20px;
+  white-space: nowrap;
   position: relative;
   border-radius: 999px;
   transition: background 0.3s;
@@ -279,6 +280,11 @@ summary:focus-visible {
   border-radius: 50%;
   background: var(--text);
   color: var(--bg);
+}
+@media (max-width: 360px) {
+  .nav-contact-detail {
+    display: none;
+  }
 }
 .menu-toggle {
   display: none;
@@ -2064,6 +2070,19 @@ dialog[open] {
     margin-left: 40px;
   }
 }
+@media (min-width: 768px) and (max-width: 900px) {
+  .desktop-nav {
+    display: none;
+  }
+  .nav-contact {
+    margin-left: auto;
+    margin-right: 16px;
+  }
+  .menu-toggle {
+    display: block;
+  }
+}
+
 @media (max-width: 767px) {
   :root {
     --page-gutter: clamp(20px, 6vw, 32px);

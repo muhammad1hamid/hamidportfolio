@@ -5,7 +5,7 @@ import { ContentPage } from "@/components/seo/ContentPage";
 import { Arrow } from "@/components/ui/Arrow";
 
 const growthMessage = encodeURIComponent(
-  "Hi Hamid, I’d like to discuss Growth Engine for my website.",
+  "Hi Hamid, I’d like to discuss Growth Engine.\nWebsite: [your website]\nMain goal: [your goal]",
 );
 
 export const metadata = pageMeta(

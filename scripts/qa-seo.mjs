@@ -168,6 +168,10 @@ try {
     for (const href of record.links) {
       const url = new URL(href, base + record.path);
       if (![new URL(base).origin, origin].includes(url.origin)) continue;
+      if (["/robots.txt", "/sitemap.xml"].includes(url.pathname)) {
+        assets.add(url.pathname);
+        continue;
+      }
       const target = records.find((page) => page.path === url.pathname);
       if (!target) {
         failures.push(`${record.path}: internal link outside sitemap ${href}`);
