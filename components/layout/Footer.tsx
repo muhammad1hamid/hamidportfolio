@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { site } from "@/data/site";
 import { CurrentYear } from "@/components/ui/CurrentYear";
-import { Clarity } from "@/components/seo/Clarity";
+import { AnalyticsPreferences } from "@/components/seo/AnalyticsPreferences";
 
 export function Footer() {
   const socials = [
@@ -68,7 +68,7 @@ export function Footer() {
         </div>
         <span>Thoughtfully built.</span>
       </div>
-      {!site.noindex && <Clarity origin={site.url} />}
+      {!site.noindex && <AnalyticsPreferences origin={site.url} />}
     </footer>
   );
 }

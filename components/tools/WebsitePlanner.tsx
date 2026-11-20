@@ -13,6 +13,7 @@ import {
 } from "@/data/planner";
 import { site } from "@/data/site";
 import { trackSiteEvent } from "@/data/site-events";
+import { trackGoogleEvent } from "@/data/google-analytics";
 
 export function WebsitePlanner() {
   const [input, setInput] = useState<PlanInput>(defaultPlan);
@@ -41,7 +42,7 @@ export function WebsitePlanner() {
     setMessage(
       "Your brief download has started. Nothing has been sent to Hamid.",
     );
-    window.gtag?.("event", "brief_download", { page_path: "/plan/" });
+    trackGoogleEvent("brief_download");
   };
   return (
     <div className="planner-layout">

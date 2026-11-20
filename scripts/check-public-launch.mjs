@@ -13,7 +13,9 @@ const report = {
   configured: {
     googleVerification: Boolean(process.env.GOOGLE_SITE_VERIFICATION),
     bingVerification: Boolean(process.env.BING_SITE_VERIFICATION),
-    analytics: Boolean(process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID),
+    googleTagManager: (await readFile("out/index.html", "utf8")).includes(
+      'id="hamid-google-tag-manager"',
+    ),
     indexNow: Boolean(process.env.INDEXNOW_KEY),
   },
   dns: null,

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { answerDemo, demoKnowledge } from "@/data/enquiry-demo";
 import { site } from "@/data/site";
+import { trackGoogleEvent } from "@/data/google-analytics";
 export function EnquiryDemo() {
   const [question, setQuestion] = useState("");
   const [result, setResult] = useState<ReturnType<typeof answerDemo>>(null);
@@ -12,9 +13,7 @@ export function EnquiryDemo() {
     setQuestion(value);
     setSubmitted(value);
     setResult(answerDemo(value));
-    window.gtag?.("event", "demo_question", {
-      page_path: "/demos/enquiry-assistant/",
-    });
+    trackGoogleEvent("demo_question");
   };
   return (
     <div className="demo-layout">

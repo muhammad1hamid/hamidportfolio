@@ -6,6 +6,11 @@ import { Experience } from "@/components/motion/Experience";
 import { entityGraph, pageMeta } from "@/data/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Analytics } from "@/components/seo/Analytics";
+import {
+  analyticsPreferenceKey,
+  googleMeasurementId,
+  googleTagManagerId,
+} from "@/data/google-analytics";
 import "./globals.css";
 import "./refinements.css";
 import "./testimonials.css";
@@ -21,18 +26,42 @@ const tagManager = `
 
     w.dataLayer = w.dataLayer || [];
     w.gtag = w.gtag || function () { w.dataLayer.push(arguments); };
-    w.gtag("consent", "default", {
+    var consent = {
       analytics_storage: "denied",
       ad_storage: "denied",
       ad_user_data: "denied",
       ad_personalization: "denied"
-    });
-    w.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+    };
+    var disabled = ${JSON.stringify(`ga-disable-${googleMeasurementId}`)};
+    w[disabled] = true;
+    w.hamidGoogleAnalyticsAllowed = false;
+    w.gtag("consent", "default", consent);
 
-    const tag = d.createElement("script");
-    tag.async = true;
-    tag.src = "https://www.googletagmanager.com/gtm.js?id=GTM-KF5WH37L";
-    d.head.appendChild(tag);
+    w.hamidSetGoogleAnalyticsConsent = function (allowed) {
+      if (w.hamidGoogleAnalyticsAllowed === allowed) return;
+      w.hamidGoogleAnalyticsAllowed = allowed;
+      w[disabled] = !allowed;
+      w.gtag("consent", "update", Object.assign({}, consent, {
+        analytics_storage: allowed ? "granted" : "denied"
+      }));
+      if (!allowed || d.getElementById("hamid-gtm-container")) return;
+
+      w.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+      var tag = d.createElement("script");
+      tag.id = "hamid-gtm-container";
+      tag.async = true;
+      tag.src = "https://www.googletagmanager.com/gtm.js?id=${googleTagManagerId}";
+      tag.addEventListener("load", function () { w.hamidGoogleTagLoaded = true; });
+      d.head.appendChild(tag);
+    };
+
+    try {
+      var saved = JSON.parse(w.localStorage.getItem(${JSON.stringify(analyticsPreferenceKey)}) || "null");
+      if (saved && saved.google === true && typeof saved.clarity === "boolean")
+        w.hamidSetGoogleAnalyticsConsent(true);
+    } catch {
+      // Analytics stays off until a visitor makes a choice on this page.
+    }
   })(window, document);
 `;
 

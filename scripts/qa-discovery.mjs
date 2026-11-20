@@ -80,6 +80,7 @@ try {
   );
   await context.addInitScript(() => {
     window.dataLayer = [];
+    window.hamidGoogleAnalyticsAllowed = true;
   });
   const page = await context.newPage();
   page.on("pageerror", (e) => errors.push(e.message));

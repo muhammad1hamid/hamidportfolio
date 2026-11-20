@@ -38,15 +38,9 @@ Bing documents sitemap submission in its [Sitemaps help](https://www2.bing.com/w
 
 ## 4. Google Analytics 4
 
-- [ ] Create or choose the business's GA4 property and Web data stream for the final site.
-- [ ] Review your required privacy notice and consent configuration before enabling tracking. Tracking is currently off because no ID is supplied.
-- [ ] Put the actual `G-…` measurement ID in `NEXT_PUBLIC_GA_MEASUREMENT_ID`, rebuild and publish.
-- [ ] This implementation sends its own `page_view` on route changes. Disable **Page changes based on browser history events** under the stream's Enhanced measurement → Page views advanced settings, to avoid duplicate route views.
-- [ ] Review automatic form, outbound-link and site-search measurement before enabling those options. The custom implementation does not send brief form values and strips URL queries/hashes from its page events.
-- [ ] In Realtime/DebugView, verify one page view per navigation and `contact_click` with `method=whatsapp` when an actual WhatsApp link is clicked. A click is an enquiry attempt, not a confirmed lead or sale.
-- [ ] Mark `contact_click` as a key event only if that is the business metric you want.
+The published container `GTM-KF5WH37L` sends to web stream `G-BXP2WE495G`. In a fresh browser session, open the public site and allow Google Analytics. **Analytics settings** in the footer lets visitors change their choice. Advertising consent stays denied.
 
-See [Google's SPA measurement guide](https://developers.google.com/analytics/devguides/collection/ga4/single-page-applications) and [Enhanced measurement settings](https://support.google.com/analytics/answer/9216061?hl=en-ch).
+In Tag Assistant, confirm the analytics consent update and one page view each for initial load and navigation to another page. Use Realtime or DebugView to check receipt there. The published Google tag records the initial view and the site measures subsequent route changes. Keep **Page changes based on browser history events** off in the stream's enhanced pageview settings to count each navigation once. Count WhatsApp clicks separately from conversations received. [Google Consent Mode](https://developers.google.com/tag-platform/security/guides/consent) · [Google's SPA measurement guide](https://developers.google.com/analytics/devguides/collection/ga4/single-page-applications)
 
 ## 5. IndexNow — optional, after publication
 

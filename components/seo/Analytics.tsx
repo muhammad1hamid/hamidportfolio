@@ -1,44 +1,28 @@
 "use client";
-import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { trackGoogleEvent } from "@/data/google-analytics";
 import { identifyReferral } from "@/data/referral-source";
 import { isActionEvent, trackSiteEvent } from "@/data/site-events";
 
-declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
-    hamidAnalyticsConfigured?: boolean;
-  }
-}
-const candidate = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "";
-const measurementId = /^G-[A-Z0-9]+$/.test(candidate) ? candidate : "";
 export function Analytics() {
   const pathname = usePathname();
+  const lastPathname = useRef(pathname);
+
   useEffect(() => {
-    if (!measurementId) return;
-    window.dataLayer = window.dataLayer || [];
-    window.gtag =
-      window.gtag ||
-      function () {
-        window.dataLayer!.push(arguments);
-      };
-    if (!window.hamidAnalyticsConfigured) {
-      window.gtag("js", new Date());
-      window.gtag("config", measurementId, {
-        send_page_view: false,
-        allow_google_signals: false,
-        allow_ad_personalization_signals: false,
-      });
-      window.hamidAnalyticsConfigured = true;
-    }
-    window.gtag("event", "page_view", {
-      page_location: `${window.location.origin}${pathname}`,
+    const previous = lastPathname.current;
+    lastPathname.current = pathname;
+    // The Google tag records the initial load. Report later client navigations.
+    if (previous === pathname || !window.hamidGoogleTagLoaded) return;
+    const origin = window.location.origin;
+    trackGoogleEvent("page_view", {
+      page_location: `${origin}${pathname}`,
+      page_referrer: `${origin}${previous}`,
       page_title: document.title,
       discovery_source: identifyReferral(document.referrer),
     });
   }, [pathname]);
+
   useEffect(() => {
     const click = (event: MouseEvent) => {
       const target =
@@ -52,24 +36,14 @@ export function Analytics() {
       if (!(target instanceof HTMLAnchorElement) || target.hostname !== "wa.me")
         return;
       trackSiteEvent("contact_whatsapp_click");
-      if (measurementId) {
-        window.gtag?.("event", "contact_click", {
-          method: "whatsapp",
-          page_path: window.location.pathname,
-          context: target.dataset.contactContext || "contact_link",
-          discovery_source: identifyReferral(document.referrer),
-        });
-      }
+      trackGoogleEvent("contact_click", {
+        method: "whatsapp",
+        context: target.dataset.contactContext || "contact_link",
+        discovery_source: identifyReferral(document.referrer),
+      });
     };
     document.addEventListener("click", click, true);
     return () => document.removeEventListener("click", click, true);
   }, []);
-  if (!measurementId) return null;
-  return (
-    <Script
-      id="hamid-ga"
-      src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
-      strategy="afterInteractive"
-    />
-  );
+  return null;
 }

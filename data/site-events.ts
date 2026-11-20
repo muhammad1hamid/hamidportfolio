@@ -15,6 +15,7 @@ export function isActionEvent(name: string | undefined): name is ActionEvent {
 }
 
 export function trackSiteEvent(event: ActionEvent, pillar?: string) {
+  if (!window.hamidGoogleAnalyticsAllowed) return;
   window.dataLayer?.push({
     event,
     page_path: window.location.pathname,
