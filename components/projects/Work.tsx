@@ -2,60 +2,91 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { categories, projects, type Project } from "@/data/projects";
+import {
+  homepageProjects,
+  projects,
+  storyProjects,
+  type Project,
+} from "@/data/projects";
 import { Arrow } from "@/components/ui/Arrow";
 import { ProjectVisual } from "./ProjectVisual";
+import { ProjectLiveLink, ProjectMeta, ProjectStoryLink } from "./ProjectLinks";
 import { projectDetails } from "@/data/project-details";
+import { projectLinkData } from "@/data/project-events";
 
-const homepageProjects = ["bridal-house", "ink-grail", "editing-julian", "elevate-x"]
-  .map((id) => projects.find((project) => project.id === id))
-  .filter((project) => project !== undefined);
+const archiveFilters = [
+  { label: "All work", projects },
+  { label: "With stories", projects: storyProjects },
+  {
+    label: "Self-directed demos",
+    projects: projects.filter(
+      (project) => project.proofType === "self-directed-demo",
+    ),
+  },
+  {
+    label: "Portfolio previews",
+    projects: projects.filter(
+      (project) => project.proofType === "portfolio-preview",
+    ),
+  },
+].filter((filter) => filter.projects.length > 0);
 
 export function Work({ archive = false }: { archive?: boolean }) {
-  const [filter, setFilter] = useState<string>("All");
+  const [filter, setFilter] = useState(archiveFilters[0]);
   const [selected, setSelected] = useState<Project | null>(null);
   const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
-  const availableCategories = categories.filter(
-    (category) =>
-      category === "All" || projects.some((p) => p.category === category),
-  );
-  const details = selected ? projectDetails[selected.id] : undefined;
   const dialog = useRef<HTMLDialogElement>(null);
-  const trigger = useRef<HTMLButtonElement | null>(null);
-  const visible = (archive ? projects : homepageProjects).filter(
-    (project) => filter === "All" || project.category === filter,
-  );
-  const placeholderCount = visible.filter(
-    (p) => p.status === "placeholder",
-  ).length;
-  const hasPublished = projects.some((p) => p.status === "published");
+  const closeButton = useRef<HTMLButtonElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const visible = archive ? filter.projects : homepageProjects;
+  const entry = archive ? "work_archive" : "home_selected";
+  const details = selected ? projectDetails[selected.id] : undefined;
+
   useEffect(() => {
-    const previous = document.body.style.overflow;
-    return () => {
-      document.body.style.overflow = previous;
-    };
-  }, []);
-  const open = (project: Project, button: HTMLButtonElement) => {
+    const preview = dialog.current;
+    if (!selected || !preview || preview.open) return;
+    preview.showModal();
+    preview.scrollTop = 0;
+    closeButton.current?.focus();
+  }, [selected]);
+
+  function open(project: Project, button: HTMLButtonElement) {
     trigger.current = button;
-    setSelected(project);
     setDevice(matchMedia("(max-width: 700px)").matches ? "mobile" : "desktop");
-    dialog.current?.showModal();
-    if (dialog.current) dialog.current.scrollTop = 0;
-    document.body.style.overflow = "hidden";
-  };
-  const close = () => {
-    dialog.current?.close();
-    document.body.style.overflow = "";
-    trigger.current?.focus();
-  };
+    setSelected(project);
+  }
+
   return (
     <section
       id="work"
-      className={`work-section wrap ${archive ? "archive-work" : ""}`}
+      className={`work-section wrap ${archive ? "archive-work" : "selected-work"}`}
       aria-label={archive ? "Project archive" : undefined}
       aria-labelledby={archive ? undefined : "work-title"}
     >
-      {!archive && (
+      {archive ? (
+        <div className="archive-filter-row">
+          <div
+            className="filter-bar project-filters"
+            role="group"
+            aria-label="Filter projects by type"
+          >
+            {archiveFilters.map((item) => (
+              <button
+                type="button"
+                key={item.label}
+                onClick={() => setFilter(item)}
+                aria-pressed={filter === item}
+              >
+                {item.label}
+                <span>{item.projects.length}</span>
+              </button>
+            ))}
+          </div>
+          <span className="filter-count" role="status">
+            {visible.length} projects
+          </span>
+        </div>
+      ) : (
         <>
           <div className="section-marker" data-reveal>
             <span>Selected work</span>
@@ -66,196 +97,134 @@ export function Work({ archive = false }: { archive?: boolean }) {
               <br />
               <em>The same attention.</em>
             </h2>
-            <p>
-              Explore websites I’ve built and the decisions behind each
-              experience.
-            </p>
+            <div className="selected-intro">
+              <p>
+                A closer look at the websites, digital experiences and decisions
+                behind my work.
+              </p>
+              <Link className="project-overview-link" href="/work/">
+                Explore all work <Arrow diagonal />
+              </Link>
+            </div>
           </div>
         </>
       )}
-      {archive && (
-        <div
-          className="filter-bar"
-          role="group"
-          aria-label="Filter projects by category"
-        >
-          {availableCategories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setFilter(category)}
-              aria-pressed={filter === category}
-            >
-              {category}
-              <span>
-                {category === "All"
-                  ? projects.length
-                  : projects.filter((p) => p.category === category).length}
-              </span>
-            </button>
-          ))}
-        </div>
-      )}
-      {(archive || placeholderCount > 0) && (
-        <div className="work-notice">
-          {placeholderCount > 0 && (
-            <>
-              <span className="notice-mark">↳</span>
-              <p>
-                {hasPublished
-                  ? "More project stories are being prepared. Unpublished entries are marked as presentation previews."
-                  : "Project stories are on their way. These are presentation previews, ready for the real work."}
-              </p>
-            </>
-          )}
-          {archive && (
-            <span className="filter-count" role="status">
-              {visible.length} {visible.length === 1 ? "entry" : "entries"}
-            </span>
-          )}
-        </div>
-      )}
-      <div className={archive ? "archive-list" : "featured-grid"}>
+
+      <div
+        className={archive ? "project-archive-grid" : "selected-project-grid"}
+      >
         {visible.map((project, index) => (
           <article
+            className="project project-entry"
             key={project.id}
-            className={`project project-${project.visual} ${project.status === "published" ? "project-published" : ""}`}
+            data-project={project.slug}
           >
             <button
+              type="button"
               className="project-trigger"
-              data-cursor
-              onClick={(e) => open(project, e.currentTarget)}
-              aria-label={`View ${project.title} — ${project.status === "placeholder" ? "presentation preview" : project.category}`}
+              onClick={(event) => open(project, event.currentTarget)}
+              aria-label={`View ${project.title} screenshots`}
+              aria-haspopup="dialog"
+              {...projectLinkData(project.slug, entry, "screens")}
             >
-              {archive && (
-                <span className="archive-index">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              )}
-              <div className="project-media">
-                <ProjectVisual project={project} animate={!archive} />
-                <span className="preview-badge">
-                  {project.status === "placeholder"
-                    ? "Presentation preview"
-                    : "Explore project"}{" "}
-                  <Arrow diagonal />
-                </span>
-              </div>
-              <div className="project-info">
-                <div>
-                  <span className="project-category">
-                    {project.industry || project.category}
-                    {project.year ? ` / ${project.year}` : ""}
-                  </span>
-                  {project.projectType && (
-                    <span className="project-type">{project.projectType}</span>
-                  )}
-                  <h3>{project.title}</h3>
-                </div>
-                <Arrow diagonal />
-              </div>
+              <ProjectVisual
+                project={project}
+                sizes={
+                  archive
+                    ? "(max-width: 560px) 88vw, (max-width: 1080px) 42vw, 400px"
+                    : index === 0
+                      ? "(max-width: 760px) 88vw, (max-width: 1440px) 59vw, 850px"
+                      : undefined
+                }
+              />
+              <span className="preview-badge">
+                View screens <Arrow diagonal />
+              </span>
             </button>
-            {project.status === "published" && (
-              <div className="project-caption">
-                {!archive && <p>{project.description}</p>}
-                {projectDetails[project.id] && (
-                  <Link
-                    className="project-overview-link"
-                    href={`/work/${project.slug}/`}
-                  >
-                    Experience notes ↗
-                  </Link>
-                )}
-                {project.liveUrl && (
-                  <a
-                    className="project-live-link"
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Open ${project.title} live website (new tab)`}
-                  >
-                    Live project <Arrow diagonal />
-                  </a>
-                )}
+            <div className="project-entry-copy">
+              <ProjectMeta project={project} />
+              {archive ? <h2>{project.title}</h2> : <h3>{project.title}</h3>}
+              <p className="project-hook">{project.description}</p>
+              {!archive && project.proofType === "self-directed-demo" && (
+                <p className="project-role">Website development by Hamid</p>
+              )}
+              {project.liveStatus === "unavailable" && (
+                <p className="project-source-note">
+                  Saved screenshots · Live website unavailable
+                </p>
+              )}
+              <div className="project-entry-actions">
+                <ProjectStoryLink project={project} entry={entry} />
+                <ProjectLiveLink project={project} entry={entry} />
               </div>
-            )}
+            </div>
           </article>
         ))}
-        {visible.length === 0 && (
-          <p className="empty-work">
-            New work in this category is being prepared.
-          </p>
-        )}
       </div>
+
       {!archive && (
         <Link href="/work/" className="archive-link" data-reveal>
           <strong>
-            View all website work <Arrow diagonal />
+            Explore all {projects.length} projects <Arrow diagonal />
           </strong>
-          <span className="archive-link-note">
-            {projects.length} projects in the archive
-          </span>
+          <span className="archive-link-note">The work archive</span>
         </Link>
       )}
+
       <dialog
         ref={dialog}
         data-lenis-prevent
         className="project-dialog"
         aria-labelledby="project-dialog-title"
-        onCancel={close}
         onClose={() => {
-          document.body.style.overflow = "";
+          setSelected(null);
+          trigger.current?.focus();
         }}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) close();
+        onClick={(event) => {
+          if (event.target === event.currentTarget) dialog.current?.close();
         }}
       >
         {selected && (
           <div className="project-dialog-inner">
             <button
+              ref={closeButton}
+              type="button"
               className="dialog-close"
-              autoFocus
-              onClick={close}
+              onClick={() => dialog.current?.close()}
               aria-label="Close project details"
             >
               Close ×
             </button>
             <div className="project-dialog-header">
-              <span className="eyebrow">
-                {selected.category}
-                {selected.industry ? ` / ${selected.industry}` : ""}
-                {selected.status === "placeholder"
-                  ? " / Presentation preview"
-                  : selected.year
-                    ? ` / ${selected.year}`
-                    : ""}
-              </span>
+              <ProjectMeta project={selected} />
               <h2 id="project-dialog-title">{selected.title}</h2>
             </div>
-            {selected.mobileThumbnail && (
-              <div
-                className="preview-controls"
-                role="group"
-                aria-label="Website preview device"
-              >
-                <button
-                  aria-pressed={device === "desktop"}
-                  onClick={() => setDevice("desktop")}
-                >
-                  Desktop
-                </button>
-                <button
-                  aria-pressed={device === "mobile"}
-                  onClick={() => setDevice("mobile")}
-                >
-                  Mobile
-                </button>
-                <span>Website preview</span>
-              </div>
-            )}
             <div
-              className={`dialog-art ${selected.status === "published" ? "dialog-site-preview" : ""}`}
+              className="preview-controls"
+              role="group"
+              aria-label="Website preview device"
             >
-              <ProjectVisual project={selected} device={device} />
+              <button
+                type="button"
+                aria-pressed={device === "desktop"}
+                onClick={() => setDevice("desktop")}
+              >
+                Desktop
+              </button>
+              <button
+                type="button"
+                aria-pressed={device === "mobile"}
+                onClick={() => setDevice("mobile")}
+              >
+                Mobile
+              </button>
+            </div>
+            <div className="dialog-art dialog-site-preview">
+              <ProjectVisual
+                project={selected}
+                device={device}
+                sizes="(max-width: 640px) 86vw, 960px"
+              />
             </div>
             <div className="project-dialog-copy">
               <p>{selected.description}</p>
@@ -274,39 +243,28 @@ export function Work({ archive = false }: { archive?: boolean }) {
                     </ul>
                   </div>
                   <ol className="project-journey" aria-label="Visitor journey">
-                    {details.journey.map((step, i) => (
+                    {details.journey.map((step, index) => (
                       <li key={step}>
-                        <span>0{i + 1}</span>
+                        <span aria-hidden="true">{index + 1}</span>
                         {step}
                       </li>
                     ))}
                   </ol>
                 </div>
               )}
-              {selected.status === "placeholder" && (
-                <p className="placeholder-explanation">
-                  This is an illustrative layout, not a published client
-                  project. The real project name, imagery, and details will be
-                  added here.
+              {selected.liveStatus === "unavailable" && (
+                <p className="project-source-note">
+                  Live website unavailable. The captures show the saved design.
                 </p>
               )}
-              {selected.technologies.length > 0 && (
-                <div className="project-tags">
-                  {selected.technologies.map((t) => (
-                    <span key={t}>{t}</span>
-                  ))}
-                </div>
-              )}
-              {selected.liveUrl && (
-                <a
-                  href={selected.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="project-entry-actions">
+                <ProjectStoryLink project={selected} entry={entry} />
+                <ProjectLiveLink
+                  project={selected}
+                  entry={entry}
                   className="button button-light"
-                >
-                  Live project <Arrow diagonal />
-                </a>
-              )}
+                />
+              </div>
             </div>
           </div>
         )}

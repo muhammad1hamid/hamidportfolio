@@ -16,7 +16,7 @@ const compiled = ts.transpileModule(
   await readFile("data/projects.ts", "utf8"),
   { compilerOptions: { module: ts.ModuleKind.ESNext } },
 ).outputText;
-const { projects } = await import(
+const { projects, storyProjects, projectProofLabels } = await import(
   `data:text/javascript;base64,${Buffer.from(compiled).toString("base64")}`
 );
 const notesModule = ts.transpileModule(
@@ -26,6 +26,22 @@ const notesModule = ts.transpileModule(
 const { projectDetails } = await import(
   `data:text/javascript;base64,${Buffer.from(notesModule).toString("base64")}`
 );
+const demos = JSON.parse(await readFile("data/demo-projects.json", "utf8"));
+for (const project of projects) {
+  const notes = projectDetails[project.id];
+  const demo = demos[project.id];
+  if (
+    Boolean(project.detailUrl) !== Boolean(notes) ||
+    (project.proofType === "self-directed-demo") !== Boolean(demo) ||
+    (demo &&
+      (!demo.role || demo.type !== projectProofLabels[project.proofType])) ||
+    (notes && notes.decisions.length < 2)
+  ) {
+    throw new Error(
+      `Project story or evidence classification mismatch for ${project.id}`,
+    );
+  }
+}
 const cards = [
   [
     "home",
@@ -35,8 +51,8 @@ const cards = [
   ["services", "Find the right starting point.", "SERVICES"],
   ["about", "The person behind the work.", "ABOUT HAMID"],
   ["contact", "A good project starts here.", "CONTACT"],
-  ["work", "18 websites. Different worlds.", "THE PORTFOLIO"],
-  ["case-studies", "The details behind the experience.", "PROJECT NOTES"],
+  ["work", "The work. The thinking behind it.", "THE PORTFOLIO"],
+  ["case-studies", "The thinking behind the experience.", "PROJECT STORIES"],
   ["blog", "Better questions. Clearer projects.", "PRACTICAL GUIDES"],
   ["insights", "Website and automation insights", "HAMID / INSIGHTS"],
   ...experiencePages.map((p) => [
@@ -48,9 +64,11 @@ const cards = [
     .filter((service) => service.slug !== "growth")
     .map((service) => [service.slug, service.name, "SERVICES / HAMID"]),
   ...articles.map((a) => [`blog-${a.slug}`, a.title, a.category.toUpperCase()]),
-  ...projects
-    .filter((p) => projectDetails[p.id])
-    .map((p) => [`work-${p.slug}`, p.title, "WEBSITE EXPERIENCE NOTES"]),
+  ...storyProjects.map((project) => [
+    `work-${project.slug}`,
+    project.title,
+    projectProofLabels[project.proofType].toUpperCase(),
+  ]),
 ];
 const escape = (value) =>
   value.replace(

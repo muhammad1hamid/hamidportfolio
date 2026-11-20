@@ -3,8 +3,7 @@ import { site } from "./site";
 import { servicePages } from "./services";
 import { articles } from "./articles";
 import { insights, insightPath } from "./insights";
-import { projects } from "./projects";
-import { projectDetails } from "./project-details";
+import { storyProjects } from "./projects";
 import experiencePages from "./experience-pages.json";
 
 export const absolute = (path: string) => new URL(path, `${site.url}/`).href;
@@ -64,9 +63,6 @@ export const pageMeta = (
   },
 });
 
-export const overviewProjects = projects.filter(
-  (project) => projectDetails[project.id],
-);
 export const publicRoutes: {
   path: string;
   priority: number;
@@ -87,8 +83,8 @@ export const publicRoutes: {
     path: `/${service.slug}/`,
     priority: 0.8,
   })),
-  ...overviewProjects.map((project) => ({
-    path: `/work/${project.slug}/`,
+  ...storyProjects.map((project) => ({
+    path: project.detailUrl,
     priority: 0.6,
   })),
   ...articles.map((article) => ({

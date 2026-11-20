@@ -1,156 +1,234 @@
 import Link from "next/link";
-import { ResponsiveImage as Image } from "@/components/seo/ResponsiveImage";
 import { notFound } from "next/navigation";
-import { overviewProjects, pageMeta, absolute } from "@/data/seo";
-import { JsonLd } from "@/components/seo/JsonLd";
+import { pageMeta, absolute } from "@/data/seo";
+import { storyProjects, projectProofLabels } from "@/data/projects";
 import { projectDetails } from "@/data/project-details";
 import demoProjects from "@/data/demo-projects.json";
+import { projectLinkData } from "@/data/project-events";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { ContentPage, ProjectCta } from "@/components/seo/ContentPage";
+import { ProjectVisual } from "@/components/projects/ProjectVisual";
+import { ProjectLiveLink } from "@/components/projects/ProjectLinks";
+import { Arrow } from "@/components/ui/Arrow";
+
 export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return overviewProjects.map((project) => ({ slug: project.slug }));
+  return storyProjects.map(({ slug }) => ({ slug }));
 }
+
+function findStory(slug: string) {
+  const project = storyProjects.find((item) => item.slug === slug);
+  if (!project) notFound();
+  const demo =
+    project.proofType === "self-directed-demo"
+      ? demoProjects[project.id as keyof typeof demoProjects]
+      : undefined;
+  return { project, demo };
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  const project = overviewProjects.find((project) => project.slug === slug);
-  if (!project) notFound();
+  const { project, demo } = findStory((await params).slug);
   return pageMeta(
-    `${project.title} — ${project.projectType ? "Demo Walkthrough" : "Website Experience Notes"} | Hamid`,
-    project.description,
-    `/work/${project.slug}/`,
+    `${project.title} — ${demo ? "Demo Walkthrough" : "Website Experience Notes"} | Hamid`,
+    demo?.summary ?? project.description,
+    project.detailUrl,
   );
 }
+
 export default async function ProjectPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  const project = overviewProjects.find((project) => project.slug === slug);
-  if (!project) notFound();
+  const { project, demo } = findStory((await params).slug);
   const notes = projectDetails[project.id];
-  const demo = demoProjects[project.id as keyof typeof demoProjects];
-  const path = `/work/${project.slug}/`;
+  const path = project.detailUrl;
+  const next =
+    storyProjects[(storyProjects.indexOf(project) + 1) % storyProjects.length];
+
   return (
     <ContentPage
       path={path}
       title={project.title}
-      intro={demo?.summary || project.description}
-      label={project.projectType || project.industry || "Website project"}
+      intro={demo?.summary ?? project.description}
+      label={projectProofLabels[project.proofType]}
       crumbs={[
         { label: "Work", href: "/work/" },
+        { label: "Project stories", href: "/case-studies/" },
         { label: project.title, href: path },
       ]}
+      className="project-story-page"
     >
-      {demo && (
-        <div className="project-facts">
-          <span>{demo.type}</span>
-          <span>{demo.role}</span>
-          <span>Concept showcase · not commissioned client work</span>
+      <div className="story-header-tools">
+        <dl className="story-facts">
+          <div>
+            <dt>Industry</dt>
+            <dd>{project.industry}</dd>
+          </div>
+          {demo && (
+            <div>
+              <dt>Role</dt>
+              <dd>{demo.role}</dd>
+            </div>
+          )}
+          <div>
+            <dt>Evidence</dt>
+            <dd>Desktop and mobile captures</dd>
+          </div>
+        </dl>
+        <div className="story-header-actions">
+          <Link
+            className="button button-accent"
+            href="/contact/"
+            {...projectLinkData(project.slug, "project_story", "contact")}
+          >
+            Discuss a similar project <Arrow diagonal />
+          </Link>
+          <ProjectLiveLink project={project} entry="project_story" />
         </div>
+      </div>
+      {project.liveStatus === "unavailable" && (
+        <p className="project-source-note story-source-note">
+          The supplied domain is currently unavailable. This story uses saved
+          screenshots.
+        </p>
       )}
-      <div className="content-actions hero-page-actions">
-        <a
-          className="button button-accent"
-          href={project.liveUrl!}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {demo ? "Explore the live demo" : "Explore the live website"} ↗
-        </a>
-        <Link className="text-link" href="/web-development/">
-          Discuss a website like this ↗
-        </Link>
-      </div>
-      <div className="project-detail-shots">
+
+      <nav className="story-jump-links" aria-label="In this project story">
+        <a href="#screens">Screens</a>
+        <a href="#decisions">Decisions</a>
+        <a href="#journey">Visitor journey</a>
+        <a href="#evidence">Evidence</a>
+      </nav>
+
+      <section
+        id="screens"
+        className="story-screens"
+        aria-label="Desktop and mobile captures"
+      >
         <figure>
-          <Image
-            src={project.thumbnail}
-            alt={`${project.title} desktop homepage screenshot`}
-            width={1440}
-            height={960}
-            sizes="(max-width: 700px) 90vw, 65vw"
+          <ProjectVisual
+            project={project}
+            sizes="(max-width: 740px) 88vw, 880px"
+            eager
           />
-          <figcaption>Desktop experience</figcaption>
+          <figcaption>
+            <strong>Desktop</strong>
+            <span>{notes.desktop}</span>
+          </figcaption>
         </figure>
-        <figure className="detail-mobile">
-          <Image
-            src={project.mobileThumbnail!}
-            alt={`${project.title} mobile homepage screenshot`}
-            width={390}
-            height={844}
-            sizes="(max-width: 700px) 55vw, 260px"
-          />
-          <figcaption>Mobile experience</figcaption>
+        <figure className="story-mobile-capture">
+          <ProjectVisual project={project} device="mobile" />
+          <figcaption>
+            <strong>Mobile</strong>
+            <span>{notes.mobile}</span>
+          </figcaption>
         </figure>
-      </div>
-      <section className="content-section">
-        <h2>Inside the experience</h2>
+      </section>
+
+      <section className="story-section story-split">
+        <h2>{demo ? "The design premise" : "About the experience"}</h2>
         <p>{notes.idea}</p>
       </section>
-      {demo && (
-        <section className="content-section">
-          <h2>How the experience supports the visitor</h2>
-          <div className="content-card-grid">
-            {demo.decisions.map((decision) => (
-              <article className="content-card" key={decision.title}>
-                <h3>{decision.title}</h3>
-                <p>{decision.text}</p>
-              </article>
-            ))}
-          </div>
-          <h3 className="spaced-title">What the demo shows</h3>
-          <p>{demo.scope}</p>
-          <h3 className="spaced-title">Questions for a real project</h3>
-          <p>{demo.lesson}</p>
-          <p className="article-byline">
-            Project type and development contribution confirmed by Hamid on{" "}
-            <time dateTime="2026-10-05">5 October 2026</time>. Experience
-            commentary describes the visible example.
-          </p>
-        </section>
-      )}
-      <section className="content-section">
-        <h2>Details to explore</h2>
-        <ul className="feature-grid">
-          {notes.highlights.map((feature, i) => (
-            <li key={feature}>
-              <span aria-hidden="true">0{i + 1}</span>
-              <p>{feature}</p>
-            </li>
+
+      <section className="story-section" id="decisions">
+        <h2>Decisions you can see.</h2>
+        <div className="story-decisions">
+          {notes.decisions.map((decision) => (
+            <article key={decision.title}>
+              <h3>{decision.title}</h3>
+              <dl>
+                <div>
+                  <dt>Why it matters</dt>
+                  <dd>{decision.reason}</dd>
+                </div>
+                <div>
+                  <dt>What the site presents</dt>
+                  <dd>{decision.implementation}</dd>
+                </div>
+                <div>
+                  <dt>What to inspect</dt>
+                  <dd>{decision.inspect}</dd>
+                </div>
+              </dl>
+            </article>
           ))}
-        </ul>
+        </div>
       </section>
-      <section className="content-section">
+
+      <section className="story-section" id="journey">
         <h2>The visitor journey</h2>
-        <ol className="content-steps">
-          {notes.journey.map((step, i) => (
-            <li key={step}>
-              <span aria-hidden="true">0{i + 1}</span>
-              <p>{step}</p>
-            </li>
+        <ol className="story-journey">
+          {notes.journey.map((step) => (
+            <li key={step}>{step}</li>
           ))}
         </ol>
-      </section>
-      <aside className="content-proof">
-        <h2>What these notes cover</h2>
-        <p>
-          {demo
-            ? "This is a self-directed website demo built by Hamid. Names and media shown belong to their respective owners; the example does not imply a commission, endorsement or measured business result."
-            : "This overview describes the visible website and supplied screenshots. Open the live website to explore its current experience."}
-        </p>
-        <div className="related-links">
-          <Link href="/case-studies/">More project experience notes ↗</Link>
-          <Link href="/web-development/">Web development services ↗</Link>
-          <Link href="/plan/">Plan a similar website</Link>
-          <Link href="/editorial-policy/">How examples are presented</Link>
+        <div className="story-split story-features">
+          <h3>Visible features</h3>
+          <ul className="plain-list">
+            {notes.highlights.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
         </div>
-      </aside>
-      <ProjectCta title="Bring your own direction." />
+      </section>
+
+      <section className="story-section story-evidence" id="evidence">
+        <h2>{demo ? "What the demo demonstrates" : "What you can inspect"}</h2>
+        <p>{notes.evidence}</p>
+        {demo && (
+          <>
+            <p>{demo.scope}</p>
+            <h3>Before using this approach on a real project</h3>
+            <p>{demo.lesson}</p>
+            <p className="article-byline">
+              Hamid confirmed the demo status and development contribution on{" "}
+              <time dateTime="2026-10-05">5 October 2026</time>.
+            </p>
+          </>
+        )}
+        <Link className="text-link" href="/editorial-policy/">
+          How project evidence is presented <Arrow diagonal />
+        </Link>
+      </section>
+
+      <section
+        className="story-section story-related"
+        aria-labelledby="story-related-title"
+      >
+        <div>
+          <h2 id="story-related-title">Planning a website?</h2>
+          <Link
+            className="text-link"
+            href="/web-development/"
+            {...projectLinkData(project.slug, "project_story", "service")}
+          >
+            Explore web development services <Arrow diagonal />
+          </Link>
+          <Link className="text-link" href="/plan/">
+            Plan a similar website <Arrow diagonal />
+          </Link>
+        </div>
+        <div>
+          <h3>Next project story</h3>
+          <Link
+            className="story-next-link"
+            href={next.detailUrl}
+            {...projectLinkData(next.slug, "project_related", "story")}
+          >
+            {next.title} <Arrow diagonal />
+          </Link>
+          <Link className="text-link" href="/work/">
+            Back to all work <Arrow diagonal />
+          </Link>
+        </div>
+      </section>
+      <ProjectCta title="Have a similar project in mind?" />
       {demo && (
         <JsonLd
           data={{

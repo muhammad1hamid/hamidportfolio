@@ -22,6 +22,7 @@ import "./analytics.css";
 import "./insights.css";
 import "./home-growth.css";
 import "./origin.css";
+import "./projects.css";
 
 const tagManager = `
   (function (w, d) {

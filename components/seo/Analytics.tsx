@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { trackGoogleEvent } from "@/data/google-analytics";
 import { identifyReferral } from "@/data/referral-source";
 import { isActionEvent, trackSiteEvent } from "@/data/site-events";
+import { projectClickData } from "@/data/project-events";
 
 export function Analytics() {
   const pathname = usePathname();
@@ -27,11 +28,23 @@ export function Analytics() {
     const click = (event: MouseEvent) => {
       const target =
         event.target instanceof Element
-          ? event.target.closest<HTMLElement>("[data-site-event], a")
+          ? event.target.closest<HTMLElement>(
+              "[data-site-event], [data-project-entry], a",
+            )
           : null;
       const action = target?.dataset.siteEvent;
       if (isActionEvent(action)) {
         trackSiteEvent(action, target?.dataset.sitePillar);
+      }
+      const project = projectClickData(target?.dataset);
+      if (project) {
+        const name =
+          project.destination === "live"
+            ? "open_live_preview"
+            : project.destination === "contact"
+              ? "contact_click"
+              : "project_open";
+        trackGoogleEvent(name, project);
       }
       const placement = target?.dataset.growthPlacement;
       if (placement) {

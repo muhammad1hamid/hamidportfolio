@@ -11,6 +11,8 @@ export function trackGoogleEvent(
     | "growth_engine_cta_click"
     | "growth_engine_section_view"
     | "growth_engine_scenario_select"
+    | "project_open"
+    | "open_live_preview"
     | "click_whatsapp",
   parameters: Record<string, string> = {},
 ) {

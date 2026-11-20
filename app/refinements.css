@@ -157,42 +157,11 @@
 .section-marker span:first-child::first-letter {
   color: var(--accent);
 }
-.featured-grid {
-  grid-template-columns: 1fr 1fr;
-  gap: 54px 36px;
-}
-.featured-grid .project:nth-child(even) {
-  margin-top: 70px;
-}
-.featured-grid .project-media {
-  aspect-ratio: 1.5;
-  border-radius: 18px;
-  background:
-    radial-gradient(ellipse at 60% 100%, #45423c42, transparent 72%), #1b1d1e;
-}
-.featured-grid .project:nth-child(even) .project-media {
-  aspect-ratio: 1.5;
-}
-.featured-grid .site-preview {
-  width: 91%;
-}
-.featured-grid .project-caption {
-  gap: 8px;
-  margin-top: 10px;
-}
-.project-caption p {
-  font-size: 15px;
-  line-height: 1.7;
-}
 .project-image {
   object-position: top;
 }
 .project-trigger:hover .project-image {
   transform: none;
-}
-.featured-grid .project-info h3 {
-  font-size: clamp(23px, 2.25vw, 32px);
-  letter-spacing: -0.04em;
 }
 .project-live-link {
   min-height: 44px;
@@ -230,13 +199,6 @@
   margin-left: auto;
   font-size: 11px;
   color: var(--muted);
-}
-.dialog-art .site-preview.device-mobile {
-  width: min(100%, 300px);
-  border-radius: 22px;
-}
-.dialog-art .device-mobile .site-preview-screen {
-  aspect-ratio: 390 / 844;
 }
 .dialog-art .device-mobile .project-image {
   object-fit: contain;
@@ -543,22 +505,9 @@
   }
 }
 @media (max-width: 767px) {
-  .featured-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .featured-grid .project:nth-child(even) {
-    margin: 0;
-  }
   .section-heading > p {
     font-size: 15px;
     margin-top: 18px;
-  }
-  .project-caption p {
-    font-size: 15px;
-  }
-  .featured-grid .project-info h3 {
-    font-size: 24px;
   }
   .project-category {
     font-size: 10px;
@@ -669,9 +618,6 @@
   }
   .dialog-art.dialog-site-preview {
     padding: 14px;
-  }
-  .dialog-art .site-preview.device-mobile {
-    width: min(100%, 220px);
   }
   .testimonial-grid {
     grid-template-columns: 1fr;
@@ -823,33 +769,6 @@
   .work-heading {
     margin: 26px 0;
   }
-  .featured-grid .project-media,
-  .featured-grid .project:nth-child(even) .project-media {
-    aspect-ratio: 0.96;
-  }
-  .featured-grid .site-preview {
-    width: 74%;
-    max-width: 330px;
-    border-radius: 16px;
-  }
-  .featured-grid .site-preview-screen {
-    aspect-ratio: 390 / 620;
-  }
-  .featured-grid .site-preview-toolbar {
-    height: 24px;
-  }
-  .featured-grid .preview-address {
-    font-size: 7px;
-  }
-  .featured-grid .preview-badge {
-    font-size: 10px;
-    bottom: 14px;
-    right: 14px;
-    left: auto;
-  }
-  .archive-list .project-image {
-    object-position: top;
-  }
 }
 @media (max-width: 360px) {
   .hero-v2 .hero-actions {
@@ -863,7 +782,6 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-trigger:hover .site-preview,
   .button-accent:hover {
     transform: none;
   }

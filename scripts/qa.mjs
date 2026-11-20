@@ -51,7 +51,7 @@ const check = async (name, fn) => {
   }
 };
 const checkProjectImages = async (selector, expected) => {
-  const images = page.locator(`${selector} .site-preview-screen img`);
+  const images = page.locator(`${selector} .capture-screen img`);
   assert.equal(await images.count(), expected);
   for (const image of await images.all()) {
     await image.scrollIntoViewIfNeeded();
@@ -172,16 +172,19 @@ await check(
 await check(
   "Home has four selected projects with loaded previews and live links",
   async () => {
-    assert.equal(await page.locator(".featured-grid .project").count(), 4);
     assert.equal(
-      await page.locator(".featured-grid .project-live-link").count(),
+      await page.locator(".selected-project-grid .project").count(),
+      4,
+    );
+    assert.equal(
+      await page.locator(".selected-project-grid .project-live-link").count(),
       4,
     );
     assert.doesNotMatch(
-      await page.locator(".featured-grid").innerText(),
+      await page.locator(".selected-project-grid").innerText(),
       /Presentation preview/,
     );
-    await checkProjectImages(".featured-grid", 4);
+    await checkProjectImages(".selected-project-grid", 4);
   },
 );
 await page.evaluate(() => window.scrollTo(0, 0));
@@ -395,7 +398,7 @@ await check(
     for (const width of [390, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       const top = await page
-        .locator(".featured-grid .project")
+        .locator(".selected-project-grid .project")
         .first()
         .evaluate((el) => el.getBoundingClientRect().top + scrollY);
       assert.ok(
@@ -409,12 +412,11 @@ await check(
 await check(
   "Mobile previews, project dialog and contextual contact work",
   async () => {
-    const first = page.locator(".featured-grid .project-trigger").first();
-    await first.scrollIntoViewIfNeeded();
-    await page.waitForFunction(() =>
-      document
-        .querySelector(".featured-grid .project-image")
-        .currentSrc.includes("-mobile.webp"),
+    const first = page
+      .locator(".selected-project-grid .project-trigger")
+      .first();
+    await first.evaluate((element) =>
+      element.scrollIntoView({ block: "start", behavior: "instant" }),
     );
     await page.locator(".mobile-contact").waitFor({ state: "visible" });
     assert.equal(
@@ -429,6 +431,10 @@ await check(
         .getByRole("button", { name: "Mobile", exact: true })
         .getAttribute("aria-pressed"),
       "true",
+    );
+    assert.match(
+      await page.locator(".project-dialog .project-image").getAttribute("src"),
+      /bridal-house-mobile\.webp$/,
     );
     await page.screenshot({
       path: path.join(output, "mobile-project-detail.png"),
@@ -469,9 +475,15 @@ await check(
     const listener = (req) => {
       // The illustration runs in our page; Drive's separate player may send
       // its own telemetry while the unrelated video iframe remains mounted.
+      const url = new URL(req.url());
+      const routePrefetch =
+        req.method() === "GET" &&
+        url.origin === new URL(baseURL).origin &&
+        url.searchParams.has("_rsc");
       if (
         ["fetch", "xhr"].includes(req.resourceType()) &&
-        req.frame() === page.mainFrame()
+        req.frame() === page.mainFrame() &&
+        !routePrefetch
       )
         requests.push(req.url());
     };
@@ -522,61 +534,62 @@ await check("Mobile menu opens, navigates and restores focus", async () => {
   );
 });
 await page.goto(new URL("/work/", baseURL).href, { waitUntil: "networkidle" });
-await check("Archive has all eighteen supplied live websites", async () => {
-  const links = page.locator(".archive-list .project-live-link");
-  const actual = await links.evaluateAll((elements) =>
-    elements.map((element) => element.getAttribute("href")),
-  );
-  assert.deepEqual(actual.sort(), [...projectURLs].sort());
-  for (const link of await links.all()) {
-    assert.equal(await link.getAttribute("target"), "_blank");
-    assert.match(await link.getAttribute("rel"), /noopener/);
-    assert.match(await link.getAttribute("rel"), /noreferrer/);
-  }
-  assert.doesNotMatch(
-    await page.locator(".archive-list").innerText(),
-    /Presentation preview/,
-  );
-});
+await check(
+  "Archive keeps all eighteen supplied URLs and identifies the saved preview",
+  async () => {
+    const links = page.locator(".project-archive-grid .project-live-link");
+    const actual = await links.evaluateAll((elements) =>
+      elements.map((element) => element.getAttribute("href")),
+    );
+    assert.deepEqual(actual.sort(), [...projectURLs].sort());
+    for (const link of await links.all()) {
+      assert.equal(await link.getAttribute("target"), "_blank");
+      assert.match(await link.getAttribute("rel"), /noopener/);
+      assert.match(await link.getAttribute("rel"), /noreferrer/);
+    }
+    assert.doesNotMatch(
+      await page.locator(".project-archive-grid").innerText(),
+      /Presentation preview/,
+    );
+    const elevate = page.locator('[data-project="elevate-x"]');
+    assert.match(await elevate.innerText(), /Live website unavailable/);
+    assert.match(
+      await elevate.locator(".project-live-link").innerText(),
+      /Original URL/,
+    );
+  },
+);
 await check("All archive screenshots load", async () => {
-  await checkProjectImages(".archive-list", 18);
+  await checkProjectImages(".project-archive-grid", 18);
 });
-await check("Archive filters match project categories", async () => {
-  for (const [category, count] of [
-    ["All", 18],
-    ["Web", 18],
-  ]) {
-    const filter = page.getByRole("button", {
-      name: new RegExp(`^${category}`),
-    });
-    await filter.click();
-    assert.equal(await filter.getAttribute("aria-pressed"), "true");
-    assert.equal(
-      await page.locator(".archive-list .project").count(),
-      count,
-      category,
-    );
-    assert.equal(
-      await page.locator(".empty-work").count(),
-      count === 0 ? 1 : 0,
-    );
-    if (count === 0)
-      assert.match(
-        await page.locator(".empty-work").innerText(),
-        /being prepared/,
+await check(
+  "Archive filters match the actual project classifications",
+  async () => {
+    for (const [category, count] of [
+      ["All work", 18],
+      ["With stories", 6],
+      ["Self-directed demos", 3],
+      ["Portfolio previews", 12],
+    ]) {
+      const filter = page.getByRole("button", {
+        name: new RegExp(`^${category}`),
+      });
+      await filter.click();
+      assert.equal(await filter.getAttribute("aria-pressed"), "true");
+      assert.equal(
+        await page.locator(".project-archive-grid .project").count(),
+        count,
+        category,
       );
-  }
-  await page.getByRole("button", { name: /^All/ }).click();
-  for (const category of ["AI Systems", "Automation", "Chatbots"]) {
-    assert.equal(
-      await page
-        .locator(".filter-bar")
-        .getByRole("button", { name: new RegExp(category) })
-        .count(),
-      0,
-    );
-  }
-});
+      assert.equal(
+        await page.locator(".archive-filter-row [role=status]").innerText(),
+        `${count} projects`,
+      );
+    }
+    await page.getByRole("button", { name: /^All/ }).click();
+    assert.equal(await page.locator(".project-filters button").count(), 4);
+  },
+);
 for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
   await page.setViewportSize({ width, height: 1000 });
   await page.evaluate(
@@ -633,6 +646,122 @@ await check("Archive SEO is route-specific", async () => {
     "summary_large_image",
   );
 });
+
+await check(
+  "Six project stories explain visible decisions and preserve evidence labels",
+  async () => {
+    const demoSlugs = ["bridal-house", "editing-julian", "qadeer-jewellers"];
+    const notesSlugs = ["ink-grail", "dylan-seedin", "elevate-x"];
+    await page.goto(new URL("/case-studies/", baseURL).href);
+    assert.equal(await page.locator(".story-index-item").count(), 6);
+    assert.equal(
+      await page
+        .locator('.story-index-item [data-proof="self-directed-demo"]')
+        .count(),
+      3,
+    );
+    assert.equal(
+      await page
+        .locator('.story-index-item [data-proof="experience-notes"]')
+        .count(),
+      3,
+    );
+    for (const slug of [...demoSlugs, ...notesSlugs]) {
+      const path = `/work/${slug}/`;
+      const response = await page.goto(new URL(path, baseURL).href, {
+        waitUntil: "domcontentloaded",
+      });
+      const demo = demoSlugs.includes(slug);
+      assert.equal(response.status(), 200);
+      assert.match(
+        await page.locator(".content-hero .eyebrow").innerText(),
+        demo ? /Self-directed demo/i : /Experience notes/i,
+      );
+      assert.equal(
+        await page
+          .locator(".story-facts")
+          .getByText("Website development by Hamid")
+          .count(),
+        demo ? 1 : 0,
+      );
+      assert.equal(await page.locator(".story-decisions article").count(), 2);
+      assert.equal(await page.locator(".story-journey li").count(), 3);
+      assert.equal(
+        await page.locator('link[rel="canonical"]').getAttribute("href"),
+        `https://itshamid.com${path}`,
+      );
+      await checkProjectImages(".story-screens", 2);
+      const contact = page.getByRole("link", {
+        name: "Discuss a similar project",
+      });
+      assert.equal(await contact.getAttribute("href"), "/contact/");
+      assert.equal(await page.locator(".story-next-link").count(), 1);
+      assert.match(
+        await page.locator("#evidence").innerText(),
+        demo ? /What the demo demonstrates/ : /What you can inspect/,
+      );
+    }
+  },
+);
+
+await check(
+  "Project actions add approved event fields only with analytics consent",
+  async () => {
+    const tracking = await browser.newContext({ reducedMotion: "reduce" });
+    try {
+      await tracking.route(
+        (url) => url.origin !== new URL(baseURL).origin,
+        (route) => route.abort(),
+      );
+      const probe = await tracking.newPage();
+      await probe.addInitScript(() => {
+        window.projectEvents = [];
+        window.gtag = (command, name, parameters) => {
+          if (command === "event")
+            window.projectEvents.push({ name, ...parameters });
+        };
+      });
+      await probe.goto(baseURL, { waitUntil: "networkidle" });
+      const project = probe.locator(
+        '.selected-project-grid [data-project="bridal-house"]',
+      );
+      const screens = project.locator(".project-trigger");
+      await screens.click();
+      await probe.getByRole("dialog").waitFor();
+      assert.deepEqual(await probe.evaluate(() => window.projectEvents), []);
+      await probe.keyboard.press("Escape");
+      await probe.evaluate(() => {
+        window.hamidGoogleAnalyticsAllowed = true;
+      });
+      await screens.click();
+      await probe.getByRole("dialog").waitFor();
+      await probe.keyboard.press("Escape");
+      await probe.getByRole("dialog").waitFor({ state: "hidden" });
+      const newTab = tracking.waitForEvent("page");
+      await project.locator(".project-live-link").click();
+      await (await newTab).close();
+      assert.deepEqual(await probe.evaluate(() => window.projectEvents), [
+        {
+          name: "project_open",
+          project_slug: "bridal-house",
+          entry_section: "home_selected",
+          destination: "screens",
+          page_path: "/",
+        },
+        {
+          name: "open_live_preview",
+          project_slug: "bridal-house",
+          entry_section: "home_selected",
+          destination: "live",
+          page_path: "/",
+        },
+      ]);
+    } finally {
+      await tracking.close();
+    }
+  },
+);
+
 const animated = await browser.newContext({
   viewport: { width: 1440, height: 1000 },
   reducedMotion: "no-preference",
@@ -649,7 +778,10 @@ await check(
       .locator(".signature-intro")
       .waitFor({ state: "hidden", timeout: 7000 });
     await motionPage.reload({ waitUntil: "networkidle" });
-    assert.equal(await motionPage.locator(".signature-intro").isVisible(), false);
+    assert.equal(
+      await motionPage.locator(".signature-intro").isVisible(),
+      false,
+    );
     assert.equal(
       await motionPage.locator("html").getAttribute("data-origin-intro"),
       null,
