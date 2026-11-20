@@ -90,7 +90,11 @@ function GrowthCta({
   return (
     <Link
       href={contactPath}
-      className={kind === "primary" ? "button growth-button" : "growth-link"}
+      className={
+        kind === "primary"
+          ? "button button-accent growth-button"
+          : "growth-link"
+      }
       data-site-event="growth_cta_click"
       data-growth-placement={placement}
     >
@@ -154,7 +158,7 @@ export function GrowthEngine({ service }: { service: GrowthService }) {
         </dl>
       </section>
 
-      <section className="growth-blue" aria-labelledby="growth-map-title">
+      <section className="growth-warm-band" aria-labelledby="growth-map-title">
         <div className="wrap growth-block growth-map">
           <div className="growth-split">
             <h2 id="growth-map-title">
@@ -464,7 +468,10 @@ export function GrowthEngine({ service }: { service: GrowthService }) {
         </div>
       </section>
 
-      <section className="growth-blue" aria-labelledby="growth-close-title">
+      <section
+        className="growth-warm-band"
+        aria-labelledby="growth-close-title"
+      >
         <div className="wrap growth-block growth-close">
           <h2 id="growth-close-title">
             Let’s find the next <em>useful improvement.</em>

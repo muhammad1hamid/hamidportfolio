@@ -8,7 +8,7 @@ Next.js 16 exports static HTML from `app/[service]/page.tsx` using the shared se
 
 ## Reference images
 
-The original images were viewed in the conversation and from `C:/Users/sahar/AppData/Local/Temp/`. The off-white page, strong blue sections and photographic signal field combine their shared design elements.
+The original images were viewed in the conversation and from the supplied attachments. The table records how their shared design elements informed the first release.
 
 | File | Source feature | Original implementation |
 | --- | --- | --- |
@@ -20,11 +20,17 @@ The original images were viewed in the conversation and from `C:/Users/sahar/App
 | codex-clipboard-bddc632b-a09b-42e0-aab1-bebbbd8f7c2c.png | Glossy cobalt focal object and readable dark-on-light layouts | Blue optical glass on one hero panel and an ink-on-paper workstream layout |
 | codex-clipboard-745543ea-b701-4be1-93db-876aab9a0b14.png | Short callouts alongside dimensional subjects | Three labelled discovery paths and sample enquiry stages |
 
-The built-in image generator created a square, original studio still life of a bevelled glass website pane on a cobalt plinth with converging optical reflections. The picture contains no text. The visible labels are HTML. The press-ready source is `public/images/growth/discovery-field.webp`, with 520px and 900px variants. The generated image and labels represent an illustrative discovery concept.
+The built-in image generator created a square studio still life of a bevelled glass website pane and converging optical reflections. The visible labels are HTML. The image and labels represent an illustrative discovery concept.
 
 The built-in tool used this brief.
 
 > Create one original commercial editorial still-life photograph for the hero image on itshamid.com Growth Engine, a technical SEO, answer clarity and conversion service. Square image, edge-to-edge intense royal cobalt studio field (#2248f0, with a considered deep-blue falloff toward the lower right). A single sculptural tall clear glass rectangular pane, evoking the outline of a website window without any text or UI painted onto it, stands upright at a subtle angle on a low contiguous cobalt plinth. Three thin silver-white optical reflections travel through it diagonally from camera left, resolving into a single brighter sharply focused refracted beam toward the right. Use physically plausible thick bevelled glass, bright specular highlights, real weight, hard directional studio shadows and a restrained tactile fine film grain. Make the central object impactful at miniature thumbnail sizes. Frame with 15 percent breathing room at top and bottom and darker clean margins for separate web HTML labels. Luxury design-studio art direction and macro product photography, crisp and intelligent. No lettering, no dashboard mockup, no human, no robot, no chess, no logo, no watermark or text, no stock AI aesthetics, no extra objects. The art will appear full-bleed within a picture panel alongside large black and cobalt type on warm off-white.
+
+## Current homepage palette
+
+The live design uses the shared homepage charcoal, graphite, off-white and warm orange. The navigation, buttons, sample interfaces and share card use the same palette. The built-in image generator recoloured the hero artwork. The current source is `public/images/growth/discovery-field-charcoal.webp`, with 520px and 900px variants.
+
+> Recolor this square still life to match the itshamid.com homepage palette of near-black charcoal #101112, soft graphite #191b1d, warm orange #ff8651 and off-white #f0f0ec. Preserve the composition, perspective and exact subject: the same tall bevelled clear glass pane upright on a low rectangular plinth, with three narrow rays entering on the left and converging into one ray on the right. Transform the vivid cobalt backdrop, ground and base into a dark matte charcoal studio with a restrained burnt-amber wash from the left. Replace the blue glass reflections and optical beams with warm copper-orange light and precise ivory-hot highlights, so the silhouette and refraction stay easy to read. Keep the clear glass realistically reflective, the plinth textured graphite, the right and bottom edges dark for web labels, and the glossy editorial photography finish. The image should feel mostly charcoal with selective warm orange accents, without blue, purple, oversaturated red, additional objects, typography, marks or logos.
 
 ## Market and search research
 

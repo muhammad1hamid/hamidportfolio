@@ -1,7 +1,7 @@
 import { ResponsiveImage } from "./ResponsiveImage";
 
 export function GrowthSignal() {
-  const image = "/images/growth/discovery-field";
+  const image = "/images/growth/discovery-field-charcoal";
   return (
     <figure className="growth-signal">
       <ResponsiveImage

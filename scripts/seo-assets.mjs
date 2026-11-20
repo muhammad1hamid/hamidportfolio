@@ -78,20 +78,22 @@ for (const [slug, title, label] of cards) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#101112"/><path d="M60 146H1140M60 552H1140" stroke="#343739"/><circle cx="1070" cy="87" r="23" fill="#ff8651"/><text x="65" y="104" fill="#f0f0ec" font-family="Arial,sans-serif" font-size="48" font-weight="700" letter-spacing="-2">HAMID</text><text x="65" y="204" fill="#ff8651" font-family="Arial,sans-serif" font-size="19" letter-spacing="3">${escape(label)}</text>${rows.map((row, i) => `<text x="62" y="${295 + i * 82}" fill="#f0f0ec" font-family="Arial,sans-serif" font-size="${rows.length > 3 ? 60 : 70}" font-weight="500" letter-spacing="-2">${escape(row)}</text>`).join("")}<text x="65" y="593" fill="#a6aaa9" font-family="Arial,sans-serif" font-size="18">WEB DEVELOPMENT · AI AUTOMATION · CHATBOTS</text><text x="1100" y="593" text-anchor="end" fill="#ff8651" font-family="Arial,sans-serif" font-size="24">↗</text></svg>`;
   await sharp(Buffer.from(svg)).png().toFile(`public/images/share/${slug}.png`);
 }
-const growthArt = await sharp("public/images/growth/discovery-field.webp")
+const growthArt = await sharp(
+  "public/images/growth/discovery-field-charcoal.webp",
+)
   .resize(528, 630)
   .toBuffer();
 const growthCard = Buffer.from(`
   <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
-    <rect width="1200" height="630" fill="#f6f5ef"/>
-    <path d="M54 119H625M54 560H625" stroke="#a9abc0"/>
-    <text x="54" y="90" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#141824">HAMID</text>
-    <text x="54" y="171" font-family="Arial,sans-serif" font-size="24" letter-spacing="2" font-weight="700" fill="#2444d5">GROWTH ENGINE</text>
-    <text x="54" y="278" font-family="Arial,sans-serif" font-size="71" letter-spacing="-4" font-weight="700" fill="#141824">Get found.</text>
-    <text x="54" y="359" font-family="Arial,sans-serif" font-size="70" letter-spacing="-4" font-weight="700" fill="#141824">Get understood.</text>
-    <text x="54" y="438" font-family="Georgia,serif" font-size="46" font-style="italic" fill="#2444d5">Give people a reason</text>
-    <text x="54" y="491" font-family="Georgia,serif" font-size="46" font-style="italic" fill="#2444d5">to choose you.</text>
-    <text x="54" y="597" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#354056">SEO · AEO · GEO · CONVERSION PATHS</text>
+    <rect width="1200" height="630" fill="#101112"/>
+    <path d="M54 119H625M54 560H625" stroke="#343739"/>
+    <text x="54" y="90" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#f0f0ec">HAMID</text>
+    <text x="54" y="171" font-family="Arial,sans-serif" font-size="24" letter-spacing="2" font-weight="700" fill="#ff8651">GROWTH ENGINE</text>
+    <text x="54" y="278" font-family="Arial,sans-serif" font-size="71" letter-spacing="-4" font-weight="700" fill="#f0f0ec">Get found.</text>
+    <text x="54" y="359" font-family="Arial,sans-serif" font-size="70" letter-spacing="-4" font-weight="700" fill="#f0f0ec">Get understood.</text>
+    <text x="54" y="438" font-family="Georgia,serif" font-size="46" font-style="italic" fill="#ff8651">Give people a reason</text>
+    <text x="54" y="491" font-family="Georgia,serif" font-size="46" font-style="italic" fill="#ff8651">to choose you.</text>
+    <text x="54" y="597" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#a6aaa9">SEO · AEO · GEO · CONVERSION PATHS</text>
   </svg>`);
 await sharp(growthCard)
   .composite([{ input: growthArt, left: 672, top: 0 }])
