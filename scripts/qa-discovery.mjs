@@ -163,7 +163,7 @@ try {
   await page.goto(base, { waitUntil: "networkidle" });
   await page
     .locator(".hero-actions")
-    .getByRole("link", { name: "Explore selected work" })
+    .getByRole("link", { name: "Explore work", exact: true })
     .click();
   await page.waitForURL("**/work/");
   assert.deepEqual(await actionEvents(), [

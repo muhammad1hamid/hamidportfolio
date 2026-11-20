@@ -179,6 +179,12 @@ for (const width of [480, 768]) {
     .webp({ quality: 85 })
     .toFile(`public/images/responsive/hamid-hero-${width}.webp`);
 }
+for (const width of [320, 480, 640, 768]) {
+  await sharp("public/images/hamid-hero-warm.webp")
+    .resize({ width })
+    .webp({ quality: 82, alphaQuality: 90 })
+    .toFile(`public/images/responsive/hamid-hero-warm-${width}.webp`);
+}
 const originals = (await readdir("public/images/projects")).filter(
   (name) => name.endsWith(".webp") && !name.includes("-mobile"),
 );

@@ -1,0 +1,102 @@
+.navigation .nav-contact {
+  position: relative;
+  isolation: isolate;
+}
+
+.navigation .nav-contact:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 4px;
+}
+
+@media (min-width: 901px) and (forced-colors: none) {
+  .navigation .nav-contact {
+    border-color: color-mix(in srgb, var(--accent) 24%, #3e3936);
+    box-shadow:
+      inset 0 0 0 1px #ffb88f10,
+      inset 0 0 9px #ff865113,
+      0 0 9px #ff865119;
+  }
+
+  .navigation .nav-contact:is(:hover, :focus-visible) {
+    border-color: color-mix(in srgb, var(--accent) 37%, #3e3936);
+    box-shadow:
+      inset 0 0 0 1px #ffb88f22,
+      inset 0 0 10px #ff86511d,
+      0 0 11px #ff865127;
+  }
+}
+
+.nav-contact-beam {
+  display: none;
+}
+
+@supports (mask-composite: exclude) {
+  @media (min-width: 901px) and (prefers-reduced-motion: no-preference) and (forced-colors: none) and (update: fast) {
+    .nav-contact-beam {
+      position: absolute;
+      inset: -1px;
+      display: block;
+      overflow: hidden;
+      padding: 1.5px;
+      border-radius: inherit;
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      opacity: 0.8;
+      pointer-events: none;
+      transition: opacity 220ms ease;
+    }
+
+    .nav-contact-beam::before {
+      content: "";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      inline-size: 118%;
+      aspect-ratio: 1;
+      background: conic-gradient(
+        transparent 0deg 331deg,
+        #ff865120 338deg,
+        var(--accent) 350deg,
+        #ffc09b 352deg,
+        #ff86514f 356deg,
+        transparent 360deg
+      );
+      animation: nav-contact-beam-turn 7.2s linear infinite;
+    }
+
+    .nav-contact:is(:hover, :focus-visible) .nav-contact-beam {
+      opacity: 1;
+    }
+
+    .nav-contact[data-beam-paused] .nav-contact-beam::before,
+    html:is([data-origin-intro="pending"], [data-origin-intro="playing"])
+      .nav-contact-beam::before {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@keyframes nav-contact-beam-turn {
+  from {
+    transform: translate(-50%, -50%) rotate(0turn);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(1turn);
+  }
+}
+
+@media (max-width: 719px) {
+  .navigation[data-hero-home]:not(.is-scrolled) {
+    height: 74px;
+  }
+
+  .navigation[data-hero-home] .nav-contact {
+    display: none;
+  }
+
+  .navigation[data-hero-home] .menu-toggle {
+    width: 48px;
+    height: 48px;
+  }
+}

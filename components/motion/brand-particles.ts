@@ -283,29 +283,19 @@ function mountBrandParticles(session: OriginSession, stage: HTMLElement) {
             },
           ),
         );
-        const lead = document.querySelectorAll(
-          leadSelector + ", #main .hero-topline",
-        );
-        const h1 = document.querySelector("#main h1");
-        const targets = lead.length ? Array.from(lead) : h1 ? [h1] : [];
-        for (const target of targets) {
-          animations.push(
-            target.animate(settle, {
-              duration,
-              easing: "cubic-bezier(.22,1,.36,1)",
-            }),
-          );
-        }
-        const actions = document.querySelector(".hero-v2 .hero-actions");
-        if (actions) {
-          animations.push(
-            actions.animate([{ translate: "0 6px" }, { translate: "0 0" }], {
-              duration: duration * 0.85,
-              delay: duration * 0.15,
-              easing: "ease-out",
-              fill: "backwards",
-            }),
-          );
+        // The homepage CSS follows the revealing state for its staggered entrance.
+        if (!document.querySelector("#main .signature-hero")) {
+          const lead =
+            document.querySelector(leadSelector) ??
+            document.querySelector("#main h1");
+          if (lead) {
+            animations.push(
+              lead.animate(settle, {
+                duration,
+                easing: "cubic-bezier(.22,1,.36,1)",
+              }),
+            );
+          }
         }
       }
       frame = requestAnimationFrame(render);

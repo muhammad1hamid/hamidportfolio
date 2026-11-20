@@ -279,9 +279,6 @@
 }
 
 @media (max-width: 700px) {
-  .hero-v2 .hero-body {
-    gap: 0;
-  }
 
   .capability-intro {
     font-size: 15px;

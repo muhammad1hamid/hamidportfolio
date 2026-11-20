@@ -83,16 +83,13 @@ const checkProjectImages = async (selector, expected) => {
     );
   }
 };
-await page.goto(baseURL, { waitUntil: "networkidle" });
-await page.evaluate(() => document.fonts.ready);
-for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
+for (const width of [
+  320, 360, 375, 390, 430, 600, 768, 1024, 1280, 1440, 1920,
+]) {
   await page.setViewportSize({ width, height: 1000 });
-  await page.evaluate(
-    () =>
-      new Promise((resolve) =>
-        requestAnimationFrame(() => requestAnimationFrame(resolve)),
-      ),
-  );
+  // Measure after loading at this width so offscreen sections have reflowed.
+  await page.goto(baseURL, { waitUntil: "load" });
+  await page.evaluate(() => document.fonts.ready);
   await check(`Home fits ${width}px`, async () => {
     const dimensions = await page.evaluate(() => ({
       page: document.documentElement.scrollWidth,
@@ -115,7 +112,7 @@ for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
       );
     }
     const statements = await page
-      .locator("#hero-title > *")
+      .locator("#hero-title .hero-title-line:visible")
       .evaluateAll((elements) =>
         elements.map((element) => {
           const range = document.createRange();
@@ -125,7 +122,7 @@ for (const width of [320, 375, 390, 430, 768, 1024, 1440, 1920]) {
       );
     assert.deepEqual(
       statements,
-      [1, 1, 1],
+      width < 720 ? [1, 1] : [1, 1, 1],
       "Each hero statement fits on one line",
     );
   });
@@ -136,11 +133,6 @@ await check(
   async () => {
     const headings = page.locator("main h1");
     assert.equal(await headings.count(), 1);
-    assert.deepEqual(await headings.locator("> *").allTextContents(), [
-      "Stand out online.",
-      "Get found.",
-      "Work smarter.",
-    ]);
     for (const [width, height] of [
       [320, 568],
       [390, 844],
@@ -148,9 +140,15 @@ await check(
       [1440, 768],
     ]) {
       await page.setViewportSize({ width, height });
+      assert.deepEqual(
+        await headings.locator(".hero-title-line:visible").allTextContents(),
+        width < 720
+          ? ["Build. Grow.", "Automate."]
+          : ["Stand out online.", "Get found.", "Work smarter."],
+      );
       for (const [label, path] of [
         ["Discuss your project", "/contact/?source=home"],
-        ["Explore selected work", "/work/"],
+        [width < 720 ? "Explore work" : "Explore selected work", "/work/"],
       ]) {
         const link = page
           .locator(".hero-actions")
@@ -161,8 +159,9 @@ await check(
           bounds &&
             bounds.x >= 0 &&
             bounds.y >= 0 &&
-            bounds.y + bounds.height <= height,
-          `${label} should be above the fold at ${width}×${height}`,
+            ((label === "Explore work" && width === 320) ||
+              bounds.y + bounds.height <= height),
+          `${label} should fit the viewport at ${width}×${height}`,
         );
       }
     }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Arrow } from "@/components/ui/Arrow";
+import "@/app/navigation-beam.css";
 
 const links = [
   { title: "Work", href: "/work/" },
@@ -14,17 +15,38 @@ const links = [
   { title: "Insights", href: "/insights/" },
 ];
 
+function setBeamSpeed(link: HTMLAnchorElement, active: boolean) {
+  if (typeof CSSAnimation === "undefined") return;
+  const beam = link.querySelector(".nav-contact-beam");
+  const animation = beam
+    ?.getAnimations?.({ subtree: true })
+    .find(
+      (effect) =>
+        effect instanceof CSSAnimation &&
+        effect.animationName === "nav-contact-beam-turn",
+    );
+  animation?.updatePlaybackRate?.(active ? 1.22 : 1);
+}
+
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const menu = useRef<HTMLDialogElement>(null);
   const button = useRef<HTMLButtonElement>(null);
+  const contact = useRef<HTMLAnchorElement>(null);
   const pathname = usePathname();
   useEffect(() => {
     const scroll = () => setScrolled(window.scrollY > 60);
+    const visibility = () =>
+      contact.current?.toggleAttribute("data-beam-paused", document.hidden);
     scroll();
+    visibility();
     window.addEventListener("scroll", scroll, { passive: true });
-    return () => window.removeEventListener("scroll", scroll);
+    document.addEventListener("visibilitychange", visibility);
+    return () => {
+      window.removeEventListener("scroll", scroll);
+      document.removeEventListener("visibilitychange", visibility);
+    };
   }, []);
   useEffect(() => {
     setOpen(false);
@@ -47,7 +69,10 @@ export function Navigation() {
   };
   return (
     <>
-      <header className={`navigation ${scrolled ? "is-scrolled" : ""}`}>
+      <header
+        className={`navigation ${scrolled ? "is-scrolled" : ""}`}
+        data-hero-home={pathname === "/" ? "" : undefined}
+      >
         <Link className="wordmark" href="/" aria-label="Hamid home">
           HAMID<span aria-hidden="true">✳</span>
         </Link>
@@ -63,11 +88,47 @@ export function Navigation() {
           ))}
         </nav>
         <Link
+          ref={contact}
           className="nav-contact"
           href="/contact/?source=navigation"
           aria-label="Discuss a project"
           aria-current={pathname === "/contact/" ? "page" : undefined}
+          onPointerEnter={(event) => {
+            if (event.pointerType === "mouse")
+              setBeamSpeed(event.currentTarget, true);
+          }}
+          onPointerLeave={(event) =>
+            setBeamSpeed(
+              event.currentTarget,
+              event.currentTarget.matches(":focus-visible"),
+            )
+          }
+          onFocus={(event) =>
+            setBeamSpeed(
+              event.currentTarget,
+              event.currentTarget.matches(":focus-visible, :hover"),
+            )
+          }
+          onBlur={(event) =>
+            setBeamSpeed(
+              event.currentTarget,
+              event.currentTarget.matches(":hover"),
+            )
+          }
+          onKeyDown={(event) => {
+            if (
+              event.key !== " " ||
+              event.altKey ||
+              event.ctrlKey ||
+              event.metaKey ||
+              event.shiftKey
+            )
+              return;
+            event.preventDefault();
+            if (!event.repeat) event.currentTarget.click();
+          }}
         >
+          <span className="nav-contact-beam" aria-hidden="true" />
           <span>
             Discuss<span className="nav-contact-detail"> a project</span>
           </span>

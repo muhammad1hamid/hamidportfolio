@@ -354,187 +354,6 @@ summary:focus-visible {
   background: var(--bg);
 }
 
-/* A portrait-led hero with an editorial typographic foreground. */
-.hero {
-  position: relative;
-  min-height: 880px;
-  height: min(980px, 100svh);
-  isolation: isolate;
-  overflow: hidden;
-  background: #10110f;
-  --mx: 0px;
-  --my: 0px;
-}
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    90deg,
-    transparent calc(25% - 0.5px),
-    #ffffff06 25%,
-    transparent calc(25% + 0.5px),
-    transparent calc(75% - 0.5px),
-    #ffffff06 75%,
-    transparent calc(75% + 0.5px)
-  );
-}
-.hero-topline {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  padding-top: 145px;
-  z-index: 2;
-}
-.hero-topline .eyebrow {
-  color: #b1b2a8;
-}
-.hero-body {
-  position: relative;
-  height: calc(100% - 265px);
-  min-height: 580px;
-  display: flex;
-  align-items: center;
-}
-.hero-copy {
-  z-index: 3;
-  position: relative;
-  padding-bottom: 70px;
-  pointer-events: none;
-}
-.hero-copy h1 {
-  font-size: clamp(68px, 7.8vw, 112px);
-  font-weight: 600;
-  line-height: 1.06;
-  letter-spacing: -0.065em;
-  white-space: nowrap;
-}
-.hero-copy h1 em {
-  font-size: 1.27em;
-  letter-spacing: -0.04em;
-  line-height: 0.9;
-}
-.hero-copy p {
-  font-size: 17px;
-  line-height: 1.8;
-  color: #bbbdb2;
-  margin-top: 30px;
-}
-.hero-copy .button {
-  margin-top: 28px;
-  pointer-events: auto;
-}
-.hero-caption {
-  display: block;
-  font-size: 12px;
-  color: #999d91;
-  margin-top: 18px;
-  letter-spacing: 0.015em;
-}
-.hero-portrait {
-  position: absolute;
-  right: -25px;
-  top: -14px;
-  width: 59%;
-  height: calc(100% + 50px);
-  z-index: 1;
-  transform: translate(var(--mx), var(--my));
-  transition: transform 1s var(--ease);
-}
-.hero-portrait::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, #10110f 0%, transparent 26%),
-    linear-gradient(
-      0deg,
-      #10110f 0%,
-      transparent 25%,
-      transparent 86%,
-      #10110f 100%
-    );
-  pointer-events: none;
-}
-.hero-portrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 32%;
-  filter: grayscale(1) contrast(1.04) brightness(0.77);
-  mix-blend-mode: lighten;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 17%,
-    #000 89%,
-    transparent
-  );
-}
-.portrait-cross {
-  position: absolute;
-  color: #74786d;
-  font-size: 26px;
-  z-index: 2;
-  font-weight: 400;
-}
-.cross-one {
-  right: 10px;
-  top: 10%;
-}
-.cross-two {
-  left: 22%;
-  bottom: 14%;
-}
-.hero-bottom {
-  position: absolute;
-  bottom: 34px;
-  left: 0;
-  right: 0;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-  border-top: 1px solid #ffffff1d;
-  padding-top: 25px;
-}
-.scroll-link {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 12px;
-  color: var(--soft);
-  min-height: 32px;
-}
-.scroll-track {
-  height: 26px;
-  width: 15px;
-  border: 1px solid #77796e;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-}
-.scroll-track i {
-  height: 5px;
-  width: 1px;
-  background: var(--text);
-  margin-top: 5px;
-  animation: scroll-dot 2s infinite;
-}
-.hero-watermark {
-  position: absolute;
-  font-weight: 700;
-  letter-spacing: -0.085em;
-  font-size: 29vw;
-  line-height: 0.75;
-  left: 3%;
-  bottom: 72px;
-  color: #ffffff03;
-  z-index: -1;
-  pointer-events: none;
-}
-
 /* Story, capabilities, and a constructed three-dimensional monogram. */
 .story {
   padding-top: 130px;
@@ -1398,17 +1217,6 @@ dialog[open] {
 .cursor[data-mode="view"] span {
   opacity: 1;
 }
-@keyframes scroll-dot {
-  0%,
-  100% {
-    transform: translateY(0);
-    opacity: 0.4;
-  }
-  50% {
-    transform: translateY(9px);
-    opacity: 1;
-  }
-}
 @keyframes data-pulse {
   0% {
     transform: translateY(0);
@@ -1436,20 +1244,6 @@ dialog[open] {
     clip-path: inset(0);
   }
 }
-
-@media (min-width: 1800px) {
-  .hero {
-    min-height: 980px;
-  }
-  .hero-copy {
-    padding-bottom: 30px;
-  }
-  .hero-portrait {
-    right: 0;
-    width: 57%;
-    height: calc(100% + 65px);
-  }
-}
 @media (max-width: 1100px) {
   .desktop-nav {
     margin-left: 0;
@@ -1462,22 +1256,6 @@ dialog[open] {
   }
   .navigation {
     padding-inline: var(--page-gutter);
-  }
-  .hero {
-    min-height: 820px;
-  }
-  .hero-body {
-    min-height: 540px;
-  }
-  .hero-copy h1 {
-    font-size: 8.3vw;
-  }
-  .hero-portrait {
-    right: -30px;
-    width: 63%;
-  }
-  .hero-caption {
-    font-size: 10px;
   }
   .story-side {
     padding-left: 0;
@@ -1546,94 +1324,6 @@ dialog[open] {
   }
   .menu-toggle {
     display: block;
-  }
-  .hero {
-    height: auto;
-    min-height: 920px;
-  }
-  .hero-topline {
-    padding-top: 115px;
-  }
-  .hero-topline .eyebrow {
-    font-size: 9px;
-    letter-spacing: 0.08em;
-  }
-  .hero-body {
-    height: 710px;
-    min-height: 0;
-    align-items: flex-start;
-  }
-  .hero-copy {
-    padding-top: 45px;
-    padding-bottom: 0;
-    width: 100%;
-  }
-  .hero-copy h1 {
-    font-size: clamp(48px, 10.6vw, 81px);
-    line-height: 1.07;
-    letter-spacing: -0.06em;
-  }
-  .hero-copy p {
-    font-size: 14px;
-    line-height: 1.8;
-    margin-top: 25px;
-    max-width: 260px;
-  }
-  .hero-copy .button {
-    margin-top: 24px;
-    min-height: 50px;
-    padding: 6px 7px 6px 20px;
-    font-size: 12px;
-    gap: 24px;
-  }
-  .hero-caption {
-    font-size: 10px;
-    max-width: 180px;
-    line-height: 1.7;
-    margin-top: 14px;
-  }
-  .hero-portrait {
-    top: 250px;
-    right: -30px;
-    width: 88%;
-    height: 480px;
-  }
-  .hero-portrait img {
-    object-position: 50% 28%;
-    filter: grayscale(1) contrast(1.03) brightness(0.68);
-  }
-  .hero-portrait::after {
-    background:
-      linear-gradient(90deg, #10110f 0%, transparent 18%),
-      linear-gradient(
-        0deg,
-        #10110f 0%,
-        transparent 35%,
-        transparent 90%,
-        #10110f 100%
-      );
-  }
-  .cross-one {
-    top: 20%;
-    right: 15px;
-  }
-  .cross-two {
-    left: 10%;
-    bottom: 15%;
-  }
-  .hero-bottom {
-    bottom: 23px;
-    padding-top: 20px;
-    gap: 15px;
-  }
-  .scroll-link {
-    font-size: 10px;
-    gap: 10px;
-    white-space: nowrap;
-  }
-  .hero-watermark {
-    font-size: 31vw;
-    bottom: 100px;
   }
   .story {
     padding-top: 80px;
@@ -1970,32 +1660,6 @@ dialog[open] {
   }
 }
 @media (max-width: 360px) {
-  .hero {
-    min-height: 860px;
-  }
-  .hero-body {
-    height: 650px;
-  }
-  .hero-copy h1 {
-    font-size: 10.5vw;
-  }
-  .hero-copy p {
-    font-size: 13px;
-  }
-  .hero-portrait {
-    top: 265px;
-    height: 410px;
-    width: 100%;
-    right: -35px;
-  }
-  .hero-caption {
-    max-width: 150px;
-  }
-  .hero-copy .button {
-    gap: 16px;
-    font-size: 11px;
-    padding-left: 18px;
-  }
   .story-disciplines {
     font-size: 8px;
     gap: 8px;
@@ -2016,8 +1680,6 @@ dialog[open] {
 .contact-section .section-marker {
   color: #555d4c;
 }
-.hero-caption,
-.scroll-link,
 .section-marker,
 .project-category,
 .preview-badge,
@@ -2034,15 +1696,6 @@ dialog[open] {
   font-size: 12px;
 }
 @media (max-width: 767px) {
-  .hero-topline .eyebrow {
-    font-size: 11px;
-  }
-  .hero-caption {
-    max-width: 230px;
-  }
-  .hero-bottom {
-    align-items: flex-start;
-  }
   .story-disciplines {
     display: grid;
     grid-template-columns: 1fr;
@@ -2067,25 +1720,8 @@ dialog[open] {
   .filter-count {
     font-size: 11px;
   }
-  .hero-portrait {
-    top: 275px;
-    height: 455px;
-  }
 }
 @media (max-width: 360px) {
-  .hero-portrait {
-    top: 285px;
-    height: 390px;
-  }
-  .hero-bottom {
-    gap: 10px;
-  }
-  .scroll-link {
-    font-size: 11px;
-  }
-  .hero-caption {
-    max-width: 200px;
-  }
   .footer-top p {
     font-size: 10px;
   }
@@ -2112,9 +1748,6 @@ dialog[open] {
   }
   .cursor {
     display: none !important;
-  }
-  .hero-portrait {
-    transform: none !important;
   }
   .story-line {
     opacity: 1 !important;

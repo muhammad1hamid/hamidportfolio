@@ -4,7 +4,6 @@ import { chromium } from "playwright-core";
 
 const origin = new URL(process.env.QA_BASE_URL || "http://127.0.0.1:3000")
   .origin;
-const headline = "Stand out online. Get found. Work smarter.";
 const overlay = ".signature-intro";
 const sizes = [
   [1440, 900],
@@ -33,7 +32,7 @@ function recordMotion() {
       value: { effectiveType: "4g", downlink: 25, rtt: 25, saveData: false },
     });
   }
-  const capture = { frames: [], moves: [], finish: null };
+  const capture = { frames: [], moves: [], hero: {}, finish: null };
   window.originCapture = capture;
   let frame;
   const canvas = CanvasRenderingContext2D.prototype;
@@ -87,7 +86,7 @@ function recordMotion() {
   Element.prototype.animate = function (frames, options) {
     if (
       this.matches(
-        ".origin-curtain, .origin-route-veil, .hero-topline, .hero-copy, .hero-actions, .content-hero, .growth-hero-copy, .archive-heading",
+        ".origin-curtain, .origin-route-veil, .hero-copy, .content-hero, .growth-hero-copy, .archive-heading",
       )
     ) {
       capture.moves.push({
@@ -98,6 +97,24 @@ function recordMotion() {
     }
     return animate.call(this, frames, options);
   };
+  document.addEventListener("animationstart", (event) => {
+    if (
+      event.animationName !== "hero-copy-in" &&
+      event.animationName !== "hero-portrait-in"
+    )
+      return;
+    const target = event.target;
+    const key = target.matches(".hero-primary")
+      ? "hero-primary"
+      : target.classList[0];
+    capture.hero[key] = performance.now();
+    if (key === "hero-headline") {
+      const animation = target
+        .getAnimations()
+        .find((effect) => effect.animationName === event.animationName);
+      capture.headlineDelay = animation?.effect?.getTiming().delay;
+    }
+  });
   new MutationObserver(() => {
     const stage = document.documentElement.dataset.originIntro;
     if (stage === "playing") capture.played = true;
@@ -202,8 +219,15 @@ try {
               await screenshot(page, `${width}-lift`);
             }
             await finished(page);
-            const { startedAt, frames, moves, revealAt, finish } =
-              await page.evaluate(() => window.originCapture);
+            const {
+              startedAt,
+              frames,
+              moves,
+              hero,
+              headlineDelay,
+              revealAt,
+              finish,
+            } = await page.evaluate(() => window.originCapture);
             const first = frames.find(
               (frame) => frame.anchor && frame.dots === 0,
             );
@@ -257,7 +281,19 @@ try {
                   move.target === "origin-curtain" && move.duration > 250,
               ),
             );
-            assert.ok(moves.some((move) => move.target === "hero-copy"));
+            const portrait = hero["hero-portrait"];
+            const firstLine = hero["hero-headline"];
+            const secondLine = hero["hero-emphasis"];
+            const lastLine =
+              width < 720 ? secondLine : hero["hero-headline-end"];
+            const description = hero["hero-description"];
+            const primary = hero["hero-primary"];
+            assert.ok(portrait >= revealAt && portrait < firstLine);
+            assert.ok(firstLine < secondLine && lastLine < description);
+            if (width >= 720) assert.ok(secondLine < lastLine);
+            assert.ok(description < primary && primary < finish);
+            // CSS determines the delay. Browser event delivery adds frame time.
+            assert.ok(headlineDelay >= 80 && headlineDelay <= 180);
             assert.ok(finish - startedAt >= 3380 && finish - startedAt <= 3950);
             assert.equal(
               await page.locator(".origin-particles").getAttribute("width"),
@@ -267,8 +303,10 @@ try {
               await page
                 .locator("#hero-title")
                 .innerText()
-                .then((value) => value.replace(/\s+/g, " ")),
-              headline,
+                .then((value) => value.replace(/\s+/g, " ").trim()),
+              width < 720
+                ? "Build. Grow. Automate."
+                : "Stand out online. Get found. Work smarter.",
             );
             assert.ok(
               await page.evaluate(
@@ -280,6 +318,13 @@ try {
               height,
               durationMs: Math.round(finish - startedAt),
               holdMs: Math.round(holdMs),
+              heroStartMs: [
+                portrait,
+                firstLine,
+                secondLine,
+                description,
+                primary,
+              ].map((time) => Math.round(time - revealAt)),
               tiles: Math.max(...frames.map((frame) => frame.tiles)),
               dpr: first.dpr,
             });
@@ -320,22 +365,27 @@ try {
           .getByRole("link", { name: "Work" })
           .click();
         await page.waitForURL("**/work/");
-        assert.ok(
-          await page.evaluate(() =>
-            window.originCapture.moves.some(
-              (move) => move.target === "origin-route-veil",
-            ),
-          ),
-        );
-        assert.ok(
-          await page.evaluate(() =>
-            window.originCapture.moves.some(
-              (move) =>
-                move.target.split(" ").includes("archive-heading") &&
-                move.duration === 220,
-            ),
-          ),
-        );
+        await page.locator(".archive-heading h1").waitFor();
+        const routeMotion = await page.evaluate(() => {
+          const { moves, frames } = window.originCapture;
+          const veil = moves.find(
+            (move) => move.target === "origin-route-veil",
+          );
+          const lead = moves.find((move) =>
+            move.target.split(" ").includes("archive-heading"),
+          );
+          return {
+            veil,
+            lead,
+            elapsed: performance.now() - (veil?.at ?? 0),
+            frames: frames.length,
+          };
+        });
+        assert.equal(routeMotion.veil?.duration, 290);
+        // The route hook deliberately leaves out its entrance on a slow commit.
+        if (routeMotion.lead || routeMotion.elapsed <= 200)
+          assert.equal(routeMotion.lead?.duration, 220);
+        assert.equal(routeMotion.frames, 0);
         await page.goBack();
         await page.waitForURL("**/growth/");
         await page.goForward();
