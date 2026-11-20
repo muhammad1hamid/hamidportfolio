@@ -492,17 +492,6 @@
 .mobile-contact {
   display: none;
 }
-.signature-intro {
-  animation: intro-exit 0.35s var(--ease) 0.45s both;
-  pointer-events: none;
-}
-.intro-name span {
-  animation-duration: 0.4s;
-}
-.intro-line {
-  animation-duration: 0.5s;
-  background: var(--accent);
-}
 .cursor[data-mode="view"] {
   width: 66px;
   height: 66px;

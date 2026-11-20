@@ -649,7 +649,11 @@ await check(
       .locator(".signature-intro")
       .waitFor({ state: "hidden", timeout: 7000 });
     await motionPage.reload({ waitUntil: "networkidle" });
-    assert.equal(await motionPage.locator(".signature-intro").count(), 0);
+    assert.equal(await motionPage.locator(".signature-intro").isVisible(), false);
+    assert.equal(
+      await motionPage.locator("html").getAttribute("data-origin-intro"),
+      null,
+    );
     await motionPage.locator("#services").scrollIntoViewIfNeeded();
     assert.equal(await motionPage.locator(".chrome-mark").count(), 1);
     await motionPage.screenshot({

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "predev": "node scripts/seo-assets.mjs",
-    "prebuild": "node scripts/seo-assets.mjs",
+    "predev": "node scripts/seo-assets.mjs && node scripts/origin-assets.mjs",
+    "prebuild": "node scripts/seo-assets.mjs && node scripts/origin-assets.mjs",
     "dev": "node scripts/next.mjs dev --hostname 127.0.0.1",
     "build": "node scripts/next.mjs build --webpack",
     "postbuild": "node scripts/postbuild-seo.mjs",
@@ -14,6 +14,7 @@
     "test:browser": "node scripts/qa.mjs",
     "test:seo": "node scripts/qa-seo.mjs",
     "test:performance": "node scripts/qa-performance.mjs",
+    "test:origin": "node scripts/qa-origin.mjs",
     "test:discovery": "node scripts/qa-discovery.mjs",
     "check:public": "node scripts/check-public-launch.mjs",
     "indexnow": "node scripts/indexnow.mjs"

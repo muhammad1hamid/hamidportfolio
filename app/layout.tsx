@@ -3,6 +3,8 @@ import { site } from "@/data/site";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Experience } from "@/components/motion/Experience";
+import { SignatureIntro } from "@/components/motion/SignatureIntro";
+import { originBootstrap } from "@/components/motion/origin-session";
 import { entityGraph, pageMeta } from "@/data/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Analytics } from "@/components/seo/Analytics";
@@ -19,6 +21,7 @@ import "./discovery.css";
 import "./analytics.css";
 import "./insights.css";
 import "./home-growth.css";
+import "./origin.css";
 
 const tagManager = `
   (function (w, d) {
@@ -82,8 +85,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          id="hamid-origin-bootstrap"
+          dangerouslySetInnerHTML={{ __html: originBootstrap }}
+        />
         {!site.noindex && (
           <script
             id="hamid-google-tag-manager"
@@ -99,6 +106,7 @@ export default function RootLayout({
         )}
       </head>
       <body suppressHydrationWarning>
+        <SignatureIntro />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

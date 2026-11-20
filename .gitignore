@@ -7,5 +7,6 @@ out/
 *.tsbuildinfo
 *.tar.gz
 qa-output/
+/public/motion/origin/
 .indexnow-state.json
 /PUBLISHING-DRAFTS.md

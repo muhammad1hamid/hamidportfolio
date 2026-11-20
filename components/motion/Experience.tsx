@@ -2,10 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { useNavigationMotion } from "./useNavigationMotion";
 
 export function Experience() {
   const cursor = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const routeVeil = useNavigationMotion(pathname);
   useEffect(() => {
     if (!document.querySelector("[data-reveal]")) return;
     const query = matchMedia(
@@ -16,6 +18,7 @@ export function Experience() {
     let cleanup: (() => void) | undefined;
     let idle: number | undefined;
     let timer: number | undefined;
+    const originSignal = window.hamidOrigin?.signal;
     const cancel = () => {
       generation++;
       if (idle !== undefined) window.cancelIdleCallback(idle);
@@ -25,7 +28,8 @@ export function Experience() {
     };
     const schedule = () => {
       cancel();
-      if (!query.matches || disposed) return;
+      if (!query.matches || disposed || (originSignal && !originSignal.aborted))
+        return;
       const current = generation;
       const start = () => {
         import("./scroll-experience")
@@ -43,10 +47,12 @@ export function Experience() {
     };
     schedule();
     query.addEventListener("change", schedule);
+    originSignal?.addEventListener("abort", schedule, { once: true });
     return () => {
       disposed = true;
       cancel();
       query.removeEventListener("change", schedule);
+      originSignal?.removeEventListener("abort", schedule);
     };
   }, [pathname]);
 
@@ -106,6 +112,7 @@ export function Experience() {
 
   return (
     <>
+      <div ref={routeVeil} className="origin-route-veil" aria-hidden="true" />
       <div ref={cursor} className="cursor" aria-hidden="true">
         <span>VIEW ↗</span>
       </div>
