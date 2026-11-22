@@ -2,6 +2,7 @@ import Link from "next/link";
 import { articleDate, type Article } from "@/data/articles";
 import { insightCover, readingTitle, type Insight } from "@/data/insights";
 import { serviceBySlug } from "@/data/services";
+import { site } from "@/data/site";
 import { absolute } from "@/data/seo";
 import { ContentPage, ProjectCta } from "./ContentPage";
 import { InsightImage } from "./InsightImage";
@@ -25,6 +26,7 @@ export function ArticleDetail(props: ArticleDetailProps) {
       title={article.title}
       intro={article.intro}
       label={article.category}
+      mainEntity={`${path}#article`}
       className={insight ? "insight-detail" : undefined}
       crumbs={[
         { label: insight ? "Insights" : "Guides", href: collection },
@@ -34,12 +36,12 @@ export function ArticleDetail(props: ArticleDetailProps) {
       <p className="article-byline">
         {insight ? (
           <>
-            <Link href="/about/">Hamid</Link> · Prepared{" "}
+            <Link href="/about/">{site.personName}</Link> · Prepared{" "}
           </>
         ) : (
           <>
-            Written by <Link href="/about/">Hamid</Link>, independent developer
-            &amp; ElevateX founder · Prepared{" "}
+            Written by <Link href="/about/">{site.personName}</Link>,
+            independent developer &amp; ElevateX founder · Prepared{" "}
           </>
         )}
         <time dateTime={article.date}>{articleDate(article.date)}</time>

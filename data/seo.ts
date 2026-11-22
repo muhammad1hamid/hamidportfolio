@@ -107,8 +107,8 @@ export const entityGraph = {
     {
       "@type": "Person",
       "@id": absolute("/#person"),
-      name: "Hamid",
-      alternateName: "Muhammad Hamid",
+      name: site.personName,
+      alternateName: site.name,
       url: absolute("/about/"),
       image: absolute("/images/hamid-hero.webp"),
       jobTitle: "Independent Developer & Digital Growth Builder",
@@ -127,8 +127,8 @@ export const entityGraph = {
     {
       "@type": "Organization",
       "@id": absolute("/#organization"),
-      name: "Hamid",
-      url: site.url,
+      name: site.name,
+      url: absolute("/"),
       description:
         "Hamid's independent web development, search and AI visibility, and automation practice, based in Pakistan and working remotely with businesses and agencies.",
       logo: absolute("/apple-touch-icon.png"),
@@ -139,7 +139,6 @@ export const entityGraph = {
         contactType: "Project enquiries",
         url: site.whatsapp,
       },
-      sameAs: [site.linkedin, site.instagram],
     },
     {
       "@type": "Organization",
@@ -151,8 +150,8 @@ export const entityGraph = {
     {
       "@type": "WebSite",
       "@id": absolute("/#website"),
-      name: "Hamid",
-      url: site.url,
+      name: site.name,
+      url: absolute("/"),
       description: site.description,
       publisher: { "@id": absolute("/#organization") },
       inLanguage: "en",
@@ -164,7 +163,7 @@ export function pageSchema(
   path: string,
   name: string,
   description: string,
-  type = "WebPage",
+  { type = "WebPage", mainEntity }: { type?: string; mainEntity?: string } = {},
 ) {
   return {
     "@context": "https://schema.org",
@@ -174,7 +173,7 @@ export function pageSchema(
     name,
     description,
     isPartOf: { "@id": absolute("/#website") },
-    about: { "@id": absolute("/#person") },
+    ...(mainEntity && { mainEntity: { "@id": absolute(mainEntity) } }),
     inLanguage: "en",
   };
 }

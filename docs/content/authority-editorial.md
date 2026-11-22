@@ -7,7 +7,7 @@ The [ElevateX editorial requirements](../../CONTENT-PUBLISHING.md) guide article
 | Route | Reader intent and evidence | Contextual destinations | Main next step |
 | --- | --- | --- | --- |
 | `/` | Identify Hamid and decide if the work is relevant. Portfolio screenshots and service scope | `/services/`, `/growth/`, `/work/`, `/insights/` | `/contact/?source=home` |
-| `/growth/` | Understand audit, content and conversion implementation. Visible service scope and example scenarios | `/insights/measure-whatsapp-enquiries/`, `/insights/mobile-website-launch-checklist/`, `/blog/business-website-brief/` | `/contact/#growth-enquiry` |
+| `/growth/` | Understand audit, content and conversion implementation. Visible service scope and example scenarios | `/insights/portfolio-search-readiness/`, `/insights/measure-whatsapp-enquiries/`, `/insights/mobile-website-launch-checklist/` | `/contact/#growth-enquiry` |
 | `/insights/` | Read build notes and examples. Current technical article has a real capture and browser evidence | `/insights/hamid-intro-motion/`, `/insights/measure-whatsapp-enquiries/`, `/blog/` | Select an article |
 | `/blog/` | Make a scope, workflow or budget decision. Evergreen decision guides | `/blog/landing-page-or-full-website/`, `/blog/business-website-brief/`, `/insights/` | Select a guide |
 | `/insights/hamid-intro-motion/` | Evaluate a real motion implementation on the portfolio | `/work/`, `/insights/mobile-website-launch-checklist/`, `/web-development/` | Contextual WhatsApp draft |
@@ -17,7 +17,7 @@ The [ElevateX editorial requirements](../../CONTENT-PUBLISHING.md) guide article
 | `/work/` and `/case-studies/` | Compare actual screens and read build context. Classifications follow supplied evidence | `/work/bridal-house/`, `/work/editing-julian/`, `/work/qadeer-jewellers/` | `/contact/` |
 | `/about/` and `/editorial-policy/` | Verify authorship, disclosures and correction requests | `/work/`, `/insights/`, `/contact/` | Contact Hamid with correction or enquiry |
 
-Keep the guide about page scope at `/blog/landing-page-or-full-website/`. Refresh the Insights articles on demos and workflow choice when an additional artifact is available. The prospective growth audit needs dated observations and a specific change with evidence. A how-to checklist for Next.js requires a separate reader task and code example to justify its own article.
+Keep the guide about page scope at `/blog/landing-page-or-full-website/`. The search-readiness article uses the dated live-site audit and real viewport captures. The first-workflow guide includes controlled retry and handover checks. Refresh both when comparable evidence is available.
 
 ## Reusable brief
 
@@ -57,11 +57,11 @@ Keep the Chrome and Lighthouse measurements in their own tables. Label the scree
 
 ### What does a real search-readiness audit prove?
 
-**Proposed route** `/insights/portfolio-search-readiness/` · **Audience** growth leads · **Pillar** Growth Engine · **Status** awaiting deployed checks
+**Canonical route** `/insights/portfolio-search-readiness/` · **Audience** growth leads · **Pillar** Growth Engine · **Evidence** [21 November production audit](../audit/sage-2026-11-21.md) and 22 November homepage captures
 
 Answer what a team can verify before receiving an indexing or AI report. Open with the real comparison between deployed and prepared routes. Walk through a 200 HTML response, one self-canonical from static markup, a structured article with a source and an internal link, and the public crawler policy. Show the difference between observing a 404/redirect and verifying the indexed result. Include a short list of owner checks for crawl permissions, canonical choice and Generative AI impressions. Reserve the claims of actual inclusion or referral performance for dated property exports.
 
-Use the audit snapshot, updated title/canonical proof and a redacted owner-provided URL Inspection result if available. Put the dates on both states. Link to editorial standards, the intro build note as a real artifact, Growth Engine and the enquiry page. Hamid reviews crawler and release facts. Publish after the new deployment is reachable and the article names which metrics were available. Update on crawler policy changes or a measured public comparison. [Google AI search optimization guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) · [Generative AI reports](https://support.google.com/webmasters/answer/16984139)
+The article has the live audit observations, editorial standards, Growth Engine and an audit-specific enquiry action. A redacted owner-provided URL Inspection result can support a later update. Review after a material change to crawler policy or a measured public comparison. [Google AI search optimization guide](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide) · [Generative AI reports](https://support.google.com/webmasters/answer/16984139)
 
 ### What does an agency need back from a developer?
 

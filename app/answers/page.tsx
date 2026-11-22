@@ -1,5 +1,6 @@
 import Link from "next/link";
 import answers from "@/data/answers.json";
+import { site } from "@/data/site";
 import { experienceMeta } from "@/data/experience";
 import { ContentPage, ProjectCta } from "@/components/seo/ContentPage";
 import { AnswerNavigation } from "@/components/tools/AnswerNavigation";
@@ -10,7 +11,7 @@ export default function AnswersPage() {
     <ContentPage
       path="/answers/"
       title="Good questions. Useful answers."
-      intro="Start with the decision in front of you: choosing a website, planning the work, or understanding what an assistant should do. Each answer leads to a useful next step."
+      intro="Find answers about choosing a website, planning automation, or checking how your business appears in search and AI. Each answer links to a useful next step."
       label="Project questions"
       type="CollectionPage"
     >
@@ -50,8 +51,8 @@ export default function AnswersPage() {
         </section>
       ))}
       <p className="article-byline">
-        By <Link href="/about/">Hamid</Link> · Updated{" "}
-        <time dateTime="2026-10-05">5 October 2026</time> ·{" "}
+        By <Link href="/about/">{site.personName}</Link> · Updated{" "}
+        <time dateTime="2026-11-22">22 November 2026</time> ·{" "}
         <Link href="/editorial-policy/">Content standards</Link>
       </p>
       <ProjectCta />

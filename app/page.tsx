@@ -27,7 +27,11 @@ export default function Home() {
       <Faq />
       <Contact />
       <MobileContact />
-      <JsonLd data={pageSchema("/", site.title, site.description)} />
+      <JsonLd
+        data={pageSchema("/", site.title, site.description, {
+          mainEntity: "/#person",
+        })}
+      />
     </main>
   );
 }

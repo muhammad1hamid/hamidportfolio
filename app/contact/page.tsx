@@ -240,7 +240,9 @@ export default function ContactPage() {
           </details>
         </div>
       </section>
-      <JsonLd data={pageSchema(path, heading, description, "ContactPage")} />
+      <JsonLd
+        data={pageSchema(path, heading, description, { type: "ContactPage" })}
+      />
     </main>
   );
 }

@@ -158,5 +158,29 @@
     "answer": "Choose an example for direction, then describe your own audience and main action. Use the planner to record the pages, content and integrations you need. You can download that brief or choose to open it in WhatsApp for a scope discussion.",
     "href": "/plan/",
     "label": "Plan your website"
+  },
+  {
+    "id": "service-index-check",
+    "group": "Search & AI visibility",
+    "question": "How do I check if my service page is indexed?",
+    "answer": "Enter the exact service URL into Search Console’s URL Inspection tool and review its indexed status and Google-selected canonical. Use Test Live URL to check what Google can fetch today if you have recently changed the page.",
+    "href": "/insights/portfolio-search-readiness/#crawl-and-index",
+    "label": "See how to verify crawl access and indexing"
+  },
+  {
+    "id": "correct-ai-business-details",
+    "group": "Search & AI visibility",
+    "question": "What should I do if AI gives wrong details about my business?",
+    "answer": "Check the source cited for the wrong detail, then correct any conflicting names, services or contact details on your website and the profiles you control. Record the original answer and cited URL so you can rerun the same question after the sources have updated.",
+    "href": "/insights/portfolio-search-readiness/#check-cited-sources",
+    "label": "Work through a source correction"
+  },
+  {
+    "id": "visibility-audit-first-check",
+    "group": "Search & AI visibility",
+    "question": "What will a visibility audit check first?",
+    "answer": "Start with the pages buyers need most. Check that each preferred URL returns a usable page, allows crawling, answers a specific buyer question and leads to a contact action a visitor can use.",
+    "href": "/growth/",
+    "label": "See the Growth Engine audit scope"
   }
 ]

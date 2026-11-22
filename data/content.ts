@@ -1,3 +1,5 @@
+import type { Milestone } from "@/components/ui/scroll-timeline";
+
 export const faqs = [
   {
     question: "What can we build together?",
@@ -32,22 +34,35 @@ export const faqs = [
   },
 ];
 
-export const process = [
+export const processMilestones = [
   {
+    id: "discover",
     title: "Discover",
-    text: "Understand the goal and what is already in place.",
+    description:
+      "We start with your goals, audience, and what's already in place.",
   },
   {
+    id: "define",
     title: "Define",
-    text: "Agree the scope, deliverables and how to check the work.",
+    description:
+      "We agree on scope, deliverables, and how the work will be reviewed.",
   },
   {
+    id: "build",
     title: "Build",
-    text: "Make the agreed changes or document what to tackle first.",
+    description:
+      "I turn the agreed plan into a working website, experience, or system.",
   },
-  { title: "Check", text: "Test the changes and review them together." },
   {
-    title: "Launch & improve",
-    text: "Hand over the work and agree what to revisit.",
+    id: "check",
+    title: "Check",
+    description:
+      "We test key interactions, review the result, and refine what needs attention.",
   },
-];
+  {
+    id: "launch",
+    title: "Launch & improve",
+    description:
+      "I hand over the work and make next steps clear, including what to revisit later.",
+  },
+] as const satisfies readonly Milestone[];

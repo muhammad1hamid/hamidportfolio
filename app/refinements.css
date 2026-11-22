@@ -270,15 +270,6 @@
   padding-top: 25px;
   padding-bottom: 90px;
 }
-.process {
-  padding-bottom: 90px;
-}
-.process-dot {
-  background: var(--accent);
-}
-.process-progress {
-  background: var(--accent);
-}
 .testimonials-v2 {
   padding-bottom: 90px;
 }
@@ -428,10 +419,6 @@
     font-size: 15px;
     line-height: 1.8;
   }
-  .process {
-    padding-bottom: 65px;
-  }
-  .process-step p,
   .faq-answer p {
     font-size: 15px;
     line-height: 1.8;

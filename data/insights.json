@@ -1,5 +1,120 @@
 [
   {
+    "slug": "portfolio-search-readiness",
+    "title": "What a Real Search-Readiness Audit Proves",
+    "description": "A reproducible audit of itshamid.com compares raw HTML, desktop and mobile headings, sitemap URLs and the evidence needed to confirm indexing.",
+    "category": "Search visibility",
+    "date": "2026-11-22",
+    "excerpt": "Follow the checks I ran on this portfolio and learn what a live response, a canonical tag and an indexing report each tell you.",
+    "intro": "A search-readiness audit checks whether people and crawlers can reach the right URL and read what it offers. I tested the live itshamid.com homepage at two viewport sizes and checked every URL in its sitemap. The results show which checks you can repeat on any website and which ones require access to its search reports.",
+    "cover": {
+      "alt": "The live itshamid.com homepage at 1440 and 390 CSS pixels, with the desktop headline Stand out online and the mobile headline Build. Grow. Automate.",
+      "caption": "Desktop and mobile captures of the live homepage on 22 November 2026. Core content was visible with JavaScript disabled.",
+      "poster": [],
+      "tone": "capture"
+    },
+    "related": ["growth", "web-development"],
+    "relatedReads": [
+      "/insights/mobile-website-launch-checklist/",
+      "/insights/hamid-intro-motion/",
+      "/insights/measure-whatsapp-enquiries/"
+    ],
+    "cta": {
+      "title": "Discuss a search-readiness audit.",
+      "text": "Send one service URL, the question a buyer should get answered there and the enquiry action you want to improve.",
+      "message": "Hi Hamid, I read the itshamid.com search-readiness audit. I'd like to review the crawl access, buyer answers and enquiry path on one of my service pages."
+    },
+    "sections": [
+      {
+        "id": "what-the-homepage-served",
+        "heading": "What did the homepage actually serve?",
+        "paragraphs": [
+          "On 21 November 2026 I fetched the public homepage and counted word-like English segments inside the main content, with scripts, styles, templates and SVGs excluded. I then measured visible main text in Chromium at 1440 and 390 CSS pixels, with JavaScript on and off. Both browser runs at each width produced the same visible main-text count.",
+          "The raw heading contains the desktop and mobile strings inside one H1. The styles expose one of those strings at each screen size. I checked that the browser’s accessibility tree also exposed one heading at each width. If your report joins two headlines together, this is a quick way to learn whether visitors are seeing both or whether the report is reading the source as plain text."
+        ],
+        "table": {
+          "headers": ["View", "Main words", "Heading observed"],
+          "rows": [
+            [
+              "Raw server HTML",
+              "1,035",
+              "One H1 containing both responsive strings"
+            ],
+            [
+              "Desktop, 1440 CSS px",
+              "736",
+              "Stand out online. Get found. Work smarter."
+            ],
+            ["Mobile, 390 CSS px", "706", "Build. Grow. Automate."]
+          ]
+        }
+      },
+      {
+        "id": "crawl-and-index",
+        "heading": "What can public crawl checks prove?",
+        "paragraphs": [
+          "In the same 21 November snapshot, the live sitemap listed 46 unique HTTPS URLs. Every listed URL returned HTTP 200, declared itself as the canonical and allowed indexing in the directives I read. The crawler rules pointed to that sitemap. These checks describe the served release on that date. The sitemap reflects the current release as pages are added or updated.",
+          "For a single service page, I start with the exact address buyers should land on. I open the network response and source, check the rendered offer on a phone-sized viewport, then use URL Inspection for Google’s current record of that URL. The live test and the indexed result answer different questions."
+        ],
+        "items": [
+          "Fetch the preferred URL. Record the final address, status, robots meta tag and any X-Robots-Tag response header.",
+          "Read robots.txt and the XML sitemap. Check that the page can be crawled and that the sitemap lists the same address as the canonical.",
+          "Open the page with scripts disabled and at a mobile width. Check the service answer, visible heading and link to the next action.",
+          "Use URL Inspection in the verified Search Console property. Record the indexed status and Google-selected canonical. Use Test Live URL to investigate a recent change."
+        ],
+        "links": [
+          {
+            "label": "Inspect the current portfolio sitemap",
+            "href": "/sitemap.xml"
+          },
+          { "label": "Read the public crawler rules", "href": "/robots.txt" }
+        ]
+      },
+      {
+        "id": "check-cited-sources",
+        "heading": "Where do you start when an AI answer is wrong?",
+        "paragraphs": [
+          "Save the exact question, product or search mode, date and any cited URLs. Open the source that supports the incorrect detail. If an answer calls a self-directed demo a commissioned project, for example, check what the actual project page and author profile say before changing either page.",
+          "Clarify any stale or contradictory facts you can verify on the pages and profiles you control. Keep the scope and evidence with the claim. Then repeat the same question and compare the cited sources and wording. Record the response as a dated observation. Actual citations and search-selected canonicals for this audit require their own evidence."
+        ],
+        "links": [
+          {
+            "label": "See how the portfolio labels self-directed demos",
+            "href": "/editorial-policy/"
+          }
+        ]
+      },
+      {
+        "id": "choose-next-check",
+        "heading": "Which change should you make first?",
+        "paragraphs": [
+          "Fix an unreachable page, contradictory canonical or blocking directive first. If the page can be reached and read, choose a real buyer question and make the answer easy to find. Add a source a visitor can inspect, such as a screenshot, a reproducible check or an example with clearly stated conditions.",
+          "Review what follows the answer. On the most useful service page, a visitor should be able to find the next step and understand what happens after they take it. I track a contact action separately from messages actually received and enquiries qualified by the business."
+        ],
+        "links": [
+          {
+            "label": "See what a Growth Engine audit checks",
+            "href": "/growth/"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "title": "Google Search Console URL Inspection tool",
+        "url": "https://support.google.com/webmasters/answer/9012289"
+      },
+      {
+        "title": "Google's guidance on canonical URLs",
+        "url": "https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls"
+      },
+      {
+        "title": "Google's guidance on AI features and websites",
+        "url": "https://developers.google.com/search/docs/appearance/ai-features"
+      }
+    ]
+  },
+  {
     "slug": "hamid-intro-motion",
     "title": "How the HAMID Intro Keeps the Website Within Reach",
     "description": "A build note on the HAMID particle intro, with the actual lockup frame, an early skip control, reduced-motion behavior and browser test results.",
@@ -64,11 +179,26 @@
         "table": {
           "headers": ["Test", "Observed in Chromium"],
           "rows": [
-            ["Normal motion at seven widths", "Centered wordmark, one-second hold and upward exit."],
-            ["Skip and Escape", "The layer closed and an intentional skip handed focus to the page."],
-            ["Reduced motion, slow-link and failure fixtures", "The route remained reachable when motion was suppressed or could not complete."],
-            ["History, deep links and reload", "The intended page opened and the animation did not repeat within the tab."],
-            ["JavaScript disabled", "The homepage heading and navigation were available in the document."]
+            [
+              "Normal motion at seven widths",
+              "Centered wordmark, one-second hold and upward exit."
+            ],
+            [
+              "Skip and Escape",
+              "The layer closed and an intentional skip handed focus to the page."
+            ],
+            [
+              "Reduced motion, slow-link and failure fixtures",
+              "The route remained reachable when motion was suppressed or could not complete."
+            ],
+            [
+              "History, deep links and reload",
+              "The intended page opened and the animation did not repeat within the tab."
+            ],
+            [
+              "JavaScript disabled",
+              "The homepage heading and navigation were available in the document."
+            ]
           ]
         }
       },
@@ -516,6 +646,7 @@
     "description": "Choose a first automation by mapping volume, ownership and exceptions. Use a clear scope, a human fallback and a pilot that measures completed work.",
     "category": "Automation",
     "date": "2026-11-20",
+    "modified": "2026-11-22",
     "excerpt": "A decision framework for choosing a small repeatable task with a clear owner, test cases and a safe manual fallback.",
     "intro": "Start with a recurring task that has a reliable trigger, consistent inputs, a defined output and a person responsible for exceptions. Map a few real instances, then pilot one small step before connecting the entire workflow.",
     "cover": {
@@ -608,6 +739,38 @@
           "Test what happens when the same enquiry arrives twice or the destination times out. A retry can recover from a temporary failure, but repeated requests should not create duplicate records. When the source gives you a reliable event ID, use it to find the existing item before creating another. Treat a missing unique ID as a design question rather than silently assuming that every delivery is new.",
           "Separate temporary errors from problems requiring action. A brief network interruption may be eligible for a bounded retry. Missing permissions or a changed field usually need a person to look. Keep an exception list with the record ID, reason and next action, and minimise stored customer text.",
           "Decide how the team pauses the workflow and handles new items manually. Then test that fallback once. Having an approach written down is different from confirming that someone on shift can use it."
+        ]
+      },
+      {
+        "id": "lead-routing-test",
+        "heading": "A lead-routing example you can test",
+        "paragraphs": [
+          "For a service business with a structured enquiry form, route named services by rule. Send requests that need a quote, booking or other commitment to a person for approval. If open-ended briefs become a frequent source of manual work, test whether an agent can suggest the right category before you grant it permission to act.",
+          "I checked two parts of that design against this portfolio on 22 November 2026. The enquiry endpoint tests use a test delivery provider, and the separate public demo offers a draft for human handover. The observations below describe those controlled checks."
+        ],
+        "table": {
+          "headers": ["Scenario", "Observed behavior"],
+          "rows": [
+            [
+              "Same submission ID arrived while delivery was pending",
+              "The repeat request returned a pending state. The fixture recorded one outgoing delivery."
+            ],
+            [
+              "The delivery provider timed out",
+              "The response reported unconfirmed delivery. The retry kept the original delivery key and payload."
+            ],
+            [
+              "A visitor asked “Book me tomorrow”",
+              "The rules-based demo displayed “Needs a conversation” and offered a draft the visitor can review before opening WhatsApp."
+            ]
+          ]
+        },
+        "links": [
+          {
+            "label": "Try the handover case in the enquiry demo",
+            "href": "/demos/enquiry-assistant/"
+          },
+          { "label": "Explore when to use an AI agent", "href": "/ai-agents/" }
         ]
       },
       {

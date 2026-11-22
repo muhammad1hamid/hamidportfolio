@@ -48,7 +48,9 @@ export default function WorkPage() {
         </Link>
       </div>
       <JsonLd
-        data={pageSchema("/work/", title, description, "CollectionPage")}
+        data={pageSchema("/work/", title, description, {
+          type: "CollectionPage",
+        })}
       />
     </main>
   );

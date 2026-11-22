@@ -331,6 +331,16 @@ try {
   checks.push(
     "Direct answer links open the requested disclosure and contain factual demo status",
   );
+  await page.goto(`${base}/answers/#service-index-check`);
+  await page.waitForFunction(
+    () => document.getElementById("service-index-check")?.open === true,
+  );
+  assert.equal(
+    await page
+      .locator("#service-index-check .answer-source")
+      .getAttribute("href"),
+    "/insights/portfolio-search-readiness/#crawl-and-index",
+  );
   for (const [path, label] of [
     ["/plan/", "planner"],
     ["/demos/enquiry-assistant/", "demo"],
@@ -359,7 +369,51 @@ try {
     route.abort(),
   );
   await htmlPage.goto(`${base}/answers/`);
-  assert.equal(await htmlPage.locator("main details").count(), 20);
+  assert.equal(await htmlPage.locator("main details").count(), 23);
+  assert.equal(
+    await htmlPage
+      .locator(".content-faq")
+      .filter({
+        has: htmlPage.getByRole("heading", {
+          name: "Search & AI visibility",
+          exact: true,
+        }),
+      })
+      .locator("details")
+      .count(),
+    3,
+  );
+  const auditPath = "/insights/portfolio-search-readiness/";
+  await htmlPage.goto(base + auditPath);
+  assert.match(
+    await htmlPage.locator("#crawl-and-index").innerText(),
+    /Google-selected canonical/,
+  );
+  assert.equal(
+    await htmlPage.locator(".article-byline time").getAttribute("datetime"),
+    "2026-11-22",
+  );
+  for (const path of ["/ai-agents/", "/workflow-automation/"]) {
+    await htmlPage.goto(base + path);
+    assert.equal(
+      await htmlPage
+        .locator(
+          '.service-decisions a[href="/insights/first-workflow-to-automate/#lead-routing-test"]',
+        )
+        .count(),
+      1,
+    );
+  }
+  await htmlPage.goto(`${base}/insights/first-workflow-to-automate/`);
+  assert.match(
+    await htmlPage.locator("#lead-routing-test").innerText(),
+    /pending state/,
+  );
+  await htmlPage.goto(`${base}/whatsapp-ai-chatbot/`);
+  assert.match(
+    await htmlPage.locator(".service-decisions").innerText(),
+    /Needs a conversation/,
+  );
   await htmlPage.goto(`${base}/demos/enquiry-assistant/`);
   assert.match(
     await htmlPage.locator("main").innerText(),
@@ -371,6 +425,10 @@ try {
     /How the recommendation works/,
   );
   await htmlPage.goto(`${base}/growth/`);
+  assert.equal(
+    await htmlPage.locator(`.growth-reading a[href="${auditPath}"]`).count(),
+    1,
+  );
   assert.equal(await htmlPage.locator("main h1").count(), 1);
   assert.equal(await htmlPage.locator(".growth-workstream").count(), 5);
   assert.equal(await htmlPage.locator(".growth-faq details").count(), 8);

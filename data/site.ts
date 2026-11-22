@@ -18,6 +18,7 @@ if (
 
 export const site = {
   name: "Hamid",
+  personName: "Muhammad Hamid",
   title: "Web Development, SEO & AI Automation | Hamid",
   description:
     "I’m Hamid, an independent developer building distinctive websites, improving search and AI visibility, and creating practical automations for businesses and agencies.",

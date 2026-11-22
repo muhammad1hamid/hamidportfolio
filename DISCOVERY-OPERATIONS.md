@@ -4,7 +4,7 @@ Prepared 5 October 2026. Current domain **https://itshamid.com** was selected on
 
 ## What can be measured now
 
-The implementation is local. Local metadata, links, content accessibility, tool behavior and performance can be tested. Public indexing, AI impressions, citations and qualified leads require the actual public domain and owner tools. An unavailable measure must remain unavailable, not zero.
+Local tests cover metadata, links, content accessibility, tool behavior and performance. Public HTTP checks verify the deployed response and crawler directives. Record index status, AI impressions, citations and qualified leads from their respective evidence sources. The [AEO release baseline](discovery/aeo-baseline-2026-11-22.md) identifies the first ten buyer queries and the priority pages to review.
 
 Run `npm run check:public` after building. It reads DNS and representative public URLs, compares deployed content to the local export and writes `qa-output/public-launch.json`. It never deploys, changes DNS or submits URLs. A nonzero result means the inspected public destination does not yet match the prepared release.
 
@@ -75,7 +75,7 @@ Use the existing pageview setup to measure visits to `/growth/`. Verify any cust
 
 ## Prompt observations
 
-Use [the 30-prompt authority dataset](discovery/authority-prompts.csv) for repeatable monitoring and `discovery/prompts.json` for quick checks. Keep branded and non-branded observations separate. Record the date, product/mode, language/country, exact prompt, cited URLs and whether Hamid's identity and demo status were represented correctly. Responses vary, so observations supplement owner analytics.
+Start with the [ten-query review panel](discovery/aeo-baseline-2026-11-22.md). The full [30-prompt authority dataset](discovery/authority-prompts.csv) and `discovery/prompts.json` provide additional checks. Keep branded and non-branded observations separate. Record the date, product/mode, language/country, exact prompt, cited URLs and whether Hamid's identity and demo status were represented correctly. Responses vary, so observations supplement owner analytics.
 
 ## Completing the video material
 

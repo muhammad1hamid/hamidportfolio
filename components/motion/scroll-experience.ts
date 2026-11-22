@@ -44,21 +44,6 @@ export function startScrollExperience() {
         },
       );
     });
-    if (document.querySelector(".process-progress"))
-      gsap.fromTo(
-        ".process-progress",
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".process",
-            start: "top 80%",
-            end: "bottom 55%",
-            scrub: true,
-          },
-        },
-      );
   });
   const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 500);
   return () => {

@@ -4,6 +4,7 @@ const decisions: Record<
   {
     title: string;
     intro: string;
+    example?: string;
     questions: string[];
     links: { label: string; href: string }[];
   }
@@ -50,6 +51,8 @@ const decisions: Record<
     title: "What needs agreeing before a WhatsApp assistant?",
     intro:
       "Start with the approved business information, account setup and receiving team. Decide what the assistant may answer, what it must escalate and how the team confirms that an enquiry was received.",
+    example:
+      "Try “Book me tomorrow” in my rules-based demo. It shows “Needs a conversation” and offers a draft you can review before choosing to open WhatsApp.",
     questions: [
       "Who keeps answers, hours and service information current?",
       "Which questions or commitments require a person?",
@@ -65,6 +68,43 @@ const decisions: Record<
       { label: "More automation questions", href: "/answers/#topic-2" },
     ],
   },
+  "ai-agents": {
+    title: "When does enquiry routing need an AI agent?",
+    intro:
+      "Use a fixed workflow when a service choice and a few fields tell you where to route the enquiry. Consider an agent when the visitor describes a complex brief in their own words and the system needs to suggest a next step. Give a person the final decision on quotes, bookings and exceptions.",
+    questions: [
+      "Which messages need interpretation before they can be routed?",
+      "What evidence should the agent give for its recommendation?",
+      "Who approves a commitment and handles an uncertain result?",
+    ],
+    links: [
+      {
+        label: "Compare agents and fixed workflows",
+        href: "/blog/ai-agent-chatbot-workflow/",
+      },
+      {
+        label: "Inspect the lead-routing example",
+        href: "/insights/first-workflow-to-automate/#lead-routing-test",
+      },
+    ],
+  },
+  "workflow-automation": {
+    title: "What happens if a lead is sent twice?",
+    intro:
+      "Assign one ID to each submission and reuse it when retrying the same request. Route known requests by rule and give staff a review path for exceptions. When a delivery is unconfirmed, keep the message available for a retry or a manual handover.",
+    questions: [
+      "Which field determines the receiving inbox or owner?",
+      "How will a retry reuse the original submission ID?",
+      "Who reviews requests that cannot be routed automatically?",
+    ],
+    links: [
+      {
+        label: "See how the retry and handover were tested",
+        href: "/insights/first-workflow-to-automate/#lead-routing-test",
+      },
+      { label: "Compare with an AI agent", href: "/ai-agents/" },
+    ],
+  },
 };
 export function ServiceDecisions({ slug }: { slug: string }) {
   const item = decisions[slug];
@@ -73,6 +113,7 @@ export function ServiceDecisions({ slug }: { slug: string }) {
     <section className="content-proof service-decisions">
       <h2>{item.title}</h2>
       <p>{item.intro}</p>
+      {item.example && <p>{item.example}</p>}
       <ul className="plain-list">
         {item.questions.map((question) => (
           <li key={question}>{question}</li>

@@ -46,6 +46,7 @@ export function ContentPage({
   crumbs,
   children,
   type,
+  mainEntity,
   className,
 }: {
   path: string;
@@ -55,6 +56,7 @@ export function ContentPage({
   crumbs?: Crumb[];
   children: React.ReactNode;
   type?: string;
+  mainEntity?: string;
   className?: string;
 }) {
   return (
@@ -71,7 +73,7 @@ export function ContentPage({
         <p>{intro}</p>
       </header>
       {children}
-      <JsonLd data={pageSchema(path, title, intro, type)} />
+      <JsonLd data={pageSchema(path, title, intro, { type, mainEntity })} />
     </main>
   );
 }

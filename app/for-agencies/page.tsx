@@ -472,7 +472,11 @@ export default function AgencyPage() {
         </div>
       </section>
 
-      <JsonLd data={pageSchema(agencyPath, heroTitle, description)} />
+      <JsonLd
+        data={pageSchema(agencyPath, heroTitle, description, {
+          mainEntity: `${agencyPath}#service`,
+        })}
+      />
       <JsonLd
         data={{
           ...serviceSchema({

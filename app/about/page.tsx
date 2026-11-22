@@ -13,9 +13,10 @@ export default function AboutPage() {
     <ContentPage
       path="/about/"
       title="The person behind the work."
-      intro="I’m Hamid, an independent developer and the founder of ElevateX. I work from Pakistan with businesses and agencies worldwide."
+      intro={`I’m ${site.personName}, an independent developer and the founder of ElevateX. I work from Pakistan with businesses and agencies worldwide.`}
       label="About"
       type="AboutPage"
+      mainEntity="/#person"
     >
       <About />
       <section className="content-section">
@@ -27,7 +28,7 @@ export default function AboutPage() {
         </p>
         <div className="related-links">
           <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
-            Muhammad Hamid on LinkedIn ↗
+            {site.personName} on LinkedIn ↗
           </a>
           <a href={site.instagram} target="_blank" rel="noopener noreferrer">
             Hamid on Instagram ↗

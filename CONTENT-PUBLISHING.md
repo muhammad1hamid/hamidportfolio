@@ -11,7 +11,7 @@ Use the [brief and proof register](docs/content/authority-editorial.md) before d
 ## Sources of truth
 
 - `data/experience-pages.json`: metadata/share-card/sitemap registration for the answer library, tools, watch pages and content standards.
-- `data/answers.json`: the 20 visible buyer questions and contextual destinations. Avoid publishing separate URLs for near-identical questions.
+- `data/answers.json`: the visible buyer questions and contextual destinations, including search and AI visibility. Avoid publishing separate URLs for near-identical questions.
 - `data/guides.json`: additional decision guides with optional comparison tables and internal references; merged with existing articles by `data/articles.ts`.
 - `data/insights.json`: original editorial articles with cover art, next reads, and a contextual WhatsApp action. Existing `/blog/` URLs remain stable.
 - `data/demo-projects.json`: owner-confirmed self-directed demo status, development role and visible interface commentary. Do not relabel demos as client results.

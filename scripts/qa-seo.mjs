@@ -83,6 +83,11 @@ try {
       assert.ok(record.title && record.description, "title/description");
       assert.equal(record.canonical, origin + pathname, "self canonical");
       assert.ok(!record.robots?.includes("noindex"), "indexable");
+      assert.doesNotMatch(
+        (await response.headerValue("x-robots-tag")) || "",
+        /\bnoindex\b|(?:^|,)\s*none\s*(?:,|$)/i,
+        "indexable HTTP response",
+      );
       assert.equal(record.h1.length, 1, "one H1");
       assert.ok(record.mainText > 350, "crawlable main text");
       assert.equal(record.ogTitle, record.title, "OG title");
@@ -93,45 +98,64 @@ try {
       assert.equal(record.overflow, false, "mobile overflow");
       if (pathname !== "/") assert.ok(record.breadcrumb, "visible breadcrumbs");
       const nodes = record.schema.flatMap((item) => item["@graph"] || [item]);
-      if (servicePaths.includes(pathname)) {
+      const webpage = nodes.find(
+        (node) =>
+          node.url === record.canonical &&
+          ["WebPage", "CollectionPage", "AboutPage", "ContactPage"].includes(
+            node["@type"],
+          ),
+      );
+      assert.ok(webpage, "WebPage");
+      if (servicePaths.includes(pathname) || pathname === "/for-agencies/") {
         const service = nodes.find((node) => node["@type"] === "Service");
         assert.equal(service?.url, record.canonical, "Service canonical URL");
-        assert.equal(service?.provider?.["@id"], `${origin}/#organization`);
-        assert.equal(
-          service?.mainEntityOfPage?.["@id"],
-          `${record.canonical}#webpage`,
-        );
+        const provider =
+          pathname === "/for-agencies/" ? "person" : "organization";
+        assert.equal(service?.provider?.["@id"], `${origin}/#${provider}`);
+        assert.equal(service?.mainEntityOfPage?.["@id"], webpage["@id"]);
+        assert.equal(webpage.mainEntity?.["@id"], service["@id"]);
       }
       for (const type of ["Person", "Organization", "WebSite"])
         assert.ok(
           nodes.some((node) => node["@type"] === type),
           type,
         );
-      assert.ok(
-        nodes.some(
-          (node) =>
-            node.url === record.canonical &&
-            ["WebPage", "CollectionPage", "AboutPage", "ContactPage"].includes(
-              node["@type"],
-            ),
-        ),
-        "WebPage",
-      );
+      if (pathname === "/" || pathname === "/about/") {
+        const person = nodes.find(
+          (node) => node["@id"] === `${origin}/#person`,
+        );
+        assert.equal(person?.name, "Muhammad Hamid");
+        assert.equal(webpage.mainEntity?.["@id"], person["@id"]);
+        assert.ok(person.sameAs?.length, "Person profile links");
+        const practice = nodes.find(
+          (node) => node["@id"] === `${origin}/#organization`,
+        );
+        assert.equal(practice?.founder?.["@id"], person["@id"]);
+        assert.ok(
+          !(practice.sameAs || []).some((url) => person.sameAs.includes(url)),
+          "Personal profiles identify the Person",
+        );
+        const website = nodes.find(
+          (node) => node["@id"] === `${origin}/#website`,
+        );
+        assert.equal(website?.publisher?.["@id"], practice["@id"]);
+        assert.equal(webpage.isPartOf?.["@id"], website["@id"]);
+      }
       if (pathname !== "/")
         assert.ok(
           nodes.some((node) => node["@type"] === "BreadcrumbList"),
           "Breadcrumb schema",
         );
-      if (/^\/(blog|insights)\/[^/]+\/$/.test(pathname))
+      if (/^\/(blog|insights)\/[^/]+\/$/.test(pathname)) {
+        const article = nodes.find((node) => node["@type"] === "BlogPosting");
         assert.ok(
-          nodes.some(
-            (node) =>
-              node["@type"] === "BlogPosting" &&
-              node.datePublished &&
-              node.author["@id"],
-          ),
+          article?.datePublished &&
+            article.author?.["@id"] === `${origin}/#person`,
           "Article schema",
         );
+        assert.equal(webpage.mainEntity?.["@id"], article["@id"]);
+        assert.equal(article.mainEntityOfPage?.["@id"], webpage["@id"]);
+      }
       for (const img of record.images) {
         assert.notEqual(img.alt, null, "image alt");
         assert.ok(

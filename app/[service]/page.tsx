@@ -37,6 +37,7 @@ export default async function ServicePage({
       title={service.title.replace(" — Hamid", "")}
       intro={service.intro}
       label={service.name}
+      mainEntity={`${path}#service`}
       crumbs={[
         { label: "Services", href: "/services/" },
         { label: service.name, href: path },

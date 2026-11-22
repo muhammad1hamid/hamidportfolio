@@ -31,7 +31,7 @@ export function GET() {
   ];
   const text = `# Hamid
 
-Hamid is an independent developer and founder of ElevateX. He works from Pakistan with businesses and agencies worldwide on websites, search and AI visibility, and practical automation.
+${site.personName} is an independent developer and founder of ElevateX. He works from Pakistan with businesses and agencies worldwide on websites, search and AI visibility, and practical automation.
 
 ## Services
 

@@ -65,6 +65,10 @@ const engagement = [
 
 const reading = [
   {
+    href: "/insights/portfolio-search-readiness/",
+    label: "What a Real Search-Readiness Audit Proves",
+  },
+  {
     href: "/insights/measure-whatsapp-enquiries/",
     label: "What a WhatsApp Click Actually Measures",
   },
@@ -324,9 +328,10 @@ export function GrowthEngine({ service }: { service: GrowthService }) {
           </h2>
           <div>
             <p>
-              This page is one example of my implementation. You can inspect the
-              published sitemap and crawl rules. In the portfolio, self-directed
-              demos show interface choices and working visitor paths.
+              This page is a live example. It is linked from the services index,
+              listed in the sitemap and identifies its preferred URL in the page
+              source. The self-directed portfolio demos show interface choices
+              and working visitor paths.
             </p>
             <Link href="/about/" className="growth-author">
               <ResponsiveImage
@@ -494,7 +499,11 @@ export function GrowthEngine({ service }: { service: GrowthService }) {
           </div>
         </div>
       </section>
-      <JsonLd data={pageSchema(path, service.title, service.description)} />
+      <JsonLd
+        data={pageSchema(path, service.title, service.description, {
+          mainEntity: `${path}#service`,
+        })}
+      />
       <JsonLd data={serviceSchema(service, service.descriptor)} />
     </main>
   );
