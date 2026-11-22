@@ -389,17 +389,20 @@ await page.setViewportSize({ width: 390, height: 844 });
 await page.evaluate(() => window.scrollTo(0, 0));
 await page.screenshot({ path: path.join(output, "mobile-hero.png") });
 await check(
-  "Selected work is close to the hero on mobile and desktop",
+  "Selected Work follows the hero in the page flow on mobile and desktop",
   async () => {
     for (const width of [390, 1440]) {
       await page.setViewportSize({ width, height: 900 });
-      const top = await page
-        .locator(".selected-project-grid .project")
-        .first()
-        .evaluate((el) => el.getBoundingClientRect().top + scrollY);
+      const gap = await page
+        .locator(".signature-hero + #work")
+        .evaluate(
+          (section) =>
+            section.getBoundingClientRect().top -
+            section.previousElementSibling.getBoundingClientRect().bottom,
+        );
       assert.ok(
-        top < 1350,
-        `First project at ${top}px for ${width}px viewport`,
+        gap >= -1 && gap <= 96,
+        `Hero-to-work gap is ${gap}px for ${width}px viewport`,
       );
     }
     await page.setViewportSize({ width: 390, height: 844 });

@@ -1,13 +1,16 @@
 .signature-hero {
   position: relative;
   isolation: isolate;
-  padding-block-start: calc(100px + clamp(22px, 2.8svh, 32px));
-  background: var(--bg);
+  padding-block-start: calc(100px + clamp(5px, 1.18svh, 13px));
+  background:
+    radial-gradient(ellipse 55% 56% at 50% 76%, #ffffff07, transparent),
+    var(--bg);
 }
 
 .signature-hero .hero-copy {
   position: relative;
   z-index: 1;
+  max-inline-size: 49rem;
   text-align: center;
 }
 
@@ -21,21 +24,23 @@
 }
 
 .hero-copy h1 {
-  margin-block-start: 10px;
+  margin-block-start: 3px;
   color: var(--text);
-  font-size: clamp(3.5rem, 6.95vw, 7.25rem);
+  font-size: clamp(2.2rem, 4.15vw, 4.2rem);
   font-weight: 750;
-  line-height: 0.91;
-  letter-spacing: -0.075em;
+  line-height: 1.02;
+  letter-spacing: -0.064em;
   overflow-wrap: anywhere;
 }
 
 .hero-title-line {
-  display: block;
+  display: inline-block;
 }
 
 .hero-emphasis {
+  position: relative;
   padding-inline-end: 0.075em;
+  margin-inline-start: 0.09em;
   margin-block-start: 0.027em;
   color: var(--accent);
   font-family: "Instrument Serif", Georgia, serif;
@@ -46,12 +51,23 @@
   line-height: 0.84;
 }
 
+.hero-emphasis::after {
+  content: "";
+  position: absolute;
+  inset: auto 4% -0.105em 1%;
+  block-size: 0.1em;
+  border-radius: 50%;
+  border-top: 1px solid var(--accent);
+  opacity: 0.78;
+  rotate: -1deg;
+}
+
 .hero-description {
-  max-inline-size: 32rem;
-  margin: 17px auto 0;
+  max-inline-size: 27rem;
+  margin: 9px auto 0;
   color: var(--soft);
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  font-size: 0.9375rem;
+  line-height: 1.52;
   text-wrap: pretty;
 }
 
@@ -61,23 +77,23 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-block-start: 17px;
+  margin-block-start: 15px;
 }
 
 .signature-hero .hero-primary {
   justify-content: center;
-  gap: 18px;
-  min-block-size: 52px;
-  padding: 7px 7px 7px 19px;
+  gap: 14px;
+  min-block-size: 44px;
+  padding: 6px 6px 6px 17px;
   font-size: 0.875rem;
   font-weight: 750;
 }
 
 .hero-primary-icon {
   display: grid;
-  flex: 0 0 36px;
+  flex: 0 0 31px;
   place-items: center;
-  block-size: 36px;
+  block-size: 31px;
   border-radius: 50%;
   background: var(--accent-ink);
   color: var(--accent);
@@ -96,8 +112,8 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-block-size: 52px;
-  padding: 10px 18px;
+  min-block-size: 44px;
+  padding: 8px 16px;
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--text);
@@ -105,8 +121,7 @@
   font-weight: 650;
 }
 
-.hero-secondary svg,
-.hero-card-arrow {
+.hero-secondary svg {
   inline-size: 16px;
   block-size: 16px;
   color: var(--soft);
@@ -118,14 +133,14 @@
 }
 
 .hero-composition {
-  --hero-portrait-width: clamp(416px, 41vw, 704px);
+  --hero-portrait-width: clamp(410px, 41vw, 575px);
   display: grid;
-  grid-template-areas: "stage";
-  grid-template-columns: minmax(0, 1fr);
+  grid-template: "stage" auto / minmax(0, 1fr);
   position: relative;
   isolation: isolate;
-  max-inline-size: 70rem;
-  margin-block-start: clamp(12px, 1.85svh, 20px);
+  max-inline-size: 75rem;
+  margin-block-start: 0;
+  pointer-events: none;
 }
 
 .hero-scenery {
@@ -134,17 +149,16 @@
   z-index: -1;
   overflow: clip;
   pointer-events: none;
-  background: radial-gradient(ellipse at 50% 51%, #ffffff08, transparent 53%);
 }
 
 .hero-watermark {
   position: absolute;
-  inset: auto 0 7%;
-  color: #ffffff08;
-  font-size: clamp(4.7rem, 20vw, 17rem);
+  inset: auto 0 -0.06em;
+  color: #ffffff0b;
+  font-size: clamp(5rem, 19vw, 17rem);
   font-weight: 800;
-  line-height: 0.8;
-  letter-spacing: -0.09em;
+  line-height: 0.82;
+  letter-spacing: -0.082em;
   text-align: center;
   user-select: none;
 }
@@ -154,7 +168,7 @@
   inset: 0;
   inline-size: 100%;
   block-size: 100%;
-  stroke: #ffffff1b;
+  stroke: #ffffff32;
 }
 
 .hero-portrait {
@@ -163,295 +177,197 @@
   align-self: end;
   justify-self: center;
   inline-size: min(100%, var(--hero-portrait-width));
-  aspect-ratio: 1.4;
+  aspect-ratio: 1.21;
   overflow: clip;
-  mask-image: linear-gradient(#000 78%, transparent);
+  mask-image: linear-gradient(#000 92%, transparent);
   pointer-events: none;
 }
 
 .hero-portrait-photo {
   position: absolute;
-  inset: 0;
+  inset-block-start: 0;
+  inline-size: 100%;
+  aspect-ratio: 1;
+  isolation: isolate;
+  translate: 0 -6%;
 }
 
 .hero-portrait-photo img {
   inline-size: 100%;
   block-size: auto;
-  translate: 0 -8%;
-  filter: grayscale(88%) contrast(1.04);
+  filter: grayscale(1) contrast(1.045) brightness(1.06);
+}
+
+.hero-eye-brush {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
 .hero-capabilities {
   grid-area: stage;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-content: center;
-  gap: 18px 0;
+  grid-template-columns: 10.7% 31% minmax(0, 1fr) 26.5% 10%;
+  grid-template-rows: auto auto;
+  align-content: start;
+  row-gap: clamp(15px, 2.25vw, 30px);
   margin: 0;
-  padding: 28px clamp(10px, calc(7.25vw - 38px), 82px) 22px;
+  padding: 8px 0 24px;
   list-style: none;
   pointer-events: none;
 }
 
 .hero-card-item {
   min-inline-size: 0;
-  inline-size: min(100%, 228px);
+  inline-size: min(100%, clamp(212px, 23vw, 324px));
+  align-self: start;
   pointer-events: auto;
 }
 
 .hero-card-web {
-  --card-roll: -6deg;
-  --card-yaw: 10deg;
+  --card-roll: 6deg;
+  --card-yaw: -8deg;
   --hero-entrance-delay: 455ms;
   --hero-entrance-duration: 335ms;
   --hero-entrance-x: -11px;
-  --card-drift-x: -17px;
-  --card-depth: 6px;
-  grid-area: 1 / 1;
-  justify-self: start;
+  --card-drift-x: -8px;
+  --card-depth: 5px;
+  grid-area: 1 / 2;
 }
 
 .hero-card-growth {
-  --card-roll: 5deg;
-  --card-yaw: -10deg;
+  --card-roll: -5deg;
+  --card-yaw: 8deg;
   --hero-entrance-delay: 535ms;
   --hero-entrance-duration: 260ms;
   --hero-entrance-x: 11px;
-  --card-drift-x: 20px;
+  --card-drift-x: 8px;
   --card-depth: 5px;
-  grid-area: 1 / 3 / span 2;
+  grid-area: 1 / 4 / span 2;
   align-self: center;
   justify-self: end;
-  margin-block-end: 38px;
+  margin-block-end: 110px;
 }
 
 .hero-card-systems {
-  --card-roll: -3deg;
-  --card-yaw: 5deg;
+  --card-roll: -2deg;
+  --card-yaw: 7deg;
   --hero-entrance-delay: 615ms;
   --hero-entrance-duration: 185ms;
   --hero-entrance-x: -8px;
-  --card-drift-x: -11px;
-  --card-depth: 7px;
-  grid-area: 2 / 1;
+  --card-drift-x: -6px;
+  --card-depth: 6px;
+  grid-area: 2 / 2;
   justify-self: end;
+  margin-inline-end: 26px;
+  inline-size: min(100%, clamp(220px, 24vw, 336px));
 }
 
-.hero-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px 8px;
-  min-block-size: 44px;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: linear-gradient(148deg, #1e2022, var(--panel) 69%);
-  box-shadow: 0 13px 26px #0004;
-  color: var(--text);
-  overflow-wrap: anywhere;
-  transform: perspective(750px) rotateX(3deg) rotateY(var(--card-yaw, 0deg))
-    rotateZ(var(--card-roll, 0deg));
-}
-
-.hero-card-preview {
-  grid-column: 1 / -1;
-  min-inline-size: 0;
-}
-
-.hero-card-copy {
-  display: grid;
-  gap: 3px;
-}
-
-.hero-card-copy strong {
-  color: var(--text);
-  font-size: 0.9375rem;
-  font-weight: 750;
-  line-height: 1.3;
-  letter-spacing: -0.018em;
-}
-
-.hero-card-copy > span {
-  color: var(--muted);
-  font-size: 0.8125rem;
-  line-height: 1.4;
-}
-
-.hero-card-arrow {
-  color: var(--muted);
-}
-
-.hero-card:is(:hover, :focus-visible) {
-  background: #242729;
-  border-color: color-mix(in srgb, var(--accent) 46%, var(--line));
-}
-
-.hero-card:is(:hover, :focus-visible) .hero-card-arrow {
-  color: var(--accent);
-}
-
-.hero-browser {
-  overflow: hidden;
-  border: 1px solid #ffffff1c;
-  border-radius: 8px;
-  background: #111314;
-}
-
-.hero-browser-bar {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  block-size: 12px;
-  padding-inline: 7px;
-  border-block-end: 1px solid #ffffff14;
-}
-
-.hero-browser-bar i {
-  inline-size: 3px;
-  block-size: 3px;
-  border-radius: 50%;
-  background: #8f9596;
-}
-
-.hero-browser-bar i:first-child {
-  background: var(--accent);
-}
-
-.hero-browser-body {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 8px;
-  align-items: center;
-  padding: 7px;
-}
-
-.hero-browser-layout {
-  display: block;
-  block-size: 19px;
-  background:
-    linear-gradient(#bfc2bd, #bfc2bd) left 1px / 68% 3px no-repeat,
-    linear-gradient(#676d6e, #676d6e) left 8px / 100% 2px no-repeat,
-    linear-gradient(var(--accent), var(--accent)) left 15px / 32% 3px no-repeat;
-}
-
-.hero-browser-image {
-  display: block;
-  block-size: 26px;
-  border-radius: 3px;
-  background:
-    linear-gradient(
-      142deg,
-      transparent 53%,
-      #ff86513c 53% 76%,
-      transparent 76%
-    ),
-    #353737;
-}
-
-.hero-search {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  min-block-size: 39px;
-  padding: 6px 8px;
-  border: 1px solid #ffffff24;
-  border-radius: 7px;
-  background: #131617;
-  color: var(--soft);
-  font-size: 0.75rem;
-  line-height: 1.3;
-}
-
-.hero-search-lens {
-  position: relative;
-  flex: 0 0 12px;
-  block-size: 12px;
-  margin-inline: 2px 3px;
-  border: 1.5px solid var(--accent-cyan);
-  border-radius: 50%;
-}
-
-.hero-search-lens::after {
-  content: "";
+.hero-doodles {
   position: absolute;
-  inset: auto -3px -2px auto;
-  inline-size: 5px;
-  block-size: 1.5px;
-  background: var(--accent-cyan);
-  rotate: 45deg;
+  inset: 0;
+  z-index: -1;
+  color: #8f969b;
+  pointer-events: none;
 }
 
-.hero-workflow {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 5px;
-  position: relative;
-  color: var(--soft);
-  font-size: 0.6875rem;
-  line-height: 1.3;
-  text-align: center;
-}
-
-.hero-workflow::before {
-  content: "";
+.hero-doodle {
   position: absolute;
-  inset: 50% 5% auto;
-  border-block-start: 1px solid #646b6b;
+  inline-size: clamp(65px, 8vw, 112px);
+  opacity: 0.54;
 }
 
-.hero-workflow span {
-  position: relative;
-  padding: 6px 2px;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  background: #141818;
+.hero-doodle-rocket {
+  inset: clamp(130px, 11vw, 175px) auto auto max(4%, calc(50% - 560px));
 }
 
-.hero-workflow span:nth-child(2) {
-  border-color: #ff865151;
-  color: #ffc9a6;
+.hero-doodle-plane {
+  inset: clamp(145px, 12vw, 190px) max(5%, calc(50% - 540px)) auto auto;
+  inline-size: clamp(90px, 11vw, 144px);
 }
 
-.hero-bottom {
-  display: flex;
-  justify-content: center;
-  border-block-start: 1px solid var(--line);
+.hero-doodle-code {
+  inset: auto auto 17% max(2.5%, calc(50% - 610px));
+  inline-size: clamp(51px, 6vw, 83px);
 }
 
-.hero-work-cue {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  min-block-size: 44px;
-  color: var(--muted);
-  font-size: 0.8125rem;
-  font-weight: 650;
+.hero-doodle-bulb {
+  inset: auto max(3%, calc(50% - 580px)) 20% auto;
+  inline-size: clamp(49px, 6vw, 80px);
 }
 
-.hero-work-cue:is(:hover, :focus-visible) {
-  color: var(--text);
+@media (hover: hover) and (pointer: fine) {
+  .hero-doodle {
+    pointer-events: visibleStroke;
+    transition:
+      color 240ms,
+      opacity 240ms;
+  }
+
+  .hero-doodle:hover {
+    color: var(--accent);
+    opacity: 0.82;
+  }
+
+  .hero-doodle-plane:hover {
+    color: var(--accent-cyan);
+  }
 }
 
-.hero-work-cue svg {
-  inline-size: 16px;
-  block-size: 16px;
-  color: var(--accent);
-  rotate: 90deg;
-}
-
-@media (min-width: 768px) and (max-width: 1100px) {
+@media (max-width: 1199px) {
   .hero-capabilities {
-    grid-template-columns: 1fr 1.3fr 1fr;
-    gap: 13px 0;
-    padding-block: 12px 20px;
+    grid-template-columns: 4% 32% minmax(0, 1fr) 30% 4%;
+  }
+
+  .hero-doodle-code,
+  .hero-doodle-bulb {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero-composition {
+    --hero-portrait-width: 410px;
+    display: block;
+    margin-block-start: 12px;
+    padding-block-end: 18px;
+  }
+
+  .hero-portrait {
+    margin-inline: auto;
+    aspect-ratio: 1.29;
+    mask-image: linear-gradient(#000 84%, transparent);
+  }
+
+  .hero-scenery {
+    block-size: min(68vw, 19.85rem);
+  }
+
+  .hero-capabilities {
+    position: relative;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-block-start: -9px;
+    padding: 0;
   }
 
   .hero-card-item {
     --card-roll: 0deg;
     --card-yaw: 0deg;
-    inline-size: min(100%, 182px);
+    grid-area: auto;
+    inline-size: 100%;
+    align-self: stretch;
+    justify-self: stretch;
+    margin: 0;
+  }
+
+  .hero-traces,
+  .hero-doodles {
+    display: none;
   }
 }
 
@@ -459,7 +375,7 @@
   .signature-hero {
     --hero-header-height: 80px;
     padding-block-start: calc(
-      var(--hero-header-height) + 23px + env(safe-area-inset-top)
+      var(--hero-header-height) + 21px + env(safe-area-inset-top)
     );
   }
 
@@ -475,15 +391,25 @@
     font-size: clamp(2.65rem, calc(1rem + 9.35vw), 3.875rem);
   }
 
+  .hero-title-line {
+    display: block;
+  }
+
+  .hero-emphasis {
+    inline-size: fit-content;
+    max-inline-size: 100%;
+    margin-inline: auto;
+  }
+
   .hero-description {
     max-inline-size: 23rem;
-    margin-block-start: 17px;
+    margin-block-start: 15px;
     font-size: 1rem;
     line-height: 1.5;
   }
 
   .hero-actions {
-    margin-block-start: 16px;
+    margin-block-start: 15px;
   }
 
   .signature-hero :is(.hero-primary, .hero-secondary) {
@@ -495,109 +421,29 @@
     padding-inline-start: 14px;
   }
 
-  .hero-primary-icon {
-    flex-basis: 32px;
-    block-size: 32px;
-  }
-
   .signature-hero .hero-secondary {
     gap: 8px;
     padding-inline: 13px;
   }
 
   .hero-composition {
-    --hero-portrait-width: 416px;
-    display: block;
-    max-inline-size: 30rem;
-    margin-block-start: 20px;
-    padding-block-end: 20px;
+    max-inline-size: 28rem;
   }
 
   .hero-scenery {
-    block-size: min(68vw, 19.5rem);
-    background-size: 100% 95%;
-    background-repeat: no-repeat;
+    block-size: min(70vw, 19.85rem);
   }
 
   .hero-watermark {
-    inset-block-end: 10%;
+    inset-block-end: 3%;
     font-size: clamp(4rem, 23vw, 7.25rem);
   }
 
-  .hero-traces {
-    display: none;
-  }
-
-  .hero-portrait {
-    margin-inline: auto;
-    aspect-ratio: 1.32;
-    mask-image: linear-gradient(#000 80%, transparent);
-  }
-
   .hero-capabilities {
-    position: relative;
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(min(100%, max(8rem, 45%)), 1fr)
-    );
-    gap: 8px;
-    margin-block-start: -20px;
-    padding: 0;
-  }
-
-  .hero-card-item {
-    inline-size: 100%;
-    grid-area: auto;
-    margin: 0;
-    align-self: stretch;
-    justify-self: auto;
-  }
-
-  .hero-card {
-    block-size: 100%;
-    gap: 8px 5px;
-    padding: 10px;
-    border-radius: 13px;
-    text-align: center;
-    transform: none;
-  }
-
-  .hero-card-copy {
-    grid-column: 1 / -1;
-  }
-
-  .hero-card-copy strong {
-    font-size: 0.875rem;
-  }
-
-  .hero-card-arrow {
-    display: none;
-  }
-
-  .hero-card-systems {
-    grid-column: 1 / -1;
-    justify-self: center;
-    inline-size: fit-content;
-  }
-
-  .hero-card-systems .hero-card {
-    grid-template-columns: minmax(0, 1fr) auto;
-    place-items: center;
-    padding: 6px 14px;
-    border-radius: 999px;
-  }
-
-  .hero-card-systems .hero-card-preview,
-  .hero-card-systems .hero-card-copy > span {
-    display: none;
-  }
-
-  .hero-card-systems .hero-card-copy {
-    grid-column: auto;
-  }
-
-  .hero-card-systems .hero-card-arrow {
-    display: block;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+    max-inline-size: 25rem;
+    margin-inline: auto;
   }
 }
 
@@ -627,7 +473,8 @@
       .hero-description,
       .hero-primary,
       .hero-secondary,
-      .hero-card-item
+      .hero-card-item,
+      .hero-doodle
     ) {
     animation: hero-copy-in var(--hero-entrance-duration, 430ms) var(--ease)
       var(--hero-entrance-delay, 70ms) both;
@@ -659,6 +506,13 @@
     animation: hero-portrait-in 395ms var(--ease) 415ms both;
   }
 
+  .hero-doodle {
+    --hero-entrance-delay: 595ms;
+    --hero-entrance-duration: 205ms;
+    --hero-entrance-y: 0px;
+    --hero-entrance-opacity: 0.54;
+  }
+
   @keyframes hero-copy-in {
     from {
       opacity: 0;
@@ -668,7 +522,7 @@
       );
     }
     to {
-      opacity: 1;
+      opacity: var(--hero-entrance-opacity, 1);
       transform: translate(0, 0);
     }
   }
@@ -715,24 +569,11 @@
 
   .hero-portrait-photo {
     translate: calc(var(--hero-pointer-x, 0) * 2.5px)
-      calc(var(--hero-pointer-y, 0) * 2px - var(--hero-exit, 0) * 6px);
+      calc(-6% + var(--hero-pointer-y, 0) * 2px - var(--hero-exit, 0) * 4px);
     transition: translate 500ms var(--ease);
   }
 
-  .hero-card {
-    transition:
-      transform 360ms var(--ease),
-      background 280ms,
-      border-color 280ms;
-  }
-
-  .hero-card:is(:hover, :focus-visible) {
-    transform: perspective(750px) translateY(-5px)
-      rotateZ(calc(var(--card-roll, 0deg) * 0.3));
-  }
-
-  .hero-secondary svg,
-  .hero-card-arrow {
+  .hero-secondary svg {
     transition: transform 340ms var(--ease);
   }
 
@@ -741,14 +582,13 @@
   }
 
   .signature-hero .hero-primary:hover .hero-primary-icon svg,
-  .hero-secondary:hover svg,
-  .hero-card:is(:hover, :focus-visible) .hero-card-arrow {
+  .hero-secondary:hover svg {
     transform: translate(2px, -2px);
   }
 }
 
 @media (prefers-reduced-motion: reduce), (forced-colors: active) {
-  .signature-hero :is(.hero-card, .hero-primary, .hero-primary svg) {
+  .signature-hero :is(.hero-primary, .hero-primary svg) {
     transform: none;
     transition: none;
   }
@@ -756,11 +596,12 @@
 
 @media (forced-colors: active) {
   .hero-scenery,
-  .hero-card-preview {
+  .hero-doodles,
+  .hero-eye-brush {
     display: none;
   }
 
-  .signature-hero :is(.hero-card, .hero-primary, .hero-secondary) {
+  .signature-hero :is(.hero-primary, .hero-secondary) {
     border: 1px solid ButtonText;
   }
 

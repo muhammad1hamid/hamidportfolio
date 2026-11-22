@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ResponsiveImage } from "@/components/seo/ResponsiveImage";
 import { Arrow } from "@/components/ui/Arrow";
 import { CapabilityCards } from "./CapabilityCards";
+import { HeroDoodles, PortraitEyeBrush } from "./HeroArt";
 import { PortraitMotion } from "./PortraitMotion";
 import "@/app/hero.css";
 
@@ -10,6 +11,7 @@ const portrait = "/images/hamid-hero-warm.webp";
 export function Hero() {
   return (
     <section className="hero signature-hero" aria-labelledby="hero-title">
+      <HeroDoodles />
       <div className="hero-copy wrap">
         <p className="hero-eyebrow">
           Independent web developer · Digital growth builder
@@ -47,9 +49,9 @@ export function Hero() {
       <PortraitMotion>
         <div className="hero-scenery" aria-hidden="true">
           <span className="hero-watermark">HAMID</span>
-          <svg className="hero-traces" viewBox="0 0 1000 420" fill="none">
+          <svg className="hero-traces" viewBox="0 0 1165 453" fill="none">
             <path
-              d="M164 134C251 161 218 252 372 257M805 154C744 182 762 270 632 277M312 340C389 332 407 288 465 283"
+              d="M293 122C425 148 387 246 589 267S790 254 836 193"
               vectorEffect="non-scaling-stroke"
             />
           </svg>
@@ -62,20 +64,15 @@ export function Hero() {
               alt="Portrait of Hamid, independent web developer"
               width={1100}
               height={1100}
-              sizes="(max-width: 479px) 88vw, (max-width: 767px) 416px, clamp(416px, 41vw, 704px)"
+              sizes="(max-width: 479px) 88vw, (max-width: 1023px) 410px, clamp(410px, 41vw, 575px)"
               loading="eager"
               fetchPriority="high"
             />
+            <PortraitEyeBrush />
           </div>
         </div>
         <CapabilityCards />
       </PortraitMotion>
-
-      <div className="hero-bottom wrap">
-        <a href="#work" className="hero-work-cue">
-          Selected work <Arrow />
-        </a>
-      </div>
     </section>
   );
 }

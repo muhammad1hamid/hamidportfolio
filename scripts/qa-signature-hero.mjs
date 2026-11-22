@@ -8,7 +8,7 @@ const base = new URL(process.env.QA_BASE_URL || "http://127.0.0.1:3000");
 const output = process.env.QA_HERO_OUTPUT || "qa-output/signature-hero";
 const viewports = [
   [320, 568],
-  [360, 740],
+  [360, 800],
   [375, 812],
   [390, 844],
   [414, 896],
@@ -20,7 +20,8 @@ const viewports = [
   [768, 1024],
   [844, 390],
   [1024, 768],
-  [1280, 800],
+  [1280, 720],
+  [1324, 754],
   [1440, 900],
   [1920, 1080],
 ];
@@ -32,6 +33,7 @@ const browser = await chromium.launch({
 const report = {
   checkedAt: new Date().toISOString(),
   layouts: [],
+  layoutFailures: [],
   checks: [],
   errors: [],
 };
@@ -75,6 +77,11 @@ async function checkComposition(page, width) {
   const layout = await page.evaluate(() => {
     const rect = (selector) =>
       document.querySelector(selector).getBoundingClientRect();
+    const measureText = (element) => {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      return [...range.getClientRects()];
+    };
     const centered = (box) =>
       Math.abs(box.left + box.width / 2 - innerWidth / 2) < 1;
     const intersects = (a, b) =>
@@ -84,6 +91,19 @@ async function checkComposition(page, width) {
       a.bottom > b.top;
     const img = document.querySelector(".hero-portrait img");
     const photo = img.getBoundingClientRect();
+    const brush = document.querySelector(".hero-eye-brush");
+    const brushBounds = brush?.getBoundingClientRect();
+    const ink = brush?.querySelector(".hero-eye-ink");
+    // Source-pixel landmarks from hamid-hero-warm.webp, independent of CSS.
+    const pupils = [
+      [487, 398],
+      [622, 396],
+    ];
+    const eyes = pupils.map(([x, y]) => [
+      photo.left + (x / 1100) * photo.width,
+      photo.top + (y / 1100) * photo.height,
+    ]);
+    const portrait = rect(".hero-portrait");
     // Face and hair bounds on the genuine 1100×1100 portrait.
     const face = {
       left: photo.left + photo.width * 0.31,
@@ -91,9 +111,36 @@ async function checkComposition(page, width) {
       top: photo.top + photo.height * 0.086,
       bottom: photo.top + photo.height * 0.6,
     };
-    const copy = rect(".hero-copy");
+    const ctas = [...document.querySelectorAll(".hero-actions a")];
+    const copyInk = [
+      ...document.querySelectorAll(
+        ".hero-eyebrow, .hero-title-line, .hero-description",
+      ),
+    ].flatMap(measureText);
     const links = [...document.querySelectorAll(".hero-card")];
     const cardRects = links.map((link) => link.getBoundingClientRect());
+    const activeSurfacesOverlap = (card, box, action) => {
+      const button = action.getBoundingClientRect();
+      if (!intersects(box, button)) return false;
+      // A tilted card's rectangular bounds include transparent corners.
+      // Test painted, hittable surfaces where those bounds meet a pill CTA.
+      const right = Math.min(box.right, button.right, innerWidth);
+      const bottom = Math.min(box.bottom, button.bottom, innerHeight);
+      for (let y = Math.max(box.top, button.top, 0) + 0.5; y < bottom; y++) {
+        for (let x = Math.max(box.left, button.left, 0) + 0.5; x < right; x++) {
+          const stack = document.elementsFromPoint(x, y);
+          if (stack.includes(card) && stack.includes(action)) return true;
+        }
+      }
+      return false;
+    };
+    const web = rect(".hero-card-web .hero-card");
+    const systems = rect(".hero-card-systems .hero-card");
+    const growth = rect(".hero-card-growth .hero-card");
+    const centerX = (box) => box.left + box.width / 2;
+    const ctaBottom = Math.max(
+      ...ctas.map((link) => link.getBoundingClientRect().bottom),
+    );
     return {
       scrollWidth: document.documentElement.scrollWidth,
       copyCentered: [
@@ -106,15 +153,42 @@ async function checkComposition(page, width) {
         const box = node.getBoundingClientRect();
         return centered(box) && getComputedStyle(node).textAlign === "center";
       }),
-      portraitCentered: centered(rect(".hero-portrait")),
-      portraitBelowCopy: face.top >= copy.bottom - 2,
+      portraitCentered: centered(portrait),
+      portraitBelowCopy: face.top >= ctaBottom - 3,
       photoWidth: Math.round(photo.width),
+      eyes,
+      brushRegistered:
+        brush instanceof SVGSVGElement &&
+        brush.getAttribute("aria-hidden") === "true" &&
+        ["top", "left", "width", "height"].every(
+          (edge) => Math.abs(brushBounds[edge] - photo[edge]) <= 1,
+        ) &&
+        ink instanceof SVGGeometryElement &&
+        pupils.every(([x, y]) => ink.isPointInFill(new DOMPoint(x, y))) &&
+        eyes.every(
+          ([x, y]) =>
+            x > portrait.left &&
+            x < portrait.right &&
+            y > portrait.top &&
+            y < portrait.bottom,
+        ),
+      cardLayout: {
+        webAboveSystems: web.top < systems.top,
+        webLeftOfFace: centerX(web) < centerX(portrait),
+        systemsLeftOfFace: centerX(systems) < centerX(portrait),
+        growthRightOfFace: centerX(growth) > centerX(portrait),
+      },
+      foldedCards: cardRects.filter((card) => card.bottom <= innerHeight + 1)
+        .length,
       noFaceOrCardCollision:
         cardRects.length === 3 &&
         cardRects.every(
           (card, index) =>
             !intersects(face, card) &&
-            !intersects(copy, card) &&
+            copyInk.every((copy) => !intersects(copy, card)) &&
+            ctas.every(
+              (link) => !activeSurfacesOverlap(links[index], card, link),
+            ) &&
             cardRects.every(
               (other, n) => n === index || !intersects(card, other),
             ),
@@ -125,8 +199,9 @@ async function checkComposition(page, width) {
       ),
       photoSource: img.currentSrc,
       loaded: img.complete && img.naturalWidth > 0,
-      touchable: [...document.querySelectorAll(".hero-actions a")].every(
-        (link) => {
+      touchable:
+        ctas.length === 2 &&
+        ctas.every((link) => {
           const box = link.getBoundingClientRect();
           return (
             box.height >= 44 &&
@@ -140,8 +215,7 @@ async function checkComposition(page, width) {
                 ),
               ))
           );
-        },
-      ),
+        }),
     };
   });
   assert.ok(layout.scrollWidth <= width + 1, `${width}px page overflow`);
@@ -149,6 +223,7 @@ async function checkComposition(page, width) {
     "copyCentered",
     "portraitCentered",
     "portraitBelowCopy",
+    "brushRegistered",
     "noFaceOrCardCollision",
     "noEdgeClipping",
     "loaded",
@@ -156,6 +231,38 @@ async function checkComposition(page, width) {
   ])
     assert.ok(layout[key], `${width}px ${key}: ${JSON.stringify(layout)}`);
   return layout;
+}
+
+async function checkPaintedEyes(screenshot, eyes, width) {
+  const { data, info } = await sharp(screenshot)
+    .removeAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  for (const [x, y] of eyes) {
+    let warm = 0;
+    let darker = 0;
+    for (let row = Math.round(y) - 8; row <= Math.round(y) + 8; row++) {
+      for (
+        let column = Math.round(x) - 9;
+        column <= Math.round(x) + 9;
+        column++
+      ) {
+        const index = (row * info.width + column) * info.channels;
+        const [r, g, b] = data.subarray(index, index + 3);
+        if (r > 75 && r - g > 20 && g - b > 9) warm++;
+        if (
+          Math.abs(row - y) <= 2 &&
+          Math.abs(column - x) <= 2 &&
+          r < 105 &&
+          g < 82 &&
+          b < 70
+        )
+          darker++;
+      }
+    }
+    assert.ok(warm > 5, `${width}px no visible orange wash at ${x},${y}`);
+    assert.ok(darker > 1, `${width}px the pupil needs visible dark detail`);
+  }
 }
 
 async function audit(page, width) {
@@ -269,6 +376,12 @@ try {
     try {
       assert.equal(await page.locator("main h1").count(), 1);
       assert.equal(
+        (await page.locator(".hero-eyebrow").textContent())
+          .trim()
+          .toUpperCase(),
+        "INDEPENDENT WEB DEVELOPER · DIGITAL GROWTH BUILDER",
+      );
+      assert.equal(
         await page
           .locator('.hero-scenery[aria-hidden="true"] .hero-watermark')
           .textContent(),
@@ -298,10 +411,46 @@ try {
           lines.map((line) => {
             const range = document.createRange();
             range.selectNodeContents(line);
-            return range.getClientRects().length;
+            return [...range.getClientRects()].map(
+              ({ x, top, bottom, right }) => ({
+                x,
+                top,
+                bottom,
+                right,
+              }),
+            );
           }),
         );
-      assert.deepEqual(titleLines, [1, 1], `${width}px heading lines`);
+      assert.deepEqual(
+        titleLines.map((line) => line.length),
+        [1, 1],
+        `${width}px heading wraps within a phrase`,
+      );
+      if (width >= 768) {
+        const [[first], [second]] = titleLines;
+        assert.ok(
+          second.x >= first.right - 1 &&
+            second.top < first.bottom &&
+            second.bottom > first.top,
+          `${width}px desktop heading should be one line`,
+        );
+      }
+      if (width >= 1024) {
+        assert.ok(
+          Object.values(layout.cardLayout).every(Boolean),
+          `${width}px asymmetric card positions: ${JSON.stringify(layout.cardLayout)}`,
+        );
+      }
+      if (width === 1324) {
+        assert.equal(
+          layout.foldedCards,
+          3,
+          "All three cards visible within the locked reference viewport",
+        );
+        assert.equal(await page.locator(".hero-doodle:visible").count(), 4);
+      }
+      if (width < 768)
+        assert.ok((await page.locator(".hero-doodle:visible").count()) <= 2);
       assert.equal(
         await page.locator(".hero-portrait img").getAttribute("src"),
         "/images/hamid-hero-warm.webp",
@@ -311,7 +460,7 @@ try {
       }
       const button = await primary(page).boundingBox();
       assert.ok(
-        button.height >= 48 && (height < 500 || fit(button, height)),
+        button.height >= 44 && (height < 500 || fit(button, height)),
         `${width}px primary CTA above the fold`,
       );
       assert.deepEqual(
@@ -319,15 +468,24 @@ try {
           .locator(".hero-card")
           .evaluateAll((links) =>
             links.map((link) => [
-              link.querySelector("strong").textContent,
+              link.querySelector(".hero-card-copy strong").textContent,
               link.getAttribute("href"),
             ]),
           ),
         serviceLinks,
       );
+      assert.equal(await page.locator(".hero-card-preview:visible").count(), 3);
+      await page
+        .locator(".hero-card-web .hero-card-preview img")
+        .evaluate((img) => img.decode());
       if ([320, 390, 768, 1440].includes(width)) await audit(page, width);
-      await page.screenshot({ path: `${output}/hero-${width}.png` });
-      if ([320, 390, 1440].includes(width))
+      const screenshot = await page.screenshot({
+        path: `${output}/hero-${width}.png`,
+        scale: "css",
+      });
+      if ([390, 1324].includes(width))
+        await checkPaintedEyes(screenshot, layout.eyes, width);
+      if ([320, 390, 1324, 1440].includes(width))
         await page
           .locator(".signature-hero")
           .screenshot({ path: `${output}/section-${width}.png` });
@@ -337,12 +495,20 @@ try {
         ...layout,
         primaryBottom: Math.round(button.y + button.height),
       });
+    } catch (error) {
+      report.layoutFailures.push({ width, height, error: error.message });
+      await page.screenshot({ path: `${output}/failure-${width}.png` });
     } finally {
       await context.close();
     }
   }
+  assert.equal(
+    report.layoutFailures.length,
+    0,
+    JSON.stringify(report.layoutFailures, null, 2),
+  );
   report.checks.push(
-    `${viewports.length} viewports with one centered heading, a centered portrait below the CTAs, and no face, link or card collisions`,
+    `${viewports.length} viewports with the locked desktop composition, centered portrait below the CTAs, registered eye strip, and no face, link or card collisions`,
   );
   report.checks.push(
     "Four WCAG A and AA axe scans at desktop, tablet and phone sizes",
@@ -461,7 +627,6 @@ try {
       ".hero-card-web a",
       ".hero-card-growth a",
       ".hero-card-systems a",
-      ".hero-work-cue",
     ]) {
       await page.keyboard.press("Tab");
       assert.ok(
@@ -501,11 +666,9 @@ try {
       .click();
     await page.waitForURL("**/work/");
     await page.goBack();
-    await page.locator(".hero-work-cue").click();
-    await page.waitForURL("**/#work");
-    await page.locator("#work").waitFor({ state: "visible" });
+    assert.equal(await page.locator(".signature-hero + #work").count(), 1);
     report.checks.push(
-      "CTA and capability links work by keyboard in reading order, header Enter and Space work, Work and Selected Work destinations work, intro does not replay",
+      "CTA and capability links work by keyboard in reading order, header Enter and Space work, Work opens and Selected Work immediately follows the hero, intro does not replay",
     );
   } finally {
     await desktop.context.close();
@@ -536,13 +699,18 @@ try {
         .getAttribute("data-portrait-motion"),
       null,
     );
-    await page.locator(".hero-card-growth a").tap();
-    await page.waitForURL("**/growth/");
-    await page.goBack();
+    for (const [name, href] of serviceLinks) {
+      await page
+        .locator(".hero-capabilities")
+        .getByRole("link", { name: new RegExp(name) })
+        .tap();
+      await page.waitForURL(new URL(href, base).href);
+      await page.goBack();
+    }
     await primary(page).tap();
     await page.waitForURL("**/contact/?source=home");
     report.checks.push(
-      "Touch menu restores focus, portrait stays still, and tapping the Growth Engine card and primary CTA opens their pages",
+      "Touch menu restores focus, portrait stays still, and tapping each capability card and primary CTA opens its real destination",
     );
   } finally {
     await touch.context.close();

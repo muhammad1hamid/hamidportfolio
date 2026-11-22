@@ -1,0 +1,415 @@
+.hero-card {
+  --card-accent: var(--accent);
+  --card-rim: #ba7856;
+  --card-sheen: #e1a17c2b;
+  --card-round: 30px 26px 32px 23px / 33px 27px 29px 27px;
+  --card-pad: clamp(13px, 1.38vw, 22px);
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 45%;
+  grid-template-rows: auto 1fr;
+  align-content: start;
+  align-items: start;
+  gap: 8px 0;
+  min-block-size: clamp(148px, 12.1vw, 178px);
+  padding: var(--card-pad);
+  border-radius: var(--card-round);
+  color: var(--text);
+  text-align: start;
+  transform: perspective(840px) rotateX(var(--card-pitch, 3deg))
+    rotateY(var(--card-yaw, 0deg)) rotateZ(var(--card-roll, 0deg));
+}
+
+/* The rounded return edge sits behind the sculpted face. Only the artwork is
+   cropped to this silhouette, leaving the link's focus outline unobstructed. */
+.hero-card::before,
+.hero-card::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hero-card::before {
+  z-index: -2;
+  inset: 2px -3px -4px 1px;
+  border: 1px solid #ffffff10;
+  background: linear-gradient(135deg, #2d2d30, #151516 68%, #48413d);
+  box-shadow: 1px 10px 22px #0006;
+}
+
+.hero-card::after {
+  z-index: -1;
+  inset: 0;
+  border: 1px solid transparent;
+  background:
+    radial-gradient(ellipse at 84% -4%, var(--card-sheen), transparent 44%)
+      padding-box,
+    radial-gradient(ellipse at 12% 115%, #7958463b, transparent 46%) padding-box,
+    linear-gradient(138deg, #27282a 0%, #1b1c1e 28%, #161719 62%, #262728 100%)
+      padding-box,
+    linear-gradient(
+        152deg,
+        #757779 0%,
+        #393b3d 26%,
+        var(--card-rim) 53%,
+        #3e3b38 77%,
+        #514945 100%
+      )
+      border-box;
+  box-shadow:
+    inset 0 1px 1px #ffffff16,
+    inset 1px 0 7px #ffffff0a;
+}
+
+.hero-card-growth .hero-card {
+  --card-accent: var(--accent-cyan);
+  --card-rim: #6b9294;
+  --card-sheen: #bac5cc26;
+  --card-round: 34px 25px 25px 29px / 32px 27px 32px 27px;
+}
+
+.hero-card-systems .hero-card {
+  --card-accent: #ba9ed9;
+  --card-rim: #a1755f;
+  --card-sheen: #dbc2e019;
+  --card-round: 28px 34px 25px 30px / 26px 29px 27px 34px;
+}
+
+.hero-card-copy {
+  z-index: 1;
+  grid-area: 1 / 1;
+  display: grid;
+  justify-items: start;
+  gap: 0.27em;
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.hero-card-icon {
+  inline-size: 22px;
+  block-size: 22px;
+  margin-block-end: 3px;
+  color: var(--card-accent);
+}
+
+.hero-card-copy strong {
+  color: var(--text);
+  font-size: 1.0625rem;
+  font-weight: 750;
+  line-height: 1.16;
+  letter-spacing: -0.036em;
+}
+
+.hero-card-copy > span {
+  max-inline-size: 19ch;
+  color: var(--soft);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  letter-spacing: -0.012em;
+}
+
+.hero-card-action {
+  z-index: 1;
+  grid-area: 2 / 1;
+  align-self: end;
+  display: grid;
+  inline-size: 32px;
+  block-size: 32px;
+  place-items: center;
+  border: 1px solid #ffffff2b;
+  border-radius: 50%;
+  background: #10111254;
+  color: var(--text);
+}
+
+.hero-card-arrow {
+  inline-size: 16px;
+  block-size: 16px;
+  color: inherit;
+}
+
+.hero-card-preview {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hero-laptop {
+  position: absolute;
+  inset: auto -10% 17% auto;
+  inline-size: min(63%, 206px);
+  transform: perspective(390px) rotateY(-14deg) rotateZ(-9deg);
+  filter: drop-shadow(0 6px 7px #0009);
+}
+
+.hero-laptop-display {
+  overflow: hidden;
+  inline-size: 87%;
+  margin-inline: auto;
+  padding: 4px;
+  border: 1px solid #dedad58c;
+  border-radius: 7px 7px 3px 3px;
+  background: #111213;
+}
+
+.hero-laptop-display img {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 1.58;
+  object-fit: cover;
+  object-position: center top;
+  filter: brightness(1.15);
+}
+
+.hero-laptop-base {
+  display: block;
+  block-size: 13px;
+  clip-path: polygon(7% 0, 93% 0, 100% 78%, 97% 100%, 2% 100%, 0 78%);
+  background:
+    linear-gradient(#222222, #222222) center 1px / 68% 4px no-repeat,
+    linear-gradient(180deg, #b3adab 0%, #a19c99 69%, #635c58 71%, #302e2b 100%);
+}
+
+.hero-preview-caption {
+  position: absolute;
+  inset: auto 8% 7px 54%;
+  display: grid;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 650;
+  line-height: 1.15;
+}
+
+.hero-preview-caption > span:first-child {
+  color: var(--soft);
+}
+
+.hero-search-preview,
+.hero-workflow-preview {
+  position: absolute;
+  inset: auto -8% -6px auto;
+  inline-size: 53%;
+  min-block-size: 73%;
+  padding: 0.65em 1.4em 1.15em 0.75em;
+  border: 1px solid #eae8e2;
+  border-radius: 14px 9px 6px 4px;
+  background: linear-gradient(146deg, #ecebe8, #dededb);
+  color: #282b2d;
+  box-shadow:
+    0 0 0 4px #16181b,
+    0 0 0 5px #ffffff37,
+    0 7px 18px #0008;
+  font-size: clamp(9px, 0.8vw, 12px);
+  line-height: 1.25;
+  transform: perspective(370px) rotateY(-8deg) rotateZ(-7deg);
+}
+
+.hero-search-caption,
+.hero-workflow-caption {
+  display: block;
+  margin-block-end: 0.45em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.hero-search-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2px;
+  padding: 0.33em 0.55em;
+  border: 1px solid #16191c20;
+  border-radius: 999px;
+  background: #f7f7f5;
+  font-weight: 650;
+}
+
+.hero-search-field svg {
+  flex: none;
+  inline-size: 12px;
+  block-size: 12px;
+  stroke: #41626a;
+  stroke-width: 1.6;
+}
+
+.hero-search-result {
+  display: grid;
+  gap: 2px;
+  margin-block-start: 0.6em;
+  padding-block-start: 0.55em;
+  border-block-start: 1px solid #16191c26;
+}
+
+.hero-search-result strong {
+  color: #17516a;
+  font-size: 1em;
+  font-weight: 800;
+}
+
+.hero-search-result > span {
+  font-size: 0.91em;
+}
+
+.hero-workflow-preview {
+  inset-inline-end: -7%;
+  background: linear-gradient(139deg, #e5e2de, #d2ceca);
+  transform: perspective(390px) rotateY(-9deg) rotateZ(4deg);
+}
+
+.hero-workflow-preview ol {
+  display: grid;
+  gap: 0.45em;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.hero-workflow-preview li {
+  display: grid;
+  grid-template-columns: 1.27em minmax(0, 1fr);
+  align-items: center;
+  gap: 0.36em;
+  position: relative;
+  color: #3e3b42;
+  font-weight: 700;
+}
+
+.hero-workflow-preview li + li::before {
+  content: "";
+  position: absolute;
+  inset: -0.49em auto auto 0.62em;
+  block-size: 0.46em;
+  border-inline-start: 1px dashed #64636d;
+}
+
+.hero-workflow-preview svg {
+  inline-size: 1.27em;
+  block-size: 1.27em;
+  padding: 0.13em;
+  border-radius: 0.31em;
+  background: #d4c9e0;
+  stroke: #554570;
+  stroke-width: 1.35;
+  stroke-linejoin: round;
+}
+
+.hero-workflow-preview li:nth-child(2) svg {
+  background: #c6dbd4;
+  stroke: #31574b;
+}
+
+.hero-workflow-preview li:nth-child(3) svg {
+  background: #eddbbf;
+  stroke: #694f2a;
+}
+
+.hero-card:focus-visible {
+  outline: 2px solid var(--card-accent);
+  outline-offset: 4px;
+}
+
+.hero-card:focus-visible .hero-card-action {
+  border-color: var(--card-accent);
+  color: var(--card-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-card:hover .hero-card-action {
+    border-color: var(--card-accent);
+    color: var(--card-accent);
+  }
+
+  .hero-card:is(:hover, :focus-visible)::after {
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--card-accent) 50%, transparent),
+      inset 1px 0 9px #ffffff13;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  .hero-card {
+    transition: transform 380ms var(--ease);
+  }
+
+  .hero-card::after {
+    transition: box-shadow 270ms var(--ease);
+  }
+
+  .hero-card-action {
+    transition:
+      border-color 270ms var(--ease),
+      color 270ms var(--ease);
+  }
+
+  .hero-card-arrow {
+    transition: transform 340ms var(--ease);
+  }
+
+  .hero-card:is(:hover, :focus-visible) {
+    transform: perspective(840px) translateY(-6px)
+      rotateX(calc(var(--card-pitch, 3deg) * 0.45))
+      rotateY(calc(var(--card-yaw, 0deg) * 0.45))
+      rotateZ(calc(var(--card-roll, 0deg) * 0.45));
+  }
+
+  .hero-card:is(:hover, :focus-visible) .hero-card-arrow {
+    transform: translate(2px, -2px);
+  }
+
+  .hero-card:active {
+    transform: perspective(840px) translateY(-2px)
+      rotateX(calc(var(--card-pitch, 3deg) * 0.45))
+      rotateY(calc(var(--card-yaw, 0deg) * 0.45))
+      rotateZ(calc(var(--card-roll, 0deg) * 0.45));
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero-card-copy strong {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-card {
+    block-size: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-card {
+    --card-pad: 16px;
+    --card-round: 26px 23px 26px 22px;
+    min-block-size: 150px;
+    transform: none;
+  }
+
+  .hero-card-copy strong {
+    font-size: 1.0625rem;
+  }
+
+  .hero-search-preview,
+  .hero-workflow-preview {
+    font-size: 10px;
+  }
+}
+
+@media (forced-colors: active) {
+  .hero-card {
+    border: 1px solid LinkText;
+  }
+
+  .hero-card::before,
+  .hero-card::after {
+    display: none;
+  }
+
+  .hero-card-action {
+    border-color: LinkText;
+  }
+}
