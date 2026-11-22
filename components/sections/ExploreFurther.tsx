@@ -1,60 +1,113 @@
 import Link from "next/link";
-import { WorkflowPreview } from "./WorkflowPreview";
+import { ResponsiveImage } from "@/components/seo/ResponsiveImage";
+import { Arrow } from "@/components/ui/Arrow";
+import { defaultPlan } from "@/data/planner";
+import { projectLinkData } from "@/data/project-events";
+import { projects } from "@/data/projects";
+import { ExploreWorkbench } from "./ExploreWorkbench";
+import styles from "./ExploreFurther.module.css";
+
+const bridalHouse = projects.find(({ slug }) => slug === "bridal-house")!;
+const briefFields = [
+  ["Business", defaultPlan.business],
+  ["Goal", defaultPlan.goal],
+  ["Pages", defaultPlan.pages.join(", ")],
+  ["Integration", defaultPlan.integrations.join(", ")],
+];
 
 export function ExploreFurther() {
   return (
-    <section className="explore-further wrap" aria-labelledby="explore-title">
-      <div className="section-marker">
-        <span>Before we build</span>
-      </div>
-      <div className="explore-heading">
+    <section
+      className={`explore-further wrap ${styles.section}`}
+      aria-labelledby="explore-title"
+    >
+      <header className={styles.intro}>
+        <p className={styles.marker}>Before we build</p>
         <h2 id="explore-title">
           See the thinking.
           <br />
           <em>Find your direction.</em>
         </h2>
-        <p>
-          Explore a demo, work through your questions, or turn an idea into a
-          useful brief.
+        <p className={styles.lead}>
+          Explore real work, plan a practical scope, or try a simple enquiry
+          flow — all in one place.
         </p>
-      </div>
-      <div className="explore-grid">
-        {[
-          {
-            title: "Inside the website demos",
-            text: "Real screens, the visitor journey and what each self-directed example demonstrates.",
-            href: "/case-studies/",
-            cta: "Explore project walkthroughs",
-          },
-          {
-            title: "Find a starting scope",
-            text: "A few decisions. A practical scope. A brief you can keep or bring to our conversation.",
-            href: "/plan/",
-            cta: "Build your brief",
-          },
-          {
-            title: "Answers with a handover",
-            text: "Explore supported questions and a clear path to a person in the interactive enquiry demo.",
-            href: "/demos/enquiry-assistant/",
-            cta: "Try the demonstration",
-          },
-        ].map((item) => (
-          <article key={item.href}>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-            <Link
-              href={item.href}
-              data-site-event={
-                item.href === "/plan/" ? "planner_open" : undefined
-              }
-            >
-              {item.cta}
-            </Link>
-          </article>
-        ))}
-      </div>
-      <WorkflowPreview />
-      <div className="related-links">
+      </header>
+
+      <ExploreWorkbench
+        work={
+          <>
+            <header className={styles.previewHeading}>
+              <p className="eyebrow">Self-directed website demo</p>
+              <h3>
+                Inside <em>Bridal House.</em>
+              </h3>
+            </header>
+            <div className={styles.previewSample}>
+              <ResponsiveImage
+                className={styles.workImage}
+                src={bridalHouse.thumbnail}
+                alt="Bridal House homepage showing the couture collection and consultation links"
+                width={1440}
+                height={960}
+                sizes="(max-width: 959px) 86vw, (max-width: 1450px) 55vw, 780px"
+              />
+              <p>{bridalHouse.description}</p>
+            </div>
+            <div className={styles.actions}>
+              <Link className={styles.secondaryLink} href="/case-studies/">
+                All project walkthroughs
+              </Link>
+              <Link
+                className={`button button-accent ${styles.cta}`}
+                href={bridalHouse.detailUrl!}
+                {...projectLinkData(
+                  bridalHouse.slug,
+                  "before_we_build",
+                  "story",
+                )}
+              >
+                See the walkthrough <Arrow diagonal />
+              </Link>
+            </div>
+          </>
+        }
+        brief={
+          <>
+            <header className={styles.previewHeading}>
+              <p className="eyebrow">Example project scope</p>
+              <h3>
+                Give your project <em>a starting point.</em>
+              </h3>
+            </header>
+            <div className={styles.previewSample}>
+              <dl className={styles.briefSample}>
+                {briefFields.map(([label, value]) => (
+                  <div key={label}>
+                    <dt>{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <p>
+                Choose a goal, pages and integrations, then build a brief you
+                can keep or discuss with Hamid.
+              </p>
+            </div>
+            <div className={styles.actions}>
+              <Link
+                className={`button button-accent ${styles.cta}`}
+                href="/plan/"
+                data-site-event="planner_open"
+              >
+                Build your brief <Arrow diagonal />
+              </Link>
+            </div>
+          </>
+        }
+      />
+
+      <div className={`related-links ${styles.related}`}>
         <Link className="text-link" href="/insights/">
           Read website and automation insights
         </Link>

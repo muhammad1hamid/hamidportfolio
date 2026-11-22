@@ -279,7 +279,6 @@
 }
 
 @media (max-width: 700px) {
-
   .capability-intro {
     font-size: 15px;
   }
@@ -290,11 +289,24 @@
   }
 
   .pillar-card > a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 12px;
+    padding: clamp(17px, 4.5vw, 28px);
     border-radius: 18px;
+  }
+
+  .pillar-card :is(.eyebrow, h3) {
+    grid-column: 1 / -1;
   }
 
   .pillar-card h3 {
     margin-top: 10px;
+  }
+
+  .pillar-arrow {
+    position: static;
+    align-self: end;
   }
 
   .service-groups {
@@ -305,6 +317,16 @@
     grid-template-columns: 1fr;
     gap: 18px;
     padding-block: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-actions {
+    width: 100%;
+  }
+
+  .contact-actions .button {
+    width: 100%;
   }
 }
 

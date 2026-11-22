@@ -43,6 +43,7 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
+html:has(dialog[open]),
 body:has(dialog[open]) {
   overflow: hidden;
 }
@@ -303,9 +304,11 @@ summary:focus-visible {
   margin: 7px auto;
 }
 .mobile-menu {
-  padding: 24px;
   width: 100%;
+  height: 100vh;
   height: 100dvh;
+  padding: 0 max(20px, env(safe-area-inset-right))
+    max(18px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
   max-width: none;
   max-height: none;
   inset: 0;
@@ -315,12 +318,17 @@ summary:focus-visible {
   margin: 0;
 }
 .mobile-menu[open] {
-  animation: menu-open 0.5s var(--ease);
+  animation: menu-open 0.35s var(--ease);
 }
 .mobile-menu-top {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-block: max(12px, env(safe-area-inset-top)) 10px;
+  background: var(--bg);
 }
 .mobile-menu-top button {
   min-height: 44px;
@@ -331,15 +339,17 @@ summary:focus-visible {
   margin-left: 10px;
 }
 .mobile-menu nav {
-  margin: 60px 0;
+  margin-block: clamp(12px, 3dvh, 30px);
 }
 .mobile-menu nav a {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 20px 0;
+  min-height: 48px;
+  padding-block: clamp(8px, 1.7dvh, 15px);
   border-bottom: 1px solid var(--line);
-  font-size: 44px;
+  font-size: clamp(1.4rem, 5.9vw, 2.75rem);
+  line-height: 1.2;
 }
 .mobile-menu nav small {
   font-size: 12px;
@@ -347,8 +357,8 @@ summary:focus-visible {
 }
 .mobile-menu nav svg {
   margin-left: auto;
-  width: 28px;
-  height: 28px;
+  width: clamp(18px, 4.4vw, 28px);
+  height: auto;
 }
 .mobile-menu::backdrop {
   background: var(--bg);
@@ -1215,9 +1225,6 @@ dialog[open] {
   .about-grid {
     gap: 7%;
   }
-  .about-copy p {
-    font-size: 14px;
-  }
   .contact-aside {
     padding-right: 0;
   }
@@ -1238,19 +1245,29 @@ dialog[open] {
   }
 }
 
+@media (max-width: 900px) {
+  .navigation .wordmark {
+    min-height: 44px;
+  }
+}
+
 @media (max-width: 767px) {
   :root {
-    --page-gutter: clamp(20px, 6vw, 32px);
+    --page-gutter: max(
+      clamp(20px, 6vw, 32px),
+      env(safe-area-inset-left),
+      env(safe-area-inset-right)
+    );
   }
   .wrap {
     width: calc(100% - var(--page-gutter) * 2);
   }
   .navigation {
-    height: 80px;
-    padding: 0 var(--page-gutter);
+    height: calc(80px + env(safe-area-inset-top));
+    padding: env(safe-area-inset-top) var(--page-gutter) 0;
   }
   .navigation.is-scrolled {
-    height: 66px;
+    height: calc(66px + env(safe-area-inset-top));
   }
   .wordmark {
     font-size: 23px;
@@ -1381,19 +1398,18 @@ dialog[open] {
     padding-bottom: 75px;
   }
   .about-grid {
-    grid-template-columns: 1fr;
-    gap: 38px;
-    padding-top: 35px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(24px, 5vw, 36px);
+    padding-top: clamp(24px, 5vw, 35px);
   }
   .about-photo {
-    width: 85%;
-    max-width: 440px;
-    aspect-ratio: 0.9;
+    width: min(100%, 440px);
+    aspect-ratio: 1;
     margin-inline: auto;
   }
   .about-copy h2 {
-    margin-top: 20px;
-    font-size: clamp(40px, 8.5vw, 63px);
+    margin: 0 0 clamp(17px, 4vw, 25px);
+    font-size: clamp(36px, 8.4vw, 59px);
   }
   .about-copy p {
     font-size: 14px;
@@ -1413,9 +1429,16 @@ dialog[open] {
     font-size: 10px;
   }
   .faq-item h3 button {
-    font-size: 14px;
-    padding: 24px 0;
-    gap: 20px;
+    min-height: 54px;
+    padding-block: 18px;
+    gap: 12px;
+  }
+  .faq-item h3 button span {
+    flex: 0 0 1em;
+    text-align: center;
+  }
+  .faq-answer {
+    padding-inline-end: 14px;
   }
   .faq-answer p {
     font-size: 13px;
@@ -1458,26 +1481,34 @@ dialog[open] {
   }
   .footer {
     padding-top: 30px;
-    padding-bottom: 22px;
+    padding-bottom: max(22px, env(safe-area-inset-bottom));
   }
   .footer-top {
-    flex-wrap: wrap;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 6px 16px;
     padding-bottom: 24px;
   }
+  .footer-top .wordmark {
+    justify-self: start;
+    min-height: 44px;
+  }
   .footer-top p {
-    margin-left: auto;
-    margin-right: 0;
-    font-size: 10px;
+    grid-row: 2;
+    grid-column: 1 / -1;
+    margin: 0;
   }
   .back-top {
-    font-size: 11px;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    font-size: 13px;
   }
   .footer-bottom {
     display: grid;
-    grid-template-columns: 1fr auto;
-    font-size: 9px;
-    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px 14px;
     padding-top: 20px;
   }
   .footer-bottom > span:nth-child(2) {
@@ -1548,19 +1579,37 @@ dialog[open] {
   .project-dialog-copy .eyebrow {
     font-size: 9px;
   }
+  .cursor {
+    display: none;
+  }
+}
+@media (max-width: 767px), (pointer: coarse) {
   .brief-dialog {
-    padding: 15px 22px 22px;
+    --brief-area-top: max(12px, env(safe-area-inset-top));
+    --brief-area-bottom: max(12px, env(safe-area-inset-bottom));
+    inset-block: calc(
+      var(--brief-view-top, 0px) + var(--brief-area-top) +
+      (var(--brief-view-height, 100dvh) - var(--brief-area-top) - var(--brief-area-bottom)) / 2
+    ) auto;
+    translate: 0 -50%;
+    max-height: calc(var(--brief-view-height, 100dvh) - var(--brief-area-top) - var(--brief-area-bottom));
+    margin-block: 0;
+    padding: 13px clamp(16px, 5vw, 24px) 22px;
+    scroll-padding-block-start: 60px;
+  }
+  .brief-dialog .dialog-close {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--bg);
   }
   .brief-dialog h2 {
-    font-size: 46px;
+    font-size: clamp(36px, 9vw, 46px);
   }
   .brief-dialog input,
   .brief-dialog select,
   .brief-dialog textarea {
     font-size: 16px;
-  }
-  .cursor {
-    display: none;
   }
 }
 @media (max-width: 360px) {
@@ -1573,9 +1622,6 @@ dialog[open] {
   }
   .section-marker {
     font-size: 8px;
-  }
-  .footer-top p {
-    font-size: 9px;
   }
 }
 .dialog-art {
@@ -1611,25 +1657,15 @@ dialog[open] {
   .section-marker {
     font-size: 11px;
   }
-  .footer-top p {
-    font-size: 11px;
-  }
+  .footer-top p,
   .footer-bottom {
-    font-size: 11px;
+    font-size: 13px;
   }
   .preview-badge {
     font-size: 11px;
   }
   .filter-count {
     font-size: 11px;
-  }
-}
-@media (max-width: 360px) {
-  .footer-top p {
-    font-size: 10px;
-  }
-  .footer-bottom {
-    font-size: 10px;
   }
 }
 @media (pointer: coarse) {

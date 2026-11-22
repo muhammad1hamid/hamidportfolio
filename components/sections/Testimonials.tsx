@@ -227,26 +227,7 @@ export function Testimonials() {
               </span>
             </figcaption>
           </figure>
-          <div
-            className="testimonial-controls"
-            onTouchStart={(event) => {
-              gesture.current = {
-                x: event.touches[0].clientX,
-                y: event.touches[0].clientY,
-              };
-            }}
-            onTouchEnd={(event) => {
-              if (!gesture.current) return;
-              const dx = event.changedTouches[0].clientX - gesture.current.x;
-              const dy = event.changedTouches[0].clientY - gesture.current.y;
-              gesture.current = null;
-              if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5)
-                change(dx < 0 ? 1 : -1);
-            }}
-            onTouchCancel={() => {
-              gesture.current = null;
-            }}
-          >
+          <div className="testimonial-controls">
             <button
               onClick={() => change(-1)}
               aria-label="Previous video testimonial"
@@ -254,7 +235,29 @@ export function Testimonials() {
             >
               <Arrow />
             </button>
-            <div className="testimonial-position">
+            <div
+              className="testimonial-position"
+              onTouchStart={(event) => {
+                const touch = event.touches[0];
+                gesture.current =
+                  event.touches.length === 1
+                    ? { x: touch.clientX, y: touch.clientY }
+                    : null;
+              }}
+              onTouchEnd={(event) => {
+                const start = gesture.current;
+                gesture.current = null;
+                if (!start || event.touches.length) return;
+                const { clientX, clientY } = event.changedTouches[0];
+                const dx = clientX - start.x;
+                const dy = clientY - start.y;
+                if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.5)
+                  change(dx < 0 ? 1 : -1);
+              }}
+              onTouchCancel={() => {
+                gesture.current = null;
+              }}
+            >
               <span>{String(active + 1).padStart(2, "0")}</span>
               <span className="testimonial-position-line" aria-hidden="true" />
               <span>{String(testimonials.length).padStart(2, "0")}</span>

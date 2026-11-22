@@ -2,6 +2,7 @@ import { projects } from "./projects";
 
 const entries = [
   "home_selected",
+  "before_we_build",
   "work_archive",
   "story_index",
   "project_story",

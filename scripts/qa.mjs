@@ -468,6 +468,57 @@ await check(
   },
 );
 await check(
+  "Before We Build switches labelled previews with pointer and keyboard",
+  async () => {
+    const section = page.locator(".explore-further");
+    const tabs = section.getByRole("tablist");
+    const work = tabs.getByRole("tab", { name: "Explore the work" });
+    const brief = tabs.getByRole("tab", { name: "Shape your brief" });
+    const enquiry = tabs.getByRole("tab", { name: "Try an enquiry flow" });
+    const current = () => section.getByRole("tabpanel");
+    const focused = (locator) =>
+      locator.evaluate((element) => element === document.activeElement);
+
+    assert.equal(await enquiry.getAttribute("aria-selected"), "true");
+    assert.match(await current().innerText(), /clear handover/);
+    await enquiry.focus();
+    await page.keyboard.press("Home");
+    assert.ok(await focused(work));
+    assert.equal(await work.getAttribute("aria-selected"), "true");
+    assert.match(await current().getByRole("img").getAttribute("src"), /bridal-house\.webp$/);
+    assert.equal(
+      await current().getByRole("link", { name: "See the walkthrough" }).getAttribute("href"),
+      "/work/bridal-house/",
+    );
+    await page.keyboard.press("ArrowDown");
+    assert.ok(await focused(brief));
+    assert.equal(await brief.getAttribute("aria-selected"), "true");
+    assert.equal(
+      await current().getByRole("link", { name: "Build your brief" }).getAttribute("href"),
+      "/plan/",
+    );
+    await page.keyboard.press("Tab");
+    assert.ok(await focused(current()));
+    await page.keyboard.press("Shift+Tab");
+    assert.ok(await focused(brief));
+    await page.keyboard.press("End");
+    assert.ok(await focused(enquiry));
+    await page.keyboard.press("ArrowDown");
+    assert.ok(await focused(work));
+    await work.press("ArrowUp");
+    assert.ok(await focused(enquiry));
+
+    await brief.click();
+    assert.equal(await brief.getAttribute("aria-selected"), "true");
+    await enquiry.click();
+    assert.equal(await tabs.locator('[aria-selected="true"]').count(), 1);
+    assert.equal(
+      await current().getByRole("link", { name: "Try the demonstration" }).getAttribute("href"),
+      "/demos/enquiry-assistant/",
+    );
+  },
+);
+await check(
   "Workflow illustration changes steps without sending data",
   async () => {
     const requests = [];
@@ -487,26 +538,28 @@ await check(
         requests.push(req.url());
     };
     page.on("request", listener);
-    for (const [name, content] of [
-      ["Capture", "An enquiry comes in"],
-      ["Organise", "right details"],
-      ["Respond", "ready to review"],
-    ]) {
-      const button = page
-        .locator(".workflow-steps")
-        .getByRole("button", { name: new RegExp(name) });
-      await button.click();
-      assert.equal(await button.getAttribute("aria-pressed"), "true");
-      assert.match(
-        await page.locator("#workflow-example").innerText(),
-        new RegExp(content),
-      );
+    const section = page.locator(".explore-further");
+    try {
+      for (const [name, content] of [
+        ["Capture", /We need a new website for our studio/],
+        ["Organise", /Next step: discovery call/],
+        ["Respond", /Draft reply → human approval/],
+      ]) {
+        const button = section.getByRole("button", { name, exact: true });
+        await button.click();
+        assert.equal(await button.getAttribute("aria-pressed"), "true");
+        assert.match(await page.locator("#workflow-example").innerText(), content);
+      }
+    } finally {
+      page.off("request", listener);
     }
-    page.off("request", listener);
     assert.deepEqual(requests, []);
-    assert.match(
-      await page.locator(".workflow-disclaimer").innerText(),
-      /illustration/,
+    assert.ok(await section.getByText("Interactive illustration · No data sent").isVisible());
+    await section.getByRole("tab", { name: "Shape your brief" }).click();
+    await section.getByRole("tab", { name: "Try an enquiry flow" }).click();
+    assert.equal(
+      await section.getByRole("button", { name: "Respond", exact: true }).getAttribute("aria-pressed"),
+      "true",
     );
   },
 );

@@ -5,6 +5,7 @@ const actionEvents = [
   "growth_cta_click",
   "contact_whatsapp_click",
   "planner_open",
+  "enquiry_demo_open",
   "planner_growth_option_select",
 ] as const;
 

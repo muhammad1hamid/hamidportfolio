@@ -6,21 +6,20 @@ export function ChromeMark() {
   const host = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const target = host.current;
-    if (
-      !target ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches ||
-      matchMedia("(max-width: 700px)").matches
-    )
-      return;
-    let disposed = false;
-    let cleanup = () => {};
+    if (!target || !("IntersectionObserver" in window)) return;
+    const motion = matchMedia(
+      "(min-width: 701px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+    );
+    let revision = 0;
+    let cleanup: (() => void) | undefined;
     const observer = new IntersectionObserver(
       async (entries) => {
         if (!entries[0].isIntersecting) return;
         observer.disconnect();
+        const current = revision;
         try {
           const T = await import("three");
-          if (disposed) return;
+          if (current !== revision || !motion.matches) return;
           const scene = new T.Scene();
           const camera = new T.PerspectiveCamera(
             32,
@@ -133,21 +132,21 @@ export function ChromeMark() {
       },
       { rootMargin: "120px" },
     );
-    observer.observe(target);
-    const preference = matchMedia("(prefers-reduced-motion: reduce)");
-    const reduce = () => {
-      if (preference.matches) {
-        disposed = true;
-        observer.disconnect();
-        cleanup();
-      }
-    };
-    preference.addEventListener("change", reduce);
-    return () => {
-      disposed = true;
+    const stop = () => {
+      revision++;
       observer.disconnect();
-      preference.removeEventListener("change", reduce);
-      cleanup();
+      cleanup?.();
+      cleanup = undefined;
+    };
+    const syncMotion = () => {
+      stop();
+      if (motion.matches) observer.observe(target);
+    };
+    syncMotion();
+    motion.addEventListener("change", syncMotion);
+    return () => {
+      motion.removeEventListener("change", syncMotion);
+      stop();
     };
   }, []);
   return (

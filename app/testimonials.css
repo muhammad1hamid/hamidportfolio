@@ -208,7 +208,6 @@
   gap: 22px;
   border-top: 1px solid var(--line);
   padding-top: 17px;
-  touch-action: pan-y;
 }
 .testimonial-controls > button {
   display: grid;
@@ -246,6 +245,7 @@
   color: var(--muted);
   user-select: none;
   min-height: 48px;
+  touch-action: pan-y pinch-zoom;
 }
 .testimonial-position > span:first-child {
   color: var(--accent);
@@ -329,7 +329,7 @@
     max-width: 410px;
   }
   .testimonial-selectors {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 145px), 1fr));
     margin-top: 23px;
     gap: 10px;
     max-width: none;
@@ -345,11 +345,11 @@
     display: none;
   }
   .testimonial-selector-name {
-    font-size: 12px;
+    font-size: 13px;
     line-height: 1.5;
   }
   .testimonial-selector-name small {
-    font-size: 11px;
+    font-size: 12px;
   }
   .testimonial-selector-arrow {
     font-size: 14px;
@@ -378,23 +378,15 @@
   }
   .testimonial-player-footer {
     justify-content: space-between;
+    flex-wrap: wrap;
   }
   .testimonial-swipe-hint {
     display: block;
-    font-size: 10px;
+    font-size: 12px;
     color: var(--muted);
   }
 }
 @media (max-width: 360px) {
-  .testimonial-selectors button {
-    padding: 11px 9px;
-  }
-  .testimonial-selector-name {
-    font-size: 11px;
-  }
-  .testimonial-selector-name small {
-    font-size: 10px;
-  }
   .testimonial-stories h2 {
     font-size: 34px;
   }

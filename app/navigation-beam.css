@@ -88,7 +88,7 @@
 
 @media (max-width: 719px) {
   .navigation[data-hero-home]:not(.is-scrolled) {
-    height: 74px;
+    height: calc(74px + env(safe-area-inset-top));
   }
 
   .navigation[data-hero-home] .nav-contact {

@@ -328,14 +328,19 @@ try {
     assert.equal((await state(page)).fill.height, 0);
     await page.emulateMedia({ reducedMotion: "no-preference" });
     await ready(page);
-    const brief = page.getByRole("link", {
+    const workbench = page.locator(".explore-further");
+    await workbench.getByRole("tab", { name: "Try an enquiry flow" }).focus();
+    await page.keyboard.press("ArrowUp");
+    const brief = workbench.getByRole("link", {
       name: "Build your brief",
       exact: true,
     });
     await page.keyboard.press("Tab");
-    await brief.focus();
+    await page.keyboard.press("Tab");
     assert.equal(
-      await brief.evaluate((link) => link.matches(":focus-visible")),
+      await brief.evaluate(
+        (link) => link === document.activeElement && link.matches(":focus-visible"),
+      ),
       true,
     );
   } finally {

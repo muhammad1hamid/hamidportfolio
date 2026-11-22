@@ -596,6 +596,17 @@
     padding-bottom: 24px;
   }
 
+  .selected-project-grid .capture-bar {
+    min-height: 40px;
+    padding-inline-end: 118px;
+  }
+
+  .selected-project-grid .preview-badge {
+    inset: 5px 5px auto auto;
+    min-height: 30px;
+    padding: 4px 8px;
+  }
+
   .story-mobile-capture {
     justify-self: center;
     width: min(100%, 320px);

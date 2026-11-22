@@ -6,25 +6,41 @@ import { site } from "@/data/site";
 import { growthGoal } from "@/data/planner";
 import { Arrow } from "@/components/ui/Arrow";
 
+function fitBriefToViewport(modal: HTMLDialogElement | null) {
+  const viewport = window.visualViewport;
+  if (!modal?.open || !viewport) return;
+  modal.style.setProperty("--brief-view-height", `${viewport.height}px`);
+  modal.style.setProperty("--brief-view-top", `${viewport.offsetTop}px`);
+}
+
 export function Contact() {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
+  const closeButton = useRef<HTMLButtonElement>(null);
   const [saved, setSaved] = useState(false);
+
   const openBrief = () => {
     setSaved(false);
-    dialog.current?.showModal();
-    document.body.style.overflow = "hidden";
+    const modal = dialog.current;
+    if (!modal) return;
+    modal.showModal();
+    fitBriefToViewport(modal);
+    modal.scrollTop = 0;
+    closeButton.current?.focus({ preventScroll: true });
   };
   useEffect(() => {
-    const previous = document.body.style.overflow;
+    const viewport = window.visualViewport;
+    const resize = () => fitBriefToViewport(dialog.current);
+    viewport?.addEventListener("resize", resize);
+    viewport?.addEventListener("scroll", resize);
     return () => {
-      document.body.style.overflow = previous;
+      viewport?.removeEventListener("resize", resize);
+      viewport?.removeEventListener("scroll", resize);
     };
   }, []);
   const close = () => {
     dialog.current?.close();
-    document.body.style.overflow = "";
-    trigger.current?.focus();
+    trigger.current?.focus({ preventScroll: true });
   };
   const contacts = [
     { title: "Email", url: site.email ? `mailto:${site.email}` : "" },
@@ -112,15 +128,17 @@ export function Contact() {
         data-lenis-prevent
         className="brief-dialog"
         aria-labelledby="brief-title"
-        onCancel={close}
-        onClose={() => {
-          document.body.style.overflow = "";
+        onCancel={(event) => {
+          event.preventDefault();
+          close();
         }}
         onClick={(e) => {
           if (e.target === e.currentTarget) close();
         }}
       >
         <button
+          ref={closeButton}
+          type="button"
           className="dialog-close"
           onClick={close}
           aria-label="Close project brief"
@@ -145,7 +163,6 @@ export function Contact() {
           <label>
             Your name or business
             <input
-              autoFocus
               name="name"
               autoComplete="organization"
               required

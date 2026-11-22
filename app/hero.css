@@ -325,7 +325,7 @@
 
 @media (max-width: 719px) {
   .signature-hero {
-    --hero-mobile-top: 78px;
+    --hero-mobile-top: calc(78px + env(safe-area-inset-top));
     --hero-mobile-portrait-height: clamp(206px, 59vw, 276px);
     block-size: auto;
     min-block-size: 0;
@@ -513,6 +513,12 @@
   .hero-mobile.hero-cue-icon {
     display: grid;
     place-items: center;
+  }
+}
+
+@media (max-width: 719px) and (max-height: 660px) {
+  .signature-hero {
+    --hero-mobile-portrait-height: clamp(174px, min(59vw, 33svh), 220px);
   }
 }
 

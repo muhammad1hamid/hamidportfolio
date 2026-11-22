@@ -52,20 +52,31 @@ export function Navigation() {
     setOpen(false);
   }, [pathname]);
   useEffect(() => {
-    if (open) {
-      menu.current?.showModal();
-      document.body.style.overflow = "hidden";
-    } else {
-      menu.current?.close();
-      document.body.style.overflow = "";
+    const dialog = menu.current;
+    if (!open || !dialog) return;
+    const desktop = window.matchMedia("(min-width: 901px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) dialog.close();
+    };
+    if (desktop.matches) {
+      setOpen(false);
+      return;
     }
+    dialog.showModal();
+    dialog.scrollTop = 0;
+    desktop.addEventListener("change", closeOnDesktop);
     return () => {
-      document.body.style.overflow = "";
+      desktop.removeEventListener("change", closeOnDesktop);
+      dialog.close();
     };
   }, [open]);
   const close = () => {
+    menu.current?.close();
     setOpen(false);
-    button.current?.focus();
+  };
+  const dismiss = () => {
+    close();
+    button.current?.focus({ preventScroll: true });
   };
   return (
     <>
@@ -135,6 +146,7 @@ export function Navigation() {
           <Arrow diagonal />
         </Link>
         <button
+          type="button"
           ref={button}
           className="menu-toggle"
           aria-label="Open navigation"
@@ -152,12 +164,20 @@ export function Navigation() {
         ref={menu}
         className="mobile-menu"
         aria-label="Navigation"
-        onCancel={close}
+        onCancel={(event) => {
+          event.preventDefault();
+          dismiss();
+        }}
         onClose={() => setOpen(false)}
       >
         <div className="mobile-menu-top">
           <span className="wordmark">HAMID✳</span>
-          <button autoFocus onClick={close} aria-label="Close navigation">
+          <button
+            type="button"
+            autoFocus
+            onClick={dismiss}
+            aria-label="Close navigation"
+          >
             Close <span>×</span>
           </button>
         </div>

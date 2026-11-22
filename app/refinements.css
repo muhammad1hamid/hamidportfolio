@@ -185,87 +185,6 @@
   font-size: 95px;
   line-height: 115px;
 }
-.workflow-preview {
-  display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 56px;
-  margin-top: 50px;
-  padding: 40px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: #151718;
-}
-.workflow-intro h3 {
-  font-size: clamp(30px, 3vw, 45px);
-  line-height: 1.12;
-  letter-spacing: -0.04em;
-  margin: 20px 0 15px;
-}
-.workflow-intro > p {
-  font-size: 14px;
-  line-height: 1.8;
-  color: var(--muted);
-  max-width: 340px;
-}
-.workflow-disclaimer {
-  display: block;
-  margin-top: 18px;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.6;
-}
-.workflow-demo {
-  align-self: center;
-  min-width: 0;
-}
-.workflow-steps {
-  display: flex;
-  gap: 6px;
-}
-.workflow-steps button {
-  flex: 1;
-  border-radius: 10px;
-  border: 1px solid var(--line);
-  min-height: 52px;
-  padding: 10px 7px;
-  font-size: 12px;
-  transition: background 0.2s;
-}
-.workflow-steps button span {
-  color: var(--muted);
-  margin-right: 8px;
-  font-size: 10px;
-}
-.workflow-steps button[aria-pressed="true"] {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: var(--accent);
-}
-.workflow-steps button[aria-pressed="true"] span {
-  color: var(--accent-ink);
-}
-.workflow-example {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 24px;
-  margin-top: 14px;
-  min-height: 205px;
-  background: #101213;
-}
-.workflow-route {
-  color: var(--accent);
-  font-size: 11px;
-}
-.workflow-example h4 {
-  font-size: 16px;
-  font-weight: 500;
-  margin: 18px 0 10px;
-}
-.workflow-example p {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
-}
 .about-section {
   padding-top: 25px;
   padding-bottom: 90px;
@@ -353,10 +272,6 @@
     align-items: flex-start;
     gap: 0;
   }
-  .workflow-preview {
-    gap: 30px;
-    padding: 30px;
-  }
 }
 @media (max-width: 767px) {
   .section-heading > p {
@@ -385,38 +300,12 @@
   .capability-heading {
     margin-bottom: 24px;
   }
-  .workflow-preview {
-    grid-template-columns: 1fr;
-    gap: 26px;
-    padding: 24px;
-    margin-top: 32px;
-    border-radius: 16px;
-  }
-  .workflow-intro h3 {
-    font-size: 36px;
-    margin-block: 15px;
-  }
-  .workflow-intro > p,
-  .workflow-example p {
-    font-size: 15px;
-  }
-  .workflow-example {
-    min-height: 236px;
-    padding: 19px;
-  }
-  .workflow-steps button span {
-    display: block;
-    margin: 0 0 4px;
-  }
-  .workflow-steps button {
-    font-size: 12px;
-  }
   .about-section {
     padding-top: 0;
     padding-bottom: 65px;
   }
   .about-copy p {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.8;
   }
   .faq-answer p {
@@ -431,9 +320,6 @@
   }
   .contact-bottom {
     font-size: 13px;
-  }
-  .footer-bottom {
-    font-size: 11px;
   }
   .preview-controls > span {
     display: none;
@@ -511,14 +397,6 @@
   }
   .work-heading {
     margin: 26px 0;
-  }
-}
-@media (max-width: 360px) {
-  .workflow-preview {
-    padding: 20px 16px;
-  }
-  .workflow-steps button {
-    font-size: 11px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

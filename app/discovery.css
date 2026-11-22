@@ -321,78 +321,6 @@
   color: #ffad85;
   margin-right: 12px;
 }
-.explore-further {
-  padding-top: 80px;
-  padding-bottom: 80px;
-}
-.explore-heading {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  align-items: end;
-  margin: 42px 0;
-}
-.explore-heading h2 {
-  font-size: clamp(36px, 5vw, 68px);
-  line-height: 1.1;
-  font-weight: 500;
-  letter-spacing: -0.045em;
-}
-.explore-heading em {
-  font-family: "Instrument Serif", Georgia, serif;
-  font-weight: 400;
-  color: #ffad85;
-}
-.explore-heading p {
-  max-width: 340px;
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--soft);
-}
-.explore-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-block: 1px solid var(--line);
-  margin-bottom: 22px;
-}
-.explore-grid article {
-  padding: 34px 28px 34px 0;
-  min-width: 0;
-}
-.explore-grid article + article {
-  padding-left: 28px;
-  border-left: 1px solid var(--line);
-}
-.explore-grid h3 {
-  font-size: 25px;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.25;
-  margin: 25px 0 16px;
-}
-.explore-grid p {
-  font-size: 16px;
-  line-height: 1.85;
-  color: var(--soft);
-}
-.explore-grid a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 48px;
-  font-size: 14px;
-  color: #ffad85;
-  text-decoration: underline;
-  text-underline-offset: 5px;
-  margin-top: 22px;
-}
-.explore-further > .text-link {
-  font-size: 14px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  text-decoration: underline;
-  text-underline-offset: 5px;
-}
 @media (max-width: 900px) {
   .planner-layout,
   .demo-layout {
@@ -401,23 +329,6 @@
   .watch-layout {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 25px;
-  }
-  .explore-grid {
-    grid-template-columns: 1fr;
-  }
-  .explore-grid article + article {
-    padding-left: 0;
-    border-left: 0;
-    border-top: 1px solid var(--line);
-  }
-  .explore-heading {
-    display: block;
-  }
-  .explore-heading p {
-    margin-top: 24px;
-  }
-  .explore-further {
-    padding-block: 50px;
   }
 }
 @media (max-width: 700px) {
@@ -465,9 +376,6 @@
 }
 .comparison-table {
   max-width: 100%;
-}
-.explore-heading em {
-  font-family: "Instrument Serif", Georgia, serif;
 }
 .planner-jump {
   display: flex;

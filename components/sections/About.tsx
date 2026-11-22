@@ -18,7 +18,7 @@ export function About() {
             alt="Hamid, web developer and AI automation builder"
             width={1000}
             height={1000}
-            sizes="(max-width: 700px) 90vw, 40vw"
+            sizes="(max-width: 500px) 88vw, (max-width: 767px) 440px, 40vw"
           />
           <span className="photo-caption">HAMID / PAKISTAN</span>
           <span className="about-photo-mark" aria-hidden="true">
