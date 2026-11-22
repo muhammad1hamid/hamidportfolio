@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Experience } from "@/components/motion/Experience";
 import { SignatureIntro } from "@/components/motion/SignatureIntro";
 import { originBootstrap } from "@/components/motion/origin-session";
+import { curveBootstrap } from "@/components/curve/bootstrap";
 import { entityGraph, pageMeta } from "@/data/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Analytics } from "@/components/seo/Analytics";
@@ -107,6 +108,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          id="hamid-work-bootstrap"
+          dangerouslySetInnerHTML={{ __html: curveBootstrap }}
+        />
         <script
           id="hamid-origin-bootstrap"
           dangerouslySetInnerHTML={{ __html: originBootstrap }}

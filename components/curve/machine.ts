@@ -1,0 +1,52 @@
+export type CurveMode =
+  | "INITIALIZING"
+  | "WALK"
+  | "PREVIEW_OPENING"
+  | "PREVIEW"
+  | "PREVIEW_CLOSING"
+  | "DETAIL_OPENING"
+  | "DETAIL"
+  | "DETAIL_CLOSING"
+  | "RETURNING"
+  | "FALLBACK";
+
+export type CurveEvent =
+  | "SCENE_READY"
+  | "FRAME_ACTIVATE"
+  | "FOCUS_READY"
+  | "PREVIEW_DISMISS"
+  | "DETAIL_OPEN"
+  | "DETAIL_READY"
+  | "DETAIL_CLOSE"
+  | "COVER_RETURNED"
+  | "WALL_RETURNED"
+  | "RESTORED"
+  | "MODE_SWITCH"
+  | "CONTEXT_LOST"
+  | "RETRY";
+
+const edges: Partial<
+  Record<CurveMode, Partial<Record<CurveEvent, CurveMode>>>
+> = {
+  INITIALIZING: { SCENE_READY: "WALK" },
+  WALK: { FRAME_ACTIVATE: "PREVIEW_OPENING" },
+  PREVIEW_OPENING: {
+    FOCUS_READY: "PREVIEW",
+    PREVIEW_DISMISS: "PREVIEW_CLOSING",
+  },
+  PREVIEW: {
+    PREVIEW_DISMISS: "PREVIEW_CLOSING",
+    DETAIL_OPEN: "DETAIL_OPENING",
+  },
+  PREVIEW_CLOSING: { WALL_RETURNED: "RETURNING" },
+  DETAIL_OPENING: { DETAIL_READY: "DETAIL", DETAIL_CLOSE: "DETAIL_CLOSING" },
+  DETAIL: { DETAIL_CLOSE: "DETAIL_CLOSING" },
+  DETAIL_CLOSING: { COVER_RETURNED: "PREVIEW_CLOSING" },
+  RETURNING: { RESTORED: "WALK" },
+  FALLBACK: { RETRY: "INITIALIZING" },
+};
+
+export function nextMode(mode: CurveMode, event: CurveEvent): CurveMode {
+  if (event === "MODE_SWITCH" || event === "CONTEXT_LOST") return "FALLBACK";
+  return edges[mode]?.[event] ?? mode;
+}

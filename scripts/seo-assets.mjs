@@ -188,6 +188,16 @@ for (const width of [320, 480, 640, 768]) {
 const originals = (await readdir("public/images/projects")).filter(
   (name) => name.endsWith(".webp") && !name.includes("-mobile"),
 );
+await mkdir("public/images/curve", { recursive: true });
+for (const project of projects) {
+  for (const width of [160, 960]) {
+    await sharp(`public${project.thumbnail}`)
+      .extract({ left: 0, top: 0, width: 1440, height: project.crop?.desktop ?? 960 })
+      .resize({ width })
+      .webp({ quality: width === 160 ? 65 : 85 })
+      .toFile(`public/images/curve/${project.id}-${width}.webp`);
+  }
+}
 for (const name of originals) {
   for (const width of [640, 960]) {
     await sharp(path.join("public/images/projects", name))

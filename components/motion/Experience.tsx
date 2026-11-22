@@ -9,6 +9,7 @@ export function Experience() {
   const pathname = usePathname();
   const routeVeil = useNavigationMotion(pathname);
   useEffect(() => {
+    if (pathname.replace(/\/$/, "") === "/work") return;
     if (!document.querySelector("[data-reveal]")) return;
     const query = matchMedia(
       "(min-width: 901px) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
