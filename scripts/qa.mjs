@@ -122,7 +122,7 @@ for (const width of [
       );
     assert.deepEqual(
       statements,
-      width < 720 ? [1, 1] : [1, 1, 1],
+      [1, 1],
       "Each hero statement fits on one line",
     );
   });
@@ -142,13 +142,11 @@ await check(
       await page.setViewportSize({ width, height });
       assert.deepEqual(
         await headings.locator(".hero-title-line:visible").allTextContents(),
-        width < 720
-          ? ["Build. Grow.", "Automate."]
-          : ["Stand out online.", "Get found.", "Work smarter."],
+        ["Build. Grow.", "Automate."],
       );
       for (const [label, path] of [
-        ["Discuss your project", "/contact/?source=home"],
-        [width < 720 ? "Explore work" : "Explore selected work", "/work/"],
+        ["Discuss a project", "/contact/?source=home"],
+        ["Explore work", "/work/"],
       ]) {
         const link = page
           .locator(".hero-actions")
@@ -159,8 +157,7 @@ await check(
           bounds &&
             bounds.x >= 0 &&
             bounds.y >= 0 &&
-            ((label === "Explore work" && width === 320) ||
-              bounds.y + bounds.height <= height),
+            bounds.y + bounds.height <= height,
           `${label} should fit the viewport at ${width}×${height}`,
         );
       }

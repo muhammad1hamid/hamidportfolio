@@ -144,7 +144,7 @@ try {
   await page.goto(base, { waitUntil: "networkidle" });
   await page
     .locator(".hero-actions")
-    .getByRole("link", { name: "Discuss your project" })
+    .getByRole("link", { name: "Discuss a project" })
     .click();
   await page.waitForURL("**/contact/?source=home");
   assert.equal(

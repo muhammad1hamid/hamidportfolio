@@ -104,9 +104,11 @@ function recordMotion() {
     )
       return;
     const target = event.target;
-    const key = target.matches(".hero-primary")
-      ? "hero-primary"
-      : target.classList[0];
+    const key = target.matches(".hero-card-item")
+      ? target.classList[1]
+      : target.matches(".hero-primary")
+        ? "hero-primary"
+        : target.classList[0];
     capture.hero[key] = performance.now();
     if (key === "hero-headline") {
       const animation = target
@@ -284,14 +286,22 @@ try {
             const portrait = hero["hero-portrait"];
             const firstLine = hero["hero-headline"];
             const secondLine = hero["hero-emphasis"];
-            const lastLine =
-              width < 720 ? secondLine : hero["hero-headline-end"];
             const description = hero["hero-description"];
             const primary = hero["hero-primary"];
-            assert.ok(portrait >= revealAt && portrait < firstLine);
-            assert.ok(firstLine < secondLine && lastLine < description);
-            if (width >= 720) assert.ok(secondLine < lastLine);
-            assert.ok(description < primary && primary < finish);
+            const cardStarts = ["web", "growth", "systems"].map(
+              (kind) => hero[`hero-card-${kind}`],
+            );
+            assert.ok(revealAt <= firstLine && firstLine < secondLine);
+            assert.ok(secondLine < description && description < primary);
+            assert.ok(primary <= portrait && portrait <= cardStarts[0]);
+            assert.ok(
+              cardStarts.every(
+                (start, index) =>
+                  start >= revealAt &&
+                  start < finish &&
+                  (index === 0 || start >= cardStarts[index - 1]),
+              ),
+            );
             // CSS determines the delay. Browser event delivery adds frame time.
             assert.ok(headlineDelay >= 80 && headlineDelay <= 180);
             assert.ok(finish - startedAt >= 3380 && finish - startedAt <= 3950);
@@ -304,9 +314,7 @@ try {
                 .locator("#hero-title")
                 .innerText()
                 .then((value) => value.replace(/\s+/g, " ").trim()),
-              width < 720
-                ? "Build. Grow. Automate."
-                : "Stand out online. Get found. Work smarter.",
+              "Build. Grow. Automate.",
             );
             assert.ok(
               await page.evaluate(
@@ -319,11 +327,12 @@ try {
               durationMs: Math.round(finish - startedAt),
               holdMs: Math.round(holdMs),
               heroStartMs: [
-                portrait,
                 firstLine,
                 secondLine,
                 description,
                 primary,
+                portrait,
+                ...cardStarts,
               ].map((time) => Math.round(time - revealAt)),
               tiles: Math.max(...frames.map((frame) => frame.tiles)),
               dpr: first.dpr,
@@ -365,7 +374,10 @@ try {
           .getByRole("link", { name: "Work" })
           .click();
         await page.waitForURL("**/work/");
-        await page.locator(".archive-heading h1").waitFor();
+        await page
+          .locator("#main")
+          .getByRole("heading", { level: 1 })
+          .waitFor();
         const routeMotion = await page.evaluate(() => {
           const { moves, frames } = window.originCapture;
           const veil = moves.find(
