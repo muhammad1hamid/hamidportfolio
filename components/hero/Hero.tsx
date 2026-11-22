@@ -47,6 +47,7 @@ export function Hero() {
       </div>
 
       <PortraitMotion>
+        <HeroDoodles portrait />
         <div className="hero-scenery" aria-hidden="true">
           <span className="hero-watermark">HAMID</span>
           <svg className="hero-traces" viewBox="0 0 1165 453" fill="none">
@@ -64,7 +65,7 @@ export function Hero() {
               alt="Portrait of Hamid, independent web developer"
               width={1100}
               height={1100}
-              sizes="(max-width: 479px) 88vw, (max-width: 1023px) 385px, clamp(390px, min(40vw, 70svh), 660px)"
+              sizes="(max-width: 767px) min(calc(118vw - 38px), 440px), (max-width: 1023px) 385px, clamp(390px, min(40vw, 70svh), 660px)"
               loading="eager"
               fetchPriority="high"
             />

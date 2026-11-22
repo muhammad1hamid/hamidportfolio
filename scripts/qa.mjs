@@ -102,12 +102,19 @@ for (const width of [
     const containers = await page.locator(".wrap").evaluateAll((elements) =>
       elements.map((el) => {
         const r = el.getBoundingClientRect();
-        return { left: r.left, right: innerWidth - r.right };
+        return {
+          left: r.left,
+          right: innerWidth - r.right,
+          // The layered mobile artwork has its own balanced 16px frame.
+          minimumGutter:
+            innerWidth < 768 && el.matches(".hero-composition") ? 16 : 19,
+        };
       }),
     );
     for (const container of containers) {
       assert.ok(
-        container.left >= 19 && Math.abs(container.left - container.right) < 2,
+        container.left >= container.minimumGutter - 0.1 &&
+          Math.abs(container.left - container.right) < 2,
         JSON.stringify(container),
       );
     }
@@ -485,16 +492,23 @@ await check(
     await page.keyboard.press("Home");
     assert.ok(await focused(work));
     assert.equal(await work.getAttribute("aria-selected"), "true");
-    assert.match(await current().getByRole("img").getAttribute("src"), /bridal-house\.webp$/);
+    assert.match(
+      await current().getByRole("img").getAttribute("src"),
+      /bridal-house\.webp$/,
+    );
     assert.equal(
-      await current().getByRole("link", { name: "See the walkthrough" }).getAttribute("href"),
+      await current()
+        .getByRole("link", { name: "See the walkthrough" })
+        .getAttribute("href"),
       "/work/bridal-house/",
     );
     await page.keyboard.press("ArrowDown");
     assert.ok(await focused(brief));
     assert.equal(await brief.getAttribute("aria-selected"), "true");
     assert.equal(
-      await current().getByRole("link", { name: "Build your brief" }).getAttribute("href"),
+      await current()
+        .getByRole("link", { name: "Build your brief" })
+        .getAttribute("href"),
       "/plan/",
     );
     await page.keyboard.press("Tab");
@@ -513,7 +527,9 @@ await check(
     await enquiry.click();
     assert.equal(await tabs.locator('[aria-selected="true"]').count(), 1);
     assert.equal(
-      await current().getByRole("link", { name: "Try the demonstration" }).getAttribute("href"),
+      await current()
+        .getByRole("link", { name: "Try the demonstration" })
+        .getAttribute("href"),
       "/demos/enquiry-assistant/",
     );
   },
@@ -548,17 +564,26 @@ await check(
         const button = section.getByRole("button", { name, exact: true });
         await button.click();
         assert.equal(await button.getAttribute("aria-pressed"), "true");
-        assert.match(await page.locator("#workflow-example").innerText(), content);
+        assert.match(
+          await page.locator("#workflow-example").innerText(),
+          content,
+        );
       }
     } finally {
       page.off("request", listener);
     }
     assert.deepEqual(requests, []);
-    assert.ok(await section.getByText("Interactive illustration · No data sent").isVisible());
+    assert.ok(
+      await section
+        .getByText("Interactive illustration · No data sent")
+        .isVisible(),
+    );
     await section.getByRole("tab", { name: "Shape your brief" }).click();
     await section.getByRole("tab", { name: "Try an enquiry flow" }).click();
     assert.equal(
-      await section.getByRole("button", { name: "Respond", exact: true }).getAttribute("aria-pressed"),
+      await section
+        .getByRole("button", { name: "Respond", exact: true })
+        .getAttribute("aria-pressed"),
       "true",
     );
   },

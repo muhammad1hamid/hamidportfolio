@@ -104,11 +104,12 @@ async function checkComposition(page, width) {
       photo.top + (y / 1100) * photo.height,
     ]);
     const portrait = rect(".hero-portrait");
-    // Face and hair bounds on the genuine 1100×1100 portrait.
+    // Mobile cards may sit behind the hair; the actual face must stay clear.
+    // Desktop retains the stricter face-and-hair clearance check.
     const face = {
       left: photo.left + photo.width * 0.31,
       right: photo.left + photo.width * 0.7,
-      top: photo.top + photo.height * 0.086,
+      top: photo.top + photo.height * (innerWidth < 768 ? 0.3 : 0.086),
       bottom: photo.top + photo.height * 0.6,
     };
     const ctas = [...document.querySelectorAll(".hero-actions a")];
@@ -181,6 +182,19 @@ async function checkComposition(page, width) {
         webLeftOfFace: centerX(web) < centerX(portrait),
         systemsLeftOfFace: centerX(systems) < centerX(portrait),
         growthRightOfFace: centerX(growth) > centerX(portrait),
+      },
+      mobileCluster: {
+        webLeft: centerX(web) < centerX(portrait),
+        growthRight: centerX(growth) > centerX(portrait),
+        upperPair: Math.abs(web.top - growth.top) < 24,
+        upperCardsAboveEyes: Math.max(web.bottom, growth.bottom) < eyes[0][1],
+        lowerCardBelowFace: systems.top > face.bottom,
+        lowerCardCentered: Math.abs(centerX(systems) - innerWidth / 2) < 3,
+        layered:
+          getComputedStyle(document.querySelector(".hero-portrait")).zIndex ===
+            "1" &&
+          getComputedStyle(document.querySelector(".hero-card-systems"))
+            .zIndex === "2",
       },
       foldedCards: cardRects.filter((card) => card.bottom <= innerHeight + 1)
         .length,
@@ -261,11 +275,12 @@ async function checkUnobstructedCardCopy(page, width) {
       };
     });
   });
-  // Compare the painted text area without preview art. Bounding boxes alone
-  // would count transparent laptop cutouts as text collisions.
+  // Check actual pixels with both the graphics and portrait hidden. This also
+  // catches hair masking the upper card's copy in the mobile composition.
   const artHidden = await hero.screenshot({
     ...shotOptions,
-    style: ".hero-card-preview { visibility: hidden !important; }",
+    style:
+      ".hero-card-preview, .hero-portrait { visibility: hidden !important; }",
   });
   const [before, after] = await Promise.all(
     [visible, artHidden].map((image) =>
@@ -534,8 +549,25 @@ try {
         );
         assert.equal(await page.locator(".hero-doodle:visible").count(), 4);
       }
-      if (width < 768)
-        assert.ok((await page.locator(".hero-doodle:visible").count()) <= 2);
+      if (width < 768) {
+        assert.equal(await page.locator(".hero-doodle:visible").count(), 4);
+        assert.ok(
+          Object.values(layout.mobileCluster).every(Boolean),
+          `${width}px mobile composition: ${JSON.stringify(layout.mobileCluster)}`,
+        );
+        const [primaryBox, secondaryBox] = await page
+          .locator(".hero-actions a")
+          .evaluateAll((links) =>
+            links.map((link) => {
+              const rect = link.getBoundingClientRect();
+              return { top: rect.top, bottom: rect.bottom };
+            }),
+          );
+        assert.ok(
+          secondaryBox.top >= primaryBox.bottom + 6,
+          `${width}px mobile CTAs should stack with a comfortable gap`,
+        );
+      }
       assert.equal(
         await page.locator(".hero-portrait img").getAttribute("src"),
         "/images/hamid-hero-warm.webp",
@@ -570,7 +602,7 @@ try {
         assert.equal(await preview.getAttribute("src"), src);
         await preview.evaluate((img) => img.decode());
       }
-      if ([390, 1024, 1324, 1440].includes(width))
+      if ([320, 375, 390, 430, 1024, 1324, 1440].includes(width))
         await checkUnobstructedCardCopy(page, width);
       if ([320, 390, 768, 1440].includes(width)) await audit(page, width);
       const screenshot = await page.screenshot({
@@ -602,7 +634,7 @@ try {
     JSON.stringify(report.layoutFailures, null, 2),
   );
   report.checks.push(
-    `${viewports.length} viewports with a full-screen desktop stage, centered portrait, registered eye strip and no face, link or card collisions. Unobstructed card copy verified against pixels on four screens.`,
+    `${viewports.length} viewports with the locked desktop stage, layered mobile card cluster, centered portrait, registered eye strip and no face, link or card collisions. Unobstructed card copy verified against pixels on seven screens.`,
   );
   report.checks.push(
     "Four WCAG A and AA axe scans at desktop, tablet and phone sizes",
@@ -918,7 +950,21 @@ try {
       await page.evaluate(() => {
         document.documentElement.style.fontSize = "200%";
       });
+      // Root rem units and nested container queries settle over multiple frames.
+      await page.evaluate(
+        () =>
+          new Promise((resolve) => {
+            let frames = 0;
+            const settle = () => {
+              if (++frames === 5) resolve();
+              else requestAnimationFrame(settle);
+            };
+            requestAnimationFrame(settle);
+          }),
+      );
       await checkComposition(page, viewport.width);
+      if (viewport.width < 768)
+        await checkUnobstructedCardCopy(page, viewport.width);
       await page
         .locator(".signature-hero")
         .screenshot({ path: `${output}/zoom-${viewport.width}.png` });

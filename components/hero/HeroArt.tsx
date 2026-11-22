@@ -1,51 +1,58 @@
-export function HeroDoodles() {
+export function HeroDoodles({ portrait = false }: { portrait?: boolean }) {
   return (
-    <div className="hero-doodles" aria-hidden="true">
-      <svg
-        className="hero-doodle hero-doodle-rocket"
-        viewBox="0 0 120 120"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.55"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        focusable="false"
-      >
-        <path d="M39 76C47 49 66 28 88 21c1 23-10 44-33 63l-16-8Z" />
-        <path d="M72 29c5 4 10 7 15 9M44 63c-3-4-9-2-14 1l-11 14 17-2m25-1c3 6-1 14-5 19l-7-11M39 75l-9 8 12 8 8-9" />
-        <path d="M65 50c2-4 6-5 9-3s3 6 1 8-5 3-8 1-3-4-2-6Z" />
-        <path d="M49 76c8-6 17-14 22-21" strokeOpacity=".44" />
-        <path
-          className="hero-doodle-accent"
-          d="m104 13-12 10m15 2-12 4m8 8-9-1M27 87 12 104m20-12-22 27m31-23-13 16"
-          stroke="var(--accent)"
-          strokeWidth="1.3"
-        />
-      </svg>
-      <svg
-        className="hero-doodle hero-doodle-plane"
-        viewBox="0 0 164 140"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.55"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        focusable="false"
-      >
-        <path d="m77 33 69-22-27 48-20-18-6 11-2-13-14-6Z" />
-        <path d="m91 39 55-28-47 30m-6 11 13-5" />
-        <path
-          d="M90 55c-23 3-42 11-47 30-5 19-1 32-22 47"
-          strokeOpacity=".65"
-          strokeDasharray="5 7"
-        />
-        <path
-          className="hero-doodle-accent"
-          d="m137 57 8 5m-12 0 7 8m-13-6 3 8"
-          stroke="var(--accent)"
-          strokeWidth="1.3"
-        />
-      </svg>
+    <div
+      className={`hero-doodles${portrait ? " hero-portrait-doodles" : ""}`}
+      aria-hidden="true"
+    >
+      {!portrait && (
+        <>
+          <svg
+            className="hero-doodle hero-doodle-rocket"
+            viewBox="0 0 120 120"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.55"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            focusable="false"
+          >
+            <path d="M39 76C47 49 66 28 88 21c1 23-10 44-33 63l-16-8Z" />
+            <path d="M72 29c5 4 10 7 15 9M44 63c-3-4-9-2-14 1l-11 14 17-2m25-1c3 6-1 14-5 19l-7-11M39 75l-9 8 12 8 8-9" />
+            <path d="M65 50c2-4 6-5 9-3s3 6 1 8-5 3-8 1-3-4-2-6Z" />
+            <path d="M49 76c8-6 17-14 22-21" strokeOpacity=".44" />
+            <path
+              className="hero-doodle-accent"
+              d="m104 13-12 10m15 2-12 4m8 8-9-1M27 87 12 104m20-12-22 27m31-23-13 16"
+              stroke="var(--accent)"
+              strokeWidth="1.3"
+            />
+          </svg>
+          <svg
+            className="hero-doodle hero-doodle-plane"
+            viewBox="0 0 164 140"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.55"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            focusable="false"
+          >
+            <path d="m77 33 69-22-27 48-20-18-6 11-2-13-14-6Z" />
+            <path d="m91 39 55-28-47 30m-6 11 13-5" />
+            <path
+              d="M90 55c-23 3-42 11-47 30-5 19-1 32-22 47"
+              strokeOpacity=".65"
+              strokeDasharray="5 7"
+            />
+            <path
+              className="hero-doodle-accent"
+              d="m137 57 8 5m-12 0 7 8m-13-6 3 8"
+              stroke="var(--accent)"
+              strokeWidth="1.3"
+            />
+          </svg>
+        </>
+      )}
       <svg
         className="hero-doodle hero-doodle-code"
         viewBox="0 0 86 77"

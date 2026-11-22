@@ -323,7 +323,132 @@
     --card-pad: 16px;
     --card-round: 26px 23px 26px 22px;
     min-block-size: 158px;
-    transform: none;
+    transform: perspective(920px) rotateX(2deg) rotateY(var(--card-yaw, 0deg))
+      rotateZ(var(--card-roll, 0deg));
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .hero-card-web .hero-card,
+  .hero-card-growth .hero-card {
+    --card-pad: 10px;
+    --card-round: 22px 19px 23px 19px;
+    grid-template-columns: minmax(0, 1fr) 33%;
+    grid-template-rows: auto auto 1fr auto;
+    row-gap: 3px;
+    min-block-size: 184px;
+  }
+
+  .hero-card-web .hero-card-icon,
+  .hero-card-growth .hero-card-icon {
+    inline-size: 19px;
+    block-size: 19px;
+    margin: 0;
+  }
+
+  .hero-card-web .hero-card-copy strong,
+  .hero-card-growth .hero-card-copy strong {
+    grid-area: 2 / 1 / 3 / -1;
+    max-inline-size: 10ch;
+    font-size: 1rem;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-card-web .hero-card-copy > span,
+  .hero-card-growth .hero-card-copy > span {
+    grid-area: 3 / 1 / 4 / -1;
+    grid-column-end: 2;
+    max-inline-size: 11ch;
+    font-size: 0.8125rem;
+    line-height: 1.25;
+  }
+
+  .hero-card-web .hero-card-action,
+  .hero-card-growth .hero-card-action {
+    grid-area: 4 / 1;
+    align-self: end;
+    inline-size: 28px;
+    block-size: 28px;
+    margin-block-start: 3px;
+  }
+
+  .hero-card-web .hero-card-preview,
+  .hero-card-growth .hero-card-preview {
+    position: absolute;
+    grid-area: auto;
+    min-block-size: 0;
+    margin: 0;
+    border-radius: inherit;
+  }
+
+  .hero-card-web .hero-card-preview .hero-card-art,
+  .hero-card-growth .hero-card-preview .hero-card-art {
+    inline-size: 80%;
+    max-inline-size: none;
+    block-size: auto;
+    inset: auto -5% -2% auto;
+  }
+
+  .hero-card-growth .hero-card-preview .hero-card-art {
+    inline-size: 70%;
+    inset-block-end: -4%;
+  }
+
+  @container mobile-hero (max-width: 15rem) {
+    .hero-card-web .hero-card,
+    .hero-card-growth .hero-card {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-rows: auto auto auto auto;
+    }
+
+    .hero-card-web .hero-card-copy strong,
+    .hero-card-growth .hero-card-copy strong,
+    .hero-card-web .hero-card-copy > span,
+    .hero-card-growth .hero-card-copy > span {
+      grid-column: 1 / -1;
+      max-inline-size: none;
+    }
+
+    .hero-card-web .hero-card-action,
+    .hero-card-growth .hero-card-action {
+      grid-area: 1 / 2;
+      align-self: start;
+    }
+
+    .hero-card-web .hero-card-preview,
+    .hero-card-growth .hero-card-preview {
+      position: relative;
+      grid-area: 4 / 1 / 5 / -1;
+      min-block-size: 140px;
+      margin: 6px -7px -7px;
+    }
+
+    .hero-card-web .hero-card-preview .hero-card-art,
+    .hero-card-growth .hero-card-preview .hero-card-art {
+      inline-size: auto;
+      max-inline-size: 100%;
+      block-size: 100%;
+      inset: auto 0 0 auto;
+    }
+  }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  .hero-card {
+    transition: transform 220ms var(--ease);
+  }
+
+  .hero-card:active,
+  .hero-card:focus-visible {
+    transform: perspective(920px) translateY(-4px) rotateX(1deg)
+      rotateY(calc(var(--card-yaw, 0deg) * 0.5))
+      rotateZ(calc(var(--card-roll, 0deg) * 0.5));
+  }
+
+  .hero-card:active::after {
+    box-shadow:
+      inset 0 0 0 1px var(--card-accent),
+      inset 0 1px 6px #ffffff30;
   }
 }
 
