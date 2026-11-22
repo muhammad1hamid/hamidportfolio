@@ -16,7 +16,6 @@ function WebsitePreview() {
         width={672}
         height={378}
       />
-      <span className="hero-preview-caption">Design concept</span>
     </>
   );
 }
@@ -33,7 +32,6 @@ function SearchPreview() {
         width={573}
         height={484}
       />
-      <span className="hero-preview-caption">Example search</span>
     </>
   );
 }
@@ -48,7 +46,6 @@ function WorkflowPreview() {
         width={546}
         height={234}
       />
-      <span className="hero-preview-caption">Example workflow</span>
     </>
   );
 }
@@ -78,7 +75,7 @@ const cards = [
     path: "M9 2h6v5H9V2ZM2 17h6v5H2v-5Zm14 0h6v5h-6v-5ZM12 7v5m-7 5v-5h14v5",
     preview: <WorkflowPreview />,
     previewLabel:
-      "Illustrative workflow: receive an enquiry, generate a draft and hand off an email reply.",
+      "Illustrative tool workflow connecting Notion, ChatGPT and Slack.",
   },
 ] as const;
 

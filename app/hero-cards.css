@@ -17,7 +17,7 @@
   align-content: start;
   column-gap: 7px;
   row-gap: 5px;
-  min-block-size: clamp(174px, 14vw, 202px);
+  min-block-size: clamp(166px, 12.8vw, 184px);
   padding: var(--card-pad);
   border-radius: var(--card-round);
   color: var(--text);
@@ -97,6 +97,12 @@
   --card-rim: #a47963;
   --card-light: #d8b5f139;
   --card-round: 30px 36px 29px 34px / 30px 33px 30px 36px;
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .hero-card {
+    --card-pad: 14px;
+  }
 }
 
 /* Keep the title above the artwork and reserve the left column for copy.
@@ -194,20 +200,6 @@
   block-size: 29px;
   border-radius: 50%;
   background: radial-gradient(ellipse, #c3906556, transparent 72%);
-}
-
-.hero-preview-caption {
-  position: absolute;
-  inset: auto 14px 6px auto;
-  z-index: 2;
-  padding: 2px 5px;
-  border-radius: 4px;
-  background: #121416e8;
-  color: #f1efeb;
-  font:
-    600 9px/1.15 Arial,
-    sans-serif;
-  white-space: nowrap;
 }
 
 @container capability-card (max-width: 16rem) {

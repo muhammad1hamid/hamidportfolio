@@ -2,7 +2,7 @@
 
 The supplied references place the centered headline and two CTAs above a lower portrait, with Web Experiences high on the left, Smart Systems below it and Growth Engine on the right. The latest owner feedback expands this arrangement across the first desktop viewport and gives the graphics more space inside each card. The supplied Web and Growth renders provide the actual device artwork. The card sheets guide the workflow treatment and shared glass edge, arrow and hover details.
 
-The desktop heading is a single line at standard text size. The orange italic phrase has a fine drawn underline. The desktop hero fills at least one viewport with wider card placement, a larger portrait and additional space under the header. Selected Work follows in page order. Tablet moves the cards into a row below the portrait. Phones stack all three complete cards under the centered portrait and CTAs.
+The desktop heading is a single line at standard text size. The orange italic phrase has a fine drawn underline. The desktop hero fills at least one viewport. The latest spacing refinement gives the heading more prominence, reduces the portrait and card sizes, and adds separation between the two left cards. Doodles sit outside the card arrangement. Selected Work follows in page order. Tablet moves the cards into a row below the portrait. Phones stack all three complete cards under the centered portrait and CTAs.
 
 The existing [Hamid cutout](../public/images/hamid-hero-warm.webp) is displayed with a monochrome CSS grade. An original translucent SVG brush uses the same 1100 × 1100 coordinates as the photo. Both pupils sit inside the brush at approximately (487, 398) and (622, 396). A shared gradient mask fades the brush and its irregular tails toward the temples and ears. Crop and movement apply to the image and brush together. The watermark and curved stroke sit below the photo in a decorative layer. Four original SVGs depict a rocket, paper plane with dashed trail, code laptop and bulb. They are muted at rest and respond to a fine pointer with a small color change.
 
@@ -10,13 +10,13 @@ The existing [Hamid cutout](../public/images/hamid-hero-warm.webp) is displayed 
 | ----------------- | ---------------------------- | ---------------------------------------------------------------------------------------------- |
 | Discuss a project | `/contact/?source=home`      | Existing pill and arrow                                                                        |
 | Explore work      | `/work/`                     | Existing Work destination                                                                      |
-| Web Experiences   | `/services/#web-experiences` | Isolated architectural laptop artwork from the supplied card render, labeled Design concept    |
-| Growth Engine     | `/growth/`                   | Isolated Google search panel from the supplied clean card render, labeled Example search       |
-| Smart Systems     | `/services/#smart-systems`   | Original beveled panel with connected enquiry, draft and reply icons, labeled Example workflow |
+| Web Experiences   | `/services/#web-experiences` | Isolated architectural laptop artwork from the supplied card render                            |
+| Growth Engine     | `/growth/`                   | Isolated Google search panel from the supplied clean card render                               |
+| Smart Systems     | `/services/#smart-systems`   | Original beveled panel connecting the real Notion, ChatGPT and Slack logos                     |
 
 Card titles, descriptions and actions are HTML. The curved rims, localized glass reflections and return edges use CSS, while the artwork is clipped to its shell. Titles have their own full-width row and supporting copy has reserved space beside the graphics. At larger text sizes or narrow tablet card widths, the artwork moves below the text. Focus retains a visible outline outside the shell. The existing intro signal starts the headline, then the description, CTAs, portrait and staggered cards. Hover lifts each card by seven pixels and responds to the pointer with a bounded local rotation. The pointer values reset on leave, preference changes and unmount. Touch and reduced-motion modes preserve the content and links.
 
-The laptop cutout comes from the owner-supplied `Web Experiences Glassmorphic Card-1 (1).png`. Its original architectural screen is illustrative. The Google panel comes from `Growth Engine SEO Card-4.png`, whose generic result contains no ranking or performance metric. The workflow recreates the supplied panel's material and connected-node arrangement with neutral icons. Artwork lives in `public/images/hero-cards/` as two responsive WebP pairs and one small SVG. Together these files total approximately 95 kB.
+The laptop cutout comes from the owner-supplied `Web Experiences Glassmorphic Card-1 (1).png`. Its original architectural screen is illustrative. The Google panel comes from `Growth Engine SEO Card-4.png`, whose generic result contains no ranking or performance metric. The workflow recreates the supplied panel's material and connected-node arrangement with the real Notion, ChatGPT/OpenAI knot and Slack logos. Those SVG paths are embedded locally from [gilbarbara/logos](https://github.com/gilbarbara/logos), distributed under [CC0-1.0](https://github.com/gilbarbara/logos/blob/main/LICENSE.txt). There are no external image requests. The owner requested removal of the three visible preview captions; accessible descriptions still identify the interfaces as illustrative. Artwork lives in `public/images/hero-cards/` as two responsive WebP pairs and one small SVG.
 
 | Changed file                          | Purpose                                                                           |
 | ------------------------------------- | --------------------------------------------------------------------------------- |
@@ -32,7 +32,7 @@ The laptop cutout comes from the owner-supplied `Web Experiences Glassmorphic Ca
 
 ## Visual comparison
 
-The current desktop composition fills 1024 × 768, 1280 × 720, 1324 × 754, 1440 × 900 and 1920 × 1080 viewports. The portrait and cards expand within bounded dimensions. The existing site header retains its 100px height. The card artwork uses the supplied reference graphics and labeled sample interfaces.
+The desktop composition fills 1024 × 768, 1280 × 720, 1324 × 754, 1440 × 900 and 1920 × 1080 viewports. The portrait and cards use bounded dimensions. The existing site header retains its 100px height. The card artwork uses the supplied reference graphics and sample interfaces.
 
 | View        | Earlier hero                                       | Locked hero                                                            |
 | ----------- | -------------------------------------------------- | ---------------------------------------------------------------------- |
@@ -45,6 +45,8 @@ The current desktop composition fills 1024 × 768, 1280 × 720, 1324 × 754, 144
 The current screenshots and raw test reports are local files in `qa-output/card-polish/`.
 
 ## Verification
+
+The latest card sizing, straight eye-brush and real-logo refinement passed the production build, all 17 hero viewports, four scoped axe scans and the complete 43-check browser suite. The 1024 × 768 and 1280 × 720 layouts retain all three cards inside the first viewport. Current captures are `qa-output/card-polish/balanced-*.png`; the latest focused report is `qa-output/hero-balance/final/results.json`. SEO, intro and loading measurements below were recorded for the preceding artwork release and are retained as historical results.
 
 - `npm run build` and `npm run typecheck` passed. The static export contains 47 canonical pages. The repository does not define a separate lint command.
 - `node scripts/qa-signature-hero.mjs` passed at 17 viewport sizes from 320px to 1920px, including short and landscape viewports. It checks the single HTML and accessible H1, a desktop hero filling its viewport, one-line Web Experiences title, portrait and brush geometry, rendered color at both pupils, CTA clearance and card navigation. Pixel comparison with the preview hidden confirms unobstructed title and description areas at 390, 1024, 1324 and 1440px.

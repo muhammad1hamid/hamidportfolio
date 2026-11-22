@@ -64,7 +64,7 @@ export function Hero() {
               alt="Portrait of Hamid, independent web developer"
               width={1100}
               height={1100}
-              sizes="(max-width: 479px) 88vw, (max-width: 1023px) 410px, clamp(410px, min(44vw, 76svh), 720px)"
+              sizes="(max-width: 479px) 88vw, (max-width: 1023px) 385px, clamp(390px, min(40vw, 70svh), 660px)"
               loading="eager"
               fetchPriority="high"
             />
