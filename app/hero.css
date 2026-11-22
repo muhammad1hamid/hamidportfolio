@@ -7,6 +7,15 @@
     var(--bg);
 }
 
+@media (min-width: 1024px) {
+  .signature-hero {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    min-block-size: 100svh;
+    padding-block-start: calc(100px + clamp(18px, 3.4svh, 40px));
+  }
+}
+
 .signature-hero .hero-copy {
   position: relative;
   z-index: 1;
@@ -133,14 +142,30 @@
 }
 
 .hero-composition {
-  --hero-portrait-width: clamp(410px, 41vw, 575px);
+  --hero-portrait-width: clamp(410px, min(44vw, 76svh), 720px);
   display: grid;
   grid-template: "stage" auto / minmax(0, 1fr);
   position: relative;
   isolation: isolate;
-  max-inline-size: 75rem;
   margin-block-start: 0;
   pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .hero-composition.wrap {
+    inline-size: min(calc(100% - clamp(40px, 7vw, 100px)), 97.5rem);
+    max-inline-size: none;
+  }
+
+  .hero-composition .hero-portrait {
+    align-self: stretch;
+    aspect-ratio: auto;
+    min-block-size: clamp(350px, calc(100svh - 335px), 540px);
+  }
+
+  .hero-composition .hero-portrait-photo {
+    inset-block-start: max(0px, calc(100% - var(--hero-portrait-width) * 0.93));
+  }
 }
 
 .hero-scenery {
@@ -211,19 +236,19 @@
   grid-area: stage;
   z-index: 1;
   display: grid;
-  grid-template-columns: 10.7% 31% minmax(0, 1fr) 26.5% 10%;
+  grid-template-columns: 6.5% 33.5% minmax(0, 1fr) 31% 5.5%;
   grid-template-rows: auto auto;
   align-content: start;
-  row-gap: clamp(15px, 2.25vw, 30px);
+  row-gap: clamp(21px, 3.35svh, 34px);
   margin: 0;
-  padding: 8px 0 24px;
+  padding: clamp(8px, calc((100svh - 700px) * 0.26), 60px) 0 16px;
   list-style: none;
   pointer-events: none;
 }
 
 .hero-card-item {
   min-inline-size: 0;
-  inline-size: min(100%, clamp(212px, 23vw, 324px));
+  inline-size: min(100%, clamp(250px, 27.5vw, 414px));
   align-self: start;
   pointer-events: auto;
 }
@@ -250,7 +275,7 @@
   grid-area: 1 / 4 / span 2;
   align-self: center;
   justify-self: end;
-  margin-block-end: 110px;
+  margin-block-end: 68px;
 }
 
 .hero-card-systems {
@@ -263,8 +288,7 @@
   --card-depth: 6px;
   grid-area: 2 / 2;
   justify-self: end;
-  margin-inline-end: 26px;
-  inline-size: min(100%, clamp(220px, 24vw, 336px));
+  margin-inline-end: 8px;
 }
 
 .hero-doodles {
@@ -320,7 +344,7 @@
 
 @media (max-width: 1199px) {
   .hero-capabilities {
-    grid-template-columns: 4% 32% minmax(0, 1fr) 30% 4%;
+    grid-template-columns: 4.5% 33% minmax(0, 1fr) 31% 4.5%;
   }
 
   .hero-doodle-code,

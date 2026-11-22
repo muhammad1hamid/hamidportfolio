@@ -5,6 +5,9 @@ import { useEffect, useRef, type ReactNode } from "react";
 const portraitMotionQuery =
   "(min-width: 901px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none)";
 
+const pointerPosition = (value: number, start: number, size: number) =>
+  Math.max(-1, Math.min(1, ((value - start) / size) * 2 - 1)).toFixed(3);
+
 export function PortraitMotion({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -15,11 +18,19 @@ export function PortraitMotion({ children }: { children: ReactNode }) {
     const preference = matchMedia(portraitMotionQuery);
     let visible = false;
     let frame = 0;
-    let pointer: { x: number; y: number } | null = null;
+    let pointer: { x: number; y: number; card: HTMLElement | null } | null =
+      null;
+    let tiltedCard: HTMLElement | null = null;
     let active = false;
+    const resetCard = () => {
+      tiltedCard?.style.removeProperty("--card-pointer-x");
+      tiltedCard?.style.removeProperty("--card-pointer-y");
+      tiltedCard = null;
+    };
     const removePointer = () => {
       stage.style.removeProperty("--hero-pointer-x");
       stage.style.removeProperty("--hero-pointer-y");
+      resetCard();
     };
 
     const render = () => {
@@ -27,16 +38,28 @@ export function PortraitMotion({ children }: { children: ReactNode }) {
       if (!active) return;
       const bounds = hero.getBoundingClientRect();
       if (pointer && !window.hamidOrigin && bounds.width && bounds.height) {
-        const x = Math.max(
-          -1,
-          Math.min(1, ((pointer.x - bounds.left) / bounds.width) * 2 - 1),
+        stage.style.setProperty(
+          "--hero-pointer-x",
+          pointerPosition(pointer.x, bounds.left, bounds.width),
         );
-        const y = Math.max(
-          -1,
-          Math.min(1, ((pointer.y - bounds.top) / bounds.height) * 2 - 1),
+        stage.style.setProperty(
+          "--hero-pointer-y",
+          pointerPosition(pointer.y, bounds.top, bounds.height),
         );
-        stage.style.setProperty("--hero-pointer-x", x.toFixed(3));
-        stage.style.setProperty("--hero-pointer-y", y.toFixed(3));
+        const card = pointer.card?.matches(":hover") ? pointer.card : null;
+        if (tiltedCard !== card) resetCard();
+        const slot = card?.parentElement?.getBoundingClientRect();
+        if (card && slot?.width && slot.height) {
+          tiltedCard = card;
+          card.style.setProperty(
+            "--card-pointer-x",
+            pointerPosition(pointer.x, slot.left, slot.width),
+          );
+          card.style.setProperty(
+            "--card-pointer-y",
+            pointerPosition(pointer.y, slot.top, slot.height),
+          );
+        }
       } else {
         removePointer();
       }
@@ -52,7 +75,14 @@ export function PortraitMotion({ children }: { children: ReactNode }) {
     };
     const move = (event: PointerEvent) => {
       if (event.pointerType !== "mouse" || !active) return;
-      pointer = { x: event.clientX, y: event.clientY };
+      pointer = {
+        x: event.clientX,
+        y: event.clientY,
+        card:
+          event.target instanceof Element
+            ? event.target.closest<HTMLElement>(".hero-card")
+            : null,
+      };
       schedule();
     };
     const leave = () => {

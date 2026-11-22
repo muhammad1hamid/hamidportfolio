@@ -100,29 +100,49 @@ export function PortraitEyeBrush() {
     >
       <defs>
         <linearGradient
-          id="hero-eye-wash"
+          id="hero-eye-fade"
           x1="348"
           y1="0"
           x2="760"
           y2="0"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="var(--accent)" stopOpacity=".31" />
-          <stop offset=".18" stopColor="var(--accent)" stopOpacity=".92" />
-          <stop offset=".53" stopColor="var(--accent)" />
-          <stop offset=".86" stopColor="var(--accent)" stopOpacity=".90" />
-          <stop offset="1" stopColor="var(--accent)" stopOpacity=".29" />
+          <stop stopColor="white" stopOpacity="0" />
+          <stop offset=".12" stopColor="white" stopOpacity=".18" />
+          <stop offset=".24" stopColor="white" stopOpacity=".64" />
+          <stop offset=".34" stopColor="white" stopOpacity=".97" />
+          <stop offset=".65" stopColor="white" stopOpacity=".97" />
+          <stop offset=".77" stopColor="white" stopOpacity=".64" />
+          <stop offset=".91" stopColor="white" stopOpacity=".16" />
+          <stop offset="1" stopColor="white" stopOpacity="0" />
         </linearGradient>
+        <mask
+          id="hero-eye-mask"
+          x="340"
+          y="340"
+          width="430"
+          height="130"
+          maskUnits="userSpaceOnUse"
+        >
+          <rect
+            x="340"
+            y="340"
+            width="430"
+            height="130"
+            fill="url(#hero-eye-fade)"
+          />
+        </mask>
       </defs>
       {/* The pupils in the original 1100px cutout sit at (487,398) and (622,396). */}
-      <path
-        className="hero-eye-ink"
-        d="m350 414 23-10-8-1 19-7-6-1 23-7c44-15 88-23 129-28 61-8 142-10 189 3l20 5-4 2 16 4-8 2 15 6-7 2 8 6-12 3 9 5-11 4 10 4-14 4 7 3-18 4 5 3c-53-8-123-8-177-1-67 7-122 20-163 34l-27 10 4-6-13 3 11-7-16 1 13-7-9-2 7-6-15-1 10-7-13-1 12-6Z"
-        fill="url(#hero-eye-wash)"
-      />
-      <g fill="var(--accent)" opacity=".29">
-        <path d="m351 403 21-12 26-7-31 12-16 7Zm-2 46 19-6-14 8-5-2Zm375-93 22 7-11-1-11-6Zm21 61 18-7-6 6-12 1Zm-363 42 11-8 13-2-24 10Z" />
-        <path d="M388 408c17-8 34-13 51-16l-59 19Zm304-41c12 0 28 3 36 7l-41-7Z" />
+      <g mask="url(#hero-eye-mask)" fill="var(--accent)">
+        <path
+          className="hero-eye-ink"
+          d="m350 414 23-10-8-1 19-7-6-1 23-7c44-15 88-23 129-28 61-8 142-10 189 3l20 5-4 2 16 4-8 2 15 6-7 2 8 6-12 3 9 5-11 4 10 4-14 4 7 3-18 4 5 3c-53-8-123-8-177-1-67 7-122 20-163 34l-27 10 4-6-13 3 11-7-16 1 13-7-9-2 7-6-15-1 10-7-13-1 12-6Z"
+        />
+        <g opacity=".23">
+          <path d="m351 403 21-12 26-7-31 12-16 7Zm-2 46 19-6-14 8-5-2Zm375-93 22 7-11-1-11-6Zm21 61 18-7-6 6-12 1Zm-363 42 11-8 13-2-24 10Z" />
+          <path d="M388 408c17-8 34-13 51-16l-59 19Zm304-41c12 0 28 3 36 7l-41-7Z" />
+        </g>
       </g>
     </svg>
   );

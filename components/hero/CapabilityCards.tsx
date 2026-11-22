@@ -7,67 +7,49 @@ import "@/app/hero-cards.css";
 function WebsitePreview() {
   return (
     <>
-      <div className="hero-laptop">
-        <div className="hero-laptop-display">
-          <ResponsiveImage
-            src="/images/curve/fortress-events-160.webp"
-            srcSet="/images/curve/fortress-events-160.webp 160w, /images/responsive/fortress-events-640.webp 640w"
-            sizes="(min-width: 1440px) 180px, 160px"
-            alt=""
-            width={160}
-            height={107}
-          />
-        </div>
-        <span className="hero-laptop-base" />
-      </div>
-      <span className="hero-preview-caption">
-        <span>Fortress Events</span>
-        <span>Portfolio preview</span>
-      </span>
+      <ResponsiveImage
+        className="hero-card-art hero-laptop"
+        src="/images/hero-cards/architecture-laptop.webp"
+        srcSet="/images/hero-cards/architecture-laptop-small.webp 336w, /images/hero-cards/architecture-laptop.webp 672w"
+        sizes="(max-width: 1023px) 180px, 210px"
+        alt=""
+        width={672}
+        height={378}
+      />
+      <span className="hero-preview-caption">Design concept</span>
     </>
   );
 }
 
 function SearchPreview() {
   return (
-    <div className="hero-search-preview">
-      <span className="hero-search-caption">Example search</span>
-      <span className="hero-search-field">
-        <span>Event venue</span>
-        <svg viewBox="0 0 20 20" fill="none">
-          <circle cx="8" cy="8" r="4.5" />
-          <path d="m11.4 11.4 3.3 3.3" />
-        </svg>
-      </span>
-      <span className="hero-search-result">
-        <strong>Venue website</strong>
-        <span>View spaces &amp; enquire</span>
-      </span>
-    </div>
+    <>
+      <ResponsiveImage
+        className="hero-card-art hero-search-preview"
+        src="/images/hero-cards/google-search-panel.webp"
+        srcSet="/images/hero-cards/google-search-panel-small.webp 288w, /images/hero-cards/google-search-panel.webp 573w"
+        sizes="(max-width: 1023px) 160px, 205px"
+        alt=""
+        width={573}
+        height={484}
+      />
+      <span className="hero-preview-caption">Example search</span>
+    </>
   );
 }
 
-const workflowSteps = [
-  { title: "New enquiry", icon: "M3 3h10v7H7l-4 3V3Z" },
-  { title: "Organise details", icon: "M3 5h10M3 8h10M3 11h6" },
-  { title: "Prepare reply", icon: "M3 4h10v8H3V4Zm0 1 5 4 5-4" },
-] as const;
-
 function WorkflowPreview() {
   return (
-    <div className="hero-workflow-preview">
-      <span className="hero-workflow-caption">Example workflow</span>
-      <ol>
-        {workflowSteps.map(({ title, icon }) => (
-          <li key={title}>
-            <svg viewBox="0 0 16 16" fill="none">
-              <path d={icon} />
-            </svg>
-            <span>{title}</span>
-          </li>
-        ))}
-      </ol>
-    </div>
+    <>
+      <ResponsiveImage
+        className="hero-card-art hero-workflow-preview"
+        src="/images/hero-cards/workflow-panel.svg"
+        alt=""
+        width={546}
+        height={234}
+      />
+      <span className="hero-preview-caption">Example workflow</span>
+    </>
   );
 }
 
@@ -78,7 +60,8 @@ const cards = [
     description: "Purposeful websites & interfaces",
     path: "m8 6-6 6 6 6m8-12 6 6-6 6m-2-14-4 16",
     preview: <WebsitePreview />,
-    previewLabel: "Portfolio preview of the Fortress Events Complex website.",
+    previewLabel:
+      "Illustrative laptop mockup with an architectural website concept.",
   },
   {
     id: "growth-engine",
@@ -86,7 +69,7 @@ const cards = [
     description: "Search visibility · SEO / AEO",
     path: "M16.5 16.5 21 21m-2-10.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0Z",
     preview: <SearchPreview />,
-    previewLabel: "Illustrative search result for an event venue.",
+    previewLabel: "Illustrative Google search interface for a sample business.",
   },
   {
     id: "smart-systems",
@@ -95,7 +78,7 @@ const cards = [
     path: "M9 2h6v5H9V2ZM2 17h6v5H2v-5Zm14 0h6v5h-6v-5ZM12 7v5m-7 5v-5h14v5",
     preview: <WorkflowPreview />,
     previewLabel:
-      "Example workflow: receive an enquiry, organise details and prepare a reply.",
+      "Illustrative workflow: receive an enquiry, generate a draft and hand off an email reply.",
   },
 ] as const;
 

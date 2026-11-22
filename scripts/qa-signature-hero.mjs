@@ -143,6 +143,10 @@ async function checkComposition(page, width) {
     );
     return {
       scrollWidth: document.documentElement.scrollWidth,
+      heroBottom: rect(".signature-hero").bottom,
+      webTitleLines: measureText(
+        document.querySelector(".hero-card-web .hero-card-copy strong"),
+      ).length,
       copyCentered: [
         "#hero-title",
         ".hero-description",
@@ -231,6 +235,77 @@ async function checkComposition(page, width) {
   ])
     assert.ok(layout[key], `${width}px ${key}: ${JSON.stringify(layout)}`);
   return layout;
+}
+
+async function checkUnobstructedCardCopy(page, width) {
+  const hero = page.locator(".signature-hero");
+  const shotOptions = { scale: "css", animations: "disabled" };
+  const visible = await hero.screenshot(shotOptions);
+  const text = await hero.evaluate((element) => {
+    const origin = element.getBoundingClientRect();
+    return [
+      ...element.querySelectorAll(
+        ".hero-card-copy strong, .hero-card-copy > span",
+      ),
+    ].map((node) => {
+      const range = document.createRange();
+      range.selectNodeContents(node);
+      return {
+        content: node.textContent,
+        lines: [...range.getClientRects()].map((rect) => ({
+          left: rect.left - origin.left,
+          right: rect.right - origin.left,
+          top: rect.top - origin.top,
+          bottom: rect.bottom - origin.top,
+        })),
+      };
+    });
+  });
+  // Compare the painted text area without preview art. Bounding boxes alone
+  // would count transparent laptop cutouts as text collisions.
+  const artHidden = await hero.screenshot({
+    ...shotOptions,
+    style: ".hero-card-preview { visibility: hidden !important; }",
+  });
+  const [before, after] = await Promise.all(
+    [visible, artHidden].map((image) =>
+      sharp(image).removeAlpha().raw().toBuffer({ resolveWithObject: true }),
+    ),
+  );
+  assert.deepEqual(before.info, after.info);
+  for (const { content, lines } of text) {
+    let changed = 0;
+    let count = 0;
+    const { width: imageWidth, height, channels } = before.info;
+    for (const line of lines) {
+      for (
+        let y = Math.max(0, Math.ceil(line.top));
+        y < Math.min(height, Math.floor(line.bottom));
+        y++
+      ) {
+        for (
+          let x = Math.max(0, Math.ceil(line.left));
+          x < Math.min(imageWidth, Math.floor(line.right));
+          x++
+        ) {
+          const i = (y * imageWidth + x) * channels;
+          if (
+            [0, 1, 2].some(
+              (channel) =>
+                Math.abs(before.data[i + channel] - after.data[i + channel]) >
+                24,
+            )
+          )
+            changed++;
+          count++;
+        }
+      }
+    }
+    assert.ok(
+      count > 0 && changed / count < 0.015,
+      `${width}px artwork intersects ${content} (${changed}/${count} changed pixels)`,
+    );
+  }
 }
 
 async function checkPaintedEyes(screenshot, eyes, width) {
@@ -440,6 +515,16 @@ try {
           Object.values(layout.cardLayout).every(Boolean),
           `${width}px asymmetric card positions: ${JSON.stringify(layout.cardLayout)}`,
         );
+        assert.equal(
+          layout.webTitleLines,
+          1,
+          `${width}px Web Experiences wraps`,
+        );
+        assert.equal(layout.foldedCards, 3, `${width}px card below the fold`);
+        assert.ok(
+          layout.heroBottom >= height - 1,
+          `${width}px hero ends before the first screen`,
+        );
       }
       if (width === 1324) {
         assert.equal(
@@ -475,9 +560,18 @@ try {
         serviceLinks,
       );
       assert.equal(await page.locator(".hero-card-preview:visible").count(), 3);
-      await page
-        .locator(".hero-card-web .hero-card-preview img")
-        .evaluate((img) => img.decode());
+      for (const [kind, src] of [
+        ["web", "/images/hero-cards/architecture-laptop.webp"],
+        ["growth", "/images/hero-cards/google-search-panel.webp"],
+      ]) {
+        const preview = page.locator(
+          `.hero-card-${kind} .hero-card-preview img`,
+        );
+        assert.equal(await preview.getAttribute("src"), src);
+        await preview.evaluate((img) => img.decode());
+      }
+      if ([390, 1024, 1324, 1440].includes(width))
+        await checkUnobstructedCardCopy(page, width);
       if ([320, 390, 768, 1440].includes(width)) await audit(page, width);
       const screenshot = await page.screenshot({
         path: `${output}/hero-${width}.png`,
@@ -508,7 +602,7 @@ try {
     JSON.stringify(report.layoutFailures, null, 2),
   );
   report.checks.push(
-    `${viewports.length} viewports with the locked desktop composition, centered portrait below the CTAs, registered eye strip, and no face, link or card collisions`,
+    `${viewports.length} viewports with a full-screen desktop stage, centered portrait, registered eye strip and no face, link or card collisions. Unobstructed card copy verified against pixels on four screens.`,
   );
   report.checks.push(
     "Four WCAG A and AA axe scans at desktop, tablet and phone sizes",
@@ -597,8 +691,51 @@ try {
       const move = new DOMMatrixReadOnly(getComputedStyle(arrow).transform);
       return move.m41 > 1.6 && move.m42 < -1.6;
     });
+    const cardSlot = await page.locator(".hero-card-web").boundingBox();
+    const pointOnCard = (fraction) =>
+      page.mouse.move(
+        cardSlot.x + cardSlot.width * fraction,
+        cardSlot.y + cardSlot.height * 0.5,
+      );
+    const readCardTilt = () =>
+      webCard.evaluate((el) => {
+        const matrix = new DOMMatrixReadOnly(getComputedStyle(el).transform);
+        return matrix.m13;
+      });
+    const cardX = (sign) =>
+      page.waitForFunction((sign) => {
+        const el = document.querySelector(".hero-card-web .hero-card");
+        const point = Number(el.style.getPropertyValue("--card-pointer-x"));
+        const vertical = Number(el.style.getPropertyValue("--card-pointer-y"));
+        return (
+          point * sign > 0.35 && Math.abs(point) <= 1 && Math.abs(vertical) <= 1
+        );
+      }, sign);
+    await pointOnCard(0.23);
+    await cardX(-1);
+    await webCard.evaluate((el) =>
+      Promise.all(
+        el.getAnimations().map((motion) => motion.finished.catch(() => {})),
+      ),
+    );
+    const leftTilt = await readCardTilt();
+    await pointOnCard(0.77);
+    await cardX(1);
+    await page.waitForFunction((leftTilt) => {
+      const el = document.querySelector(".hero-card-web .hero-card");
+      const tilt = new DOMMatrixReadOnly(getComputedStyle(el).transform).m13;
+      return Math.abs(tilt - leftTilt) > 0.025;
+    }, leftTilt);
+    await page.mouse.move(30, 90);
+    await page.waitForFunction(() => {
+      const style = document.querySelector(".hero-card-web .hero-card").style;
+      return (
+        !style.getPropertyValue("--card-pointer-x") &&
+        !style.getPropertyValue("--card-pointer-y")
+      );
+    });
     report.checks.push(
-      "Desktop hover, bounded pointer motion, pointer-leave reset and native scroll exit",
+      "Desktop hover, per-card 3D tilt, bounded pointer motion, pointer-leave reset and native scroll exit",
     );
 
     await primary(page).hover();
@@ -733,7 +870,19 @@ try {
         await primary(page).getAttribute("href"),
         "/contact/?source=home",
       );
-      if (options.javaScriptEnabled !== false) {
+      if (options.javaScriptEnabled === false) {
+        assert.deepEqual(
+          await page
+            .locator(".hero-card")
+            .evaluateAll((links) =>
+              links.map((link) => [
+                link.querySelector(".hero-card-copy strong").textContent,
+                link.getAttribute("href"),
+              ]),
+            ),
+          serviceLinks,
+        );
+      } else {
         const beamAnimations = await beam(page).evaluate(
           (ring) => ring.getAnimations({ subtree: true }).length,
         );
