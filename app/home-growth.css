@@ -278,6 +278,46 @@
   }
 }
 
+@media (width < 768px) {
+  .capabilities {
+    text-align: center;
+  }
+
+  .capabilities > .section-marker {
+    justify-content: center;
+  }
+
+  .capabilities > .section-marker > span {
+    max-width: none;
+    text-align: center;
+  }
+
+  .capabilities .capability-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 22px;
+  }
+
+  .capabilities .capability-intro {
+    margin-inline: auto;
+  }
+
+  .capabilities .capability-signature {
+    margin-block-start: 0;
+  }
+
+  .capabilities .pillar-card > a {
+    align-items: center;
+    padding: clamp(17px, 4.5vw, 28px);
+  }
+
+  .capabilities .pillar-arrow {
+    position: static;
+    margin-block-start: 16px;
+  }
+}
+
 @media (max-width: 700px) {
   .capability-intro {
     font-size: 15px;
@@ -289,24 +329,11 @@
   }
 
   .pillar-card > a {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 12px;
-    padding: clamp(17px, 4.5vw, 28px);
     border-radius: 18px;
-  }
-
-  .pillar-card :is(.eyebrow, h3) {
-    grid-column: 1 / -1;
   }
 
   .pillar-card h3 {
     margin-top: 10px;
-  }
-
-  .pillar-arrow {
-    position: static;
-    align-self: end;
   }
 
   .service-groups {
