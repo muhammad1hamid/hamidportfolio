@@ -1,7 +1,5 @@
 import type { CapabilityId } from "@/data/capability-showcase";
-import { demoKnowledge } from "@/data/enquiry-demo";
 import { ResponsiveImage } from "@/components/seo/ResponsiveImage";
-import { ExploreIcon } from "./ExploreIcon";
 import styles from "./MobileCapabilityStudio.module.css";
 
 export function CapabilityIcon({ id }: { id: CapabilityId }) {
@@ -55,118 +53,34 @@ function ProjectPreview() {
   );
 }
 
-function SearchStructure() {
-  return (
-    <div className={styles.searchMedia}>
-      <span className={styles.mediaNote}>Site structure example</span>
-      <div className={styles.searchRoot}>
-        <span className={styles.siteGlyph} aria-hidden="true">
-          H
-        </span>
-        <div>
-          <strong>itshamid.com</strong>
-          <span>Clear pages. Connected answers.</span>
-        </div>
-      </div>
-      <div className={styles.siteTree}>
-        <div>
-          <span>01</span>
-          <div>
-            <strong>Web development</strong>
-            <small>/web-development/</small>
-          </div>
-        </div>
-        <div>
-          <span>02</span>
-          <div>
-            <strong>Useful project questions</strong>
-            <small>/answers/</small>
-          </div>
-        </div>
-        <div>
-          <span>03</span>
-          <div>
-            <strong>A clear next step</strong>
-            <small>/contact/</small>
-          </div>
-        </div>
-      </div>
-      <p className={styles.mediaFootnote}>
-        Structure and clarity, without ranking promises.
-      </p>
-    </div>
-  );
-}
-
-function Workflow() {
-  return (
-    <div className={styles.workflowMedia}>
-      <span className={styles.mediaNote}>Illustrative workflow</span>
-      <ol>
-        <li>
-          <span className={styles.nodeIcon}>
-            <ExploreIcon name="mail" />
-          </span>
-          <div>
-            <strong>Capture</strong>
-            <p>A new website enquiry</p>
-          </div>
-        </li>
-        <li>
-          <span className={styles.nodeIcon}>
-            <ExploreIcon name="layers" />
-          </span>
-          <div>
-            <strong>Organise</strong>
-            <p>Goal, requirements, next steps</p>
-          </div>
-        </li>
-        <li>
-          <span className={styles.nodeIcon}>
-            <ExploreIcon name="check" />
-          </span>
-          <div>
-            <strong>Draft a reply</strong>
-            <p>Ready for a person to review</p>
-          </div>
-        </li>
-      </ol>
-      <span className={styles.reviewNote}>
-        <span aria-hidden="true">✓</span> Human approval before sending
-      </span>
-    </div>
-  );
-}
-
-function Conversation() {
-  const example = demoKnowledge.find((item) => item.id === "remote")!;
-  const answer = example.answer.split(". ")[0] + ".";
-  return (
-    <div className={styles.chatMedia}>
-      <div className={styles.chatHeading}>
-        <span className={styles.siteGlyph} aria-hidden="true">
-          H
-        </span>
-        <div>
-          <strong>Hamid’s enquiry demo</strong>
-          <span>Approved answers · Sample conversation</span>
-        </div>
-      </div>
-      <p className={styles.visitorBubble}>{example.question}</p>
-      <div className={styles.answerBubble}>
-        <span>From the existing answer set</span>
-        <p>{answer}</p>
-      </div>
-      <span className={styles.chatFootnote}>
-        A demonstration. No message is sent.
-      </span>
-    </div>
-  );
-}
+const artwork = {
+  "growth-engine": {
+    file: "growth",
+    alt: "3D concept illustration of a magnifying glass and browser pages for search visibility",
+  },
+  "smart-systems": {
+    file: "systems",
+    alt: "3D concept illustration of connected enquiry, document and approval modules",
+  },
+  "ai-conversations": {
+    file: "conversations",
+    alt: "3D concept illustration of a graphite phone with ivory and orange conversation bubbles",
+  },
+} as const;
 
 export function CapabilityMedia({ id }: { id: CapabilityId }) {
   if (id === "web-experiences") return <ProjectPreview />;
-  if (id === "growth-engine") return <SearchStructure />;
-  if (id === "smart-systems") return <Workflow />;
-  return <Conversation />;
+  const image = artwork[id];
+  return (
+    <figure className={styles.graphicFigure}>
+      <ResponsiveImage
+        src={`/images/capability-art/${image.file}-960.webp`}
+        srcSet={`/images/capability-art/${image.file}-480.webp 480w, /images/capability-art/${image.file}-960.webp 960w`}
+        sizes="(max-width: 767px) 90vw, 1px"
+        alt={image.alt}
+        width={960}
+        height={640}
+      />
+    </figure>
+  );
 }

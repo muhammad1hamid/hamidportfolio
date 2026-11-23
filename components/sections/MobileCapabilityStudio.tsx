@@ -53,7 +53,12 @@ export function MobileCapabilityStudio() {
     updateMotion();
     motion.addEventListener("change", updateMotion);
     const sync = () => {
-      if (pending.current !== null) return;
+      if (
+        pending.current !== null ||
+        !mobile.matches ||
+        element.clientWidth === 0
+      )
+        return;
       const slides = [
         ...element.querySelectorAll<HTMLElement>("[data-capability-slide]"),
       ];
@@ -84,24 +89,36 @@ export function MobileCapabilityStudio() {
     element.addEventListener("scrollend", settled);
     element.addEventListener("pointerdown", interrupt, { passive: true });
     element.addEventListener("touchstart", interrupt, { passive: true });
-    const resize = new ResizeObserver(() => {
-      if (!mobile.matches) return;
+    const realign = () => {
+      if (!mobile.matches || element.clientWidth === 0) return;
       const slides = [
         ...element.querySelectorAll<HTMLElement>("[data-capability-slide]"),
       ];
       const selected = Number(element.dataset.active || 0);
-      if (slides[selected])
+      if (slides[selected]) {
+        pending.current = selected;
         element.scrollTo({
           left: slides[selected].offsetLeft - slides[0].offsetLeft,
           behavior: "instant",
         });
-    });
+        if (timer.current) clearTimeout(timer.current);
+        timer.current = setTimeout(() => {
+          pending.current = null;
+          sync();
+        }, 80);
+      }
+    };
+    const resize = new ResizeObserver(realign);
     resize.observe(element);
+    window.addEventListener("resize", realign);
+    mobile.addEventListener("change", realign);
     return () => {
       resize.disconnect();
       cancelAnimationFrame(frame.current);
       if (timer.current) clearTimeout(timer.current);
       motion.removeEventListener("change", updateMotion);
+      mobile.removeEventListener("change", realign);
+      window.removeEventListener("resize", realign);
       element.removeEventListener("scroll", scroll);
       element.removeEventListener("scrollend", settled);
       element.removeEventListener("pointerdown", interrupt);
@@ -184,7 +201,7 @@ export function MobileCapabilityStudio() {
           {capabilityShowcase.map((item, index) => (
             <article
               key={item.id}
-              className={styles.slide}
+              className={`${styles.slide}${item.id === "web-experiences" ? "" : ` ${styles.depthSlide}`}`}
               data-capability-slide={item.id}
               inert={enhanced && active !== index}
               role="group"
@@ -200,14 +217,16 @@ export function MobileCapabilityStudio() {
               </div>
               <div className={styles.slideCopy}>
                 <p>{item.description}</p>
-                <ul
-                  className={styles.tags}
-                  aria-label={`${item.title} focus areas`}
-                >
-                  {item.tags.map((tag) => (
-                    <li key={tag}>{tag}</li>
-                  ))}
-                </ul>
+                {item.id === "web-experiences" && (
+                  <ul
+                    className={styles.tags}
+                    aria-label={`${item.title} focus areas`}
+                  >
+                    {item.tags.map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                )}
                 <div className={styles.actions}>
                   <Link
                     href={item.primary.href}

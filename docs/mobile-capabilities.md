@@ -1,5 +1,7 @@
 # HAMID — mobile capabilities showcase
 
+This records the original mobile showcase implementation. The three non-Web media panels were subsequently replaced with original 3D graphics; see [the current graphics refinement](capability-graphics.md). The original validation below describes that earlier version.
+
 Implemented 23 November 2026 for the homepage's **What I Build & Improve** section. The supplied mobile mockup and master prompt define the composition. The owner's later instruction explicitly excludes videos, so the delivered showcase uses static imagery and HTML visuals only.
 
 ## Result and scope

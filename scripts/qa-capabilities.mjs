@@ -199,6 +199,15 @@ try {
             1,
           );
           const slide = section.locator(`[data-capability-slide="${ids[i]}"]`);
+          await slide.locator("img").evaluateAll(async (images) => {
+            await Promise.all(images.map((image) => image.decode()));
+            if (
+              images.some(
+                (image) => !image.complete || image.naturalWidth === 0,
+              )
+            )
+              throw new Error("Capability artwork did not decode");
+          });
           for (const link of await slide.getByRole("link").all()) {
             assert.ok(await link.getAttribute("href"));
             const box = await link.boundingBox();
