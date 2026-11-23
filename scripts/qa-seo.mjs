@@ -96,7 +96,11 @@ try {
       assert.equal(record.twitter, "summary_large_image");
       assert.ok(record.ogImage.startsWith(origin), "absolute OG image");
       assert.equal(record.overflow, false, "mobile overflow");
-      if (pathname !== "/") assert.ok(record.breadcrumb, "visible breadcrumbs");
+      // The approved Contact composition uses the shared navigation without
+      // a breadcrumb trail. Other interior pages keep their existing contract.
+      const expectsBreadcrumb = pathname !== "/" && pathname !== "/contact/";
+      if (expectsBreadcrumb)
+        assert.ok(record.breadcrumb, "visible breadcrumbs");
       const nodes = record.schema.flatMap((item) => item["@graph"] || [item]);
       const webpage = nodes.find(
         (node) =>
@@ -141,7 +145,7 @@ try {
         assert.equal(website?.publisher?.["@id"], practice["@id"]);
         assert.equal(webpage.isPartOf?.["@id"], website["@id"]);
       }
-      if (pathname !== "/")
+      if (expectsBreadcrumb)
         assert.ok(
           nodes.some((node) => node["@type"] === "BreadcrumbList"),
           "Breadcrumb schema",

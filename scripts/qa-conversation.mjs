@@ -23,9 +23,13 @@ import {
   validFields,
 } from "./enquiry-test-fixture.mjs";
 
-const output = path.resolve("qa-output/first-conversation");
+const output = path.resolve(
+  process.env.QA_CONTACT_OUTPUT || "qa-output/contact-final",
+);
 const base = process.env.QA_BASE_URL || "http://127.0.0.1:3000";
-const widths = [320, 360, 375, 390, 414, 430, 480, 768, 1024, 1280, 1440, 1920];
+const widths = [
+  320, 360, 375, 390, 414, 430, 480, 768, 1024, 1200, 1280, 1440, 1920,
+];
 const report = {
   checks: [],
   layouts: [],
@@ -65,17 +69,17 @@ const axe = async (page) => {
   );
 };
 const send = (page) =>
-  page.getByRole("button", { name: "Send your enquiry", exact: true });
+  page.getByRole("button", { name: "Send enquiry", exact: true });
 const name = (page) => page.getByLabel("Your name", { exact: false });
-const email = (page) => page.getByLabel("Your email", { exact: false });
+const email = (page) => page.getByLabel("Email address", { exact: false });
 const message = (page) =>
-  page.getByLabel("Here’s what I have in mind…", { exact: false });
+  page.getByLabel("What are you building?", { exact: false });
 const choose = (page, text) =>
   page.locator(".topic-choice").filter({ hasText: text }).click();
 const fill = async (page) => {
   await name(page).fill(validFields.name);
   await email(page).fill(validFields.email);
-  await choose(page, "Website / landing page");
+  await choose(page, "Website");
   await message(page).fill(validFields.message);
 };
 const focus = async (page, field) =>
@@ -156,38 +160,53 @@ async function fixtureExport() {
 
 try {
   await check(
-    "Shared validation keeps the legacy agency rule while the contact composer requires only four fields",
+    "Four canonical choices, guarded input validation and the separate agency rule",
     async () => {
       assert.equal(configuredWeb3FormsKey(""), null);
       assert.equal(configuredWeb3FormsKey("not-a-form-key"), null);
       assert.equal(configuredWeb3FormsKey(testKey), testKey);
-      const input = { ...validFields, topic: "agency", service: "agency" };
-      assert.equal(validateEnquiry(input).ok, false);
-      const result = validateConversation(input);
-      assert.equal(result.ok, true);
-      const payload = conversationPayload(
-        result.fields,
-        result.topic,
-        testKey,
-        "fixture-token",
-        "contact",
-        "fixture-reference",
+      assert.equal(
+        validateEnquiry({ ...validFields, service: "agency" }).ok,
+        false,
       );
-      assert.equal(payload.project_type, "Agency partnership");
-      assert.equal(payload.email, validFields.email);
-      assert.equal(Object.hasOwn(payload, "to"), false);
+      for (const [topic, service] of [
+        ["website", "website"],
+        ["growth", "growth-engine"],
+        ["automation", "ai-automation"],
+        ["other", "unsure"],
+      ]) {
+        const result = validateConversation({ ...validFields, topic });
+        assert.equal(result.ok, true);
+        assert.equal(result.fields.service, service);
+        const payload = conversationPayload(
+          result.fields,
+          result.topic,
+          testKey,
+          "fixture-token",
+          "contact",
+          "fixture-reference",
+        );
+        assert.equal(payload.email, validFields.email);
+        assert.equal(Object.hasOwn(payload, "to"), false);
+      }
       for (const change of [
         { email: "bad@" },
-        { name: "X\r\nBcc: unwanted@example.test" },
+        {
+          name:
+            "X" + String.fromCharCode(13, 10) + "Bcc: unwanted@example.test",
+        },
         { message: "x" },
         { website: "javascript:alert(1)" },
         { website: "https://user:pass@example.test" },
         { topic: "fabricated" },
       ])
-        assert.equal(validateConversation({ ...input, ...change }).ok, false);
+        assert.equal(
+          validateConversation({ ...validFields, topic: "website", ...change })
+            .ok,
+          false,
+        );
     },
   );
-
   browser = await chromium.launch({
     executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
   });
@@ -202,7 +221,7 @@ try {
   const publicPage = await context.newPage();
   publicPage.on("pageerror", (error) => report.errors.push(error.message));
   await check(
-    "Production export layout at all twelve widths, meaningful HTML, canonical and direct contact links",
+    "Final locked layout at thirteen widths, four chips, three contact tiles and three process steps",
     async () => {
       for (const width of widths) {
         await publicPage.setViewportSize({ width, height: 1000 });
@@ -215,12 +234,33 @@ try {
         if (await decline.isVisible()) await decline.click();
         await overflow(publicPage);
         assert.equal(await publicPage.locator("main h1").count(), 1);
-        assert.equal(await publicPage.getByRole("radio").count(), 7);
-        assert.equal(
+        assert.deepEqual(
           await publicPage
-            .locator("#main iframe,#main canvas,#main video")
-            .count(),
-          0,
+            .getByRole("radio")
+            .evaluateAll((elements) =>
+              elements.map((element) => element.parentElement.innerText.trim()),
+            ),
+          ["Website", "Growth", "Automation", "Other"],
+        );
+        assert.equal(
+          await publicPage.locator(".conversation-contact-links > a").count(),
+          3,
+        );
+        assert.equal(
+          await publicPage.locator(".conversation-next li").count(),
+          3,
+        );
+        assert.equal(
+          await publicPage.locator(".conversation-faq details").count(),
+          4,
+        );
+        assert.equal(
+          await publicPage.locator(".contact-form-fields input").count(),
+          2,
+        );
+        assert.equal(
+          await publicPage.locator(".contact-form-fields textarea").count(),
+          1,
         );
         assert.equal(
           await publicPage
@@ -230,27 +270,30 @@ try {
         );
         assert.equal(
           await publicPage
-            .getByRole("link", { name: "Build a quick project brief" })
+            .locator("a.contact-option-planner")
             .getAttribute("href"),
           "/plan/",
         );
-        assert.equal(
-          await publicPage
-            .getByRole("link", { name: /hamidwork360@gmail.com/ })
-            .getAttribute("href"),
-          "mailto:hamidwork360@gmail.com",
-        );
         assert.match(
           await publicPage
-            .locator('a[data-contact-context="discovery_call"]')
+            .locator("a.contact-option-call")
             .getAttribute("href"),
           /^https:\/\/wa\.me\/923356709222\?text=/,
         );
         assert.equal(
-          await publicPage.locator(".conversation-faq details").count(),
-          4,
+          await publicPage
+            .locator("#main iframe,#main canvas,#main video")
+            .count(),
+          0,
         );
-        const sizes = await publicPage
+        await publicPage
+          .getByAltText("Portrait of Hamid")
+          .evaluate((image) => image.decode());
+        const sheet = await publicPage
+          .locator(".conversation-sheet")
+          .boundingBox();
+        assert.ok(sheet.height < 700, "Initial composer must remain compact");
+        const dimensions = await publicPage
           .locator(".first-conversation-grid")
           .evaluate((el) => ({
             width: el.offsetWidth,
@@ -258,10 +301,11 @@ try {
           }));
         report.layouts.push({
           viewport: width,
-          gridWidth: sizes.width,
-          gridHeight: sizes.height,
+          gridWidth: dimensions.width,
+          gridHeight: dimensions.height,
+          formHeight: sheet.height,
         });
-        if ([320, 360, 390, 430, 768, 1024, 1440].includes(width)) {
+        if ([320, 360, 390, 430, 768, 1024, 1200, 1440].includes(width)) {
           await publicPage.screenshot({
             path: path.join(output, `contact-${width}.png`),
             fullPage: true,
@@ -271,8 +315,13 @@ try {
             path: path.join(output, `viewport-${width}.png`),
             animations: "disabled",
           });
+          if (width === 1200)
+            await publicPage.locator("#main").screenshot({
+              path: path.join(output, "reference-main-1200.png"),
+              animations: "disabled",
+            });
         }
-        if ([320, 390, 768, 1440].includes(width)) await axe(publicPage);
+        if ([320, 390, 768, 1200, 1440].includes(width)) await axe(publicPage);
       }
     },
   );
@@ -407,7 +456,7 @@ try {
     },
   );
   await check(
-    "Required fields, error focus, native radio keyboard selection and optional URL validation",
+    "Required fields, error focus, native radio keyboard selection and concise fields",
     async () => {
       await send(page).click();
       await focus(page, name(page));
@@ -419,22 +468,15 @@ try {
       await page.keyboard.press("ArrowRight");
       assert.equal(
         await page
-          .getByRole("radio", { name: "Improve an existing site" })
+          .getByRole("radio", { name: "Growth", exact: true })
           .isChecked(),
         true,
       );
       await fill(page);
-      await page.locator(".conversation-extra summary").click();
-      const website = page.getByLabel("Existing website", { exact: true });
-      await website.fill("https://user:pass@example.test");
-      await page.locator(".conversation-extra summary").click();
+      await email(page).fill("invalid-email");
       await send(page).click();
-      await focus(page, website);
-      assert.equal(
-        await page.locator(".conversation-extra").getAttribute("open"),
-        "",
-      );
-      await website.fill("www.visitor.test");
+      await focus(page, email(page));
+      await email(page).fill(validFields.email);
       await verify(page);
       await axe(page);
       await page.screenshot({
@@ -444,32 +486,32 @@ try {
     },
   );
   await check(
-    "Changing topic updates its prompt without clearing written values; incoming context remains safe",
+    "All category changes keep written values and safe incoming service context",
     async () => {
       await visit("/contact/?service=growth-engine&source=growth");
-      await page.getByRole("radio", { name: "Growth / SEO / AEO" }).waitFor();
       await page.waitForFunction(
-        () =>
-          document.querySelector('input[name="topic"][value="growth"]')
-            ?.checked,
+        () => document.querySelector('input[value="growth"]')?.checked,
       );
       await message(page).fill("Keep this useful project context.");
-      await choose(page, "AI automation");
-      await page
-        .getByText("Which repetitive task would you like to simplify?", {
-          exact: true,
-        })
-        .waitFor();
-      assert.equal(
-        await message(page).inputValue(),
-        "Keep this useful project context.",
-      );
+      for (const label of ["Website", "Growth", "Automation", "Other"]) {
+        await choose(page, label);
+        assert.equal(
+          await message(page).inputValue(),
+          "Keep this useful project context.",
+        );
+        assert.equal(
+          await page
+            .getByRole("radio", { name: label, exact: true })
+            .isChecked(),
+          true,
+        );
+      }
       await page.evaluate(() => {
         location.hash = "project-enquiry";
       });
       assert.equal(
         await page
-          .getByRole("radio", { name: "AI automation", exact: true })
+          .getByRole("radio", { name: "Other", exact: true })
           .isChecked(),
         true,
       );
@@ -477,10 +519,16 @@ try {
       await page.waitForFunction(
         () => document.querySelector('input[value="growth"]')?.checked,
       );
+      await visit("/contact/?service=agency&source=agency");
+      await page.waitForFunction(
+        () => document.querySelector('input[value="other"]')?.checked,
+      );
       await visit("/contact/?service=unknown&source=private%40visitor.test");
       assert.equal(
-        await page.locator('input[name="topic"]:checked').count(),
-        0,
+        await page
+          .getByRole("radio", { name: "Website", exact: true })
+          .isChecked(),
+        true,
       );
     },
   );
@@ -634,26 +682,21 @@ try {
     },
   );
   await check(
-    "Long values, optional agency company and mobile touch targets remain usable",
+    "Long values and compact touch targets remain usable at mobile and tablet sizes",
     async () => {
       await visit("/contact/?service=agency&source=agency");
       await name(page).fill("A".repeat(100));
       await email(page).fill("a".repeat(60) + "@" + "b".repeat(60) + ".test");
       await message(page).fill(
-        "Detailed project notes.\n".repeat(110).slice(0, 2400),
+        "Detailed project notes.\\n".repeat(110).slice(0, 2400),
       );
-      await page.locator(".conversation-extra summary").click();
-      assert.equal(
-        await page.getByLabel("Company or brand").getAttribute("required"),
-        null,
-      );
-      await page.getByLabel("Preferred timeline").selectOption("Flexible");
+      assert.equal(await page.locator(".conversation-extra").count(), 0);
       for (const width of [320, 390, 430, 768, 1024]) {
         await page.setViewportSize({ width, height: 900 });
         await overflow(page);
         for (const label of await page.locator(".topic-choice > span").all())
           assert.ok(
-            (await label.boundingBox()).height >= (width < 600 ? 44 : 40),
+            (await label.boundingBox()).height >= (width < 768 ? 44 : 38),
           );
         if (width === 320) {
           await name(page).focus();
@@ -667,7 +710,7 @@ try {
       await verify(page);
       await send(page).click();
       await page.locator("[data-delivery-accepted]").waitFor();
-      assert.equal(posted.at(-1).project_type, "Agency partnership");
+      assert.equal(posted.at(-1).project_type, "Other");
     },
   );
   await check(
@@ -763,7 +806,7 @@ try {
       );
       assert.equal(
         await staticPage
-          .getByRole("link", { name: "WhatsApp Hamid", exact: true })
+          .getByRole("link", { name: /Chat on WhatsApp/ })
           .isVisible(),
         true,
       );

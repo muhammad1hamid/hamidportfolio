@@ -1,23 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type FormEvent,
-  type ReactNode,
-} from "react";
+import { ContactFormFields } from "./ContactFormFields";
+import { ContactIcon } from "./ContactIcon";
+import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { Arrow } from "@/components/ui/Arrow";
 import { site } from "@/data/site";
 import { trackGoogleEvent } from "@/data/google-analytics";
-import {
-  enquiryLimits,
-  enquirySource,
-  enquiryTimelines,
-  type EnquiryErrors,
-} from "@/data/project-enquiry.mjs";
+import { enquirySource, type EnquiryErrors } from "@/data/project-enquiry.mjs";
 import {
   conversationDraft,
   conversationPayload,
@@ -34,44 +24,7 @@ import {
 } from "./Web3FormsCheck";
 
 const topicKeys = Object.keys(conversationTopics) as ConversationTopic[];
-const inputOrder = [
-  "name",
-  "email",
-  "service",
-  "message",
-  "company",
-  "website",
-  "timeline",
-] as const;
-
-function LetterField({
-  id,
-  label,
-  error,
-  required,
-  children,
-}: {
-  id: string;
-  label: string;
-  error?: string;
-  required?: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <div className="letter-field">
-      <label htmlFor={id}>
-        {label}
-        {required && <span aria-hidden="true"> *</span>}
-      </label>
-      {children}
-      {error && (
-        <p className="letter-field-error" id={id + "-error"}>
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}
+const inputOrder = ["name", "email", "service", "message"] as const;
 
 export function ConversationComposer({
   accessKey,
@@ -84,7 +37,6 @@ export function ConversationComposer({
 }) {
   const id = useId();
   const form = useRef<HTMLFormElement>(null);
-  const optional = useRef<HTMLDetailsElement>(null);
   const banner = useRef<HTMLDivElement>(null);
   const security = useRef<HTMLDivElement>(null);
   const successHeading = useRef<HTMLHeadingElement>(null);
@@ -115,7 +67,7 @@ export function ConversationComposer({
       ? conversationTopics[selected].service
       : "unselected",
     intent: "project_enquiry",
-    ...(selected === "agency" ? { lead_type: "agency" } : {}),
+    ...(sourcePage === "agency" ? { lead_type: "agency" } : {}),
   });
 
   useEffect(() => {
@@ -133,16 +85,10 @@ export function ConversationComposer({
     if (accepted) successHeading.current?.focus();
   }, [accepted]);
 
-  const props = (field: (typeof inputOrder)[number]) => ({
-    id: id + field,
-    name: field,
-    "aria-invalid": errors[field] ? true : undefined,
-    "aria-describedby": errors[field] ? id + field + "-error" : undefined,
-  });
   const start = (selected: ConversationTopic | "" = topic) => {
     if (accessKey) setChecking(true);
     const event =
-      selected === "agency" ? "start_agency_enquiry" : "lead_form_start";
+      sourcePage === "agency" ? "start_agency_enquiry" : "lead_form_start";
     if (!started.current.has(event)) {
       started.current.add(event);
       trackGoogleEvent(event, eventDetails(selected));
@@ -152,12 +98,6 @@ export function ConversationComposer({
     setErrors(next);
     setError("");
     const first = inputOrder.find((key) => next[key]);
-    if (
-      first &&
-      ["company", "website", "timeline"].includes(first) &&
-      optional.current
-    )
-      optional.current.open = true;
     requestAnimationFrame(() => {
       if (first) document.getElementById(id + first)?.focus();
     });
@@ -290,8 +230,8 @@ export function ConversationComposer({
           email to follow up after reviewing it.
         </p>
         <p className="conversation-small">
-          This confirms the service accepted it; inbox delivery is handled by
-          Web3Forms.
+          Acceptance confirms the service received it; it does not confirm inbox
+          arrival.
         </p>
         <Link href="/work/" className="text-link">
           Explore the work <Arrow diagonal />
@@ -302,14 +242,11 @@ export function ConversationComposer({
   return (
     <>
       <header className="letter-heading">
-        <div className="letter-kicker">
-          <span>A NOTE TO HAMID / 01</span>
-          <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
-            <path d="m6 26 3-10L23 2l7 7-14 14-10 3Zm3-10 7 7M23 2l-3 3 7 7M6 26l5-5M4 30h22" />
-          </svg>
-        </div>
-        <h2 id="project-enquiry-title">Hey Hamid,</h2>
-        <p>Here’s what I have in mind…</p>
+        <span className="letter-kicker">A note to Hamid</span>
+        <h2 id="project-enquiry-title">
+          Let’s <span>talk.</span>
+        </h2>
+        <p>Tell me about your idea.</p>
       </header>
       <form
         ref={form}
@@ -353,18 +290,7 @@ export function ConversationComposer({
                 .filter((field) => errors[field])
                 .map((field) => (
                   <li key={field}>
-                    <a
-                      href={"#" + id + field}
-                      onClick={() => {
-                        if (
-                          ["company", "website", "timeline"].includes(field) &&
-                          optional.current
-                        )
-                          optional.current.open = true;
-                      }}
-                    >
-                      {errors[field]}
-                    </a>
+                    <a href={"#" + id + field}>{errors[field]}</a>
                   </li>
                 ))}
             </ul>
@@ -379,18 +305,14 @@ export function ConversationComposer({
         <fieldset className="letter-controls" disabled={!mounted || pending}>
           <legend className="enquiry-sr-only">Your project enquiry</legend>
           <fieldset className="conversation-topics">
-            <legend>
-              What would you like to work on? <span aria-hidden="true">*</span>
+            <legend className="enquiry-sr-only">
+              What would you like to work on? Required
             </legend>
             <div className="topic-options">
               {topicKeys.map((value, index) => (
                 <label className="topic-choice" key={value}>
                   <input
-                    id={
-                      value === topicKeys[0]
-                        ? id + "service"
-                        : id + "topic-" + index
-                    }
+                    id={index === 0 ? id + "service" : id + "topic-" + index}
                     type="radio"
                     name="topic"
                     value={value}
@@ -411,9 +333,15 @@ export function ConversationComposer({
                     }}
                   />
                   <span>
+                    <ContactIcon name={value} />
                     {conversationTopics[value].label}
-                    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="m4 8 3 3 5-6" />
+                    <svg
+                      className="topic-selected-mark"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path d="m2 6 3 3 5-6" />
                     </svg>
                   </span>
                 </label>
@@ -425,114 +353,18 @@ export function ConversationComposer({
               </p>
             )}
           </fieldset>
-          <p className="conversation-prompt" aria-live="polite">
+          <p className="enquiry-sr-only" aria-live="polite">
             {topic
               ? conversationTopics[topic].prompt
-              : "A few useful details are enough. No finished brief needed."}
+              : "Choose the closest project type."}
           </p>
-          <div className="letter-pair">
-            <LetterField
-              id={id + "name"}
-              label="Your name"
-              required
-              error={errors.name}
-            >
-              <input
-                {...props("name")}
-                autoComplete="name"
-                required
-                maxLength={enquiryLimits.name}
-                placeholder="What should I call you?"
-              />
-            </LetterField>
-            <LetterField
-              id={id + "email"}
-              label="Your email"
-              required
-              error={errors.email}
-            >
-              <input
-                {...props("email")}
-                type="email"
-                inputMode="email"
-                autoComplete="email"
-                required
-                maxLength={enquiryLimits.email}
-                placeholder="Where can I reply?"
-              />
-            </LetterField>
-          </div>
-          <LetterField
-            id={id + "message"}
-            label="Here’s what I have in mind…"
-            required
-            error={errors.message}
-          >
-            <textarea
-              {...props("message")}
-              required
-              rows={3}
-              minLength={10}
-              maxLength={enquiryLimits.message}
-              placeholder="Tell me what you’re building, changing, or trying to solve."
-            />
-          </LetterField>
-          <details className="conversation-extra" ref={optional}>
-            <summary>
-              Add a little context <span>Optional</span>
-            </summary>
-            <div className="letter-pair">
-              <LetterField
-                id={id + "company"}
-                label="Company or brand"
-                error={errors.company}
-              >
-                <input
-                  {...props("company")}
-                  autoComplete="organization"
-                  maxLength={enquiryLimits.company}
-                />
-              </LetterField>
-              <LetterField
-                id={id + "website"}
-                label="Existing website"
-                error={errors.website}
-              >
-                <input
-                  {...props("website")}
-                  type="url"
-                  inputMode="url"
-                  autoComplete="url"
-                  maxLength={enquiryLimits.website}
-                  placeholder="https://example.com"
-                />
-              </LetterField>
-            </div>
-            <LetterField
-              id={id + "timeline"}
-              label="Preferred timeline"
-              error={errors.timeline}
-            >
-              <select {...props("timeline")} defaultValue="">
-                <option value="">Open to a conversation</option>
-                {enquiryTimelines.map((value) => (
-                  <option key={value}>{value}</option>
-                ))}
-              </select>
-            </LetterField>
-          </details>
+          <ContactFormFields id={id} errors={errors} />
           <div hidden aria-hidden="true">
             <label>
               Leave empty
               <input name="companyFax" tabIndex={-1} autoComplete="off" />
             </label>
           </div>
-          <p className="conversation-privacy" id={id + "privacy"}>
-            I’ll use your details to review and reply. When you send by email,
-            Web3Forms processes your note.{" "}
-            <Link href="/privacy/">Privacy notice</Link>.{" "}
-            <span>Fields marked * are required.</span>
-          </p>
           {accessKey && checking && (
             <div
               className="conversation-security"
@@ -570,22 +402,38 @@ export function ConversationComposer({
               {pending
                 ? "Sending your enquiry…"
                 : accessKey
-                  ? "Send your enquiry"
+                  ? "Send enquiry"
                   : "Review for WhatsApp"}
-              <Arrow diagonal />
+              <Arrow />
             </button>
-            {accessKey && (
+            <span className="enquiry-sr-only" role="status">
+              {pending ? "Sending your enquiry." : ""}
+            </span>
+          </div>
+          <p className="conversation-privacy" id={id + "privacy"}>
+            Details used to reply, sent through Web3Forms.{" "}
+            <Link href="/privacy/">Privacy</Link>.
+            <span className="enquiry-sr-only">All fields are required.</span>
+          </p>
+          <div className="conversation-whatsapp">
+            <a
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-contact-context="contact_composer"
+            >
+              <ContactIcon name="whatsapp" />
+              Prefer WhatsApp?
+            </a>
+            {error && (
               <button
                 type="button"
                 className="conversation-review-link"
                 onClick={prepareWhatsApp}
               >
-                Use WhatsApp instead
+                Review your note for WhatsApp
               </button>
             )}
-            <span className="enquiry-sr-only" role="status">
-              {pending ? "Sending your enquiry." : ""}
-            </span>
           </div>
           {whatsappDraft && (
             <div
@@ -602,7 +450,9 @@ export function ConversationComposer({
               <pre>{whatsappDraft}</pre>
               <a
                 className="button button-outline"
-                href={`${site.whatsapp}?text=${encodeURIComponent(whatsappDraft)}`}
+                href={
+                  site.whatsapp + "?text=" + encodeURIComponent(whatsappDraft)
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 data-contact-context="contact_composer"
@@ -627,7 +477,7 @@ export function ConversationComposer({
         <p className="conversation-small">
           This composer needs JavaScript. You can{" "}
           <a href={site.whatsapp}>message Hamid on WhatsApp</a> or{" "}
-          <a href={`mailto:${site.email}`}>send an email</a>.
+          <a href={"mailto:" + site.email}>send an email</a>.
         </p>
       </noscript>
     </>

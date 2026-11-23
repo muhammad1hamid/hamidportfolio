@@ -1,5 +1,7 @@
 # HAMID / The First Conversation
 
+This records the original letter-form version. The later owner-approved final Soft UI reference supersedes its visual layout and seven choices; see [the current final-reference record](contact-final-reference.md). The provider configuration and truthful delivery status described below remain relevant.
+
 Implemented for `/contact/` on 23 November 2026. The supplied contact master prompt defines the design; the owner's subsequent instruction selects **Web3Forms** and the receiving inbox **hamidwork360@gmail.com**.
 
 ## Delivered experience

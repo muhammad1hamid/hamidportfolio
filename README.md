@@ -36,7 +36,7 @@ See `AEO-GEO-IMPLEMENTATION.md` for the latest work and remaining dependencies, 
 
 ## Contact behavior
 
-The `/contact/` page is **The First Conversation**: a letter-style composer using the owner's public Web3Forms form identifier and hCaptcha. Email sending requires provider acceptance; failure keeps the visitor's note. The owner has confirmed hCaptcha is enabled in the Web3Forms dashboard. See [setup and verification](docs/contact-first-conversation.md), including the outstanding real-inbox verification. `npm run test:contact` tests the current contact route, controlled provider outcomes and preserved planner/agency delivery paths.
+The `/contact/` page is **The First Conversation**: the final approved Soft UI design with four category choices, three required entry fields, a small real portrait, orange path artwork and a compact three-step process. It uses the owner's public Web3Forms identifier and hCaptcha. Email sending requires provider acceptance; failure keeps the visitor's note. The owner has confirmed hCaptcha is enabled in Web3Forms. See [the final-reference implementation record](docs/contact-final-reference.md), including the outstanding real-inbox verification. `npm run test:contact` tests the current contact route, controlled provider outcomes and preserved planner/agency delivery paths.
 
 Direct WhatsApp, email, LinkedIn and Instagram remain available. The project planner can download a local outline or open a WhatsApp draft for review. Its separate optional website-send path and the agency form retain the existing Vercel/Turnstile/Upstash/Resend configuration; Web3Forms does not silently enable those routes. Google Drive supplies the selected testimonial video through its embedded player.
 

@@ -2,40 +2,23 @@ import { enquiryServices, validateEnquiry } from "./project-enquiry.mjs";
 
 export const conversationTopics = Object.freeze({
   website: {
-    label: "Website / landing page",
+    label: "Website",
     service: "website",
     prompt:
       "A new website, a landing page, or a first idea — where would you like to begin?",
   },
-  improve: {
-    label: "Improve an existing site",
-    service: "website",
-    prompt:
-      "What would you like to change? A link to the current site can help.",
-  },
   growth: {
-    label: "Growth / SEO / AEO",
+    label: "Growth",
     service: "growth-engine",
     prompt: "Do you have a website URL or a search visibility goal in mind?",
   },
   automation: {
-    label: "AI automation",
+    label: "Automation",
     service: "ai-automation",
     prompt: "Which repetitive task would you like to simplify?",
   },
-  conversations: {
-    label: "AI conversations",
-    service: "ai-assistant",
-    prompt: "What should visitors be able to ask or do?",
-  },
-  agency: {
-    label: "Agency partnership",
-    service: "agency",
-    prompt:
-      "Are you looking for project-based support or an ongoing development partner?",
-  },
   other: {
-    label: "Something else",
+    label: "Other",
     service: "unsure",
     prompt: "Still taking shape is a perfectly good place to start.",
   },
@@ -49,12 +32,13 @@ export function isConversationTopic(value) {
 
 /** @param {string} service @returns {ConversationTopic | ""} */
 export function conversationTopicFor(service) {
+  if (service === "agency" || service === "ai-assistant") return "other";
   return (
     /** @type {ConversationTopic[]} */ (Object.keys(conversationTopics)).find(
       (key) =>
         conversationTopics[key].service ===
         (service === "landing-page" ? "website" : service),
-    ) ?? ""
+    ) ?? "website"
   );
 }
 
@@ -69,8 +53,7 @@ export function validateConversation(input) {
   );
   if (!result.ok) {
     if (!topic)
-      result.errors.service =
-        "Choose a project type, or select Something else.";
+      result.errors.service = "Choose a project type, or select Other.";
     return result;
   }
   return { ...result, topic: /** @type {ConversationTopic} */ (topic) };
