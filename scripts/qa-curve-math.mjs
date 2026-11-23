@@ -60,14 +60,15 @@ for (const surface of ["left", "right", "floor", "ceiling"]) {
   assert.ok(normal.dot(inward) > 0.99, `${surface} normals face the interior`);
   mesh.dispose();
 }
-for (const [width, height] of [
+for (const [width, height, resizedFov] of [
   [320, 568],
   [390, 844],
   [1440, 900],
   [1920, 1080],
+  [390, 844, 94],
 ]) {
   const camera = new THREE.PerspectiveCamera(
-    width < 768 ? 82 : 62,
+    resizedFov || (width < 768 ? 82 : 62),
     width / height,
     0.05,
     100,

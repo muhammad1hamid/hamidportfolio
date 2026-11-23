@@ -32,8 +32,8 @@ function CoverContent({
       <img
         className={returning ? "curve-return-cover" : "curve-shared-cover"}
         style={{
-          left: rect.x,
-          top: rect.y,
+          left: `calc(${rect.x}px - var(--curve-story-inset) - 1px)`,
+          top: `calc(${rect.y}px - var(--curve-story-inset) - 1px)`,
           width: rect.width,
           height: rect.height,
         }}
@@ -44,7 +44,9 @@ function CoverContent({
       />
       <div
         className="curve-cover-copy"
-        style={{ top: rect.y + rect.height + 22 }}
+        style={{
+          top: `calc(${rect.y + rect.height + 22}px - var(--curve-story-inset))`,
+        }}
       >
         <p>
           {project.industry} · {project.typeLabel}
@@ -98,8 +100,8 @@ export const CaseStudy = forwardRef<
             { xPercent: 100 },
             {
               xPercent: 0,
-              duration: 0.28,
-              ease: "power3.out",
+              duration: 0.5,
+              ease: "power3.inOut",
               onComplete: resolve,
               onInterrupt: resolve,
             },
@@ -177,9 +179,13 @@ export const CaseStudy = forwardRef<
           event.metaKey
         )
           return;
-        if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+        if (
+          ["ArrowRight", "ArrowLeft", "PageDown", "PageUp"].includes(event.key)
+        ) {
           event.preventDefault();
-          go(chapter + (event.key === "ArrowRight" ? 1 : -1));
+          go(
+            chapter + (["ArrowRight", "PageDown"].includes(event.key) ? 1 : -1),
+          );
         }
       }}
     >

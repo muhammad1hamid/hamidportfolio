@@ -23,6 +23,29 @@ const sequence = [
   "elevate-x",
 ];
 
+// A curated, deterministic rhythm. Neighbours never share a path station.
+const walls = [
+  "left",
+  "right",
+  "left",
+  "left",
+  "right",
+  "left",
+  "right",
+  "right",
+  "left",
+  "right",
+  "left",
+  "left",
+  "right",
+  "left",
+  "right",
+  "right",
+  "left",
+  "right",
+] as const;
+export const frameSpacing = 4.3;
+
 export const corridorProjects = sequence.map((id, index) => {
   const project = projects.find((item) => item.id === id);
   if (!project) throw new Error(`Missing corridor project ${id}`);
@@ -32,8 +55,8 @@ export const corridorProjects = sequence.map((id, index) => {
     notes: projectDetails[id],
     imageAspect: 1440 / (project.crop?.desktop ?? 960),
     thumbnailAlt: `Desktop screenshot of ${project.title}${project.screenSubject ? `, showing ${project.screenSubject}` : ""}`,
-    wallSide: index % 2 === 0 ? ("left" as const) : ("right" as const),
-    distance: 8.4 + Math.floor(index / 2) * 8.1 + (index % 2 ? 1.5 : 0),
+    wallSide: walls[index],
+    distance: 7.4 + index * frameSpacing,
     rank: index,
   };
 });

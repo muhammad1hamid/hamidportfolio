@@ -114,7 +114,13 @@ try {
         let tick = 0;
         const draw = (time) => {
           timestamps.push(time);
-          scrollTo({ top: (travel * 0.8 * tick) / 180, behavior: "instant" });
+          section.dispatchEvent(
+            new WheelEvent("wheel", {
+              deltaY: (12000 * 0.8) / 180,
+              bubbles: true,
+              cancelable: true,
+            }),
+          );
           if (++tick <= 180) requestAnimationFrame(draw);
           else resolve();
         };
@@ -139,7 +145,7 @@ try {
     const idle = await page.evaluate(() => window.curveMeasure.draws);
     const gpu = await page.evaluate(() => {
       const gl = document
-        .querySelector(".curve-canvas canvas")
+        .querySelector(".curve-live-world")
         .getContext("webgl2");
       const ext = gl.getExtension("WEBGL_debug_renderer_info");
       return {

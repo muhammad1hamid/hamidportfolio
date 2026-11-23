@@ -4,8 +4,8 @@ import { chromium } from "playwright-core";
 import AxeBuilder from "@axe-core/playwright";
 
 const base = process.env.QA_BASE_URL || "http://127.0.0.1:3001";
-const output = "qa-output/curve";
-const cycles = Number(process.env.QA_CURVE_CYCLES || 32);
+const output = process.env.QA_CURVE_OUTPUT || "qa-output/curve-3";
+const cycles = Number(process.env.QA_CURVE_CYCLES || 18);
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
   executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
@@ -41,31 +41,62 @@ async function state(page, mode) {
   await page.waitForSelector(`[data-mode="${mode}"]`, { timeout: 30000 });
 }
 async function walk(page, progress) {
+  const viewport = page.viewportSize();
+  await page.mouse.move(viewport.width / 2, viewport.height - 8);
+  if (progress === 0) await page.keyboard.press("Home");
   await page.evaluate((p) => {
-    const el = document.querySelector(".curve-walk");
-    scrollTo({
-      top: el.offsetTop + p * (el.offsetHeight - innerHeight),
-      behavior: "instant",
-    });
+    const stage = document.querySelector(".curve-stage");
+    const host = document.querySelector(".curve-canvas");
+    const current = Number(host.dataset.target ?? host.dataset.progress);
+    let delta = (p - current) * 12000;
+    while (Math.abs(delta) > 0.01) {
+      const step = Math.sign(delta) * Math.min(1200, Math.abs(delta));
+      stage.dispatchEvent(
+        new WheelEvent("wheel", {
+          deltaY: step,
+          bubbles: true,
+          cancelable: true,
+        }),
+      );
+      delta -= step;
+    }
   }, progress);
-  await page.waitForFunction(
-    (p) =>
-      Math.abs(
-        Number(document.querySelector(".curve-canvas").dataset.progress) - p,
-      ) < 0.001,
-    progress,
-  );
-  await page.waitForTimeout(200);
+  await page
+    .waitForFunction(
+      (p) =>
+        Math.abs(
+          Number(document.querySelector(".curve-canvas").dataset.progress) - p,
+        ) < 0.00001,
+      progress,
+    )
+    .catch(async (error) => {
+      console.error(
+        "Walk timeout state",
+        await page.evaluate(() => ({
+          mode: document.querySelector(".curve-experience")?.dataset.mode,
+          host: document.querySelector(".curve-canvas")?.dataset,
+          hidden: document.hidden,
+          hash: location.hash,
+          active: document.activeElement?.outerHTML.slice(0, 200),
+        })),
+      );
+      throw error;
+    });
+  await page.waitForTimeout(250);
 }
 async function inspect(page) {
   return page.evaluate(() => window.curveDebug?.inspect());
 }
 async function preview(page, index = 0) {
-  await page.locator(".curve-nearby button").nth(index).click();
+  await page
+    .locator(".curve-frame-control")
+    .nth(index)
+    .evaluate((el) => el.click());
   await state(page, "PREVIEW");
+  await page.waitForTimeout(400);
 }
 async function detail(page) {
-  await page.getByRole("button", { name: "View project", exact: true }).click();
+  await page.getByRole("button", { name: "View Project", exact: true }).click();
   await state(page, "DETAIL");
 }
 async function close(page) {
@@ -97,13 +128,26 @@ async function swipe(page, x1, y1, x2, y2) {
   await session.detach();
 }
 try {
-  for (const width of [320, 360, 375, 390, 430, 768, 1024, 1280, 1440, 1920]) {
+  const widths = process.env.QA_CURVE_WIDTHS
+    ? process.env.QA_CURVE_WIDTHS.split(",").map(Number)
+    : [320, 360, 375, 390, 430, 768, 1024, 1280, 1440, 1920];
+  for (const width of widths) {
     const { page, context } = await open(width, width < 768 ? 844 : 900);
     try {
       await state(page, "WALK");
       await page.waitForTimeout(500);
-      assert.equal(await page.locator(".curve-canvas canvas").count(), 1);
+      await page.waitForFunction(
+        () => document.documentElement.scrollHeight <= innerHeight + 1,
+      );
+      assert.equal(await page.locator(".curve-live-world").count(), 1);
       assert.equal(await page.locator(".project-entry").count(), 18);
+      assert.equal(await page.locator("footer.footer").count(), 0);
+      assert.equal(await page.locator(".curve-nearby").count(), 0);
+      assert.ok(
+        await page.evaluate(
+          () => document.documentElement.scrollHeight <= innerHeight + 1,
+        ),
+      );
       assert.ok(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,
@@ -112,6 +156,16 @@ try {
       const snapshot = await inspect(page);
       if (snapshot) {
         assert.equal(snapshot.frames.length, 18);
+        assert.equal(snapshot.architecture.floorTitles, 18);
+        assert.equal(snapshot.architecture.installation, true);
+        assert.ok(
+          snapshot.frames
+            .slice(1)
+            .every(
+              (frame, index) =>
+                frame.distance - snapshot.frames[index].distance >= 4.29,
+            ),
+        );
         assert.equal(
           snapshot.frames.filter((f) => f.side === "left").length,
           9,
@@ -176,12 +230,13 @@ try {
         await close(page);
       }
       results.layouts.push(width);
+      console.log(`PASS layout ${width}`);
     } finally {
       await context.close();
     }
   }
   results.journeys.push(
-    "Ten viewports, 18 entries, both walls near the bend, chapter controls, six scoped accessibility scans",
+    `${widths.length} viewports, 18 entries, both walls near the bend, chapter controls, ${widths.filter((width) => [320, 390, 1440].includes(width)).length * 2} scoped accessibility scans`,
   );
 
   const { page, context } = await open(1440);
@@ -199,7 +254,7 @@ try {
     await page.mouse.wheel(0, -500);
     await page.waitForTimeout(700);
     await walk(page, 0);
-    const baseline = await inspect(page);
+    let baseline = await inspect(page);
     const p = baseline?.frames[0].center;
     // The production coordinate was verified against the captured 1440px view.
     await page.mouse.move(
@@ -211,7 +266,21 @@ try {
     await state(page, "WALK");
     await page.mouse.move(720, 750);
     for (let cycle = 0; cycle < cycles; cycle++) {
-      await preview(page, cycle % 2);
+      if (cycle < 18) {
+        await walk(page, Math.max(0, (7.4 + cycle * 4.3 - 7) / 84));
+        baseline = await inspect(page);
+        await page
+          .locator('[data-project-index="' + cycle + '"]')
+          .evaluate((el) => el.click());
+        await state(page, "PREVIEW");
+        assert.equal(await page.locator(".curve-preview-info p").count(), 0);
+        assert.equal(
+          await page
+            .locator(".curve-preview-info > div > :is(a,button)")
+            .count(),
+          2,
+        );
+      } else await preview(page, cycle % 2);
       await detail(page);
       if (cycle % 3) {
         await page.locator(".curve-story-track").evaluate(
@@ -245,14 +314,23 @@ try {
         assert.ok(restored.textures <= 24);
       }
       assert.equal(await page.locator("dialog[open]").count(), 0);
+      if (cycle < 18)
+        assert.equal(
+          await page.evaluate(
+            () => document.activeElement?.dataset.projectIndex,
+          ),
+          String(cycle),
+        );
       assert.equal(
         await page.evaluate(
           () => getComputedStyle(document.documentElement).overflowY,
         ),
-        "visible",
+        "hidden",
       );
       results.cycles++;
+      console.log(`PASS project return ${cycle + 1}`);
     }
+    await walk(page, 0);
     await page.goForward();
     await state(page, "DETAIL");
     await page.goBack();
@@ -262,6 +340,17 @@ try {
     await detail(page);
     await page.setViewportSize({ width: 390, height: 844 });
     await page.waitForTimeout(500);
+    assert.ok(
+      await page.locator(".curve-shared-cover").evaluate((el) => {
+        const rect = el.getBoundingClientRect();
+        return (
+          rect.left >= 0 &&
+          rect.right <= innerWidth + 1 &&
+          rect.bottom <= innerHeight
+        );
+      }),
+      "Rotated story cover remains inside the new viewport",
+    );
     await close(page);
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.waitForTimeout(300);
@@ -273,7 +362,7 @@ try {
         .isVisible(),
     );
     await page
-      .getByRole("button", { name: "Walk back to the start", exact: true })
+      .getByRole("button", { name: "Explore again", exact: true })
       .click();
     await page.waitForTimeout(1200);
     await walk(page, 0.5);
@@ -286,7 +375,7 @@ try {
       results.metrics.push(after);
     }
     await page
-      .locator(".curve-canvas canvas")
+      .locator(".curve-live-world")
       .evaluate((el) =>
         el.dispatchEvent(new Event("webglcontextlost", { cancelable: true })),
       );
@@ -316,7 +405,7 @@ try {
       await phone.page.touchscreen.tap((p[0] + 1) * 195, (1 - p[1]) * 422);
     } else {
       // Actual first-frame surface in the production 390 × 844 screenshot.
-      await phone.page.touchscreen.tap(70, 408);
+      await phone.page.touchscreen.tap(60, 409);
     }
     await state(phone.page, "PREVIEW");
     await detail(phone.page);
@@ -343,7 +432,7 @@ try {
     try {
       assert.equal(await page.locator(".project-entry").count(), 18);
       assert.ok(await page.locator(".project-entry").first().isVisible());
-      assert.equal(await page.locator(".curve-canvas canvas").count(), 0);
+      assert.equal(await page.locator(".curve-live-world").count(), 0);
       await page.screenshot({
         path: `${output}/fallback-${settings.javaScriptEnabled === false ? "no-js" : "reduced"}.png`,
       });

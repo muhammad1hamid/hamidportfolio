@@ -16,11 +16,13 @@ export class FrameTextures {
     materials: THREE.MeshBasicMaterial[],
     distance: number,
     selected?: string,
+    nearRadius = 12.5,
   ) {
     this.wanted = new Set(
       projects
         .filter(
-          (p) => Math.abs(p.distance - distance) < 15 || p.id === selected,
+          (p) =>
+            Math.abs(p.distance - distance) < nearRadius || p.id === selected,
         )
         .map((p) => `${p.id}-960`),
     );

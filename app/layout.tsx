@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { site } from "@/data/site";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
+import { RouteFooter } from "@/components/layout/RouteFooter";
 import { Experience } from "@/components/motion/Experience";
 import { SignatureIntro } from "@/components/motion/SignatureIntro";
 import { originBootstrap } from "@/components/motion/origin-session";
@@ -138,7 +139,9 @@ export default function RootLayout({
         <Navigation />
         <Experience />
         {children}
-        <Footer />
+        <RouteFooter>
+          <Footer />
+        </RouteFooter>
         <JsonLd data={entityGraph} />
         {!site.noindex && <Analytics />}
       </body>

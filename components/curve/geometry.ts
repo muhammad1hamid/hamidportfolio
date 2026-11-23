@@ -1,7 +1,11 @@
 import * as THREE from "three";
 
 export const corridorLength = 88;
-export const walkLength = 77;
+export const walkLength = 84;
+export function corridorHalfWidth(distance: number, base: number) {
+  const t = THREE.MathUtils.smoothstep(distance, 79, 87.5);
+  return base + t * 0.45;
+}
 const up = new THREE.Vector3(0, 1, 0);
 const points = [new THREE.Vector3(0, 0, 0)];
 const samples = 352;
@@ -44,7 +48,10 @@ export function wallAnchor(
   const { position, tangent, right } = pathFrame(distance);
   const sign = side === "right" ? 1 : -1;
   const normal = right.clone().multiplyScalar(-sign);
-  position.addScaledVector(right, sign * (halfWidth - 0.055));
+  position.addScaledVector(
+    right,
+    sign * (corridorHalfWidth(distance, halfWidth) - 0.055),
+  );
   position.y = 1.9;
   const quaternion = new THREE.Quaternion().setFromRotationMatrix(
     new THREE.Matrix4().makeBasis(up.clone().cross(normal), up, normal),
@@ -76,24 +83,26 @@ export function ribbonGeometry(
 ) {
   const vertices: number[] = [],
     indices: number[] = [],
-    colors: number[] = [];
+    colors: number[] = [],
+    uvs: number[] = [];
   const wall = surface === "left" || surface === "right";
   const divisions = wall ? 12 : surface === "floor" ? 8 : 1;
   for (let index = 0; index <= samples; index++) {
     const distance = (index / samples) * corridorLength;
+    const half = corridorHalfWidth(distance, halfWidth);
     const { position, right } = pathFrame(distance);
-    let sides = [-halfWidth, halfWidth],
+    let sides = [-half, half],
       levels = [0, 0];
     if (surface === "left" || surface === "right") {
       sides = [
-        surface === "left" ? -halfWidth : halfWidth,
-        surface === "left" ? -halfWidth : halfWidth,
+        surface === "left" ? -half : half,
+        surface === "left" ? -half : half,
       ];
       levels = [0, height];
     } else if (surface === "ceiling") levels = [height, height];
     else if (surface.startsWith("light")) {
       const side = surface === "light-left" ? -1 : 1;
-      sides = [side * (halfWidth - 0.16), side * (halfWidth - 0.2)];
+      sides = [side * (half - 0.26), side * (half - 0.31)];
       levels = [height - 0.018, height - 0.018];
     }
     for (let edge = 0; edge <= divisions; edge++) {
@@ -106,6 +115,7 @@ export function ribbonGeometry(
         );
       const y = THREE.MathUtils.lerp(levels[0], levels[1], across);
       vertices.push(point.x, y, point.z);
+      uvs.push(distance / 5, wall ? y / 2 : (across * half) / 2);
       // Static wall washes and contact shading give the matte architecture
       // depth without shadow maps, extra lights or per-frame shader work.
       let shade = 1;
@@ -120,6 +130,9 @@ export function ribbonGeometry(
       } else if (surface === "floor") {
         const center = Math.sin(across * Math.PI);
         shade = 0.35 + center * 0.65;
+      } else if (surface === "ceiling") {
+        const panel = Math.floor(distance / 3.2) % 2;
+        shade = 0.76 + panel * 0.08;
       }
       colors.push(shade, shade * (wall ? 0.96 : 1), shade * (wall ? 0.9 : 1));
     }
@@ -137,6 +150,7 @@ export function ribbonGeometry(
     new THREE.Float32BufferAttribute(vertices, 3),
   );
   geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3));
+  geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
   if (surface === "left" || surface === "ceiling") {
     for (let index = 0; index < indices.length; index += 3) {
       [indices[index + 1], indices[index + 2]] = [
@@ -158,15 +172,15 @@ export function coverRect(
   detail = false,
 ): CoverRect {
   const mobile = width < 768;
-  const availableWidth = width * (detail ? 0.9 : mobile ? 0.72 : 0.5);
-  const availableHeight = height * (detail ? 0.61 : mobile ? 0.31 : 0.45);
+  const availableWidth = detail
+    ? width * 0.9
+    : Math.min(width * (mobile ? 0.84 : 0.54), 840);
+  const availableHeight = height * (detail ? 0.61 : mobile ? 0.4 : 0.46);
   const w = Math.min(availableWidth, availableHeight * aspect);
   const h = w / aspect;
   return {
     x: (width - w) / 2,
-    y: detail
-      ? Math.max(76, (height * 0.72 - h) / 2)
-      : height * (mobile ? 0.36 : 0.41) - h / 2,
+    y: detail ? Math.max(76, (height * 0.72 - h) / 2) : height * 0.43 - h / 2,
     width: w,
     height: h,
   };

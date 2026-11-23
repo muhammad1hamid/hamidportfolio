@@ -12,6 +12,7 @@ import {
   type CoverRect,
 } from "./geometry";
 import { FrameTextures } from "./textures";
+import { populateArchitecture } from "./architecture";
 
 type Options = {
   host: HTMLElement;
@@ -19,6 +20,7 @@ type Options = {
   onProgress: (progress: number, nearby: number[]) => void;
   onSelect: (index: number) => void;
   onFailure: (message: string) => void;
+  onResize?: (rect: CoverRect) => void;
 };
 type Pose = {
   position: THREE.Vector3;
@@ -32,6 +34,7 @@ export function createCorridor({
   onProgress,
   onSelect,
   onFailure,
+  onResize,
 }: Options) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color("#101214");
@@ -39,7 +42,7 @@ export function createCorridor({
   const camera = new THREE.PerspectiveCamera(62, 1, 0.05, 100);
   const renderer = new THREE.WebGLRenderer({
     antialias: true,
-    alpha: false,
+    alpha: true,
     powerPreference: "low-power",
   });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -47,9 +50,15 @@ export function createCorridor({
   renderer.toneMappingExposure = 1.25;
   renderer.domElement.setAttribute("aria-hidden", "true");
   host.append(renderer.domElement);
+  const backdrop = document.createElement("canvas");
+  backdrop.className = "curve-frozen-world";
+  backdrop.setAttribute("aria-hidden", "true");
+  host.prepend(backdrop);
+  renderer.domElement.className = "curve-live-world";
   const architectural = new THREE.Group();
   scene.add(architectural);
   scene.add(new THREE.HemisphereLight(0xc8ced1, 0x292420, 2.1));
+  scene.add(new THREE.AmbientLight(0xc8ced1, 0.42));
   const key = new THREE.DirectionalLight(0xffe6d0, 2.0);
   key.position.set(-4, 7, 3);
   scene.add(key);
@@ -62,7 +71,7 @@ export function createCorridor({
   const plane = new THREE.PlaneGeometry(1, 1);
   const rimGeometry = new THREE.BoxGeometry(1, 1, 0.035);
   const frames = projects.map((project) => {
-    const width = 2.65 + (project.rank % 3 === 0 ? 0.12 : 0);
+    const width = 3.05 + (project.rank % 3 === 0 ? 0.12 : 0);
     const group = new THREE.Group();
     const rim = new THREE.Mesh(
       rimGeometry,
@@ -96,6 +105,7 @@ export function createCorridor({
   let width = 1,
     height = 1,
     mobile = false;
+  let architectureMobile: boolean | null = null;
   let target = 0,
     progress = 0,
     selected = -1,
@@ -110,6 +120,7 @@ export function createCorridor({
   let resumeTransition: (() => void) | undefined;
   let view: "wall" | "preview" | "detail" = "wall";
   let coverHidden = false;
+  let savedPose: Pose | null = null;
   let snapshot: {
     projectId: string;
     progress: number;
@@ -127,6 +138,41 @@ export function createCorridor({
   const pointer = new THREE.Vector2();
   const abort = new AbortController();
   const textures = new FrameTextures(invalidate);
+
+  // One static 2D copy blurs only the frozen architecture. The same selected
+  // Three.js frame stays sharp in the original renderer above it.
+  function freezeBackground() {
+    if (selected < 0) return;
+    architectural.visible = true;
+    frames.forEach((f, index) => {
+      f.group.visible = index !== selected;
+    });
+    scene.background = new THREE.Color("#101214");
+    renderer.render(scene, camera);
+    const ratio = Math.min(1, 1440 / width);
+    backdrop.width = Math.round(width * ratio);
+    backdrop.height = Math.round(height * ratio);
+    backdrop
+      .getContext("2d")
+      ?.drawImage(renderer.domElement, 0, 0, backdrop.width, backdrop.height);
+    architectural.visible = false;
+    frames.forEach((f, index) => {
+      f.group.visible = index === selected && !coverHidden;
+    });
+    scene.background = null;
+    renderer.render(scene, camera);
+    host.dataset.focused = "true";
+  }
+  function restoreBackground() {
+    architectural.visible = true;
+    frames.forEach((f) => {
+      f.group.visible = true;
+    });
+    scene.background = new THREE.Color("#101214");
+    renderer.render(scene, camera);
+    delete host.dataset.focused;
+    backdrop.width = backdrop.height = 1;
+  }
 
   function invalidate() {
     if (!disposed && !document.hidden && !coverHidden && !frame)
@@ -165,7 +211,22 @@ export function createCorridor({
       frames.map((f) => f.material),
       progress * walkLength,
       frames[selected]?.project.id,
+      mobile ? 10 : 12.5,
     );
+    // Proximity lighting follows the already-damped camera, with a continuous
+    // brightness curve. Loaded screenshot colors are never affected by ACES.
+    for (const f of frames) {
+      if (f.material.map) {
+        const distance = Math.abs(
+          f.project.distance - progress * walkLength - 6.5,
+        );
+        f.material.color.setScalar(
+          f.project.rank === selected
+            ? 1
+            : 0.78 + 0.22 * (1 - THREE.MathUtils.smoothstep(distance, 0, 22)),
+        );
+      }
+    }
     eyeLight.position
       .copy(camera.position)
       .add(new THREE.Vector3(0, 1.3, -3).applyQuaternion(camera.quaternion));
@@ -187,120 +248,25 @@ export function createCorridor({
     host.dataset.progress = progress.toFixed(7);
     if (moving || tween?.isActive()) invalidate();
   }
+  let releaseArchitecture = () => {};
   function architecture() {
-    architectural.traverse((node) => {
-      if (node instanceof THREE.Mesh) {
-        node.geometry.dispose();
-        (node.material as THREE.Material).dispose();
-      }
-    });
-    architectural.clear();
-    const half = mobile ? 2.12 : 3.2;
-    for (const surface of [
-      "left",
-      "right",
-      "floor",
-      "ceiling",
-      "light-left",
-      "light-right",
-    ] as const) {
-      const light = surface.startsWith("light");
-      const color =
-        surface === "floor"
-          ? 0x25292c
-          : surface === "ceiling"
-            ? 0x292d30
-            : 0x41474a;
-      const material = light
-        ? new THREE.MeshBasicMaterial({
-            color: 0x938879,
-            side: THREE.DoubleSide,
-          })
-        : new THREE.MeshStandardMaterial({
-            color,
-            vertexColors: true,
-            roughness: 0.94,
-            metalness: 0.04,
-            emissive: 0x101214,
-            emissiveIntensity: 0.35,
-            side: THREE.DoubleSide,
-          });
-      const mesh = new THREE.Mesh(
-        ribbonGeometry(
-          half,
-          4.3,
-          surface,
-          projects
-            .filter((project) => project.wallSide === surface)
-            .map((project) => project.distance),
-        ),
-        material,
-      );
-      mesh.userData.occluder = !light;
-      architectural.add(mesh);
-    }
-    // Quiet transverse floor joints provide distance cues without a central rail.
-    for (let d = 4; d < 88; d += 8.1) {
-      const f = pathFrame(d);
-      const joint = new THREE.Mesh(
-        new THREE.PlaneGeometry(half * 2, 0.012),
-        new THREE.MeshBasicMaterial({
-          color: 0x15191c,
-          side: THREE.DoubleSide,
-        }),
-      );
-      joint.position.copy(f.position);
-      joint.position.y = 0.004;
-      joint.rotation.set(
-        -Math.PI / 2,
-        0,
-        Math.atan2(f.tangent.x, -f.tangent.z),
-      );
-      architectural.add(joint);
-    }
+    releaseArchitecture();
     frames.forEach((f) => {
-      f.anchor = wallAnchor(f.project.distance, f.project.wallSide, half);
+      f.anchor = wallAnchor(
+        f.project.distance,
+        f.project.wallSide,
+        architectureMobile ? 2.12 : 3.2,
+      );
       if (f.project.rank !== selected) {
         f.group.position.copy(f.anchor.position);
         f.group.quaternion.copy(f.anchor.quaternion);
       }
-      const mount = new THREE.Mesh(
-        new THREE.BoxGeometry(f.width * 0.46, 0.025, 0.16),
-        new THREE.MeshStandardMaterial({
-          color: 0x343333,
-          roughness: 0.48,
-          metalness: 0.55,
-          emissive: 0x62503a,
-          emissiveIntensity: 0.32,
-        }),
-      );
-      mount.position
-        .copy(f.anchor.position)
-        .add(
-          new THREE.Vector3(0, f.width / f.project.imageAspect / 2 + 0.22, 0),
-        );
-      mount.quaternion.copy(f.anchor.quaternion);
-      architectural.add(mount);
     });
-    const end = pathFrame(87.5);
-    const wall = new THREE.Mesh(
-      new THREE.PlaneGeometry(half * 2, 4.3),
-      new THREE.MeshStandardMaterial({
-        color: 0x343330,
-        roughness: 1,
-        side: THREE.DoubleSide,
-      }),
+    releaseArchitecture = populateArchitecture(
+      architectural,
+      frames,
+      !!architectureMobile,
     );
-    wall.position.copy(end.position);
-    wall.position.y = 2.15;
-    wall.quaternion.setFromRotationMatrix(
-      new THREE.Matrix4().makeBasis(
-        end.right,
-        new THREE.Vector3(0, 1, 0),
-        end.tangent.clone().negate(),
-      ),
-    );
-    architectural.add(wall);
   }
   function resize() {
     const bounds = host.getBoundingClientRect();
@@ -308,20 +274,32 @@ export function createCorridor({
     height = bounds.height;
     if (!width || !height) return;
     const nextMobile = width < 768;
-    if (nextMobile !== mobile || !architectural.children.length) {
-      mobile = nextMobile;
+    mobile = nextMobile;
+    // A room does not change its world dimensions on device rotation. Keeping
+    // the initial geometry preserves exact saved wall transforms during resize.
+    if (architectureMobile === null) {
+      architectureMobile = mobile;
       architecture();
     }
     camera.aspect = width / height;
-    camera.fov = mobile ? 82 : 62;
+    camera.fov = mobile ? (architectureMobile ? 82 : 94) : 62;
     camera.updateProjectionMatrix();
     renderer.setPixelRatio(quality);
     renderer.setSize(width, height);
     if (selected >= 0) {
+      freezeBackground();
+      onResize?.(
+        coverRect(
+          width,
+          height,
+          frames[selected].project.imageAspect,
+          view === "detail",
+        ),
+      );
       const mode = view;
       const finish = resumeTransition;
       tween?.kill();
-      moveTo(mode, 0.22, finish);
+      moveTo(mode, coverHidden ? 0 : 0.22, finish);
     }
     invalidate();
   }
@@ -333,12 +311,7 @@ export function createCorridor({
 
   function destination(mode: typeof view): Pose {
     const f = frames[selected];
-    if (mode === "wall")
-      return {
-        position: f.anchor.position.clone(),
-        quaternion: f.anchor.quaternion.clone(),
-        scale: 1,
-      };
+    if (mode === "wall" && savedPose) return savedPose;
     return centeredPose(
       camera,
       coverRect(width, height, f.project.imageAspect, mode === "detail"),
@@ -348,6 +321,7 @@ export function createCorridor({
   }
   function moveTo(mode: typeof view, duration: number, done?: () => void) {
     tween?.kill();
+    const spatial = mode === "wall" || view === "wall";
     view = mode;
     resumeTransition = done;
     const f = frames[selected];
@@ -362,9 +336,14 @@ export function createCorridor({
     tween = gsap.to(state, {
       t: 1,
       duration,
-      ease: "power3.out",
+      ease: "power3.inOut",
       onUpdate: () => {
         f.group.position.lerpVectors(start.position, end.position, state.t);
+        if (spatial)
+          f.group.position.addScaledVector(
+            f.anchor.normal,
+            Math.sin(Math.PI * state.t) * 0.24,
+          );
         f.group.quaternion.slerpQuaternions(
           start.quaternion,
           end.quaternion,
@@ -412,7 +391,7 @@ export function createCorridor({
   host.addEventListener(
     "pointermove",
     (event) => {
-      if (event.pointerType !== "mouse" || frozen) return;
+      if (mobile || event.pointerType !== "mouse" || frozen) return;
       const index = hit(event);
       host.style.cursor = index < 0 ? "default" : "pointer";
       if (index === hoverIndex) return;
@@ -476,6 +455,7 @@ export function createCorridor({
     setProgress(value: number, immediate = false) {
       if (frozen) return;
       target = THREE.MathUtils.clamp(value, 0, 1);
+      host.dataset.target = target.toFixed(7);
       if (immediate) {
         progress = target;
         const p = cameraPose(progress);
@@ -501,28 +481,40 @@ export function createCorridor({
         aspect: frames[index].project.imageAspect,
         viewport: { width, height },
       };
-      moveTo("preview", 0.62, done);
+      savedPose = {
+        position: frames[index].group.position.clone(),
+        quaternion: frames[index].group.quaternion.clone(),
+        scale: frames[index].group.scale.x,
+      };
+      freezeBackground();
+      moveTo("preview", 0.82, done);
     },
     expand(done: () => void) {
-      moveTo("detail", 0.76, done);
+      host.dataset.story = "true";
+      moveTo("detail", 1.0, done);
     },
     contract(done: () => void) {
+      delete host.dataset.story;
       coverHidden = false;
       frames[selected].group.visible = true;
-      moveTo("preview", 0.42, done);
+      moveTo("preview", 0.85, done);
     },
     returnToWall(done: () => void) {
-      moveTo("wall", 0.62, () => {
+      moveTo("wall", 0.82, () => {
+        restoreBackground();
         selected = -1;
         frozen = false;
         hoverIndex = -1;
+        savedPose = null;
         last = performance.now();
+        resize();
         done();
       });
     },
     setCovered(value: boolean) {
       coverHidden = value;
       if (selected >= 0) frames[selected].group.visible = !value;
+      renderer.render(scene, camera);
       if (!value) invalidate();
     },
     rect(detail = false): CoverRect {
@@ -552,6 +544,7 @@ export function createCorridor({
         camera: camera.matrixWorld.toArray(),
         frames: frames.map((f) => ({
           id: f.project.id,
+          distance: f.project.distance,
           side: f.project.wallSide,
           world: f.group.matrixWorld.toArray(),
           anchor: new THREE.Matrix4()
@@ -569,10 +562,19 @@ export function createCorridor({
             point.applyMatrix4(f.image.matrixWorld).project(camera).toArray(),
           ),
         })),
+        architecture: {
+          floorTitles: architectural.children.filter(
+            (node) => node.userData.floorTitle,
+          ).length,
+          installation: architectural.children.some(
+            (node) => node.userData.installation === "THE CONVERGENCE",
+          ),
+        },
         ...textures.stats(),
         drawCalls: renderer.info.render.calls,
         triangles: renderer.info.render.triangles,
         geometries: renderer.info.memory.geometries,
+        gpuTextures: renderer.info.memory.textures,
         renderCount,
         dpr: renderer.getPixelRatio(),
         meanMovingFrameMs: measured ? totalFrameMs / measured : 0,
@@ -586,6 +588,7 @@ export function createCorridor({
       observer.disconnect();
       abort.abort();
       textures.dispose();
+      releaseArchitecture();
       scene.traverse((node) => {
         if (node instanceof THREE.Mesh) {
           node.geometry.dispose();
@@ -596,6 +599,7 @@ export function createCorridor({
       renderer.dispose();
       renderer.forceContextLoss();
       renderer.domElement.remove();
+      backdrop.remove();
     },
   };
 }

@@ -1,5 +1,7 @@
 # THE CURVE implementation record
 
+This is the original implementation record. The current architectural and interaction refinement is documented in [THE CURVE 3.0](curve-3-refinement.md); the measurements below describe the earlier release.
+
 ## Repository audit before implementation
 
 The route is an exported Next.js App Router page at `app/work/page.tsx`, using React 19, Three.js 0.183, GSAP 3.14 and plain CSS. Static hosting serves `out/`. The canonical is `https://itshamid.com/work/`. Six individual project URLs already exist. The root navigation, footer and session-scoped HAMID intro are shared.

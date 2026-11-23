@@ -29,8 +29,7 @@ try {
   await page.goto(base + "/work/");
   await state(page, "WALK");
   await page.screenshot({ path: "qa-output/curve/short-phone-corridor.png" });
-  await page.locator(".curve-nearby button").first().focus();
-  await page.keyboard.press("Enter");
+  await page.locator(".curve-frame-control").first().focus();
   await state(page, "PREVIEW");
   await page.screenshot({ path: "qa-output/curve/short-phone-preview.png" });
   await page.keyboard.press("Enter");
@@ -44,20 +43,24 @@ try {
   await page.keyboard.press("ArrowRight");
   await page.waitForTimeout(500);
   assert.ok(
-    (await page.locator(".curve-story-track").evaluate((el) => el.scrollLeft)) >
-      300,
+    await page
+      .locator(".curve-story-track")
+      .evaluate((el) => el.scrollLeft > el.clientWidth * 0.95),
   );
   await page.keyboard.press("Escape");
   await state(page, "WALK");
   assert.ok(
     await page
-      .locator(".curve-nearby button")
+      .locator(".curve-frame-control")
       .first()
       .evaluate((el) => el === document.activeElement),
   );
-  await page.locator(".curve-nearby button").first().click();
+  await page
+    .locator(".curve-frame-control")
+    .first()
+    .evaluate((el) => el.click());
   await state(page, "PREVIEW");
-  await page.getByRole("button", { name: "View project", exact: true }).click();
+  await page.getByRole("button", { name: "View Project", exact: true }).click();
   await state(page, "DETAIL");
   await page.locator(".curve-story-close").evaluate((button) => {
     button.click();
@@ -65,13 +68,35 @@ try {
   });
   await state(page, "WALK");
   assert.equal(new URL(page.url()).pathname, "/work/");
-  await page.locator(".curve-nearby button").first().click();
+  await page
+    .locator(".curve-frame-control")
+    .first()
+    .evaluate((el) => el.click());
   await state(page, "PREVIEW");
-  await page.getByRole("button", { name: "View project", exact: true }).click();
+  await page.getByRole("button", { name: "View Project", exact: true }).click();
+  await state(page, "DETAIL");
+  await page.goBack();
+  await state(page, "DETAIL_CLOSING");
+  await page.goForward();
+  await state(page, "DETAIL");
+  assert.equal(await page.locator("dialog[open]").count(), 1);
+  await page
+    .getByRole("button", { name: "Close project", exact: true })
+    .click();
+  await state(page, "WALK");
+  await page
+    .locator(".curve-frame-control")
+    .first()
+    .evaluate((el) => el.click());
+  await state(page, "PREVIEW");
+  await page.getByRole("button", { name: "View Project", exact: true }).click();
   await page.waitForTimeout(80);
   await page.keyboard.press("Escape");
   await state(page, "WALK");
-  await page.locator(".curve-nearby button").first().click();
+  await page
+    .locator(".curve-frame-control")
+    .first()
+    .evaluate((el) => el.click());
   await state(page, "PREVIEW");
   await page.locator(".curve-preview-list").click();
   await state(page, "FALLBACK");
@@ -82,9 +107,12 @@ try {
     .getByRole("button", { name: "Enter the 3D corridor", exact: true })
     .click();
   await state(page, "WALK");
-  await page.locator(".curve-nearby button").first().click();
+  await page
+    .locator(".curve-frame-control")
+    .first()
+    .evaluate((el) => el.click());
   await state(page, "PREVIEW");
-  await page.getByRole("button", { name: "View project", exact: true }).click();
+  await page.getByRole("button", { name: "View Project", exact: true }).click();
   await state(page, "DETAIL");
   await page.locator(".curve-story-list").click();
   await state(page, "FALLBACK");
@@ -130,10 +158,13 @@ try {
   await slow.page.goto(base + "/work/", { waitUntil: "domcontentloaded" });
   await state(slow.page, "WALK");
   await slow.page.waitForTimeout(500);
-  await slow.page.locator(".curve-nearby button").first().click();
+  await slow.page
+    .locator(".curve-frame-control")
+    .first()
+    .evaluate((el) => el.click());
   await state(slow.page, "PREVIEW");
   await slow.page
-    .getByRole("button", { name: "View project", exact: true })
+    .getByRole("button", { name: "View Project", exact: true })
     .click();
   await state(slow.page, "DETAIL");
   const cover = slow.page.locator(".curve-shared-cover");

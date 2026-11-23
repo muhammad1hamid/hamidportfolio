@@ -12,7 +12,9 @@ import { nextMode, type CurveEvent, type CurveMode } from "./machine";
 import type { CorridorScene } from "./scene";
 import { CaseStudy, type StoryHandle } from "./CaseStudy";
 import type { CoverRect } from "./geometry";
+import { walkLength } from "./geometry";
 import "@/app/curve.css";
+import gsap from "gsap";
 
 export function CurveExperience({ children }: { children: ReactNode }) {
   const [enabled, setEnabled] = useState(false);
@@ -35,7 +37,8 @@ export function CurveExperience({ children }: { children: ReactNode }) {
   const region = useRef<HTMLElement>(null);
   const scene = useRef<CorridorScene | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
-  const savedScroll = useRef(0);
+  const targetProgress = useRef(0);
+  const restoringFocus = useRef(false);
   const origin = useRef<HTMLElement | null>(null);
   const selectRef = useRef<(index: number) => void>(() => {});
   const dismissRef = useRef<() => void>(() => {});
@@ -46,6 +49,7 @@ export function CurveExperience({ children }: { children: ReactNode }) {
   const historyReplay = useRef(false);
   const mounted = useRef(true);
   const transitionGeneration = useRef(0);
+  const replayTween = useRef<gsap.core.Tween | null>(null);
 
   function send(event: CurveEvent) {
     const next = nextMode(modeRef.current, event);
@@ -54,6 +58,7 @@ export function CurveExperience({ children }: { children: ReactNode }) {
     return next;
   }
   function fallback(message = "") {
+    replayTween.current?.kill();
     transitionGeneration.current++;
     scene.current?.dispose();
     scene.current = null;
@@ -152,6 +157,7 @@ export function CurveExperience({ children }: { children: ReactNode }) {
     window.addEventListener("resize", updateRect);
     return () => {
       mounted.current = false;
+      replayTween.current?.kill();
       transitionGeneration.current++;
       layer?.removeEventListener("wheel", wheel);
       window.removeEventListener("popstate", pop);
@@ -176,7 +182,8 @@ export function CurveExperience({ children }: { children: ReactNode }) {
       10000,
     );
     import("./scene")
-      .then(({ createCorridor }) => {
+      .then(async ({ createCorridor }) => {
+        await document.fonts.ready;
         clearTimeout(timeout);
         if (disposed || !host.current) return;
         const instance = createCorridor({
@@ -188,6 +195,7 @@ export function CurveExperience({ children }: { children: ReactNode }) {
           },
           onSelect: (index) => selectRef.current(index),
           onFailure: fallback,
+          onResize: setRect,
         });
         scene.current = instance;
         send("SCENE_READY");
@@ -200,7 +208,7 @@ export function CurveExperience({ children }: { children: ReactNode }) {
         if (hashProject >= 0) {
           const position = Math.max(
             0,
-            (corridorProjects[hashProject].distance - 8) / 77,
+            (corridorProjects[hashProject].distance - 7) / walkLength,
           );
           walk(position);
           instance.setProgress(position, true);
@@ -208,55 +216,149 @@ export function CurveExperience({ children }: { children: ReactNode }) {
           selectRef.current(hashProject);
         }
       })
-      .catch(() =>
-        fallback(
-          "The project gallery is ready. 3D could not start in this browser.",
-        ),
-      );
-    const scroll = () => {
-      if (modeRef.current === "WALK")
-        scene.current?.setProgress(getScrollProgress());
-    };
-    window.addEventListener("scroll", scroll, { passive: true });
+      .catch(() => {
+        if (!disposed)
+          fallback(
+            "The project gallery is ready. 3D could not start in this browser.",
+          );
+      });
     return () => {
       disposed = true;
       clearTimeout(timeout);
-      window.removeEventListener("scroll", scroll);
       scene.current?.dispose();
       scene.current = null;
     };
   }, [enabled]);
 
-  function getScrollProgress() {
-    const el = region.current;
-    if (!el) return 0;
-    return Math.max(
-      0,
-      Math.min(
-        1,
-        -el.getBoundingClientRect().top /
-          (el.offsetHeight - (host.current?.clientHeight || innerHeight)),
-      ),
+  useEffect(() => {
+    if (!enabled || !region.current) return;
+    const root = document.documentElement;
+    root.setAttribute("data-curve-immersive", "");
+    root.dataset.curveNav = "shown";
+    window.scrollTo({ top: 0, behavior: "instant" });
+    const element = region.current;
+    const abort = new AbortController();
+    document.querySelector(".navigation")?.addEventListener(
+      "focusin",
+      () => {
+        if (modeRef.current === "WALK") root.dataset.curveNav = "shown";
+      },
+      { signal: abort.signal },
     );
+    let sum = 0,
+      direction = 0,
+      lastInput = 0;
+    const move = (delta: number, touch = false) => {
+      if (modeRef.current !== "WALK") return;
+      replayTween.current?.kill();
+      const now = performance.now(),
+        sign = Math.sign(delta);
+      if (!sign) return;
+      if (direction !== sign || now - lastInput > 220) sum = 0;
+      direction = sign;
+      lastInput = now;
+      sum += Math.abs(delta);
+      walk(targetProgress.current + delta / (touch ? 4600 : 12000));
+      if (targetProgress.current < 0.005) root.dataset.curveNav = "shown";
+      else if (sum > (touch ? 18 : 36))
+        root.dataset.curveNav = sign > 0 ? "hidden" : "shown";
+    };
+    element.addEventListener(
+      "wheel",
+      (event) => {
+        if (event.ctrlKey) return;
+        event.preventDefault();
+        const unit =
+          event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1;
+        move(Math.max(-1400, Math.min(1400, event.deltaY * unit)));
+      },
+      { passive: false, signal: abort.signal },
+    );
+    let touch: { x: number; y: number } | null = null;
+    element.addEventListener(
+      "pointerdown",
+      (event) => {
+        if (event.pointerType === "touch")
+          touch = { x: event.clientX, y: event.clientY };
+      },
+      { signal: abort.signal },
+    );
+    element.addEventListener(
+      "pointermove",
+      (event) => {
+        if (!touch || event.pointerType !== "touch") return;
+        const delta = touch.y - event.clientY;
+        if (Math.abs(delta) > Math.abs(touch.x - event.clientX))
+          move(delta, true);
+        touch = { x: event.clientX, y: event.clientY };
+      },
+      { passive: true, signal: abort.signal },
+    );
+    const release = () => {
+      touch = null;
+    };
+    element.addEventListener("pointerup", release, { signal: abort.signal });
+    element.addEventListener("pointercancel", release, {
+      signal: abort.signal,
+    });
+    window.addEventListener(
+      "keydown",
+      (event) => {
+        if (
+          modeRef.current !== "WALK" ||
+          document.querySelector("dialog[open]") ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.altKey
+        )
+          return;
+        if (
+          event.target instanceof Element &&
+          event.target.closest("input,textarea,select,[contenteditable=true]")
+        )
+          return;
+        const delta = {
+          ArrowDown: 560,
+          ArrowRight: 560,
+          PageDown: 1300,
+          ArrowUp: -560,
+          ArrowLeft: -560,
+          PageUp: -1300,
+        }[event.key];
+        if (delta) {
+          event.preventDefault();
+          move(delta);
+        }
+        if (event.key === "Home" || event.key === "End") {
+          event.preventDefault();
+          replayTween.current?.kill();
+          root.dataset.curveNav = event.key === "Home" ? "shown" : "hidden";
+          walk(event.key === "Home" ? 0 : 1);
+        }
+      },
+      { signal: abort.signal },
+    );
+    return () => {
+      abort.abort();
+      root.removeAttribute("data-curve-immersive");
+      root.removeAttribute("data-curve-nav");
+    };
+  }, [enabled]);
+
+  function getScrollProgress() {
+    return targetProgress.current;
   }
   function walk(value: number) {
-    if (!region.current) return;
-    const top = region.current.getBoundingClientRect().top + scrollY;
-    window.scrollTo({
-      top:
-        top +
-        value *
-          (region.current.offsetHeight -
-            (host.current?.clientHeight || innerHeight)),
-      behavior: "instant",
-    });
+    targetProgress.current = Math.max(0, Math.min(1, value));
+    scene.current?.setProgress(targetProgress.current);
+    if (targetProgress.current === 0)
+      document.documentElement.dataset.curveNav = "shown";
   }
   function select(index: number) {
     if (modeRef.current !== "WALK" || !scene.current) return;
-    // Freeze the native scroll coordinate at the rendered camera position,
-    // including selections made while trackpad damping is still settling.
+    replayTween.current?.kill();
+    // Save the rendered position, including trackpad damping still settling.
     walk(scene.current.getProgress());
-    savedScroll.current = scrollY;
     origin.current = document.activeElement as HTMLElement;
     selectedRef.current = index;
     setSelected(index);
@@ -272,21 +374,60 @@ export function CurveExperience({ children }: { children: ReactNode }) {
     });
   }
   selectRef.current = select;
+  function exploreAgain() {
+    if (modeRef.current !== "WALK") return;
+    replayTween.current?.kill();
+    const value = { progress: scene.current?.getProgress() ?? progress };
+    document.documentElement.dataset.curveNav = "shown";
+    replayTween.current = gsap.to(value, {
+      progress: 0,
+      duration: 2.8,
+      ease: "power2.inOut",
+      onUpdate: () => walk(value.progress),
+    });
+  }
   function returnToWall() {
+    const returningIndex = selectedRef.current;
     scene.current?.returnToWall(() => {
       send("WALL_RETURNED");
       dialog.current?.close();
       setSelected(null);
       selectedRef.current = null;
-      window.scrollTo({ top: savedScroll.current, behavior: "instant" });
       send("RESTORED");
-      const trigger = origin.current;
+      const trigger = origin.current?.matches(
+        `.curve-frame-control[data-project-index="${returningIndex}"]`,
+      )
+        ? origin.current
+        : region.current?.querySelector<HTMLButtonElement>(
+            `.curve-frame-control[data-project-index="${returningIndex}"]`,
+          );
+      restoringFocus.current = true;
       if (trigger?.isConnected && trigger !== document.body)
         trigger.focus({ preventScroll: true });
       else
         region.current
-          ?.querySelector<HTMLButtonElement>(".curve-nearby button")
+          ?.querySelector<HTMLButtonElement>(".curve-frame-controls button")
           ?.focus({ preventScroll: true });
+      requestAnimationFrame(() => {
+        restoringFocus.current = false;
+        const requested = corridorProjects.findIndex(
+          (item) => `#project=${item.slug}` === location.hash,
+        );
+        if (
+          mounted.current &&
+          requested >= 0 &&
+          modeRef.current === "WALK" &&
+          scene.current
+        ) {
+          const saved = history.state?.hamidCurve?.progress;
+          if (typeof saved === "number") {
+            walk(saved);
+            scene.current.setProgress(saved, true);
+          }
+          historyReplay.current = true;
+          selectRef.current(requested);
+        }
+      });
     });
   }
   function openDetail(push = true) {
@@ -386,52 +527,71 @@ export function CurveExperience({ children }: { children: ReactNode }) {
                 <em>the work.</em>
               </h1>
             </div>
-            <button className="curve-list-toggle" onClick={() => fallback()}>
-              List view
-            </button>
+            <div className="curve-tools">
+              <button
+                className="curve-nav-reveal"
+                onClick={() => {
+                  document.documentElement.dataset.curveNav = "shown";
+                  document
+                    .querySelector<HTMLAnchorElement>(".navigation a")
+                    ?.focus({ preventScroll: true });
+                }}
+              >
+                Navigation
+              </button>
+              <button className="curve-list-toggle" onClick={() => fallback()}>
+                List view
+              </button>
+            </div>
+            <div
+              className="curve-frame-controls"
+              aria-label="Nearby project frames"
+            >
+              {nearby.map((index) => (
+                <button
+                  key={index}
+                  data-project-index={index}
+                  className="curve-frame-control"
+                  onFocus={() => {
+                    if (!restoringFocus.current) select(index);
+                  }}
+                  onClick={() => select(index)}
+                >
+                  Preview {corridorProjects[index].title}
+                </button>
+              ))}
+            </div>
             <div className="curve-hud">
               <div>
                 <span className="curve-counter">
                   {String((nearby[0] ?? 17) + 1).padStart(2, "0")} / 18
                 </span>
                 <p className="curve-hint">
-                  {progress < 0.03
-                    ? "Scroll or swipe to walk"
-                    : "Select a frame to explore"}
+                  {progress > 0.96
+                    ? "Scroll back or explore again"
+                    : progress < 0.03
+                      ? "Scroll or swipe to walk"
+                      : "Select a frame to explore"}
                 </p>
-              </div>
-              <div className="curve-nearby" aria-label="Nearby projects">
-                {(["left", "right"] as const).map((side) => {
-                  const index = nearby.find(
-                    (candidate) =>
-                      corridorProjects[candidate].wallSide === side,
-                  );
-                  return index === undefined ? (
-                    <span key={side} aria-hidden="true" />
-                  ) : (
-                    <button
-                      key={side}
-                      onClick={() => select(index)}
-                      aria-label={`Preview ${corridorProjects[index].title}, ${side} wall`}
-                    >
-                      <span className="curve-nearby-title">
-                        {corridorProjects[index].title}
-                      </span>
-                      <span>Preview</span>
-                    </button>
-                  );
-                })}
               </div>
               <div className="curve-walk-buttons">
                 <button
                   aria-label="Walk backward"
-                  onClick={() => walk(Math.max(0, progress - 0.07))}
+                  onClick={() => {
+                    replayTween.current?.kill();
+                    document.documentElement.dataset.curveNav = "shown";
+                    walk(Math.max(0, progress - 0.07));
+                  }}
                 >
                   ←
                 </button>
                 <button
                   aria-label="Walk forward"
-                  onClick={() => walk(Math.min(1, progress + 0.07))}
+                  onClick={() => {
+                    replayTween.current?.kill();
+                    document.documentElement.dataset.curveNav = "hidden";
+                    walk(Math.min(1, progress + 0.07));
+                  }}
                 >
                   →
                 </button>
@@ -443,17 +603,17 @@ export function CurveExperience({ children }: { children: ReactNode }) {
               </p>
             )}
             {progress > 0.96 && (
-              <div className="curve-end">
-                <span>THE NEXT CHAPTER</span>
-                <h2>
-                  Something
-                  <br />
-                  <em>of your own.</em>
-                </h2>
-                <a className="button button-light" href="/contact/?source=work">
+              <div
+                className="curve-end-controls"
+                aria-label="The Convergence, final installation"
+              >
+                <a
+                  className="button button-accent"
+                  href="/contact/?source=work"
+                >
                   Discuss a project
                 </a>
-                <button onClick={() => walk(0)}>Walk back to the start</button>
+                <button onClick={exploreAgain}>Explore again</button>
               </div>
             )}
           </div>
@@ -541,12 +701,11 @@ export function CurveExperience({ children }: { children: ReactNode }) {
             <div
               className="curve-preview-info"
               data-visible={mode === "PREVIEW"}
+              style={{ top: rect.y + rect.height + 22 }}
             >
-              <p>
-                {project.industry} · {project.typeLabel}
-              </p>
-              <h2 id="curve-preview-title">{project.title}</h2>
-              <p>{project.description}</p>
+              <h2 className="curve-sr-only" id="curve-preview-title">
+                {project.title}
+              </h2>
               <div>
                 <button
                   ref={openButton}
@@ -554,11 +713,21 @@ export function CurveExperience({ children }: { children: ReactNode }) {
                   onClick={() => openDetail()}
                   disabled={mode !== "PREVIEW"}
                 >
-                  View project
+                  View Project
                 </button>
-                <button className="curve-back" onClick={dismiss}>
-                  Back to corridor
-                </button>
+                {project.detailUrl ? (
+                  <a className="curve-read-more" href={project.detailUrl}>
+                    Read More About This Project
+                  </a>
+                ) : (
+                  <button
+                    className="curve-read-more"
+                    onClick={() => openDetail()}
+                    disabled={mode !== "PREVIEW"}
+                  >
+                    Read More About This Project
+                  </button>
+                )}
               </div>
             </div>
           </>
