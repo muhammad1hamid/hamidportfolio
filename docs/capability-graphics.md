@@ -66,3 +66,15 @@ The small reduction in overall section height comes from replacing the taller te
 - [AI Conversations](screenshots/capability-graphics/conversations-mobile.webp)
 
 The browser environment is Windows Chrome with mobile touch emulation. Physical phones, Safari and Firefox are not claimed. The illustrations communicate service categories; they do not document business outcomes. No account setup is required.
+
+## Compact-height follow-up
+
+Reduced mobile card padding, media minimum height, tag spacing and action spacing in `MobileCapabilityStudio.module.css`. Bounded the illustrations to keep them from growing excessively on wider phones. Content, typography, destinations and the four selectors remain unchanged; all four slides retain a stable shared height.
+
+| Mobile width | Card before | Card after |
+| ------------ | ----------- | ---------- |
+| 320px        | 587px       | 485px      |
+| 390px        | 527px       | 471px      |
+| 430px        | 504px       | 451px      |
+
+Production build, formatting and the complete 11-width capabilities suite passed after this spacing adjustment. Touch swiping, keyboard input, reduced motion, resize restoration, image decoding, accessible links and no overflow were verified. Desktop/tablet section comparisons remained at zero changed pixels. Additional layout measurements at 600 and 767px also showed no overflow. The screenshots above document the original graphics refinement; current follow-up captures and measurements are in the ignored `qa-output/capability-height/` folder.
