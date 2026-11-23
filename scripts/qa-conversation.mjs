@@ -344,6 +344,19 @@ try {
       await publicPage.keyboard.press("Enter");
       assert.equal(await question.locator("..").getAttribute("open"), "");
       assert.equal(
+        await question
+          .locator("span")
+          .evaluate((element) => getComputedStyle(element, "::before").content),
+        '"−"',
+      );
+      await publicPage.keyboard.press("Enter");
+      assert.equal(
+        await question
+          .locator("span")
+          .evaluate((element) => getComputedStyle(element, "::before").content),
+        '"+"',
+      );
+      assert.equal(
         await publicPage
           .locator(".signal-stroke")
           .evaluate((el) => getComputedStyle(el).animationName),

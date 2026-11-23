@@ -83,3 +83,5 @@ The exported Contact HTML measures approximately 64.6 kB, or 12.4 kB in the loca
 - [Mobile 320px](screenshots/contact-final/mobile-320.webp)
 - [Success appearance — controlled fixture, not real inbox delivery](screenshots/contact-final/success-fixture.webp)
 - [Failure appearance — controlled fixture](screenshots/contact-final/error-fixture.webp)
+
+The final FAQ refinement uses a minus when open and a plus when closed. Keyboard open/close and the actual rendered indicators were verified again at 1200 and 1440px after the final production build.

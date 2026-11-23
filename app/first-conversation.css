@@ -759,11 +759,14 @@
 }
 .contact-faq-rows summary > span {
   color: var(--soft);
-  font-size: 20px;
-  transition: transform 200ms var(--ease);
+  font-size: 0;
 }
-.contact-faq-rows details[open] summary > span {
-  transform: rotate(45deg);
+.contact-faq-rows summary > span::before {
+  content: "+";
+  font-size: 20px;
+}
+.contact-faq-rows details[open] summary > span::before {
+  content: "−";
 }
 .first-conversation .contact-faq-rows details p {
   padding: 0 5px 15px 0;
