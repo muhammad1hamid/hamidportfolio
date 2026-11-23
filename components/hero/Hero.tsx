@@ -12,7 +12,7 @@ export function Hero() {
   return (
     <section className="hero signature-hero" aria-labelledby="hero-title">
       <HeroDoodles />
-      <div className="hero-copy wrap">
+      <div className="hero-copy hero-heading wrap">
         <p className="hero-eyebrow">
           Independent web developer · Digital growth builder
         </p>
@@ -20,30 +20,6 @@ export function Hero() {
           <span className="hero-headline hero-title-line">Build. Grow.</span>{" "}
           <em className="hero-emphasis hero-title-line">Automate.</em>
         </h1>
-        <p className="hero-description">
-          I’m Hamid. I build distinctive websites, improve search visibility,
-          and create practical AI systems for growing businesses.
-        </p>
-        <div className="hero-actions">
-          <Link
-            href="/contact/?source=home"
-            className="button button-accent hero-primary"
-            data-site-event="hero_primary_cta_click"
-          >
-            Discuss a project
-            <span className="hero-primary-icon">
-              <Arrow diagonal />
-            </span>
-          </Link>
-          <Link
-            href="/work/"
-            prefetch={false}
-            className="hero-secondary"
-            data-site-event="hero_portfolio_cta_click"
-          >
-            Explore work <Arrow diagonal />
-          </Link>
-        </div>
       </div>
 
       <PortraitMotion>
@@ -74,6 +50,32 @@ export function Hero() {
         </div>
         <CapabilityCards />
       </PortraitMotion>
+      <div className="hero-copy hero-intro wrap">
+        <p className="hero-description">
+          I’m Hamid. I build distinctive websites, improve search visibility,
+          and create practical AI systems for growing businesses.
+        </p>
+        <div className="hero-actions">
+          <Link
+            href="/contact/?source=home"
+            className="button button-accent hero-primary"
+            data-site-event="hero_primary_cta_click"
+          >
+            Discuss a project
+            <span className="hero-primary-icon">
+              <Arrow diagonal />
+            </span>
+          </Link>
+          <Link
+            href="/work/"
+            prefetch={false}
+            className="hero-secondary"
+            data-site-event="hero_portfolio_cta_click"
+          >
+            Explore work <Arrow diagonal />
+          </Link>
+        </div>
+      </div>
     </section>
   );
 }

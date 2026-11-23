@@ -159,7 +159,11 @@ async function checkComposition(page, width) {
         return centered(box) && getComputedStyle(node).textAlign === "center";
       }),
       portraitCentered: centered(portrait),
-      portraitBelowCopy: face.top >= ctaBottom - 3,
+      portraitCopyOrder:
+        innerWidth < 768
+          ? rect(".hero-composition").top >= rect("#hero-title").bottom &&
+            rect(".hero-description").top >= rect(".hero-composition").bottom
+          : face.top >= ctaBottom - 3,
       photoWidth: Math.round(photo.width),
       eyes,
       brushRegistered:
@@ -240,7 +244,7 @@ async function checkComposition(page, width) {
   for (const key of [
     "copyCentered",
     "portraitCentered",
-    "portraitBelowCopy",
+    "portraitCopyOrder",
     "brushRegistered",
     "noFaceOrCardCollision",
     "noEdgeClipping",
@@ -577,8 +581,9 @@ try {
       }
       const button = await primary(page).boundingBox();
       assert.ok(
-        button.height >= 44 && (height < 500 || fit(button, height)),
-        `${width}px primary CTA above the fold`,
+        button.height >= 44 &&
+          (width < 768 || height < 500 || fit(button, height)),
+        `${width}px primary CTA remains accessible; tablet/desktop CTA stays above the fold`,
       );
       assert.deepEqual(
         await page
@@ -790,12 +795,13 @@ try {
     await page.goBack();
     assert.equal(await page.locator("#hamid-origin").isVisible(), false);
     await page.keyboard.press("Tab");
-    await primary(page).focus();
+    // Native source order follows the mobile composition: cards, then intro CTAs.
+    await page.locator(".hero-card-web a").focus();
     for (const expected of [
-      ".hero-secondary",
-      ".hero-card-web a",
       ".hero-card-growth a",
       ".hero-card-systems a",
+      ".hero-primary",
+      ".hero-secondary",
     ]) {
       await page.keyboard.press("Tab");
       assert.ok(

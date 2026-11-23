@@ -1,4 +1,6 @@
 .signature-hero {
+  display: grid;
+  grid-template-areas: "heading" "intro" "composition";
   position: relative;
   isolation: isolate;
   padding-block-start: calc(100px + clamp(5px, 1.18svh, 13px));
@@ -10,7 +12,7 @@
 @media (min-width: 1024px) {
   .signature-hero {
     display: grid;
-    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, 1fr);
     min-block-size: 100svh;
     padding-block-start: calc(100px + clamp(18px, 3.4svh, 40px));
   }
@@ -21,6 +23,14 @@
   z-index: 1;
   max-inline-size: 54rem;
   text-align: center;
+}
+
+.hero-heading {
+  grid-area: heading;
+}
+
+.hero-intro {
+  grid-area: intro;
 }
 
 .hero-eyebrow {
@@ -142,6 +152,7 @@
 }
 
 .hero-composition {
+  grid-area: composition;
   --hero-portrait-width: clamp(390px, min(40vw, 70svh), 660px);
   display: grid;
   grid-template: "stage" auto / minmax(0, 1fr);
@@ -407,6 +418,7 @@
 
 @media (max-width: 767px) {
   .signature-hero {
+    grid-template-areas: "heading" "composition" "intro";
     --hero-header-height: 80px;
     padding-block-start: calc(
       var(--hero-header-height) + 21px + env(safe-area-inset-top)
@@ -439,9 +451,13 @@
 
   .hero-description {
     max-inline-size: 23rem;
-    margin-block-start: 15px;
+    margin-block-start: 0;
     font-size: 1rem;
     line-height: 1.5;
+  }
+
+  .hero-intro {
+    padding-block-end: 24px;
   }
 
   .hero-actions {
@@ -534,7 +550,7 @@
     grid-area: 3 / 1 / 4 / -1;
     z-index: 2;
     justify-self: center;
-    inline-size: min(94%, 22.5rem);
+    inline-size: min(90%, 19rem);
   }
 
   .hero-traces,
