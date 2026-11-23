@@ -25,7 +25,7 @@ See `AEO-GEO-IMPLEMENTATION.md` for the latest work and remaining dependencies, 
 
 ## Add real content
 
-- `data/site.ts`: contains the supplied WhatsApp, LinkedIn, and Instagram links. WhatsApp is the main contact action. Email remains optional.
+- `data/site.ts`: contains the supplied WhatsApp, LinkedIn, Instagram and `hamidwork360@gmail.com` contact destinations.
 - `data/projects.ts`: contains the 18 supplied websites with verified brand names and descriptions. Six appear on the homepage; the archive includes all 18. Empty categories are hidden. Only add verified dates, technologies, and results.
 - `data/project-details.ts`: experience overviews for the featured projects, describing visible website features without inventing client results or development roles.
 - `public/images/projects/`: compressed desktop and mobile captures of all 18 websites. Featured projects have taller previews that scroll on hover. Use the project's ID for its WebP filename, with `-mobile` and `-preview` suffixes for variants.
@@ -36,7 +36,9 @@ See `AEO-GEO-IMPLEMENTATION.md` for the latest work and remaining dependencies, 
 
 ## Contact behavior
 
-Visitors can contact Hamid directly on WhatsApp, LinkedIn, or Instagram. The optional project brief downloads a local text file that visitors can share themselves. It does not send messages or store personal data on a server. Google Drive supplies the selected testimonial video through its embedded player.
+The `/contact/` page is **The First Conversation**: a letter-style composer using the owner's public Web3Forms form identifier and hCaptcha. Email sending requires provider acceptance; failure keeps the visitor's note. The owner has confirmed hCaptcha is enabled in the Web3Forms dashboard. See [setup and verification](docs/contact-first-conversation.md), including the outstanding real-inbox verification. `npm run test:contact` tests the current contact route, controlled provider outcomes and preserved planner/agency delivery paths.
+
+Direct WhatsApp, email, LinkedIn and Instagram remain available. The project planner can download a local outline or open a WhatsApp draft for review. Its separate optional website-send path and the agency form retain the existing Vercel/Turnstile/Upstash/Resend configuration; Web3Forms does not silently enable those routes. Google Drive supplies the selected testimonial video through its embedded player.
 
 On mobile, a small WhatsApp action appears after the hero and stays hidden in dialogs, while testimonials are visible, and at or below the contact section. The services section includes a clearly labelled, local workflow illustration; it is not connected to an AI service and sends no data.
 

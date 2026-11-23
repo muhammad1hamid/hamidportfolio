@@ -18,6 +18,7 @@
     "test:discovery": "node scripts/qa-discovery.mjs",
     "test:enquiry-server": "node --test scripts/qa-enquiry-server.mjs",
     "test:enquiry-browser": "node scripts/qa-enquiry-browser.mjs",
+    "test:contact": "node scripts/qa-conversation.mjs",
     "test:agency": "node scripts/qa-agency.mjs",
     "check:public": "node scripts/check-public-launch.mjs",
     "indexnow": "node scripts/indexnow.mjs"

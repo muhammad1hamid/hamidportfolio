@@ -6,9 +6,9 @@ import {
   isEnquiryService,
   type EnquiryService,
 } from "@/data/project-enquiry.mjs";
-import { ProjectEnquiryForm } from "./ProjectEnquiryForm";
+import { ConversationComposer } from "./ConversationComposer";
 
-export function ContactEnquiry({ siteKey }: { siteKey: string }) {
+export function ContactEnquiry({ accessKey }: { accessKey: string | null }) {
   const [context, setContext] = useState<{
     service: EnquiryService | "";
     source: string;
@@ -52,8 +52,8 @@ export function ContactEnquiry({ siteKey }: { siteKey: string }) {
   }, []);
 
   return (
-    <ProjectEnquiryForm
-      siteKey={siteKey}
+    <ConversationComposer
+      accessKey={accessKey}
       source={context.source}
       initialService={context.service}
     />

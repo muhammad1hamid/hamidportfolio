@@ -25,8 +25,8 @@ export const site = {
   url: configuredOrigin.origin,
   noindex: process.env.SEO_NOINDEX === "true",
   telephone: "+923356709222",
-  // User-supplied contact details. An email can be added when available.
-  email: "",
+  // Contact destinations supplied by the owner.
+  email: "hamidwork360@gmail.com",
   whatsapp: "https://wa.me/923356709222",
   linkedin: "https://www.linkedin.com/in/muhammad-hamid-2072b6401/",
   instagram: "https://www.instagram.com/m.hamid_2006/?hl=en",

@@ -1,100 +1,101 @@
 import Link from "next/link";
 import { ContactEnquiry } from "@/components/contact/ContactEnquiry";
+import { ContactSignal } from "@/components/contact/ContactSignal";
 import { Breadcrumbs } from "@/components/seo/ContentPage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Arrow } from "@/components/ui/Arrow";
+import { configuredWeb3FormsKey } from "@/data/conversation.mjs";
+import { contactSettings } from "@/data/contact-settings";
 import { pageMeta, pageSchema } from "@/data/seo";
 import { site } from "@/data/site";
-import { enquirySiteKey } from "@/server/enquiry/config.mjs";
 import "../contact.css";
+import "../first-conversation.css";
 
 const path = "/contact/";
-const heading = "Good work starts with a conversation.";
+const heading = "Have an idea? Let’s make it real.";
 const description =
-  "Discuss a website, search visibility or an automation project with Hamid. Share your goal, current setup and any useful examples.";
-const growthMessage = encodeURIComponent(
-  "Hi Hamid, I’d like to discuss Growth Engine.\nWebsite: [your website]\nMain goal: [your goal]",
-);
-const callMessage = encodeURIComponent(
-  "Hi Hamid, I’d like to discuss a project on a short call. Here’s what I’m working on:",
-);
-
+  "A direct conversation with Hamid about a new website, stronger search visibility, AI automation or agency collaboration. No finished brief needed.";
+const callLink = `${site.whatsapp}?text=${encodeURIComponent("Hi Hamid, I’d like to talk through a project on a call. My idea is:\nMy time zone is:")}`;
+const steps = [
+  ["Share the idea", "Tell me what you’re working on."],
+  ["Let’s talk", "We clarify the goal and constraints."],
+  ["Define the scope", "We agree on a practical approach."],
+  ["Build with clarity", "Work begins once scope and terms are agreed."],
+] as const;
 const questions = [
   [
-    "Do I need a finished brief?",
-    "A few sentences about your goal and who it’s for are enough. Your current website or an example can help me understand the context.",
+    "Do I need a finished project brief?",
+    "No. A few sentences about your idea and who it’s for are enough. If you’d like a little structure, the project planner can help you put an outline together.",
   ],
   [
-    "Can you work on my existing website?",
-    "Yes. Share the URL and what needs to change. I’ll use those details to work out whether a targeted improvement or a larger rebuild makes sense.",
+    "Can you improve an existing website?",
+    "Yes. Share your website URL and what you’d like to change. We can work out whether a focused improvement or a larger rebuild makes sense.",
   ],
   [
-    "Do you work internationally?",
-    "Yes. I work remotely from Pakistan. If we need a call, we can agree on a time across both time zones.",
+    "Can we work together internationally?",
+    "Yes. I work remotely from Pakistan. We can agree on practical ways to collaborate and a time that works across our time zones if a call would help.",
   ],
   [
-    "Can I get in touch without a budget?",
-    "Yes. Share your priorities and any constraints you know. We can discuss which parts of the project fit once the scope is clear.",
-  ],
-  [
-    "What happens after I share my project?",
-    "I review your goal and current setup, then follow up with questions or a next step. Once the scope is clear, we can discuss deliverables, timing and costs.",
+    "What happens after I send an enquiry?",
+    "I review your idea and follow up with questions or a useful next step. An enquiry starts a conversation; scope, timing and costs are agreed before any project begins.",
   ],
 ] as const;
 
 export const metadata = pageMeta(
-  "Contact Hamid — Project Enquiries & Collaboration",
+  "Contact Hamid — The First Conversation",
   description,
   path,
 );
 
 export default function ContactPage() {
-  const siteKey = enquirySiteKey();
+  const accessKey = configuredWeb3FormsKey(
+    process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ??
+      contactSettings.web3FormsAccessKey,
+  );
   return (
-    <main id="main" className="content-page wrap contact-page">
+    <main id="main" className="content-page wrap first-conversation">
       <Breadcrumbs items={[{ label: "Contact", href: path }]} />
-      <div className="contact-grid">
-        <div className="contact-introduction">
-          <header className="content-hero contact-heading">
-            <span className="eyebrow">
-              <i className="accent-dot" /> Start a project / Hamid
-            </span>
+      <div className="first-conversation-grid">
+        <div className="conversation-invitation">
+          <header className="conversation-heading">
+            <span className="eyebrow">Start something / Hamid</span>
             <h1>
-              Good work starts with a <em>conversation.</em>
+              <span>Have an idea?</span>
+              <em>Let’s make it real.</em>
             </h1>
             <p>
-              Tell me what you’re building or what needs improving. A little
-              context gives us something useful to start with.
+              A new website, a smarter workflow, or something still taking
+              shape. Tell me a little about it.
             </p>
-            <p className="contact-location">
-              Independent developer · Based in Pakistan, working worldwide
+            <p className="conversation-human">
+              A direct conversation with Hamid.
+              <br />
+              No complicated brief needed.
             </p>
           </header>
-          <nav className="contact-choices" aria-label="Contact options">
-            <a href="#project-enquiry" className="contact-choice-main">
-              Share a brief <Arrow />
-            </a>
-            <a href="#talk">Ask about a call</a>
-            <a
-              href={site.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-contact-context="contact_page"
-            >
-              WhatsApp <Arrow diagonal />
-            </a>
-          </nav>
-          <div className="contact-process">
-            <span className="eyebrow">From first idea to build</span>
-            <ol aria-label="Project process">
-              {["Idea", "Conversation", "Scope", "Build"].map((step) => (
-                <li key={step}>{step}</li>
-              ))}
-            </ol>
+          <ContactSignal />
+          <div className="conversation-signature">
+            <span className="personal-signature" aria-hidden="true">
+              Hamid.
+            </span>
+            <div>
+              <span>Hamid / Independent developer</span>
+              <p>Based in Pakistan · Working worldwide</p>
+            </div>
           </div>
+          <a
+            className="invitation-direct"
+            href={site.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-contact-context="contact_invitation"
+          >
+            Rather say hello on WhatsApp? <Arrow diagonal />
+          </a>
         </div>
+
         <section
-          className="contact-panel"
+          className="conversation-sheet"
           id="project-enquiry"
           aria-labelledby="project-enquiry-title"
         >
@@ -103,83 +104,66 @@ export default function ContactPage() {
             id="growth-enquiry"
             aria-hidden="true"
           />
-          <span className="eyebrow">
-            <i className="accent-dot" /> Project enquiry
-          </span>
-          <h2 id="project-enquiry-title">Tell me about your project.</h2>
-          {siteKey ? (
-            <>
-              <p className="contact-panel-intro">
-                A few useful details are enough to begin. You don’t need a
-                finished brief.
-              </p>
-              <ContactEnquiry siteKey={siteKey} />
-            </>
-          ) : (
-            <div className="contact-fallback">
-              <p>
-                Website enquiries are temporarily unavailable. Send me your
-                goal, current website or a useful example on WhatsApp.
-              </p>
-              <a
-                className="button button-accent"
-                href={site.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-contact-context="contact_page"
-              >
-                Message Hamid on WhatsApp <Arrow diagonal />
-              </a>
-              <div className="related-links">
-                <a
-                  href={`${site.whatsapp}?text=${growthMessage}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-contact-context="growth_engine"
-                >
-                  Message about Growth Engine <Arrow diagonal />
-                </a>
-              </div>
-            </div>
-          )}
-          <div className="contact-planner">
-            <span>Want to organize your ideas first?</span>
-            <Link
-              href="/plan/"
-              className="text-link"
-              data-site-event="planner_open"
-            >
-              Prepare a project brief <Arrow diagonal />
-            </Link>
-          </div>
+          <ContactEnquiry accessKey={accessKey} />
         </section>
       </div>
 
       <section
-        id="talk"
-        className="contact-details"
-        aria-labelledby="contact-call-title"
+        className="conversation-alternatives"
+        aria-labelledby="contact-alternatives-title"
       >
-        <div>
-          <h2 id="contact-call-title">Prefer to talk it through?</h2>
-          <p>
-            Message me with your goal and time zone. We can agree on a time to
-            review what you have and what you need next.
-          </p>
+        <div className="conversation-section-heading">
+          <h2 id="contact-alternatives-title">
+            A different way to <em>say hello.</em>
+          </h2>
+          <p>Start wherever feels natural.</p>
+        </div>
+        <div className="conversation-contact-links">
+          <div>
+            <span className="conversation-method-label">
+              A QUICK CONVERSATION
+            </span>
+            <a
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-contact-context="contact_page"
+            >
+              WhatsApp Hamid <Arrow diagonal />
+            </a>
+            <p>+92 335 6709222</p>
+          </div>
+          <div>
+            <span className="conversation-method-label">
+              STRAIGHT TO MY INBOX
+            </span>
+            <a href={`mailto:${site.email}`}>
+              {site.email} <Arrow diagonal />
+            </a>
+            <p>A note, an idea, a useful link.</p>
+          </div>
+          <div>
+            <span className="conversation-method-label">
+              A LITTLE MORE STRUCTURE
+            </span>
+            <Link href="/plan/" data-site-event="planner_open">
+              Build a quick project brief <Arrow diagonal />
+            </Link>
+            <p>Need help shaping your idea?</p>
+          </div>
+        </div>
+        <div className="conversation-social-row">
           <a
-            className="button button-outline"
-            href={`${site.whatsapp}?text=${callMessage}`}
+            id="talk"
+            href={callLink}
             target="_blank"
             rel="noopener noreferrer"
             data-contact-context="discovery_call"
           >
-            Arrange a call on WhatsApp <Arrow diagonal />
+            Prefer to talk it through? Arrange a call on WhatsApp{" "}
+            <Arrow diagonal />
           </a>
-        </div>
-        <div>
-          <h2>Find me online.</h2>
-          <p>WhatsApp · +92 335 6709222</p>
-          <div className="related-links">
+          <div>
             <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
               LinkedIn <Arrow diagonal />
             </a>
@@ -191,53 +175,58 @@ export default function ContactPage() {
       </section>
 
       <section
-        className="contact-questions"
-        aria-labelledby="contact-questions-title"
+        className="conversation-next"
+        aria-labelledby="contact-next-title"
       >
+        <div className="conversation-section-heading">
+          <h2 id="contact-next-title">
+            An idea. A conversation.
+            <br />
+            <em>A clear next step.</em>
+          </h2>
+          <p>Here’s how it can take shape.</p>
+        </div>
+        <ol>
+          {steps.map(([title, copy], index) => (
+            <li key={title}>
+              <span className="conversation-step-number" aria-hidden="true">
+                0{index + 1}
+              </span>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="conversation-faq" aria-labelledby="contact-faq-title">
         <div>
-          <h2 id="contact-questions-title">Before we talk.</h2>
+          <h2 id="contact-faq-title">
+            Before we <em>talk.</em>
+          </h2>
+          <p>A few useful answers.</p>
           <Link href="/services/" className="text-link">
             Explore services <Arrow diagonal />
+          </Link>
+          <Link
+            href="/for-agencies/"
+            className="text-link"
+            data-agency-placement="contact"
+            data-agency-destination="agency_page"
+          >
+            Looking for an agency partner? <Arrow diagonal />
           </Link>
         </div>
         <div>
           {questions.map(([question, answer]) => (
             <details key={question}>
-              <summary>{question}</summary>
+              <summary>
+                {question}
+                <span aria-hidden="true">+</span>
+              </summary>
               <p>{answer}</p>
             </details>
           ))}
-          <details>
-            <summary>Do you work with agencies?</summary>
-            <p>
-              Yes. Choose Agency or white-label partnership and tell me what
-              needs building.{" "}
-              <Link
-                href="/for-agencies/"
-                className="text-link"
-                data-agency-placement="contact"
-                data-agency-destination="agency_page"
-              >
-                See how agency projects work <Arrow diagonal />
-              </Link>
-            </p>
-          </details>
-          <details>
-            <summary>Can we discuss SEO, AEO and GEO?</summary>
-            <p>
-              Yes. Share the URL and a specific goal, like making a service
-              easier to find or helping more visitors enquire.{" "}
-              <a
-                className="text-link"
-                href={`${site.whatsapp}?text=${growthMessage}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-contact-context="growth_engine"
-              >
-                Message about Growth Engine <Arrow diagonal />
-              </a>
-            </p>
-          </details>
         </div>
       </section>
       <JsonLd

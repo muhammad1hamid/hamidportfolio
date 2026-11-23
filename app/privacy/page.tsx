@@ -35,17 +35,28 @@ export default function PrivacyPage() {
       <section className="content-section">
         <h2>How the website handles an enquiry</h2>
         <p>
-          Vercel runs the form endpoint. Cloudflare Turnstile helps check that
-          the submission is human. It receives browser and network information
-          when the check loads. Resend accepts the enquiry for email delivery to
-          my project inbox.
+          The Contact page uses Web3Forms when email sending is configured. Your
+          browser sends the details you choose to include to Web3Forms over
+          HTTPS for delivery to my project inbox. hCaptcha helps verify
+          submissions and receives browser and network information when its
+          check loads after you start the form. Web3Forms and the email provider
+          may retain enquiry information under their own policies and account
+          settings. An on-page confirmation means the delivery service accepted
+          the enquiry; it does not confirm that I have read it.
         </p>
         <p>
-          Upstash holds temporary anti-spam counters and submission references.
-          The counters use a keyed hash of the IP address and expire within an
-          hour. Submission references include a keyed hash of the submitted
-          details and expire within 24 hours. The temporary store does not
-          contain the readable project message or reply address.
+          A separately configured website submission from the planner or agency
+          page uses a Vercel endpoint, Cloudflare Turnstile and Resend.
+          Turnstile receives browser and network information when its check
+          loads. This route remains unavailable unless its delivery services are
+          configured.
+        </p>
+        <p>
+          On that separate route, Upstash holds temporary anti-spam counters and
+          submission references. The counters use a keyed hash of the IP address
+          and expire within an hour. Submission references include a keyed hash
+          of the submitted details and expire within 24 hours. The temporary
+          store does not contain the readable project message or reply address.
         </p>
         <p>
           I keep enquiry emails to review the project, follow up and keep
@@ -56,11 +67,14 @@ export default function PrivacyPage() {
       <section className="content-section">
         <h2>Planner and WhatsApp</h2>
         <p>
-          The planner builds your outline on the page. Download saves it to your
-          device. If you choose to send it through the website, you can review
-          and edit the outline first. If you open a WhatsApp draft, WhatsApp
-          handles the draft and any message you choose to send under its own
-          privacy notice.
+          The contact composer keeps your unfinished note in page memory, not in
+          browser storage. Reloading or leaving the page may discard it. A
+          WhatsApp draft is shown for review before you choose to open it;
+          opening a draft does not send a message. The planner builds your
+          outline on the page. Download saves it to your device. If you choose
+          to send it through the website, you can review and edit the outline
+          first. If you open a WhatsApp draft, WhatsApp handles the draft and
+          any message you choose to send under its own privacy notice.
         </p>
       </section>
       <section className="content-section">
@@ -71,8 +85,8 @@ export default function PrivacyPage() {
           footer. Form event tracking uses information such as the service
           category, entry point and confirmation status. With Google Analytics
           enabled, a recognized AI referral may be recorded as a source
-          category. These events use the page path and exclude your name,
-          email address and project text.
+          category. These events use the page path and exclude your name, email
+          address and project text.
         </p>
       </section>
       <section className="content-section">

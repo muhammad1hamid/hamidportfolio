@@ -1,0 +1,984 @@
+.first-conversation {
+  padding-top: 122px;
+  padding-bottom: 40px;
+}
+.first-conversation > .breadcrumbs {
+  margin-bottom: 34px;
+}
+.first-conversation-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.17fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(32px, 5vw, 76px);
+}
+.conversation-invitation {
+  min-width: 0;
+  padding-top: 24px;
+}
+.conversation-heading > .eyebrow {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.conversation-heading h1 {
+  margin: 25px 0 26px;
+  font-size: clamp(50px, 5.25vw, 82px);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.06em;
+}
+.conversation-heading h1 > span,
+.conversation-heading h1 > em {
+  display: block;
+}
+.conversation-heading h1 em {
+  margin-top: 7px;
+  color: var(--accent);
+  font-size: 1.07em;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+.first-conversation .conversation-heading > p {
+  max-width: 36ch;
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+.first-conversation .conversation-heading .conversation-human {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+.contact-signal {
+  margin: 32px 0 22px;
+  max-width: 560px;
+}
+.contact-signal svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+.signal-guide {
+  stroke: #747a7840;
+  stroke-width: 1;
+}
+.signal-stroke,
+.signal-send {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.signal-node {
+  fill: var(--bg);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  transition: fill 220ms var(--ease);
+}
+.signal-idea {
+  fill: var(--accent);
+}
+.contact-signal text {
+  fill: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1.3px;
+  font-family: "Manrope", Arial, sans-serif;
+}
+.first-conversation-grid:has(.topic-choice input:checked) .signal-conversation {
+  fill: var(--accent);
+}
+.first-conversation-grid:has([data-delivery-accepted]) .signal-send {
+  stroke-width: 2.5;
+}
+.conversation-signature {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.personal-signature {
+  font:
+    italic 42px/1 "Instrument Serif",
+    Georgia,
+    serif;
+  letter-spacing: -0.045em;
+}
+.conversation-signature > div > span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--soft);
+}
+.first-conversation .conversation-signature p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+  margin-top: 5px;
+}
+.invitation-direct {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  margin-top: 26px;
+  color: var(--soft);
+  font-size: 13px;
+}
+.invitation-direct > svg {
+  width: 17px;
+  height: 17px;
+  color: var(--accent);
+}
+.conversation-sheet {
+  position: relative;
+  min-width: 0;
+  padding: clamp(24px, 2.7vw, 38px);
+  border: 1px solid #3c4041;
+  border-radius: 22px;
+  background: #191b1d;
+  box-shadow:
+    inset 0 1px 0 #ffffff0a,
+    0 14px 40px #00000014;
+}
+.letter-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+}
+.letter-kicker > svg {
+  width: 25px;
+  height: 25px;
+  stroke: var(--accent);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.first-conversation .letter-heading h2 {
+  font:
+    italic 44px/1.1 "Instrument Serif",
+    Georgia,
+    serif;
+  letter-spacing: -0.025em;
+  margin: 25px 0 9px;
+}
+.first-conversation .letter-heading > p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.conversation-form {
+  margin-top: 28px;
+}
+.letter-controls,
+.conversation-topics {
+  min-inline-size: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.conversation-topics > legend {
+  padding: 0;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--soft);
+}
+.topic-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.topic-choice {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  cursor: pointer;
+}
+.topic-choice > input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+.topic-choice > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid #4b5051;
+  border-radius: 9px;
+  color: var(--soft);
+  font-size: 11px;
+  line-height: 1.5;
+  transition:
+    border-color 220ms var(--ease),
+    background-color 220ms var(--ease),
+    color 220ms var(--ease);
+}
+.topic-choice svg {
+  width: 12px;
+  height: 12px;
+  display: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.topic-choice input:checked + span {
+  background: #32251d;
+  border-color: var(--accent);
+  color: var(--text);
+}
+.topic-choice input:checked + span > svg {
+  display: block;
+}
+.topic-choice input:focus-visible + span {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+}
+.topic-choice input[aria-invalid="true"] + span {
+  border-color: var(--accent);
+}
+.first-conversation .conversation-prompt {
+  margin: 13px 0 26px;
+  min-height: 36px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.65;
+}
+.letter-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+.letter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 22px;
+  min-width: 0;
+}
+.letter-field > label {
+  color: var(--soft);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.letter-field > label > span {
+  color: var(--accent);
+}
+.letter-field > :is(input, select, textarea) {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 7px 0 10px;
+  border: 0;
+  border-bottom: 1px solid #646a6a;
+  border-radius: 0;
+  outline-offset: 4px;
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.65;
+  transition:
+    border-color 220ms var(--ease),
+    background-color 220ms var(--ease);
+}
+.letter-field > textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+.letter-field > select {
+  padding-right: 22px;
+}
+.letter-field option {
+  background: #191b1d;
+  color: var(--text);
+}
+.letter-field :is(input, textarea)::placeholder {
+  color: #9da3a1;
+  opacity: 1;
+}
+.letter-field > :is(input, select, textarea):focus {
+  border-color: var(--accent);
+  background: #ffffff03;
+}
+.letter-field > [aria-invalid="true"] {
+  border-color: var(--accent);
+}
+.first-conversation .letter-field-error {
+  margin: 0;
+  color: var(--accent);
+  font-size: 11px;
+  line-height: 1.55;
+}
+.conversation-extra {
+  margin: -2px 0 22px;
+}
+.conversation-extra > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 0;
+  cursor: pointer;
+  list-style: none;
+  color: var(--soft);
+  font-size: 12px;
+}
+.conversation-extra > summary::-webkit-details-marker {
+  display: none;
+}
+.conversation-extra > summary > span {
+  color: var(--muted);
+  font-size: 10px;
+}
+.conversation-extra > summary::after {
+  content: "+";
+  color: var(--accent);
+  font-size: 20px;
+  line-height: 1;
+  margin-left: auto;
+}
+.conversation-extra[open] > summary::after {
+  content: "−";
+}
+.conversation-extra > .letter-pair {
+  margin-top: 16px;
+}
+.first-conversation .conversation-privacy {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.conversation-privacy > span {
+  display: block;
+  margin-top: 7px;
+}
+.conversation-privacy a,
+.conversation-small a {
+  color: var(--soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.conversation-submit-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: 22px;
+}
+.first-conversation .conversation-send {
+  min-height: 48px;
+  gap: 15px;
+  padding: 13px 19px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: normal;
+}
+.conversation-send > svg {
+  width: 30px;
+  height: 30px;
+  padding: 7px;
+  background: #482411;
+  color: #ffb18c;
+  border: 0;
+  transition: transform 220ms var(--ease);
+}
+.conversation-review-link {
+  padding: 0;
+  min-height: 44px;
+  color: var(--soft);
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.first-conversation .conversation-unavailable {
+  margin: -5px 0 24px;
+  padding: 0 0 0 12px;
+  border-left: 1px solid var(--accent);
+  color: var(--soft);
+  font-size: 11px;
+  line-height: 1.7;
+}
+.conversation-security {
+  margin: 17px 0 12px;
+}
+.conversation-captcha {
+  min-height: 78px;
+  max-width: 100%;
+}
+.conversation-captcha[data-compact] {
+  min-height: 144px;
+}
+.first-conversation .conversation-security > p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+.conversation-security .text-link {
+  font-size: 12px;
+}
+.conversation-errors {
+  border-left: 2px solid var(--accent);
+  padding: 10px 0 10px 13px;
+  margin-bottom: 24px;
+}
+.conversation-errors > strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+.first-conversation .conversation-errors > p,
+.conversation-errors > ul {
+  margin: 6px 0 0;
+  color: var(--soft);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.conversation-errors > ul {
+  padding-left: 17px;
+}
+.conversation-errors a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.conversation-errors[hidden] {
+  display: none;
+}
+.conversation-review {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.conversation-review h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.first-conversation .conversation-review > p {
+  font-size: 12px;
+}
+.conversation-review pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font:
+    12px/1.8 "Manrope",
+    Arial,
+    sans-serif;
+  color: var(--soft);
+  margin: 16px 0;
+  padding: 16px;
+  background: #111314;
+  border-radius: 8px;
+}
+.conversation-review .button {
+  font-size: 12px;
+  margin: 0 16px 8px 0;
+}
+.conversation-review .text-link {
+  font-size: 12px;
+}
+.conversation-success {
+  padding-block: 26px 18px;
+}
+.conversation-success > svg {
+  display: block;
+  width: 160px;
+  margin-bottom: 28px;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.first-conversation .conversation-success > h2 {
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  margin-top: 20px;
+}
+.conversation-success > h2 > em {
+  display: block;
+  color: var(--accent);
+  font-size: 1.25em;
+}
+.first-conversation .conversation-success > p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.first-conversation .conversation-small,
+.first-conversation .conversation-success > p.conversation-small {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.conversation-success > .text-link {
+  margin-top: 22px;
+}
+.first-conversation
+  :is(.conversation-errors, .conversation-security, .conversation-review):focus,
+.conversation-success h2:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+.conversation-alternatives,
+.conversation-next,
+.conversation-faq {
+  margin-top: 88px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+}
+.conversation-section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: baseline;
+}
+.first-conversation .conversation-section-heading h2 {
+  font-size: clamp(26px, 2.7vw, 36px);
+  letter-spacing: -0.04em;
+  margin-bottom: 0;
+}
+.conversation-section-heading h2 > em,
+.conversation-faq h2 > em {
+  color: var(--accent);
+  font-size: 1.12em;
+}
+.first-conversation .conversation-section-heading > p {
+  color: var(--muted);
+  font-size: 12px;
+}
+.conversation-contact-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+  margin-top: 34px;
+}
+.conversation-contact-links > div {
+  min-width: 0;
+}
+.conversation-method-label {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+.conversation-contact-links a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  font-size: clamp(14px, 1.5vw, 18px);
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+}
+.conversation-contact-links a > svg,
+.conversation-social-row svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+}
+.first-conversation .conversation-contact-links p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.conversation-social-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 30px;
+}
+.conversation-social-row a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--soft);
+  font-size: 12px;
+}
+.conversation-social-row > div {
+  display: flex;
+  gap: 22px;
+}
+.conversation-next {
+  margin-top: 64px;
+}
+.conversation-next > ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  padding: 0;
+  margin: 34px 0 0;
+  list-style: none;
+}
+.conversation-next li {
+  position: relative;
+  min-width: 0;
+}
+.conversation-next li:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 34px;
+  width: calc(100% - 20px);
+  height: 1px;
+  background: var(--line);
+}
+.conversation-step-number {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+.conversation-next h3 {
+  margin: 16px 0 8px;
+  font-size: 16px;
+  letter-spacing: -0.025em;
+}
+.first-conversation .conversation-next li > p {
+  max-width: 27ch;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.conversation-faq {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 60px;
+  margin-top: 64px;
+}
+.first-conversation .conversation-faq h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  margin-bottom: 8px;
+}
+.first-conversation .conversation-faq > div > p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 18px;
+}
+.conversation-faq .text-link {
+  display: flex;
+  width: fit-content;
+  gap: 10px;
+  font-size: 12px;
+}
+.conversation-faq details {
+  border-bottom: 1px solid var(--line);
+}
+.conversation-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 58px;
+  padding: 15px 0;
+  font-size: 14px;
+  line-height: 1.55;
+  cursor: pointer;
+  list-style: none;
+}
+.conversation-faq summary::-webkit-details-marker {
+  display: none;
+}
+.conversation-faq summary > span {
+  color: var(--accent);
+  font-size: 21px;
+  transition: transform 200ms var(--ease);
+}
+.conversation-faq details[open] summary > span {
+  transform: rotate(45deg);
+}
+.first-conversation .conversation-faq details > p {
+  font-size: 13px;
+  line-height: 1.8;
+  padding: 0 24px 22px 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .topic-choice input:not(:checked) + span:hover {
+    color: var(--text);
+    border-color: #7c8280;
+  }
+  .conversation-send:not(:disabled):hover > svg {
+    transform: translate(2px, -2px);
+  }
+  .first-conversation
+    :is(
+      .conversation-contact-links a,
+      .conversation-social-row a,
+      .invitation-direct,
+      .conversation-review-link
+    ):hover {
+    color: var(--accent);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .conversation-heading {
+    animation: conversation-arrive 600ms var(--ease) both;
+  }
+  .conversation-sheet {
+    animation: conversation-arrive 550ms var(--ease) both;
+  }
+  .signal-stroke {
+    stroke-dasharray: 1;
+    animation: signal-draw 1000ms var(--ease) both;
+  }
+  .conversation-success {
+    animation: conversation-arrive 450ms var(--ease) both;
+  }
+}
+@keyframes conversation-arrive {
+  from {
+    opacity: 0.5;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes signal-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (max-width: 1100px) {
+  .first-conversation-grid {
+    gap: 32px;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
+  .conversation-heading h1 {
+    font-size: clamp(43px, 5vw, 56px);
+  }
+  .conversation-sheet {
+    padding: 25px;
+  }
+  .letter-pair {
+    gap: 16px;
+  }
+  .topic-choice > span {
+    padding-inline: 10px;
+  }
+}
+@media (max-width: 900px) {
+  .first-conversation {
+    padding-top: 112px;
+  }
+  .first-conversation-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+  .conversation-invitation {
+    padding-top: 0;
+    text-align: center;
+  }
+  .conversation-heading h1 {
+    font-size: clamp(40px, 7vw, 64px);
+  }
+  .first-conversation .conversation-heading > p {
+    margin-inline: auto;
+    max-width: 39ch;
+  }
+  .first-conversation .conversation-heading .conversation-human {
+    margin-top: 15px;
+  }
+  .contact-signal {
+    max-width: 400px;
+    margin: 18px auto 0;
+  }
+  .conversation-signature,
+  .invitation-direct {
+    display: none;
+  }
+  .conversation-sheet {
+    max-width: 620px;
+    width: 100%;
+    margin-inline: auto;
+    padding: 32px;
+  }
+  .conversation-contact-links {
+    gap: 22px;
+  }
+  .conversation-faq {
+    gap: 30px;
+  }
+}
+@media (max-width: 600px) {
+  .first-conversation {
+    --page-gutter: 20px;
+    padding-top: 104px;
+  }
+  .first-conversation > .breadcrumbs {
+    margin-bottom: 24px;
+    font-size: 11px;
+  }
+  .conversation-heading > .eyebrow {
+    font-size: 9px;
+  }
+  .conversation-heading h1 {
+    font-size: clamp(36px, 10.5vw, 56px);
+    margin: 18px 0 19px;
+    letter-spacing: -0.05em;
+  }
+  .conversation-heading h1 em {
+    margin-top: 5px;
+    font-size: 1.08em;
+  }
+  .first-conversation .conversation-heading > p {
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 34ch;
+  }
+  .first-conversation .conversation-heading .conversation-human {
+    font-size: 11px;
+  }
+  .contact-signal {
+    max-width: 340px;
+    margin: 13px auto 0;
+  }
+  .contact-signal svg {
+    max-height: 95px;
+  }
+  .first-conversation-grid {
+    gap: 20px;
+  }
+  .conversation-sheet {
+    padding: 22px 20px 24px;
+    border-radius: 18px;
+  }
+  .first-conversation .letter-heading h2 {
+    font-size: 39px;
+    margin-top: 20px;
+  }
+  .conversation-form {
+    margin-top: 24px;
+  }
+  .letter-pair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .topic-choice > span {
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+  .first-conversation .conversation-prompt {
+    margin-bottom: 22px;
+    min-height: 36px;
+  }
+  .letter-field > :is(input, textarea, select) {
+    font-size: 16px;
+  }
+  .letter-field > textarea {
+    min-height: 115px;
+  }
+  .conversation-submit-row {
+    gap: 6px 14px;
+  }
+  .first-conversation .conversation-send {
+    min-height: 50px;
+    font-size: 13px;
+  }
+  .first-conversation .conversation-privacy {
+    font-size: 11px;
+  }
+  .conversation-alternatives,
+  .conversation-next,
+  .conversation-faq {
+    margin-top: 48px;
+    padding-top: 26px;
+  }
+  .conversation-section-heading {
+    display: block;
+  }
+  .first-conversation .conversation-section-heading > p {
+    margin-top: 9px;
+  }
+  .conversation-contact-links {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin-top: 27px;
+  }
+  .conversation-contact-links a {
+    font-size: 16px;
+  }
+  .conversation-social-row {
+    margin-top: 18px;
+    gap: 10px;
+  }
+  .conversation-social-row > a {
+    max-width: 30ch;
+    line-height: 1.7;
+  }
+  .conversation-next > ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 22px;
+    margin-top: 28px;
+  }
+  .conversation-next li:nth-child(2)::before {
+    display: none;
+  }
+  .conversation-next h3 {
+    font-size: 15px;
+    margin-top: 12px;
+  }
+  .conversation-faq {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+  .conversation-faq summary {
+    font-size: 13px;
+  }
+}
+@media (max-width: 359px) {
+  .first-conversation {
+    --page-gutter: 16px;
+  }
+  .conversation-sheet {
+    padding-inline: 16px;
+  }
+  .topic-choice > span {
+    font-size: 10px;
+    padding-inline: 10px;
+  }
+  .first-conversation .conversation-heading > p {
+    font-size: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .first-conversation *,
+  .first-conversation *::before,
+  .first-conversation *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (forced-colors: active) {
+  .topic-choice input:checked + span {
+    border: 2px solid Highlight;
+  }
+  .topic-choice input:focus-visible + span {
+    outline: 2px solid Highlight;
+  }
+  .signal-stroke,
+  .signal-send,
+  .signal-node {
+    stroke: CanvasText;
+  }
+}

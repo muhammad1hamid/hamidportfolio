@@ -182,8 +182,8 @@ function normalizeWebsite(value) {
   }
 }
 
-/** @param {unknown} input @returns {{ok:false,errors:EnquiryErrors}|{ok:true,fields:EnquiryFields}} */
-export function validateEnquiry(input) {
+/** @param {unknown} input @param {{requireAgencyCompany?: boolean}} [options] @returns {{ok:false,errors:EnquiryErrors}|{ok:true,fields:EnquiryFields}} */
+export function validateEnquiry(input, { requireAgencyCompany = true } = {}) {
   const object =
     input && typeof input === "object" && !Array.isArray(input) ? input : {};
   /** @param {keyof EnquiryFields} field */
@@ -218,7 +218,8 @@ export function validateEnquiry(input) {
   if (company.length > enquiryLimits.company || control.test(company))
     errors.company = "Use up to 120 characters for the business name.";
   if (service === "agency") {
-    if (!company) errors.company = "Enter your agency or company name.";
+    if (requireAgencyCompany && !company)
+      errors.company = "Enter your agency or company name.";
     agencyDetails.audience = "agency";
     for (const field of /** @type {AgencyOption[]} */ (
       Object.keys(agencyEnquiryOptions)
