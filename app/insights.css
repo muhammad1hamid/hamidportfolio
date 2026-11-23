@@ -121,8 +121,8 @@
 }
 
 .insight-card-meta span {
-  color: #ffa17a;
-  font-weight: 700;
+  color: var(--soft);
+  font-weight: 500;
 }
 
 .insight-card .insight-card-copy h2,
@@ -146,18 +146,19 @@
   align-items: center;
   gap: 8px;
   margin-top: 8px;
-  color: #ffa17a;
+  color: var(--soft);
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .insight-card-action svg {
-  width: 13px;
-  height: 13px;
+  width: 16px;
+  height: 16px;
 }
 
 .insight-card > a:hover .insight-card-action,
 .insight-card > a:focus-visible .insight-card-action {
+  color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 4px;
 }

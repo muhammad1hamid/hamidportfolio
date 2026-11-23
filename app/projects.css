@@ -132,8 +132,8 @@
 .story-related svg,
 .story-index-item .project-overview-link svg,
 .story-index-note .text-link svg {
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
 }
 
 .project-entry .project-trigger:is(:hover, :focus-visible) .preview-badge {
@@ -163,15 +163,15 @@
 
 .project-meta .project-category {
   color: var(--muted);
-  letter-spacing: 0.07em;
+  letter-spacing: 0.01em;
 }
 
 .project-meta .project-type {
   display: inline-block;
   margin: 0;
   color: var(--soft);
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .project-meta .project-type[data-proof="self-directed-demo"] {
@@ -219,7 +219,7 @@
   gap: 7px;
   color: var(--soft);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .project-overview-link:hover,
@@ -579,7 +579,8 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .selected-project-grid > :is(article, article:first-child, article:last-child) {
+  .selected-project-grid
+    > :is(article, article:first-child, article:last-child) {
     grid-column: 1;
     grid-template-columns: minmax(0, 1fr);
     margin-top: 0;

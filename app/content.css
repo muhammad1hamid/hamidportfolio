@@ -1,11 +1,11 @@
 .content-page {
-  padding-top: 142px;
+  padding-top: 144px;
   padding-bottom: 32px;
 }
 .breadcrumbs {
   color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 45px;
+  font-size: 13px;
+  margin-bottom: 40px;
 }
 .breadcrumbs ol {
   display: flex;
@@ -78,9 +78,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  margin-top: 65px;
+  margin-top: 64px;
   border-top: 1px solid var(--line);
-  padding-top: 45px;
+  padding-top: 48px;
 }
 .content-actions {
   display: flex;
@@ -355,11 +355,11 @@
 }
 @media (max-width: 700px) {
   .content-page {
-    padding-top: 115px;
+    padding-top: 116px;
   }
   .breadcrumbs {
-    margin-bottom: 30px;
-    font-size: 11px;
+    margin-bottom: 32px;
+    font-size: 12px;
   }
   .breadcrumbs li {
     max-width: 100%;
@@ -378,8 +378,8 @@
   }
   .content-two-columns,
   .content-section {
-    margin-top: 45px;
-    padding-top: 30px;
+    margin-top: 48px;
+    padding-top: 32px;
   }
   .content-card-grid {
     margin-top: 38px;

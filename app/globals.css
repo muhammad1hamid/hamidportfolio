@@ -122,9 +122,10 @@ summary:focus-visible {
 .eyebrow,
 .section-marker,
 .project-category {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-size: 13px;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: 0.01em;
   font-weight: 500;
 }
 .eyebrow {
@@ -168,9 +169,9 @@ summary:focus-visible {
   font-size: 14px;
   font-weight: 600;
   transition:
-    background 0.3s,
-    color 0.3s,
-    transform 0.5s var(--ease);
+    background-color 160ms var(--ease),
+    color 160ms var(--ease),
+    transform 180ms var(--ease);
 }
 .button-light {
   background: var(--text);
@@ -178,7 +179,7 @@ summary:focus-visible {
 }
 .button-light:hover {
   background: #dce5e2;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 .button svg {
   width: 38px;
@@ -1341,9 +1342,9 @@ dialog[open] {
     font-size: 14px;
   }
   .section-marker {
-    font-size: 9px;
-    letter-spacing: 0.07em;
-    gap: 14px;
+    font-size: 12px;
+    letter-spacing: 0.01em;
+    gap: 16px;
     padding-bottom: 20px;
   }
   .section-marker span:last-child {
@@ -1588,11 +1589,19 @@ dialog[open] {
     --brief-area-top: max(12px, env(safe-area-inset-top));
     --brief-area-bottom: max(12px, env(safe-area-inset-bottom));
     inset-block: calc(
-      var(--brief-view-top, 0px) + var(--brief-area-top) +
-      (var(--brief-view-height, 100dvh) - var(--brief-area-top) - var(--brief-area-bottom)) / 2
-    ) auto;
+        var(--brief-view-top, 0px) + var(--brief-area-top) +
+          (
+            var(--brief-view-height, 100dvh) - var(--brief-area-top) -
+              var(--brief-area-bottom)
+          ) /
+          2
+      )
+      auto;
     translate: 0 -50%;
-    max-height: calc(var(--brief-view-height, 100dvh) - var(--brief-area-top) - var(--brief-area-bottom));
+    max-height: calc(
+      var(--brief-view-height, 100dvh) - var(--brief-area-top) -
+        var(--brief-area-bottom)
+    );
     margin-block: 0;
     padding: 13px clamp(16px, 5vw, 24px) 22px;
     scroll-padding-block-start: 60px;
@@ -1621,7 +1630,7 @@ dialog[open] {
     padding-inline: 9px;
   }
   .section-marker {
-    font-size: 8px;
+    font-size: 12px;
   }
 }
 .dialog-art {
@@ -1630,8 +1639,6 @@ dialog[open] {
 .contact-section .section-marker {
   color: #555d4c;
 }
-.section-marker,
-.project-category,
 .preview-badge,
 .story-side .eyebrow,
 .about-copy > .eyebrow,
@@ -1655,7 +1662,7 @@ dialog[open] {
     display: none;
   }
   .section-marker {
-    font-size: 11px;
+    font-size: 12px;
   }
   .footer-top p,
   .footer-bottom {

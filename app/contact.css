@@ -59,13 +59,13 @@
 }
 .contact-choices svg,
 .contact-page :is(.related-links, .text-link) svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 .contact-process {
   max-width: 460px;
   margin-top: clamp(30px, 4.7vw, 66px);
-  padding: 19px 20px 17px;
+  padding: 20px;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: var(--panel);
@@ -73,7 +73,7 @@
 .contact-process ol {
   display: grid;
   grid-template-columns: 1fr 1.65fr 1fr auto;
-  margin: 13px 0 0;
+  margin: 16px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -81,7 +81,7 @@
   position: relative;
   padding-top: 16px;
   color: var(--soft);
-  font-size: clamp(11px, 1.05vw, 13px);
+  font-size: clamp(12px, 1.05vw, 13px);
 }
 .contact-process li:not(:last-child)::before {
   position: absolute;
@@ -107,7 +107,6 @@
 .contact-process li:nth-child(2)::after {
   background: var(--accent);
   border-color: var(--accent);
-  box-shadow: 0 0 13px color-mix(in srgb, var(--accent), transparent 35%);
 }
 .contact-panel,
 .planner-enquiry {
@@ -116,11 +115,7 @@
   padding: clamp(24px, 3.2vw, 48px);
   border: 1px solid var(--line);
   border-radius: 26px;
-  background: radial-gradient(
-    ellipse at 100% 0,
-    color-mix(in srgb, var(--panel), var(--accent) 12%),
-    var(--panel) 54%
-  );
+  background: var(--panel);
 }
 .contact-anchor {
   position: absolute;
@@ -388,11 +383,11 @@
     font-size: 12px;
   }
   .contact-choices {
-    gap: 0 15px;
-    margin-top: 11px;
+    gap: 4px 16px;
+    margin-top: 12px;
   }
   .contact-choices a {
-    font-size: 12px;
+    font-size: 14px;
   }
   .contact-grid {
     gap: 21px;

@@ -15,7 +15,6 @@
   margin-right: 9px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 0 18px #ff865170;
   vertical-align: middle;
 }
 .button-accent {
@@ -28,20 +27,17 @@
 }
 .button-accent:hover {
   background: #ffa174;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 .wordmark span {
   color: var(--accent);
 }
 .work-section:not(.archive-work) {
-  padding-top: 62px;
-  padding-bottom: 90px;
+  padding-top: 64px;
+  padding-bottom: 96px;
 }
 .work-heading {
-  margin: 32px 0 35px;
-}
-.section-marker span:first-child::first-letter {
-  color: var(--accent);
+  margin: 32px 0 36px;
 }
 .project-image {
   object-position: top;
@@ -164,7 +160,7 @@
   font-size: 11px;
 }
 .capabilities {
-  padding-bottom: 100px;
+  padding-bottom: 96px;
 }
 .capability-heading {
   margin: 32px 0 40px;
@@ -186,11 +182,11 @@
   line-height: 115px;
 }
 .about-section {
-  padding-top: 25px;
-  padding-bottom: 90px;
+  padding-top: 24px;
+  padding-bottom: 96px;
 }
 .testimonials-v2 {
-  padding-bottom: 90px;
+  padding-bottom: 96px;
 }
 .testimonials-v2 h2 {
   font-size: clamp(38px, 4.45vw, 70px);
@@ -279,7 +275,7 @@
     margin-top: 18px;
   }
   .project-category {
-    font-size: 10px;
+    font-size: 12px;
   }
   .capability-signature {
     flex-direction: row;
@@ -295,14 +291,14 @@
     line-height: 80px;
   }
   .capabilities {
-    padding-bottom: 65px;
+    padding-bottom: 64px;
   }
   .capability-heading {
     margin-bottom: 24px;
   }
   .about-section {
     padding-top: 0;
-    padding-bottom: 65px;
+    padding-bottom: 64px;
   }
   .about-copy p {
     font-size: 16px;
@@ -359,7 +355,7 @@
     grid-template-columns: 1fr;
   }
   .testimonials-v2 {
-    padding-bottom: 65px;
+    padding-bottom: 64px;
   }
   .mobile-contact:not([hidden]) {
     display: flex;
@@ -369,15 +365,15 @@
     z-index: 70;
     bottom: max(16px, env(safe-area-inset-bottom));
     right: var(--page-gutter);
-    border: 1px solid #ffad8459;
+    border: 1px solid var(--line);
     border-radius: 999px;
-    padding: 14px 17px;
-    min-height: 50px;
-    background: var(--accent);
-    color: var(--accent-ink);
-    font-size: 13px;
+    padding: 12px 16px;
+    min-height: 48px;
+    background: #232527;
+    color: var(--text);
+    font-size: 14px;
     font-weight: 600;
-    box-shadow: 0 8px 35px #0005;
+    box-shadow: 0 8px 24px #0005;
   }
   .mobile-contact > span:first-child {
     display: none;
@@ -385,6 +381,7 @@
   .mobile-contact svg {
     width: 16px;
     height: 16px;
+    color: var(--accent);
   }
   body:has(dialog[open]) .mobile-contact {
     display: none;
@@ -396,7 +393,7 @@
     padding-bottom: 60px;
   }
   .work-heading {
-    margin: 26px 0;
+    margin: 24px 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -139,7 +139,7 @@
   color: var(--soft);
   font-size: 0.875rem;
   line-height: 1.28;
-  letter-spacing: -0.022em;
+  letter-spacing: 0;
   overflow-wrap: anywhere;
 }
 

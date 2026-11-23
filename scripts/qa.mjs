@@ -147,6 +147,7 @@ await check(
       [1440, 768],
     ]) {
       await page.setViewportSize({ width, height });
+      await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
       assert.deepEqual(
         await headings.locator(".hero-title-line:visible").allTextContents(),
         ["Build. Grow.", "Automate."],
@@ -159,17 +160,27 @@ await check(
           .locator(".hero-actions")
           .getByRole("link", { name: label });
         assert.equal(await link.getAttribute("href"), path);
+        if (width < 768) {
+          const stage = await page.locator(".hero-composition").boundingBox();
+          const intro = await page.locator(".hero-description").boundingBox();
+          assert.ok(intro.y >= stage.y + stage.height);
+          // The approved phone layout places its CTAs after the portrait/cards.
+          await link.scrollIntoViewIfNeeded();
+        }
         const bounds = await link.boundingBox();
         assert.ok(
           bounds &&
             bounds.x >= 0 &&
+            bounds.x + bounds.width <= width &&
             bounds.y >= 0 &&
+            bounds.height >= 44 &&
             bounds.y + bounds.height <= height,
-          `${label} should fit the viewport at ${width}×${height}`,
+          `${label} should be reachable at ${width}×${height}`,
         );
       }
     }
     await page.setViewportSize({ width: 1440, height: 1000 });
+    await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
   },
 );
 await check(
