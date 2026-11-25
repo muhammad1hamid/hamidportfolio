@@ -729,69 +729,6 @@
   font-size: 13px;
   line-height: 1.6;
 }
-.conversation-faq {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.16fr);
-  gap: 60px;
-  padding-top: 34px;
-}
-.first-conversation .conversation-faq h2 {
-  margin-top: 14px;
-  font-size: clamp(28px, 2.8vw, 39px);
-}
-.contact-faq-rows details {
-  border-bottom: 1px solid #5e6565;
-}
-.contact-faq-rows summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  min-height: 45px;
-  padding: 10px 0;
-  cursor: pointer;
-  list-style: none;
-  font-size: 14px;
-  line-height: 1.6;
-}
-.contact-faq-rows summary::-webkit-details-marker {
-  display: none;
-}
-.contact-faq-rows summary > span {
-  color: var(--soft);
-  font-size: 0;
-}
-.contact-faq-rows summary > span::before {
-  content: "+";
-  font-size: 20px;
-}
-.contact-faq-rows details[open] summary > span::before {
-  content: "−";
-}
-.first-conversation .contact-faq-rows details p {
-  padding: 0 5px 15px 0;
-  font-size: 12px;
-  line-height: 1.8;
-}
-.contact-faq-rows details a {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-.contact-faq-rows details[open] > div {
-  animation: contact-answer 220ms var(--ease) both;
-}
-.contact-mountain {
-  position: absolute;
-  bottom: -5px;
-  left: -12px;
-  width: clamp(430px, 46vw, 650px);
-  z-index: 0;
-  pointer-events: none;
-}
-.contact-mountain img {
-  width: 100%;
-  height: auto;
-}
 @container composer (max-width:380px) {
   .topic-options {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -844,16 +781,6 @@
     stroke-dashoffset: 0;
   }
 }
-@keyframes contact-answer {
-  from {
-    opacity: 0.4;
-    transform: translateY(-3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 @media (max-width: 1100px) {
   .first-conversation-grid {
     gap: 30px;
@@ -882,9 +809,6 @@
   }
   .conversation-next ol {
     gap: 18px;
-  }
-  .conversation-faq {
-    gap: 38px;
   }
 }
 @media (max-width: 900px) {
@@ -961,10 +885,6 @@
   }
   .conversation-next .contact-section-intro h2 br {
     display: none;
-  }
-  .contact-mountain {
-    width: 420px;
-    opacity: 0.65;
   }
 }
 @media (max-width: 767px) {
@@ -1140,21 +1060,9 @@
     max-width: 28ch;
     font-size: 12px;
   }
-  .conversation-faq {
-    grid-template-columns: minmax(0, 1fr);
-    padding-top: 27px;
-    gap: 17px;
-  }
   .first-conversation .contact-section-intro > p {
     margin-top: 10px;
     font-size: 12px;
-  }
-  .contact-faq-rows summary {
-    min-height: 52px;
-    font-size: 12px;
-  }
-  .contact-mountain {
-    display: none;
   }
   .contact-upper-path {
     opacity: 0.6;

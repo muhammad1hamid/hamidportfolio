@@ -40,6 +40,8 @@ The `/contact/` page is **The First Conversation**: the final approved Soft UI d
 
 Direct WhatsApp, email, LinkedIn and Instagram remain available. The project planner can download a local outline or open a WhatsApp draft for review. Its separate optional website-send path and the agency form retain the existing Vercel/Turnstile/Upstash/Resend configuration; Web3Forms does not silently enable those routes. Google Drive supplies the selected testimonial video through its embedded player.
 
+The Contact FAQ uses the approved solid charcoal/ivory editorial split with a numbered, single-open accordion and a dedicated stacked mobile layout. See [the locked FAQ implementation record](docs/contact-faq-editorial.md) for screenshots and verified checks. `npm run test:contact-faq` tests its responsive layout, keyboard/touch controls, motion, no-script fallback and optional before/after preservation captures.
+
 On mobile, a small WhatsApp action appears after the hero and stays hidden in dialogs, while testimonials are visible, and at or below the contact section. The services section includes a clearly labelled, local workflow illustration; it is not connected to an AI service and sends no data.
 
 ## Motion and performance

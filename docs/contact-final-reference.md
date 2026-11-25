@@ -1,5 +1,7 @@
 # HAMID — final approved Contact reference
 
+The FAQ portion was superseded on 25 November 2026 by the owner's [locked solid editorial FAQ design](contact-faq-editorial.md). The hero, form, contact alternatives and process documented here remain unchanged. The earlier FAQ mountain and its lower-page spacing have been removed from the current page.
+
 Implemented from the owner's **HAMID_Contact_Final_Codex_Reference_Package (1).zip**, its complete `00_MASTER_PROMPT.md`, approved 1199 × 1312 reference and accompanying execution directive. The reference controls the composition; the existing HAMID identity and working contact destinations remain the foundation.
 
 ## Visual implementation

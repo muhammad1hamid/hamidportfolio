@@ -251,7 +251,7 @@ try {
           3,
         );
         assert.equal(
-          await publicPage.locator(".conversation-faq details").count(),
+          await publicPage.locator("[data-contact-faq] button").count(),
           4,
         );
         assert.equal(
@@ -339,23 +339,13 @@ try {
         ),
         "hidden",
       );
-      const question = publicPage.locator(".conversation-faq summary").first();
+      const question = publicPage.locator("[data-contact-faq] button").first();
       await question.focus();
+      assert.equal(await question.getAttribute("aria-expanded"), "true");
       await publicPage.keyboard.press("Enter");
-      assert.equal(await question.locator("..").getAttribute("open"), "");
-      assert.equal(
-        await question
-          .locator("span")
-          .evaluate((element) => getComputedStyle(element, "::before").content),
-        '"−"',
-      );
+      assert.equal(await question.getAttribute("aria-expanded"), "false");
       await publicPage.keyboard.press("Enter");
-      assert.equal(
-        await question
-          .locator("span")
-          .evaluate((element) => getComputedStyle(element, "::before").content),
-        '"+"',
-      );
+      assert.equal(await question.getAttribute("aria-expanded"), "true");
       assert.equal(
         await publicPage
           .locator(".signal-stroke")

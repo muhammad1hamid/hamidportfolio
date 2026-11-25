@@ -1,8 +1,5 @@
 import { ContactEnquiry } from "@/components/contact/ContactEnquiry";
-import {
-  ContactAtmosphere,
-  ContactMountainAccent,
-} from "@/components/contact/ContactArtwork";
+import { ContactAtmosphere } from "@/components/contact/ContactArtwork";
 import {
   ContactEditorialIntro,
   ContactAlternatives,
@@ -13,6 +10,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { configuredWeb3FormsKey } from "@/data/conversation.mjs";
 import { contactSettings } from "@/data/contact-settings";
 import { pageMeta, pageSchema } from "@/data/seo";
+import faqStyles from "@/components/contact/ContactFAQ.module.css";
 import "../contact.css";
 import "../first-conversation.css";
 
@@ -32,7 +30,10 @@ export default function ContactPage() {
       contactSettings.web3FormsAccessKey,
   );
   return (
-    <main id="main" className="content-page first-conversation">
+    <main
+      id="main"
+      className={`content-page first-conversation ${faqStyles.pageTail}`}
+    >
       <ContactAtmosphere />
       <div className="wrap contact-content">
         <div className="first-conversation-grid">
@@ -52,9 +53,8 @@ export default function ContactPage() {
         </div>
         <ContactAlternatives />
         <ContactProcessStrip />
-        <ContactFAQ />
       </div>
-      <ContactMountainAccent />
+      <ContactFAQ />
       <JsonLd
         data={pageSchema(path, heading, description, { type: "ContactPage" })}
       />
