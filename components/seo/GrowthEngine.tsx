@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EditorialFAQ } from "@/components/ui/EditorialFAQ";
 import type { ReactNode } from "react";
 import { serviceBySlug, type GrowthService } from "@/data/services";
 import { pageSchema, serviceSchema } from "@/data/seo";
@@ -414,29 +415,24 @@ export function GrowthEngine({ service }: { service: GrowthService }) {
         </div>
       </section>
 
-      <section className="growth-tinted" aria-labelledby="growth-faq-title">
-        <div className="wrap growth-block growth-faq">
-          <h2 id="growth-faq-title">
-            Good questions <em>before we begin.</em>
-          </h2>
-          <div>
-            {service.faqs.map((faq) => (
-              <details key={faq.q}>
-                <summary>{faq.q}</summary>
-                <p>
-                  {faq.a}
-                  {faq.source && (
-                    <>
-                      {" "}
-                      <a href={faq.source.url}>{faq.source.label}</a>.
-                    </>
-                  )}
-                </p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
+      <EditorialFAQ
+        context="growth"
+        titleId="growth-faq-title"
+        items={service.faqs.map((faq) => ({
+          question: faq.q,
+          answer: (
+            <>
+              {faq.a}
+              {faq.source && (
+                <>
+                  {" "}
+                  <a href={faq.source.url}>{faq.source.label}</a>.
+                </>
+              )}
+            </>
+          ),
+        }))}
+      />
 
       <section
         className="wrap growth-block growth-reading"

@@ -3,6 +3,7 @@ import { site } from "@/data/site";
 import { absolute, pageSchema } from "@/data/seo";
 import { JsonLd } from "./JsonLd";
 import { Arrow } from "@/components/ui/Arrow";
+import { EditorialPageFlow } from "@/components/ui/EditorialPageFlow";
 
 type Crumb = { label: string; href: string };
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
@@ -48,6 +49,7 @@ export function ContentPage({
   type,
   mainEntity,
   className,
+  fullWidthSections = false,
 }: {
   path: string;
   title: string;
@@ -58,12 +60,10 @@ export function ContentPage({
   type?: string;
   mainEntity?: string;
   className?: string;
+  fullWidthSections?: boolean;
 }) {
-  return (
-    <main
-      id="main"
-      className={`content-page wrap${className ? ` ${className}` : ""}`}
-    >
+  const content = (
+    <>
       <Breadcrumbs items={crumbs || [{ label, href: path }]} />
       <header className="content-hero">
         <span className="eyebrow">
@@ -74,6 +74,18 @@ export function ContentPage({
       </header>
       {children}
       <JsonLd data={pageSchema(path, title, intro, { type, mainEntity })} />
+    </>
+  );
+  return (
+    <main
+      id="main"
+      className={`content-page${fullWidthSections ? "" : " wrap"}${className ? ` ${className}` : ""}`}
+    >
+      {fullWidthSections ? (
+        <EditorialPageFlow>{content}</EditorialPageFlow>
+      ) : (
+        content
+      )}
     </main>
   );
 }

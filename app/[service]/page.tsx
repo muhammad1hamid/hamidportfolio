@@ -7,6 +7,7 @@ import { ContentPage, ProjectCta } from "@/components/seo/ContentPage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ServiceDecisions } from "@/components/seo/ServiceDecisions";
 import { GrowthEngine } from "@/components/seo/GrowthEngine";
+import { EditorialFAQ } from "@/components/ui/EditorialFAQ";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -38,6 +39,7 @@ export default async function ServicePage({
       intro={service.intro}
       label={service.name}
       mainEntity={`${path}#service`}
+      fullWidthSections
       crumbs={[
         { label: "Services", href: "/services/" },
         { label: service.name, href: path },
@@ -129,15 +131,10 @@ export default async function ServicePage({
           </Link>
         </aside>
       )}
-      <section className="content-section content-faq">
-        <h2>Questions before we start</h2>
-        {service.faqs.map((faq) => (
-          <details key={faq.q}>
-            <summary>{faq.q}</summary>
-            <p>{faq.a}</p>
-          </details>
-        ))}
-      </section>
+      <EditorialFAQ
+        context={service.slug}
+        items={service.faqs.map((faq) => ({ question: faq.q, answer: faq.a }))}
+      />
       <section className="content-section">
         <h2>Connected services</h2>
         <div className="related-links">

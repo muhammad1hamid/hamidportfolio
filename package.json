@@ -20,6 +20,7 @@
     "test:enquiry-browser": "node scripts/qa-enquiry-browser.mjs",
     "test:contact": "node scripts/qa-conversation.mjs",
     "test:contact-faq": "node scripts/qa-contact-faq.mjs",
+    "test:faq-sitewide": "node scripts/qa-faq-sitewide.mjs",
     "test:agency": "node scripts/qa-agency.mjs",
     "check:public": "node scripts/check-public-launch.mjs",
     "indexnow": "node scripts/indexnow.mjs"

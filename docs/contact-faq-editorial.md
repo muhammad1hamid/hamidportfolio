@@ -1,5 +1,7 @@
 # HAMID — locked editorial Contact FAQ
 
+The approved design has since been moved into a shared component and applied to all existing FAQ pages. See the [sitewide implementation record](faq-sitewide.md) for the current file locations, coverage and verification. This document records the original Contact-only implementation and design reference.
+
 Implemented and checked on **25 November 2026** for `/contact/` from the owner's **HAMID — Final Locked FAQ Section / Solid Editorial Split Design** brief and the supplied 1459 × 746 reference image.
 
 ## Delivered experience

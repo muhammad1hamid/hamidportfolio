@@ -277,13 +277,25 @@ try {
             .getBoundingClientRect().top;
           return top >= 80 && top < innerHeight;
         });
-        const faq = mobile.locator(".agency-question-list");
-        assert.equal(await faq.locator("details").count(), 10);
-        await faq.locator("summary").first().focus();
+        const faq = mobile.locator('[data-editorial-faq="agencies"]');
+        assert.equal(await faq.locator("button").count(), 10);
+        await faq.locator("button").first().focus();
+        assert.equal(
+          await faq.locator('button[aria-expanded="true"]').count(),
+          1,
+        );
         await mobile.keyboard.press("Enter");
-        assert.equal(await faq.locator("details[open]").count(), 1);
+        assert.equal(
+          await faq.locator('button[aria-expanded="true"]').count(),
+          0,
+        );
+        await mobile.keyboard.press("Enter");
+        assert.equal(
+          await faq.locator('button[aria-expanded="true"]').count(),
+          1,
+        );
         assert.match(
-          await faq.locator("details[open] p").innerText(),
+          await faq.getByRole("region").first().locator("p").innerText(),
           /commercial relationship/,
         );
         await mobile
@@ -336,13 +348,10 @@ try {
           await staticPage.locator(".agency-timeline h3").count(),
           5,
         );
-        await staticPage
-          .locator(".agency-question-list summary")
-          .first()
-          .click();
         assert.equal(
           await staticPage
-            .locator(".agency-question-list details[open] p")
+            .locator('[data-editorial-faq="agencies"] [role="region"] p')
+            .first()
             .isVisible(),
           true,
         );

@@ -233,8 +233,11 @@ await check("Home accessibility", async () => {
   );
 });
 await check("Six FAQ accordions work", async () => {
-  const buttons = page.locator(".faq-item button");
+  const buttons = page.locator('[data-editorial-faq="home"] button');
   assert.equal(await buttons.count(), 6);
+  assert.equal(await buttons.nth(0).getAttribute("aria-expanded"), "true");
+  await buttons.nth(0).click();
+  assert.equal(await buttons.nth(0).getAttribute("aria-expanded"), "false");
   await buttons.nth(0).click();
   assert.equal(await buttons.nth(0).getAttribute("aria-expanded"), "true");
   await buttons.nth(1).click();

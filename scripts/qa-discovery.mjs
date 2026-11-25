@@ -149,7 +149,7 @@ try {
   await page.waitForURL("**/contact/?source=home");
   assert.equal(
     await page
-      .getByRole("link", { name: "Message Hamid on WhatsApp" })
+      .getByRole("link", { name: "Chat on WhatsApp", exact: false })
       .getAttribute("href"),
     "https://wa.me/923356709222",
   );
@@ -170,11 +170,21 @@ try {
     { event: "hero_portfolio_cta_click", page_path: "/" },
   ]);
   await page.goto(base, { waitUntil: "networkidle" });
-  await page.locator(".pillar-card-growth-engine a").click();
+  await page
+    .getByRole("group", { name: "Choose a capability" })
+    .getByRole("button", { name: "Growth Engine", exact: true })
+    .click();
+  await page
+    .locator("[data-capability-studio]")
+    .getByRole("link", { name: "Explore Growth Engine", exact: true })
+    .click();
   await page.waitForURL("**/growth/");
   await page.locator(".growth-workstream h3").first().waitFor();
   assert.equal(await page.locator(".growth-workstream h3").count(), 5);
-  assert.equal(await page.locator(".growth-faq details").count(), 8);
+  assert.equal(
+    await page.locator('[data-editorial-faq="growth"] [data-faq-item]').count(),
+    8,
+  );
   await page
     .locator(".growth-hero")
     .getByRole("link", { name: "Explore Growth Engine" })
@@ -203,17 +213,26 @@ try {
     .getByRole("link", { name: "Discuss your growth goals" })
     .click();
   await page.waitForURL("**/contact/#growth-enquiry");
+  await page.waitForFunction(
+    (id) => document.getElementById(id)?.checked,
+    await page
+      .getByRole("radio", { name: "Growth", exact: true })
+      .getAttribute("id"),
+  );
+  assert.equal(
+    await page.getByRole("radio", { name: "Growth", exact: true }).isChecked(),
+    true,
+  );
   const popup = context.waitForEvent("page");
-  await page.getByRole("link", { name: "Message about Growth Engine" }).click();
+  await page
+    .getByRole("link", { name: "Prefer WhatsApp?", exact: true })
+    .click();
   const growthDraft = await popup;
   await growthDraft.waitForURL("https://wa.me/**");
   assert.equal(new URL(growthDraft.url()).pathname, "/923356709222");
-  assert.match(
-    new URL(growthDraft.url()).searchParams.get("text"),
-    /Growth Engine\.\nWebsite: \[your website\]\nMain goal: \[your goal\]/,
-  );
+  assert.equal(new URL(growthDraft.url()).search, "");
   await growthDraft.close();
-  await page.getByRole("link", { name: /Prepare a project brief/ }).click();
+  await page.getByRole("link", { name: /Build a project brief/ }).click();
   await page.waitForURL("**/plan/");
   await page
     .getByLabel("Anything else?", { exact: false })
@@ -270,12 +289,13 @@ try {
     1,
   );
   assert.deepEqual(
-    sent.filter(({ event }) => event === "click_whatsapp"),
+    sent.filter(({ event }) => event === "contact_click"),
     [
       {
-        event: "click_whatsapp",
-        destination: "whatsapp",
-        service: "growth_engine",
+        event: "contact_click",
+        method: "whatsapp",
+        context: "contact_composer",
+        discovery_source: "unattributed",
         page_path: "/contact/",
       },
     ],
@@ -322,7 +342,7 @@ try {
   );
   await page.goto(`${base}/answers/#demo-projects`);
   await page.waitForFunction(
-    () => document.getElementById("demo-projects")?.open === true,
+    () => document.getElementById("demo-projects")?.dataset.open === "true",
   );
   assert.match(
     await page.locator("#demo-projects p").innerText(),
@@ -333,12 +353,11 @@ try {
   );
   await page.goto(`${base}/answers/#service-index-check`);
   await page.waitForFunction(
-    () => document.getElementById("service-index-check")?.open === true,
+    () =>
+      document.getElementById("service-index-check")?.dataset.open === "true",
   );
   assert.equal(
-    await page
-      .locator("#service-index-check .answer-source")
-      .getAttribute("href"),
+    await page.locator("#service-index-check a").first().getAttribute("href"),
     "/insights/portfolio-search-readiness/#crawl-and-index",
   );
   for (const [path, label] of [
@@ -369,17 +388,15 @@ try {
     route.abort(),
   );
   await htmlPage.goto(`${base}/answers/`);
-  assert.equal(await htmlPage.locator("main details").count(), 23);
   assert.equal(
     await htmlPage
-      .locator(".content-faq")
-      .filter({
-        has: htmlPage.getByRole("heading", {
-          name: "Search & AI visibility",
-          exact: true,
-        }),
-      })
-      .locator("details")
+      .locator('[data-editorial-faq="answers"] [role="region"]')
+      .count(),
+    23,
+  );
+  assert.equal(
+    await htmlPage
+      .locator('[data-faq-group="Search & AI visibility"] [role="region"]')
       .count(),
     3,
   );
@@ -431,7 +448,12 @@ try {
   );
   assert.equal(await htmlPage.locator("main h1").count(), 1);
   assert.equal(await htmlPage.locator(".growth-workstream").count(), 5);
-  assert.equal(await htmlPage.locator(".growth-faq details").count(), 8);
+  assert.equal(
+    await htmlPage
+      .locator('[data-editorial-faq="growth"] [data-faq-item]')
+      .count(),
+    8,
+  );
   assert.match(await htmlPage.locator("main").innerText(), /AI discovery/);
   assert.ok(await htmlPage.locator("#journey-founder").isVisible());
   await htmlPage
