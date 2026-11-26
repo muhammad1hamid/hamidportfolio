@@ -1,5 +1,6 @@
 import records from "./insights.json";
 import { articleBySlug, type Article } from "./articles";
+import { socialImageFor } from "./social-preview";
 
 export type Insight = Article & {
   excerpt: string;
@@ -25,7 +26,7 @@ export const insightBySlug = (slug: string) =>
 export const insightPath = (slug: string) => `/insights/${slug}/`;
 export const insightCover = (slug: string) => `/images/insights/${slug}.webp`;
 export const insightShareImage = (slug: string) =>
-  `/images/share/insights-${slug}.jpg`;
+  socialImageFor(insightPath(slug)).image;
 
 export function readingTitle(path: string) {
   const [library, slug] = path.split("/").filter(Boolean);

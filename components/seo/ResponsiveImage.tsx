@@ -7,14 +7,17 @@ export function ResponsiveImage({
   ...props
 }: ImgHTMLAttributes<HTMLImageElement> & { src: string; alt: string }) {
   const portrait = src === "/images/hamid-hero.webp";
+  const representative = src === "/images/social/hamid-portrait-square-v1.jpg";
   const project =
     src.startsWith("/images/projects/") && !src.includes("-mobile");
   const filename = src.split("/").pop()!.replace(".webp", "");
-  const srcSet = portrait
-    ? `/images/responsive/${filename}-480.webp 480w, /images/responsive/${filename}-768.webp 768w, ${src} 1000w`
-    : project
-      ? `/images/responsive/${filename}-640.webp 640w, /images/responsive/${filename}-960.webp 960w, ${src} 1440w`
-      : undefined;
+  const srcSet = representative
+    ? `/images/social/hamid-portrait-square-v1-480.jpg 480w, /images/social/hamid-portrait-square-v1-768.jpg 768w, ${src} 1100w`
+    : portrait
+      ? `/images/responsive/${filename}-480.webp 480w, /images/responsive/${filename}-768.webp 768w, ${src} 1000w`
+      : project
+        ? `/images/responsive/${filename}-640.webp 640w, /images/responsive/${filename}-960.webp 960w, ${src} 1440w`
+        : undefined;
   return (
     <img
       src={src}

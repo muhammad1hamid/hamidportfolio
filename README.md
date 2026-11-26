@@ -21,6 +21,8 @@ See `SEO-AUDIT.md` for the baseline, `SEO-REPORT.md` for the completed upgrade, 
 
 See `AEO-GEO-IMPLEMENTATION.md` for the latest work and remaining dependencies, and `DISCOVERY-OPERATIONS.md` for public launch and measurement. `npm run test:discovery` checks the planner, answer links and demonstration; `npm run check:public` inspects the selected public domain without making external changes.
 
+The [social preview system](docs/social-preview-system.md) generates 47 versioned 1200 × 630 JPEG banners using the real Hamid portrait, actual project captures, topic-specific editorial art and bundled website fonts. `npm run assets:social` regenerates them; the normal build also runs it. `npm run test:social` checks raw HTML metadata, image responses, entity images and thumbnail crops. Change the design version when replacing a published banner; keep old URLs available for previously shared links.
+
 `npm run test:seo` checks exported pages, links, metadata, schemas, assets, mobile layout, accessibility and redirects. `npm run test:performance` records three local mobile lab runs. Both default to the temporary production preview on port 3001; set `QA_BASE_URL=http://127.0.0.1:3000` to use the main local server. `npm run indexnow` is a dry run; submission requires a real ownership key, a matching deployed export and `-- --submit`.
 
 ## Add real content

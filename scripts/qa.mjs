@@ -730,7 +730,7 @@ await check("Archive SEO is route-specific", async () => {
   );
   assert.match(
     await page.locator('meta[property="og:image"]').getAttribute("content"),
-    /\/images\/share\/work.png$/,
+    /\/images\/social\/hamid-work-v2\.jpg$/,
   );
   assert.equal(
     await page.locator('meta[name="twitter:card"]').getAttribute("content"),

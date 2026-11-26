@@ -90,8 +90,20 @@ try {
       );
       assert.equal(record.h1.length, 1, "one H1");
       assert.ok(record.mainText > 350, "crawlable main text");
-      assert.equal(record.ogTitle, record.title, "OG title");
-      assert.equal(record.ogDescription, record.description, "OG description");
+      assert.equal(
+        record.ogTitle,
+        pathname === "/"
+          ? "Hamid — Web Development, SEO & AI Automation"
+          : record.title,
+        "OG title",
+      );
+      assert.equal(
+        record.ogDescription,
+        pathname === "/"
+          ? "Independent developer building distinctive websites, improving search visibility, and creating practical AI systems for businesses."
+          : record.description,
+        "OG description",
+      );
       assert.equal(record.ogUrl, record.canonical, "OG URL");
       assert.equal(record.twitter, "summary_large_image");
       assert.ok(record.ogImage.startsWith(origin), "absolute OG image");

@@ -1,0 +1,331 @@
+{
+  "/": {
+    "image": "/images/social/hamid-home-v2.jpg",
+    "alt": "Hamid, independent web developer, with the Build. Grow. Automate. headline.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/about/": {
+    "image": "/images/social/hamid-about-v2.jpg",
+    "alt": "Natural portrait of Hamid beside The person behind the work.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/contact/": {
+    "image": "/images/social/hamid-contact-v2.jpg",
+    "alt": "Hamid’s portrait with Let’s talk. contact messaging.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/for-agencies/": {
+    "image": "/images/social/hamid-for-agencies-v2.jpg",
+    "alt": "Hamid, independent white-label development partner for agencies.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/work/": {
+    "image": "/images/social/hamid-work-v2.jpg",
+    "alt": "Actual Bridal House, Ink Grail and Qadeer Jewellers website captures in Hamid’s portfolio.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/case-studies/": {
+    "image": "/images/social/hamid-case-studies-v2.jpg",
+    "alt": "Actual website captures with Hamid’s project walkthroughs.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/services/": {
+    "image": "/images/social/hamid-services-v2.jpg",
+    "alt": "HAMID service overview covering websites, search visibility and automation.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/growth/": {
+    "image": "/images/social/hamid-growth-v2.jpg",
+    "alt": "Growth Engine search visibility diagram: discover, understand and enquire, without ranking or traffic claims.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/blog/": {
+    "image": "/images/social/hamid-blog-v2.jpg",
+    "alt": "Hamid’s practical website and automation planning guides.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/insights/": {
+    "image": "/images/social/hamid-insights-v2.jpg",
+    "alt": "Original editorial artwork for Hamid’s website, search and automation insights.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/privacy/": {
+    "image": "/images/social/hamid-privacy-v2.jpg",
+    "alt": "Hamid’s project enquiry privacy notice.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/ai-automation/": {
+    "image": "/images/social/hamid-ai-automation-v2.jpg",
+    "alt": "AI automation: an illustrative process diagram, with no unverified results or metrics.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/whatsapp-ai-chatbot/": {
+    "image": "/images/social/hamid-whatsapp-ai-chatbot-v2.jpg",
+    "alt": "WhatsApp AI chatbot: an illustrative process diagram, with no unverified results or metrics.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/ai-receptionist/": {
+    "image": "/images/social/hamid-ai-receptionist-v2.jpg",
+    "alt": "AI receptionist: an illustrative process diagram, with no unverified results or metrics.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/restaurant-whatsapp-automation/": {
+    "image": "/images/social/hamid-restaurant-whatsapp-automation-v2.jpg",
+    "alt": "Restaurant WhatsApp automation: an illustrative process diagram, with no unverified results or metrics.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/website-chatbot/": {
+    "image": "/images/social/hamid-website-chatbot-v2.jpg",
+    "alt": "Website chatbot: an illustrative process diagram, with no unverified results or metrics.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/ai-agents/": {
+    "image": "/images/social/hamid-ai-agents-v2.jpg",
+    "alt": "AI agents: an illustrative process diagram, with no unverified results or metrics.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/workflow-automation/": {
+    "image": "/images/social/hamid-workflow-automation-v2.jpg",
+    "alt": "Workflow automation: an illustrative process diagram, with no unverified results or metrics.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/web-development/": {
+    "image": "/images/social/hamid-web-development-v2.jpg",
+    "alt": "Web development by Hamid, illustrated with his Bridal House self-directed demo screenshot.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/landing-page-development/": {
+    "image": "/images/social/hamid-landing-page-development-v2.jpg",
+    "alt": "Landing page development by Hamid, illustrated with his Bridal House self-directed demo screenshot.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/business-dashboards/": {
+    "image": "/images/social/hamid-business-dashboards-v2.jpg",
+    "alt": "Business dashboards: an illustrative process diagram, with no unverified results or metrics.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/blog/business-website-brief/": {
+    "image": "/images/social/hamid-blog-business-website-brief-v2.jpg",
+    "alt": "Hamid’s guide: How to Write a Useful Business Website Brief. Topic-specific editorial illustration.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/blog/ai-agent-chatbot-workflow/": {
+    "image": "/images/social/hamid-blog-ai-agent-chatbot-workflow-v2.jpg",
+    "alt": "Hamid’s guide: AI Agent, Chatbot or Workflow: Which Do You Need?. Topic-specific editorial illustration.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/blog/website-enquiry-follow-up-workflow/": {
+    "image": "/images/social/hamid-blog-website-enquiry-follow-up-workflow-v2.jpg",
+    "alt": "Hamid’s guide: Plan a Website Enquiry-to-Follow-up Workflow. Topic-specific editorial illustration.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/blog/landing-page-or-full-website/": {
+    "image": "/images/social/hamid-blog-landing-page-or-full-website-v2.jpg",
+    "alt": "Hamid’s guide: Landing Page or Full Website: Choose Around the Visitor's Decision. Topic-specific editorial illustration.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/blog/what-affects-website-cost/": {
+    "image": "/images/social/hamid-blog-what-affects-website-cost-v2.jpg",
+    "alt": "Hamid’s guide: What Affects a Website Quote? A Practical Scope Checklist. Topic-specific editorial illustration.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/blog/chatbot-human-handover/": {
+    "image": "/images/social/hamid-blog-chatbot-human-handover-v2.jpg",
+    "alt": "Hamid’s guide: Plan Chatbot Human Handover Before Adding More Answers. Topic-specific editorial illustration.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/insights/portfolio-search-readiness/": {
+    "image": "/images/social/hamid-insights-portfolio-search-readiness-v2.jpg",
+    "alt": "What a Real Search-Readiness Audit Proves. The live itshamid.com homepage at 1440 and 390 CSS pixels, with the desktop headline Stand out online and the mobile headline Build. Grow. Automate.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/insights/hamid-intro-motion/": {
+    "image": "/images/social/hamid-insights-hamid-intro-motion-v2.jpg",
+    "alt": "How the HAMID Intro Keeps the Website Within Reach. The cream HAMID wordmark held in the center of a dark screen, with the Skip intro button at the lower right.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/insights/whatsapp-enquiry-path/": {
+    "image": "/images/social/hamid-insights-whatsapp-enquiry-path-v2.jpg",
+    "alt": "Make Your WhatsApp Enquiry Path Easy to Use. A pale route leads directly to a phone on a cobalt blue background.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/insights/measure-whatsapp-enquiries/": {
+    "image": "/images/social/hamid-insights-measure-whatsapp-enquiries-v2.jpg",
+    "alt": "What a WhatsApp Click Actually Measures. A black pointer presses a cobalt button beside a separate clear acrylic chat bubble.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/insights/mobile-website-launch-checklist/": {
+    "image": "/images/social/hamid-insights-mobile-website-launch-checklist-v2.jpg",
+    "alt": "A Mobile Launch Checklist for Business Websites. A brushed-metal caliper checks a phone against a cobalt circle.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/insights/first-workflow-to-automate/": {
+    "image": "/images/social/hamid-insights-first-workflow-to-automate-v2.jpg",
+    "alt": "Which Business Workflow Should You Automate First?. An industrial gripper precisely places one orange domino into a row.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/insights/portfolio-demo-evidence/": {
+    "image": "/images/social/hamid-insights-portfolio-demo-evidence-v2.jpg",
+    "alt": "What a Portfolio Demo Can Prove. An orange inspection loupe enlarges the detail in an architectural proof print.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/work/bridal-house/": {
+    "image": "/images/social/hamid-work-bridal-house-v2.jpg",
+    "alt": "Actual Bridal House website screenshot. Self-directed demo in Hamid’s portfolio.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/work/ink-grail/": {
+    "image": "/images/social/hamid-work-ink-grail-v2.jpg",
+    "alt": "Actual Ink Grail Tattoos website screenshot. Experience notes in Hamid’s portfolio.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/work/qadeer-jewellers/": {
+    "image": "/images/social/hamid-work-qadeer-jewellers-v2.jpg",
+    "alt": "Actual Qadeer Jewellers website screenshot. Self-directed demo in Hamid’s portfolio.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/work/dylan-seedin/": {
+    "image": "/images/social/hamid-work-dylan-seedin-v2.jpg",
+    "alt": "Actual Dylan Seedin Photography website screenshot. Experience notes in Hamid’s portfolio.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/work/editing-julian/": {
+    "image": "/images/social/hamid-work-editing-julian-v2.jpg",
+    "alt": "Actual Editing Julian website screenshot. Self-directed demo in Hamid’s portfolio.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/work/elevate-x/": {
+    "image": "/images/social/hamid-work-elevate-x-v2.jpg",
+    "alt": "Actual Elevate X website screenshot. Experience notes in Hamid’s portfolio.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/answers/": {
+    "image": "/images/social/hamid-answers-v2.jpg",
+    "alt": "Website, Automation & Search Visibility Answers — a dedicated HAMID editorial preview.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/plan/": {
+    "image": "/images/social/hamid-plan-v2.jpg",
+    "alt": "Website & Growth Engine Project Planner — a dedicated HAMID editorial preview.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/demos/enquiry-assistant/": {
+    "image": "/images/social/hamid-demos-enquiry-assistant-v2.jpg",
+    "alt": "FAQ & Human Handover Demo — a dedicated HAMID editorial preview.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/testimonials/": {
+    "image": "/images/social/hamid-testimonials-v2.jpg",
+    "alt": "Client Video Testimonials — a dedicated HAMID editorial preview.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/testimonials/abdullah-abbasii/": {
+    "image": "/images/social/hamid-testimonials-abdullah-abbasii-v2.jpg",
+    "alt": "Abdullah Abbasii — Nexus Growth Video Testimonial — a dedicated HAMID editorial preview.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/testimonials/usman/": {
+    "image": "/images/social/hamid-testimonials-usman-v2.jpg",
+    "alt": "Usman — Prestige Media Video Testimonial — a dedicated HAMID editorial preview.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  },
+  "/editorial-policy/": {
+    "image": "/images/social/hamid-editorial-policy-v2.jpg",
+    "alt": "How Portfolio Examples & Guides Are Presented — a dedicated HAMID editorial preview.",
+    "width": 1200,
+    "height": 630,
+    "type": "image/jpeg"
+  }
+}

@@ -1,0 +1,3629 @@
+{
+  "version": 2,
+  "portrait": {
+    "source": "/images/hamid-hero-warm.webp",
+    "representativeSource": "/images/hamid-hero.webp",
+    "image": "/images/social/hamid-portrait-square-v1.jpg",
+    "width": 1100,
+    "height": 1100,
+    "alt": "Muhammad Hamid, independent web developer based in Pakistan.",
+    "bytes": 77091
+  },
+  "assets": [
+    {
+      "path": "/",
+      "kind": "portrait",
+      "headline": [
+        "Build. Grow.",
+        "Automate."
+      ],
+      "label": "Independent Developer",
+      "line": "Web Development · SEO · AI Automation",
+      "alt": "Hamid, independent web developer, with the Build. Grow. Automate. headline.",
+      "image": "/images/social/hamid-home-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 99183,
+      "sha256": "65be57e4c77869706cad3373ad212e22c2d779f9566de12898aeecf2f425d882",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Independent Developer",
+          "x": 66,
+          "y": 151,
+          "width": 184,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Build. Grow.",
+          "x": 62,
+          "y": 218,
+          "width": 470,
+          "height": 67,
+          "size": 88
+        },
+        {
+          "text": "Automate.",
+          "x": 64,
+          "y": 303,
+          "width": 468,
+          "height": 97,
+          "size": 132
+        },
+        {
+          "text": "Web Development · SEO · AI Automation",
+          "x": 66,
+          "y": 509,
+          "width": 371,
+          "height": 21,
+          "size": 21
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ],
+      "portraitSource": "/images/hamid-hero-warm.webp",
+      "faceBounds": {
+        "left": 626,
+        "top": 166,
+        "width": 258,
+        "height": 270
+      }
+    },
+    {
+      "path": "/about/",
+      "kind": "portrait",
+      "headline": [
+        "The person",
+        "behind the work."
+      ],
+      "label": "About Hamid",
+      "line": "Independent developer · Based in Pakistan",
+      "alt": "Natural portrait of Hamid beside The person behind the work.",
+      "image": "/images/social/hamid-about-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 100162,
+      "sha256": "839d19de099c3e516ce7a422d1f682fe0613242ec4c86403a929e2f3d8cec26c",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "About Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 102,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "The person",
+          "x": 62,
+          "y": 218,
+          "width": 456,
+          "height": 85,
+          "size": 88
+        },
+        {
+          "text": "behind the work.",
+          "x": 64,
+          "y": 303,
+          "width": 521,
+          "height": 70,
+          "size": 92
+        },
+        {
+          "text": "Independent developer · Based in Pakistan",
+          "x": 66,
+          "y": 509,
+          "width": 397,
+          "height": 21,
+          "size": 21
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ],
+      "portraitSource": "/images/hamid-hero-warm.webp",
+      "faceBounds": {
+        "left": 626,
+        "top": 166,
+        "width": 258,
+        "height": 270
+      }
+    },
+    {
+      "path": "/contact/",
+      "kind": "portrait",
+      "headline": [
+        "Let’s",
+        "talk."
+      ],
+      "label": "A direct conversation",
+      "line": "Have an idea? Tell me a little about it.",
+      "alt": "Hamid’s portrait with Let’s talk. contact messaging.",
+      "image": "/images/social/hamid-contact-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 80271,
+      "sha256": "16e7849b3fb9326db1fd83704c2131ad546dadd7501b21e972fdc9d168568f0e",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "A direct conversation",
+          "x": 66,
+          "y": 151,
+          "width": 167,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Let’s",
+          "x": 62,
+          "y": 218,
+          "width": 228,
+          "height": 79,
+          "size": 106
+        },
+        {
+          "text": "talk.",
+          "x": 64,
+          "y": 303,
+          "width": 197,
+          "height": 99,
+          "size": 132
+        },
+        {
+          "text": "Have an idea? Tell me a little about it.",
+          "x": 66,
+          "y": 509,
+          "width": 345,
+          "height": 16,
+          "size": 21
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ],
+      "portraitSource": "/images/hamid-hero-warm.webp",
+      "faceBounds": {
+        "left": 626,
+        "top": 166,
+        "width": 258,
+        "height": 270
+      }
+    },
+    {
+      "path": "/for-agencies/",
+      "kind": "portrait",
+      "headline": [
+        "Your vision.",
+        "My build."
+      ],
+      "label": "For agencies",
+      "line": "White-label development · Partner directly with Hamid",
+      "alt": "Hamid, independent white-label development partner for agencies.",
+      "image": "/images/social/hamid-for-agencies-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 100783,
+      "sha256": "4fcaf6d69e295a5b8b059506245815336c3191ee0ec08b3f2410599b62d4622c",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "For agencies",
+          "x": 66,
+          "y": 151,
+          "width": 98,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Your vision.",
+          "x": 62,
+          "y": 218,
+          "width": 467,
+          "height": 66,
+          "size": 88
+        },
+        {
+          "text": "My build.",
+          "x": 64,
+          "y": 303,
+          "width": 431,
+          "height": 126,
+          "size": 132
+        },
+        {
+          "text": "White-label development · Partner directly with Hamid",
+          "x": 66,
+          "y": 509,
+          "width": 511,
+          "height": 21,
+          "size": 21
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ],
+      "portraitSource": "/images/hamid-hero-warm.webp",
+      "faceBounds": {
+        "left": 626,
+        "top": 166,
+        "width": 258,
+        "height": 270
+      }
+    },
+    {
+      "path": "/work/",
+      "kind": "collage",
+      "headline": [
+        "The work.",
+        "The thinking."
+      ],
+      "label": "Selected portfolio",
+      "line": "Real website captures · Demos & experience notes",
+      "alt": "Actual Bridal House, Ink Grail and Qadeer Jewellers website captures in Hamid’s portfolio.",
+      "image": "/images/social/hamid-work-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 125248,
+      "sha256": "106b1dac32ce2c5454920b77dd5e36b1970353c00f4fc4dbf4ca22276bcddede",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Selected portfolio",
+          "x": 66,
+          "y": 151,
+          "width": 142,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "The work.",
+          "x": 62,
+          "y": 226,
+          "width": 298,
+          "height": 51,
+          "size": 68
+        },
+        {
+          "text": "The thinking.",
+          "x": 64,
+          "y": 342,
+          "width": 403,
+          "height": 85,
+          "size": 88
+        },
+        {
+          "text": "Real website captures · Demos & experience notes",
+          "x": 66,
+          "y": 509,
+          "width": 418,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/case-studies/",
+      "kind": "collage",
+      "headline": [
+        "A closer look",
+        "at the work."
+      ],
+      "label": "Project walkthroughs",
+      "line": "Demos clearly labelled · Decisions explained",
+      "alt": "Actual website captures with Hamid’s project walkthroughs.",
+      "image": "/images/social/hamid-case-studies-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 122307,
+      "sha256": "48b2203c7fbd8a35af77c71a9478450d3af842ec3033ff0b8f3a5d8ebed1a7d2",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Project walkthroughs",
+          "x": 66,
+          "y": 151,
+          "width": 167,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "A closer look",
+          "x": 62,
+          "y": 226,
+          "width": 397,
+          "height": 51,
+          "size": 68
+        },
+        {
+          "text": "at the work.",
+          "x": 64,
+          "y": 342,
+          "width": 351,
+          "height": 67,
+          "size": 88
+        },
+        {
+          "text": "Demos clearly labelled · Decisions explained",
+          "x": 66,
+          "y": 509,
+          "width": 360,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/services/",
+      "kind": "diagram",
+      "headline": [
+        "Build. Grow.",
+        "Connect."
+      ],
+      "label": "Services",
+      "line": "Start with the problem. Define a useful scope.",
+      "nodes": [
+        "Web experiences",
+        "Search visibility",
+        "Smart systems"
+      ],
+      "alt": "HAMID service overview covering websites, search visibility and automation.",
+      "image": "/images/social/hamid-services-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 48368,
+      "sha256": "e8bf32bac30aa78ee63665be8b40113e8bf08a911edcd820e2682f01afaa852f",
+      "textFrames": [
+        {
+          "text": "Web experiences",
+          "x": 736,
+          "y": 190,
+          "width": 204,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Search visibility",
+          "x": 736,
+          "y": 310,
+          "width": 187,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Smart systems",
+          "x": 736,
+          "y": 430,
+          "width": 176,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services",
+          "x": 66,
+          "y": 151,
+          "width": 68,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Build. Grow.",
+          "x": 62,
+          "y": 226,
+          "width": 358,
+          "height": 51,
+          "size": 68
+        },
+        {
+          "text": "Connect.",
+          "x": 64,
+          "y": 342,
+          "width": 255,
+          "height": 66,
+          "size": 88
+        },
+        {
+          "text": "Start with the problem. Define a useful scope.",
+          "x": 66,
+          "y": 509,
+          "width": 380,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/growth/",
+      "kind": "diagram",
+      "headline": [
+        "Get found.",
+        "Understood."
+      ],
+      "label": "Growth Engine",
+      "line": "SEO · AEO · GEO · Clear conversion paths",
+      "nodes": [
+        "Discover",
+        "Understand",
+        "Enquire"
+      ],
+      "alt": "Growth Engine search visibility diagram: discover, understand and enquire, without ranking or traffic claims.",
+      "image": "/images/social/hamid-growth-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 50639,
+      "sha256": "d0ae6257192e209fc150193f960fc088c591b406cd53bca19fddfb31d8ca24c0",
+      "textFrames": [
+        {
+          "text": "Discover",
+          "x": 736,
+          "y": 190,
+          "width": 102,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Understand",
+          "x": 736,
+          "y": 310,
+          "width": 137,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Enquire",
+          "x": 736,
+          "y": 430,
+          "width": 88,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Growth Engine",
+          "x": 66,
+          "y": 151,
+          "width": 114,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Get found.",
+          "x": 62,
+          "y": 226,
+          "width": 325,
+          "height": 52,
+          "size": 68
+        },
+        {
+          "text": "Understood.",
+          "x": 64,
+          "y": 342,
+          "width": 357,
+          "height": 67,
+          "size": 88
+        },
+        {
+          "text": "SEO · AEO · GEO · Clear conversion paths",
+          "x": 66,
+          "y": 509,
+          "width": 332,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/blog/",
+      "kind": "editorial",
+      "headline": [
+        "Better questions.",
+        "Clearer projects."
+      ],
+      "label": "Practical guides",
+      "line": "Useful decisions before the build.",
+      "source": "/images/insights/portfolio-demo-evidence.webp",
+      "alt": "Hamid’s practical website and automation planning guides.",
+      "image": "/images/social/hamid-blog-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 98489,
+      "sha256": "ef8a528cef270d513bb10a495bc5feddd25ebbc7a01be3f47caa21d04a62e6d8",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Practical guides",
+          "x": 66,
+          "y": 151,
+          "width": 125,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Better questions.",
+          "x": 62,
+          "y": 226,
+          "width": 523,
+          "height": 65,
+          "size": 66
+        },
+        {
+          "text": "Clearer projects.",
+          "x": 64,
+          "y": 342,
+          "width": 476,
+          "height": 85,
+          "size": 88
+        },
+        {
+          "text": "Useful decisions before the build.",
+          "x": 66,
+          "y": 509,
+          "width": 279,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/insights/",
+      "kind": "editorial",
+      "headline": [
+        "The thinking",
+        "behind the work."
+      ],
+      "label": "HAMID Insights",
+      "line": "Websites · Search · Practical automation",
+      "source": "/images/insights/first-workflow-to-automate.webp",
+      "alt": "Original editorial artwork for Hamid’s website, search and automation insights.",
+      "image": "/images/social/hamid-insights-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 87591,
+      "sha256": "c7f3f49d6489f11d04b94561d5a4a196d7799462b2659d5c4839d190a67d1a19",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "HAMID Insights",
+          "x": 66,
+          "y": 151,
+          "width": 118,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "The thinking",
+          "x": 62,
+          "y": 226,
+          "width": 389,
+          "height": 67,
+          "size": 68
+        },
+        {
+          "text": "behind the work.",
+          "x": 64,
+          "y": 342,
+          "width": 504,
+          "height": 67,
+          "size": 88
+        },
+        {
+          "text": "Websites · Search · Practical automation",
+          "x": 66,
+          "y": 509,
+          "width": 333,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/privacy/",
+      "kind": "diagram",
+      "headline": [
+        "Your enquiry.",
+        "Your privacy."
+      ],
+      "label": "Privacy notice",
+      "line": "How project information is handled.",
+      "nodes": [
+        "Share",
+        "Review",
+        "Respond"
+      ],
+      "alt": "Hamid’s project enquiry privacy notice.",
+      "image": "/images/social/hamid-privacy-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 51456,
+      "sha256": "9692d13d682f21db3d094fc795fdc7778918960f0cfc7a0926da6d4e0e6546a7",
+      "textFrames": [
+        {
+          "text": "Share",
+          "x": 736,
+          "y": 190,
+          "width": 67,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Review",
+          "x": 736,
+          "y": 310,
+          "width": 82,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Respond",
+          "x": 736,
+          "y": 430,
+          "width": 101,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Privacy notice",
+          "x": 66,
+          "y": 151,
+          "width": 108,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Your enquiry.",
+          "x": 62,
+          "y": 226,
+          "width": 402,
+          "height": 66,
+          "size": 68
+        },
+        {
+          "text": "Your privacy.",
+          "x": 64,
+          "y": 342,
+          "width": 399,
+          "height": 83,
+          "size": 88
+        },
+        {
+          "text": "How project information is handled.",
+          "x": 66,
+          "y": 509,
+          "width": 294,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/ai-automation/",
+      "kind": "diagram",
+      "headline": [
+        "AI-Powered Automation"
+      ],
+      "label": "Services / Hamid",
+      "line": "AI automation",
+      "proof": "Illustrative scope · Agreed human oversight",
+      "nodes": [
+        "Inputs",
+        "A scoped workflow",
+        "Human review"
+      ],
+      "alt": "AI automation: an illustrative process diagram, with no unverified results or metrics.",
+      "image": "/images/social/hamid-ai-automation-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 43791,
+      "sha256": "974f0dc62591ec5acc4f91edd62bad360e467f28dff38cf2a718807f15b7474c",
+      "textFrames": [
+        {
+          "text": "Inputs",
+          "x": 736,
+          "y": 190,
+          "width": 73,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "A scoped workflow",
+          "x": 736,
+          "y": 310,
+          "width": 222,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Human review",
+          "x": 736,
+          "y": 430,
+          "width": 164,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "AI-Powered Automation",
+          "x": 62,
+          "y": 220,
+          "width": 374,
+          "height": 145,
+          "size": 68
+        },
+        {
+          "text": "AI automation",
+          "x": 66,
+          "y": 509,
+          "width": 116,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "Illustrative scope · Agreed human oversight",
+          "x": 651,
+          "y": 516,
+          "width": 313,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/whatsapp-ai-chatbot/",
+      "kind": "diagram",
+      "headline": [
+        "WhatsApp AI Assistants"
+      ],
+      "label": "Services / Hamid",
+      "line": "WhatsApp AI chatbot",
+      "proof": "Illustrative scope · Agreed human oversight",
+      "nodes": [
+        "A question",
+        "Approved answers",
+        "Human handover"
+      ],
+      "alt": "WhatsApp AI chatbot: an illustrative process diagram, with no unverified results or metrics.",
+      "image": "/images/social/hamid-whatsapp-ai-chatbot-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 47750,
+      "sha256": "3c13b269bbc62b4f840b3e3a817d422a4f339bc8639fbfad259c1c075550e16c",
+      "textFrames": [
+        {
+          "text": "A question",
+          "x": 736,
+          "y": 190,
+          "width": 126,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Approved answers",
+          "x": 736,
+          "y": 310,
+          "width": 215,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Human handover",
+          "x": 736,
+          "y": 430,
+          "width": 199,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "WhatsApp AI Assistants",
+          "x": 62,
+          "y": 220,
+          "width": 404,
+          "height": 145,
+          "size": 68
+        },
+        {
+          "text": "WhatsApp AI chatbot",
+          "x": 66,
+          "y": 509,
+          "width": 178,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Illustrative scope · Agreed human oversight",
+          "x": 651,
+          "y": 516,
+          "width": 313,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/ai-receptionist/",
+      "kind": "diagram",
+      "headline": [
+        "AI Front Desk"
+      ],
+      "label": "Services / Hamid",
+      "line": "AI receptionist",
+      "proof": "Illustrative scope · Agreed human oversight",
+      "nodes": [
+        "A question",
+        "Approved answers",
+        "Human handover"
+      ],
+      "alt": "AI receptionist: an illustrative process diagram, with no unverified results or metrics.",
+      "image": "/images/social/hamid-ai-receptionist-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 36730,
+      "sha256": "50b4b605c550fd2a044b02b7136a17b19f980b914ad8e366a7099d198d33bfb6",
+      "textFrames": [
+        {
+          "text": "A question",
+          "x": 736,
+          "y": 190,
+          "width": 126,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Approved answers",
+          "x": 736,
+          "y": 310,
+          "width": 215,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Human handover",
+          "x": 736,
+          "y": 430,
+          "width": 199,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "AI Front Desk",
+          "x": 62,
+          "y": 220,
+          "width": 416,
+          "height": 51,
+          "size": 68
+        },
+        {
+          "text": "AI receptionist",
+          "x": 66,
+          "y": 509,
+          "width": 121,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Illustrative scope · Agreed human oversight",
+          "x": 651,
+          "y": 516,
+          "width": 313,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/restaurant-whatsapp-automation/",
+      "kind": "diagram",
+      "headline": [
+        "Restaurant WhatsApp Assistants"
+      ],
+      "label": "Services / Hamid",
+      "line": "Restaurant WhatsApp automation",
+      "proof": "Illustrative scope · Agreed human oversight",
+      "nodes": [
+        "A question",
+        "Approved answers",
+        "Human handover"
+      ],
+      "alt": "Restaurant WhatsApp automation: an illustrative process diagram, with no unverified results or metrics.",
+      "image": "/images/social/hamid-restaurant-whatsapp-automation-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 54219,
+      "sha256": "d4216e33ed72b43147e7f58c764939dd39d41ed59b772f971a9a32e6fb8e5a87",
+      "textFrames": [
+        {
+          "text": "A question",
+          "x": 736,
+          "y": 190,
+          "width": 126,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Approved answers",
+          "x": 736,
+          "y": 310,
+          "width": 215,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Human handover",
+          "x": 736,
+          "y": 430,
+          "width": 199,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Restaurant WhatsApp Assistants",
+          "x": 62,
+          "y": 220,
+          "width": 346,
+          "height": 231,
+          "size": 66
+        },
+        {
+          "text": "Restaurant WhatsApp automation",
+          "x": 66,
+          "y": 509,
+          "width": 284,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Illustrative scope · Agreed human oversight",
+          "x": 651,
+          "y": 516,
+          "width": 313,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/website-chatbot/",
+      "kind": "diagram",
+      "headline": [
+        "Website AI Assistants"
+      ],
+      "label": "Services / Hamid",
+      "line": "Website chatbot",
+      "proof": "Illustrative scope · Agreed human oversight",
+      "nodes": [
+        "A question",
+        "Approved answers",
+        "Human handover"
+      ],
+      "alt": "Website chatbot: an illustrative process diagram, with no unverified results or metrics.",
+      "image": "/images/social/hamid-website-chatbot-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 45252,
+      "sha256": "d8a1fc504516a5906ea24a0376a894df1482b9d6a04c0a1515d9187fe2581729",
+      "textFrames": [
+        {
+          "text": "A question",
+          "x": 736,
+          "y": 190,
+          "width": 126,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Approved answers",
+          "x": 736,
+          "y": 310,
+          "width": 215,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Human handover",
+          "x": 736,
+          "y": 430,
+          "width": 199,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Website AI Assistants",
+          "x": 62,
+          "y": 220,
+          "width": 338,
+          "height": 145,
+          "size": 68
+        },
+        {
+          "text": "Website chatbot",
+          "x": 66,
+          "y": 509,
+          "width": 141,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "Illustrative scope · Agreed human oversight",
+          "x": 651,
+          "y": 516,
+          "width": 313,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/ai-agents/",
+      "kind": "diagram",
+      "headline": [
+        "AI Task Agents"
+      ],
+      "label": "Services / Hamid",
+      "line": "AI agents",
+      "proof": "Illustrative scope · Agreed human oversight",
+      "nodes": [
+        "Inputs",
+        "A scoped workflow",
+        "Human review"
+      ],
+      "alt": "AI agents: an illustrative process diagram, with no unverified results or metrics.",
+      "image": "/images/social/hamid-ai-agents-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 36924,
+      "sha256": "30e7d970f6284639e046477fc9e3a7055d712f2563b9fba30fad32d3d41276c1",
+      "textFrames": [
+        {
+          "text": "Inputs",
+          "x": 736,
+          "y": 190,
+          "width": 73,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "A scoped workflow",
+          "x": 736,
+          "y": 310,
+          "width": 222,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Human review",
+          "x": 736,
+          "y": 430,
+          "width": 164,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "AI Task Agents",
+          "x": 62,
+          "y": 220,
+          "width": 457,
+          "height": 67,
+          "size": 68
+        },
+        {
+          "text": "AI agents",
+          "x": 66,
+          "y": 509,
+          "width": 77,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Illustrative scope · Agreed human oversight",
+          "x": 651,
+          "y": 516,
+          "width": 313,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/workflow-automation/",
+      "kind": "diagram",
+      "headline": [
+        "Connected Workflows"
+      ],
+      "label": "Services / Hamid",
+      "line": "Workflow automation",
+      "proof": "Illustrative scope · Agreed human oversight",
+      "nodes": [
+        "Inputs",
+        "A scoped workflow",
+        "Human review"
+      ],
+      "alt": "Workflow automation: an illustrative process diagram, with no unverified results or metrics.",
+      "image": "/images/social/hamid-workflow-automation-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 44352,
+      "sha256": "46a9dc7e8f62e62bb50da1fea8288edaf74ec4dd84fca5bf95c22de2cba1edc2",
+      "textFrames": [
+        {
+          "text": "Inputs",
+          "x": 736,
+          "y": 190,
+          "width": 73,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "A scoped workflow",
+          "x": 736,
+          "y": 310,
+          "width": 222,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "Human review",
+          "x": 736,
+          "y": 430,
+          "width": 164,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Connected Workflows",
+          "x": 62,
+          "y": 220,
+          "width": 352,
+          "height": 145,
+          "size": 68
+        },
+        {
+          "text": "Workflow automation",
+          "x": 66,
+          "y": 509,
+          "width": 178,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "Illustrative scope · Agreed human oversight",
+          "x": 651,
+          "y": 516,
+          "width": 313,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/web-development/",
+      "kind": "project",
+      "headline": [
+        "Signature Websites"
+      ],
+      "label": "Services / Hamid",
+      "line": "Web development",
+      "source": "/images/projects/bridal-house.webp",
+      "proof": "Bridal House · Self-directed demo",
+      "nodes": [
+        "Inputs",
+        "A scoped workflow",
+        "Human review"
+      ],
+      "alt": "Web development by Hamid, illustrated with his Bridal House self-directed demo screenshot.",
+      "image": "/images/social/hamid-web-development-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 89307,
+      "sha256": "e08c7ef9176f3f5c8a508d116734a568ccc7ae2ebc404ec4d5c78b93eb627548",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Signature Websites",
+          "x": 62,
+          "y": 220,
+          "width": 314,
+          "height": 145,
+          "size": 68
+        },
+        {
+          "text": "Web development",
+          "x": 66,
+          "y": 509,
+          "width": 153,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Bridal House · Self-directed demo",
+          "x": 651,
+          "y": 516,
+          "width": 244,
+          "height": 12,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/landing-page-development/",
+      "kind": "project",
+      "headline": [
+        "Conversion Landing Pages"
+      ],
+      "label": "Services / Hamid",
+      "line": "Landing page development",
+      "source": "/images/projects/bridal-house.webp",
+      "proof": "Bridal House · Self-directed demo",
+      "nodes": [
+        "Inputs",
+        "A scoped workflow",
+        "Human review"
+      ],
+      "alt": "Landing page development by Hamid, illustrated with his Bridal House self-directed demo screenshot.",
+      "image": "/images/social/hamid-landing-page-development-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 94223,
+      "sha256": "505944c1649ddbc056b84eb210707d052061b017fd69116877ad2672cecc3853",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Conversion Landing Pages",
+          "x": 62,
+          "y": 220,
+          "width": 458,
+          "height": 161,
+          "size": 68
+        },
+        {
+          "text": "Landing page development",
+          "x": 66,
+          "y": 509,
+          "width": 228,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Bridal House · Self-directed demo",
+          "x": 651,
+          "y": 516,
+          "width": 244,
+          "height": 12,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/business-dashboards/",
+      "kind": "diagram",
+      "headline": [
+        "Business Dashboards"
+      ],
+      "label": "Services / Hamid",
+      "line": "Business dashboards",
+      "proof": "Illustrative scope · Agreed human oversight",
+      "nodes": [
+        "Sources",
+        "A useful view",
+        "Decisions"
+      ],
+      "alt": "Business dashboards: an illustrative process diagram, with no unverified results or metrics.",
+      "image": "/images/social/hamid-business-dashboards-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 42997,
+      "sha256": "53712aeb7922e88e664aea2df4abbea26c3204b4e30fdc800d2148c723d6dc68",
+      "textFrames": [
+        {
+          "text": "Sources",
+          "x": 736,
+          "y": 190,
+          "width": 95,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "A useful view",
+          "x": 736,
+          "y": 310,
+          "width": 154,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Decisions",
+          "x": 736,
+          "y": 430,
+          "width": 113,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Services / Hamid",
+          "x": 66,
+          "y": 151,
+          "width": 132,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Business Dashboards",
+          "x": 62,
+          "y": 220,
+          "width": 375,
+          "height": 145,
+          "size": 68
+        },
+        {
+          "text": "Business dashboards",
+          "x": 66,
+          "y": 509,
+          "width": 177,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "Illustrative scope · Agreed human oversight",
+          "x": 651,
+          "y": 516,
+          "width": 313,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/blog/business-website-brief/",
+      "kind": "editorial",
+      "headline": [
+        "How to Write a Useful Business Website Brief"
+      ],
+      "label": "Practical guide",
+      "line": "Web Development",
+      "source": "/images/insights/portfolio-demo-evidence.webp",
+      "alt": "Hamid’s guide: How to Write a Useful Business Website Brief. Topic-specific editorial illustration.",
+      "image": "/images/social/hamid-blog-business-website-brief-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 90103,
+      "sha256": "439bced1cb3babcf200e5340c55201315bcdcc39cd53267eacefa7fd44b7666f",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Practical guide",
+          "x": 66,
+          "y": 151,
+          "width": 116,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "How to Write a Useful Business Website Brief",
+          "x": 62,
+          "y": 220,
+          "width": 491,
+          "height": 232,
+          "size": 66
+        },
+        {
+          "text": "Web Development",
+          "x": 66,
+          "y": 509,
+          "width": 154,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/blog/ai-agent-chatbot-workflow/",
+      "kind": "editorial",
+      "headline": [
+        "AI Agent, Chatbot or Workflow: Which Do You Need?"
+      ],
+      "label": "Practical guide",
+      "line": "AI Agents",
+      "source": "/images/insights/first-workflow-to-automate.webp",
+      "alt": "Hamid’s guide: AI Agent, Chatbot or Workflow: Which Do You Need?. Topic-specific editorial illustration.",
+      "image": "/images/social/hamid-blog-ai-agent-chatbot-workflow-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 79530,
+      "sha256": "64aeb31c8fc8207f627c025feb061803b5a82a92961592adbd5de5dcb66c7437",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Practical guide",
+          "x": 66,
+          "y": 151,
+          "width": 116,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "AI Agent, Chatbot or Workflow: Which Do You Need?",
+          "x": 62,
+          "y": 220,
+          "width": 537,
+          "height": 209,
+          "size": 60
+        },
+        {
+          "text": "AI Agents",
+          "x": 66,
+          "y": 509,
+          "width": 78,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/blog/website-enquiry-follow-up-workflow/",
+      "kind": "editorial",
+      "headline": [
+        "Plan a Website Enquiry-to-Follow-up Workflow"
+      ],
+      "label": "Practical guide",
+      "line": "Business Automation",
+      "source": "/images/insights/first-workflow-to-automate.webp",
+      "alt": "Hamid’s guide: Plan a Website Enquiry-to-Follow-up Workflow. Topic-specific editorial illustration.",
+      "image": "/images/social/hamid-blog-website-enquiry-follow-up-workflow-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 79239,
+      "sha256": "89b30a9d69b8f8a93588634bc8910a79e95b7854a366602169e0b71cfee3895e",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Practical guide",
+          "x": 66,
+          "y": 151,
+          "width": 116,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Plan a Website Enquiry-to-Follow-up Workflow",
+          "x": 62,
+          "y": 220,
+          "width": 529,
+          "height": 234,
+          "size": 62
+        },
+        {
+          "text": "Business Automation",
+          "x": 66,
+          "y": 509,
+          "width": 176,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/blog/landing-page-or-full-website/",
+      "kind": "editorial",
+      "headline": [
+        "Landing Page or Full Website: Choose Around the Visitor's Decision"
+      ],
+      "label": "Practical guide",
+      "line": "Web Development",
+      "source": "/images/insights/mobile-website-launch-checklist.webp",
+      "alt": "Hamid’s guide: Landing Page or Full Website: Choose Around the Visitor's Decision. Topic-specific editorial illustration.",
+      "image": "/images/social/hamid-blog-landing-page-or-full-website-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 76379,
+      "sha256": "0f656bc172609083b50deccf950e428eaf5e22581b63ea41887615f0b5ac3a39",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Practical guide",
+          "x": 66,
+          "y": 151,
+          "width": 116,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Landing Page or Full Website: Choose Around the Visitor's Decision",
+          "x": 62,
+          "y": 220,
+          "width": 518,
+          "height": 164,
+          "size": 46
+        },
+        {
+          "text": "Web Development",
+          "x": 66,
+          "y": 509,
+          "width": 154,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/blog/what-affects-website-cost/",
+      "kind": "editorial",
+      "headline": [
+        "What Affects a Website Quote? A Practical Scope Checklist"
+      ],
+      "label": "Practical guide",
+      "line": "Web Development",
+      "source": "/images/insights/portfolio-demo-evidence.webp",
+      "alt": "Hamid’s guide: What Affects a Website Quote? A Practical Scope Checklist. Topic-specific editorial illustration.",
+      "image": "/images/social/hamid-blog-what-affects-website-cost-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 88705,
+      "sha256": "395994d71edd059b849039aae46af2fd05f7be6e24acbc1f5e4f3d10c8059f4a",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Practical guide",
+          "x": 66,
+          "y": 151,
+          "width": 116,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "What Affects a Website Quote? A Practical Scope Checklist",
+          "x": 62,
+          "y": 220,
+          "width": 533,
+          "height": 187,
+          "size": 50
+        },
+        {
+          "text": "Web Development",
+          "x": 66,
+          "y": 509,
+          "width": 154,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/blog/chatbot-human-handover/",
+      "kind": "editorial",
+      "headline": [
+        "Plan Chatbot Human Handover Before Adding More Answers"
+      ],
+      "label": "Practical guide",
+      "line": "AI Chatbots",
+      "source": "/images/insights/whatsapp-enquiry-path.webp",
+      "alt": "Hamid’s guide: Plan Chatbot Human Handover Before Adding More Answers. Topic-specific editorial illustration.",
+      "image": "/images/social/hamid-blog-chatbot-human-handover-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 72694,
+      "sha256": "7b4cc024d5840ee367568702e322e59d4dfd0bc4a94fbfd4b2919fedbc74c893",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Practical guide",
+          "x": 66,
+          "y": 151,
+          "width": 116,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Plan Chatbot Human Handover Before Adding More Answers",
+          "x": 62,
+          "y": 220,
+          "width": 532,
+          "height": 204,
+          "size": 54
+        },
+        {
+          "text": "AI Chatbots",
+          "x": 66,
+          "y": 509,
+          "width": 98,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/insights/portfolio-search-readiness/",
+      "kind": "editorial",
+      "headline": [
+        "What a Real Search-Readiness Audit Proves"
+      ],
+      "label": "HAMID Insights",
+      "line": "Search visibility",
+      "source": "/images/insights/portfolio-search-readiness.webp",
+      "alt": "What a Real Search-Readiness Audit Proves. The live itshamid.com homepage at 1440 and 390 CSS pixels, with the desktop headline Stand out online and the mobile headline Build. Grow. Automate.",
+      "image": "/images/social/hamid-insights-portfolio-search-readiness-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 81832,
+      "sha256": "5c3976ec1b620c91f13b36d81169559c15e4c754f7d2d358274ab802ee44e380",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "HAMID Insights",
+          "x": 66,
+          "y": 151,
+          "width": 118,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "What a Real Search-Readiness Audit Proves",
+          "x": 62,
+          "y": 220,
+          "width": 528,
+          "height": 219,
+          "size": 62
+        },
+        {
+          "text": "Search visibility",
+          "x": 66,
+          "y": 509,
+          "width": 128,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/insights/hamid-intro-motion/",
+      "kind": "editorial",
+      "headline": [
+        "How the HAMID Intro Keeps the Website Within Reach"
+      ],
+      "label": "HAMID Insights",
+      "line": "Build notes",
+      "source": "/images/insights/hamid-intro-motion.webp",
+      "alt": "How the HAMID Intro Keeps the Website Within Reach. The cream HAMID wordmark held in the center of a dark screen, with the Skip intro button at the lower right.",
+      "image": "/images/social/hamid-insights-hamid-intro-motion-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 59141,
+      "sha256": "b705c423148b1ff4d6e3e026e4a1521dfe0447002090b3a016f0a054e1278809",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "HAMID Insights",
+          "x": 66,
+          "y": 151,
+          "width": 118,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "How the HAMID Intro Keeps the Website Within Reach",
+          "x": 62,
+          "y": 220,
+          "width": 529,
+          "height": 196,
+          "size": 56
+        },
+        {
+          "text": "Build notes",
+          "x": 66,
+          "y": 509,
+          "width": 93,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/insights/whatsapp-enquiry-path/",
+      "kind": "editorial",
+      "headline": [
+        "Make Your WhatsApp Enquiry Path Easy to Use"
+      ],
+      "label": "HAMID Insights",
+      "line": "Website design",
+      "source": "/images/insights/whatsapp-enquiry-path.webp",
+      "alt": "Make Your WhatsApp Enquiry Path Easy to Use. A pale route leads directly to a phone on a cobalt blue background.",
+      "image": "/images/social/hamid-insights-whatsapp-enquiry-path-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 71388,
+      "sha256": "f2ed28654694e7286753f0bf7e467665a8b6a1c7951006fa0ed736e8fd67a683",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "HAMID Insights",
+          "x": 66,
+          "y": 151,
+          "width": 118,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Make Your WhatsApp Enquiry Path Easy to Use",
+          "x": 62,
+          "y": 220,
+          "width": 533,
+          "height": 233,
+          "size": 62
+        },
+        {
+          "text": "Website design",
+          "x": 66,
+          "y": 509,
+          "width": 130,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/insights/measure-whatsapp-enquiries/",
+      "kind": "editorial",
+      "headline": [
+        "What a WhatsApp Click Actually Measures"
+      ],
+      "label": "HAMID Insights",
+      "line": "Measurement",
+      "source": "/images/insights/measure-whatsapp-enquiries.webp",
+      "alt": "What a WhatsApp Click Actually Measures. A black pointer presses a cobalt button beside a separate clear acrylic chat bubble.",
+      "image": "/images/social/hamid-insights-measure-whatsapp-enquiries-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 69449,
+      "sha256": "c4f2404eab3cf8d80d6faa32a402794879437e8c8685940f3d018b745dd3da9d",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "HAMID Insights",
+          "x": 66,
+          "y": 151,
+          "width": 118,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "What a WhatsApp Click Actually Measures",
+          "x": 62,
+          "y": 220,
+          "width": 531,
+          "height": 226,
+          "size": 64
+        },
+        {
+          "text": "Measurement",
+          "x": 66,
+          "y": 509,
+          "width": 114,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/insights/mobile-website-launch-checklist/",
+      "kind": "editorial",
+      "headline": [
+        "A Mobile Launch Checklist for Business Websites"
+      ],
+      "label": "HAMID Insights",
+      "line": "Launch quality",
+      "source": "/images/insights/mobile-website-launch-checklist.webp",
+      "alt": "A Mobile Launch Checklist for Business Websites. A brushed-metal caliper checks a phone against a cobalt circle.",
+      "image": "/images/social/hamid-insights-mobile-website-launch-checklist-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 80263,
+      "sha256": "21526552b346a8dc5693e6e422c4712944db4556e78c275f1351233d84cdd93f",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "HAMID Insights",
+          "x": 66,
+          "y": 151,
+          "width": 118,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "A Mobile Launch Checklist for Business Websites",
+          "x": 62,
+          "y": 220,
+          "width": 536,
+          "height": 220,
+          "size": 62
+        },
+        {
+          "text": "Launch quality",
+          "x": 66,
+          "y": 509,
+          "width": 122,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/insights/first-workflow-to-automate/",
+      "kind": "editorial",
+      "headline": [
+        "Which Business Workflow Should You Automate First?"
+      ],
+      "label": "HAMID Insights",
+      "line": "Automation",
+      "source": "/images/insights/first-workflow-to-automate.webp",
+      "alt": "Which Business Workflow Should You Automate First?. An industrial gripper precisely places one orange domino into a row.",
+      "image": "/images/social/hamid-insights-first-workflow-to-automate-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 78769,
+      "sha256": "9491b1780527ec086841d56ae304d41243ede5452b5c2bcac0d2f8354c87aa07",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "HAMID Insights",
+          "x": 66,
+          "y": 151,
+          "width": 118,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Which Business Workflow Should You Automate First?",
+          "x": 62,
+          "y": 220,
+          "width": 535,
+          "height": 204,
+          "size": 58
+        },
+        {
+          "text": "Automation",
+          "x": 66,
+          "y": 509,
+          "width": 98,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/insights/portfolio-demo-evidence/",
+      "kind": "editorial",
+      "headline": [
+        "What a Portfolio Demo Can Prove"
+      ],
+      "label": "HAMID Insights",
+      "line": "Project proof",
+      "source": "/images/insights/portfolio-demo-evidence.webp",
+      "alt": "What a Portfolio Demo Can Prove. An orange inspection loupe enlarges the detail in an architectural proof print.",
+      "image": "/images/social/hamid-insights-portfolio-demo-evidence-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 80686,
+      "sha256": "236aaad60c17e073aa33109cb168a58434a417cafcba808142986646ce06bf3f",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "HAMID Insights",
+          "x": 66,
+          "y": 151,
+          "width": 118,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "What a Portfolio Demo Can Prove",
+          "x": 62,
+          "y": 220,
+          "width": 517,
+          "height": 146,
+          "size": 68
+        },
+        {
+          "text": "Project proof",
+          "x": 66,
+          "y": 509,
+          "width": 110,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/work/bridal-house/",
+      "kind": "project",
+      "headline": [
+        "Bridal House"
+      ],
+      "label": "Self-directed demo",
+      "line": "Bridal & fashion",
+      "source": "/images/projects/bridal-house.webp",
+      "proof": "Self-directed demo",
+      "alt": "Actual Bridal House website screenshot. Self-directed demo in Hamid’s portfolio.",
+      "image": "/images/social/hamid-work-bridal-house-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 81674,
+      "sha256": "466e20a4d32bb9ed04d93490620debf9f919f9a80692f44505575d6c6d059d7e",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Self-directed demo",
+          "x": 66,
+          "y": 151,
+          "width": 153,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Bridal House",
+          "x": 62,
+          "y": 220,
+          "width": 392,
+          "height": 51,
+          "size": 68
+        },
+        {
+          "text": "Bridal & fashion",
+          "x": 66,
+          "y": 509,
+          "width": 127,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "Self-directed demo",
+          "x": 651,
+          "y": 516,
+          "width": 142,
+          "height": 12,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/work/ink-grail/",
+      "kind": "project",
+      "headline": [
+        "Ink Grail Tattoos"
+      ],
+      "label": "Experience notes",
+      "line": "Tattoo studio",
+      "source": "/images/projects/ink-grail.webp",
+      "proof": "Experience notes",
+      "alt": "Actual Ink Grail Tattoos website screenshot. Experience notes in Hamid’s portfolio.",
+      "image": "/images/social/hamid-work-ink-grail-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 66831,
+      "sha256": "23a9801f6623af4f776aca19c1ed49a92ce2f160b474aa529375340f12235b2e",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Experience notes",
+          "x": 66,
+          "y": 151,
+          "width": 136,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Ink Grail Tattoos",
+          "x": 62,
+          "y": 220,
+          "width": 502,
+          "height": 51,
+          "size": 68
+        },
+        {
+          "text": "Tattoo studio",
+          "x": 66,
+          "y": 509,
+          "width": 111,
+          "height": 13,
+          "size": 18
+        },
+        {
+          "text": "Experience notes",
+          "x": 651,
+          "y": 516,
+          "width": 126,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/work/qadeer-jewellers/",
+      "kind": "project",
+      "headline": [
+        "Qadeer Jewellers"
+      ],
+      "label": "Self-directed demo",
+      "line": "Fine jewellery",
+      "source": "/images/projects/qadeer-jewellers.webp",
+      "proof": "Self-directed demo",
+      "alt": "Actual Qadeer Jewellers website screenshot. Self-directed demo in Hamid’s portfolio.",
+      "image": "/images/social/hamid-work-qadeer-jewellers-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 100736,
+      "sha256": "ce6ddb98e60cdab6ec88706e149f5e3485abd9a4ec2d947c70146004cbe57db7",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Self-directed demo",
+          "x": 66,
+          "y": 151,
+          "width": 153,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Qadeer Jewellers",
+          "x": 62,
+          "y": 220,
+          "width": 298,
+          "height": 145,
+          "size": 68
+        },
+        {
+          "text": "Fine jewellery",
+          "x": 66,
+          "y": 509,
+          "width": 112,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Self-directed demo",
+          "x": 651,
+          "y": 516,
+          "width": 142,
+          "height": 12,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/work/dylan-seedin/",
+      "kind": "project",
+      "headline": [
+        "Dylan Seedin Photography"
+      ],
+      "label": "Experience notes",
+      "line": "Photography",
+      "source": "/images/projects/dylan-seedin.webp",
+      "proof": "Experience notes",
+      "alt": "Actual Dylan Seedin Photography website screenshot. Experience notes in Hamid’s portfolio.",
+      "image": "/images/social/hamid-work-dylan-seedin-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 70861,
+      "sha256": "0e1b2111b38ff41e501681433fb002b0598c542fa07e4ad1135874b4b2aa5d3e",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Experience notes",
+          "x": 66,
+          "y": 151,
+          "width": 136,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Dylan Seedin Photography",
+          "x": 62,
+          "y": 220,
+          "width": 409,
+          "height": 161,
+          "size": 68
+        },
+        {
+          "text": "Photography",
+          "x": 66,
+          "y": 509,
+          "width": 109,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Experience notes",
+          "x": 651,
+          "y": 516,
+          "width": 126,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/work/editing-julian/",
+      "kind": "project",
+      "headline": [
+        "Editing Julian"
+      ],
+      "label": "Self-directed demo",
+      "line": "Video production",
+      "source": "/images/projects/editing-julian.webp",
+      "proof": "Self-directed demo",
+      "alt": "Actual Editing Julian website screenshot. Self-directed demo in Hamid’s portfolio.",
+      "image": "/images/social/hamid-work-editing-julian-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 43726,
+      "sha256": "305c9cbec159430cee6d62863a01b672e1d17da14722366ba8510b9f92cc95f2",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Self-directed demo",
+          "x": 66,
+          "y": 151,
+          "width": 153,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Editing Julian",
+          "x": 62,
+          "y": 220,
+          "width": 417,
+          "height": 67,
+          "size": 68
+        },
+        {
+          "text": "Video production",
+          "x": 66,
+          "y": 509,
+          "width": 145,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Self-directed demo",
+          "x": 651,
+          "y": 516,
+          "width": 142,
+          "height": 12,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/work/elevate-x/",
+      "kind": "project",
+      "headline": [
+        "Elevate X"
+      ],
+      "label": "Experience notes",
+      "line": "Digital agency",
+      "source": "/images/projects/elevate-x.webp",
+      "proof": "Experience notes",
+      "alt": "Actual Elevate X website screenshot. Experience notes in Hamid’s portfolio.",
+      "image": "/images/social/hamid-work-elevate-x-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 48849,
+      "sha256": "e77e00788a9c2202f67e84dd66710a3c76a1c4884c19d09ce262c63beb5b1285",
+      "textFrames": [
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Experience notes",
+          "x": 66,
+          "y": 151,
+          "width": 136,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Elevate X",
+          "x": 62,
+          "y": 220,
+          "width": 285,
+          "height": 51,
+          "size": 68
+        },
+        {
+          "text": "Digital agency",
+          "x": 66,
+          "y": 509,
+          "width": 117,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "Experience notes",
+          "x": 651,
+          "y": 516,
+          "width": 126,
+          "height": 16,
+          "size": 16
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/answers/",
+      "kind": "diagram",
+      "headline": [
+        "Good questions.",
+        "Useful answers."
+      ],
+      "label": "Project questions",
+      "line": "Practical decisions · Clear next steps",
+      "nodes": [
+        "Question",
+        "Context",
+        "Next step"
+      ],
+      "alt": "Website, Automation & Search Visibility Answers — a dedicated HAMID editorial preview.",
+      "image": "/images/social/hamid-answers-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 60731,
+      "sha256": "defe7dc1835fee1487ff88dad93effaa15827695ce35ccc430611eabec6916db",
+      "textFrames": [
+        {
+          "text": "Question",
+          "x": 736,
+          "y": 190,
+          "width": 108,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Context",
+          "x": 736,
+          "y": 310,
+          "width": 95,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Next step",
+          "x": 736,
+          "y": 430,
+          "width": 113,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Project questions",
+          "x": 66,
+          "y": 151,
+          "width": 138,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Good questions.",
+          "x": 62,
+          "y": 226,
+          "width": 512,
+          "height": 66,
+          "size": 68
+        },
+        {
+          "text": "Useful answers.",
+          "x": 64,
+          "y": 342,
+          "width": 458,
+          "height": 67,
+          "size": 88
+        },
+        {
+          "text": "Practical decisions · Clear next steps",
+          "x": 66,
+          "y": 509,
+          "width": 301,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/plan/",
+      "kind": "diagram",
+      "headline": [
+        "Shape the brief.",
+        "Find a direction."
+      ],
+      "label": "Website planner",
+      "line": "Practical decisions · Clear next steps",
+      "nodes": [
+        "Question",
+        "Context",
+        "Next step"
+      ],
+      "alt": "Website & Growth Engine Project Planner — a dedicated HAMID editorial preview.",
+      "image": "/images/social/hamid-plan-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 62287,
+      "sha256": "689efe35733c54b517c65157ddb1bca6764545259621819f7241f27718943135",
+      "textFrames": [
+        {
+          "text": "Question",
+          "x": 736,
+          "y": 190,
+          "width": 108,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Context",
+          "x": 736,
+          "y": 310,
+          "width": 95,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Next step",
+          "x": 736,
+          "y": 430,
+          "width": 113,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Website planner",
+          "x": 66,
+          "y": 151,
+          "width": 128,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "Shape the brief.",
+          "x": 62,
+          "y": 226,
+          "width": 488,
+          "height": 67,
+          "size": 68
+        },
+        {
+          "text": "Find a direction.",
+          "x": 64,
+          "y": 342,
+          "width": 509,
+          "height": 67,
+          "size": 88
+        },
+        {
+          "text": "Practical decisions · Clear next steps",
+          "x": 66,
+          "y": 509,
+          "width": 301,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/demos/enquiry-assistant/",
+      "kind": "diagram",
+      "headline": [
+        "Enquiry to",
+        "human handover."
+      ],
+      "label": "Interactive demonstration",
+      "line": "Practical decisions · Clear next steps",
+      "nodes": [
+        "Question",
+        "Context",
+        "Next step"
+      ],
+      "alt": "FAQ & Human Handover Demo — a dedicated HAMID editorial preview.",
+      "image": "/images/social/hamid-demos-enquiry-assistant-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 58706,
+      "sha256": "db69f3baaaedd4435f52f1871eb728b93b441b43770a0fd730a754ee5d560bcf",
+      "textFrames": [
+        {
+          "text": "Question",
+          "x": 736,
+          "y": 190,
+          "width": 108,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Context",
+          "x": 736,
+          "y": 310,
+          "width": 95,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Next step",
+          "x": 736,
+          "y": 430,
+          "width": 113,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Interactive demonstration",
+          "x": 66,
+          "y": 151,
+          "width": 206,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Enquiry to",
+          "x": 62,
+          "y": 226,
+          "width": 313,
+          "height": 66,
+          "size": 68
+        },
+        {
+          "text": "human handover.",
+          "x": 64,
+          "y": 342,
+          "width": 542,
+          "height": 66,
+          "size": 86
+        },
+        {
+          "text": "Practical decisions · Clear next steps",
+          "x": 66,
+          "y": 509,
+          "width": 301,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/testimonials/",
+      "kind": "diagram",
+      "headline": [
+        "A few words",
+        "from the people."
+      ],
+      "label": "Client perspectives",
+      "line": "Supplied client video perspectives",
+      "nodes": [
+        "A conversation",
+        "A perspective",
+        "A real person"
+      ],
+      "alt": "Client Video Testimonials — a dedicated HAMID editorial preview.",
+      "image": "/images/social/hamid-testimonials-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 60000,
+      "sha256": "986cccd2a7cf73c100599624d56c02d06d056e2cbeb8a06e500502da1a8951ee",
+      "textFrames": [
+        {
+          "text": "A conversation",
+          "x": 736,
+          "y": 190,
+          "width": 176,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "A perspective",
+          "x": 736,
+          "y": 310,
+          "width": 162,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "A real person",
+          "x": 736,
+          "y": 430,
+          "width": 152,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Client perspectives",
+          "x": 66,
+          "y": 151,
+          "width": 153,
+          "height": 17,
+          "size": 17
+        },
+        {
+          "text": "A few words",
+          "x": 62,
+          "y": 226,
+          "width": 373,
+          "height": 52,
+          "size": 68
+        },
+        {
+          "text": "from the people.",
+          "x": 64,
+          "y": 342,
+          "width": 475,
+          "height": 84,
+          "size": 88
+        },
+        {
+          "text": "Supplied client video perspectives",
+          "x": 66,
+          "y": 509,
+          "width": 287,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/testimonials/abdullah-abbasii/",
+      "kind": "diagram",
+      "headline": [
+        "Abdullah",
+        "Abbasii."
+      ],
+      "label": "Abdullah Abbasii",
+      "line": "Supplied client video perspectives",
+      "nodes": [
+        "A conversation",
+        "A perspective",
+        "A real person"
+      ],
+      "alt": "Abdullah Abbasii — Nexus Growth Video Testimonial — a dedicated HAMID editorial preview.",
+      "image": "/images/social/hamid-testimonials-abdullah-abbasii-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 46005,
+      "sha256": "4d621d4df757c1fb8c2dc61c11ef5acdbfa6e887dbfd53e5915424918eda09de",
+      "textFrames": [
+        {
+          "text": "A conversation",
+          "x": 736,
+          "y": 190,
+          "width": 176,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "A perspective",
+          "x": 736,
+          "y": 310,
+          "width": 162,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "A real person",
+          "x": 736,
+          "y": 430,
+          "width": 152,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Abdullah Abbasii",
+          "x": 66,
+          "y": 151,
+          "width": 129,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Abdullah",
+          "x": 62,
+          "y": 226,
+          "width": 276,
+          "height": 51,
+          "size": 68
+        },
+        {
+          "text": "Abbasii.",
+          "x": 64,
+          "y": 342,
+          "width": 244,
+          "height": 67,
+          "size": 88
+        },
+        {
+          "text": "Supplied client video perspectives",
+          "x": 66,
+          "y": 509,
+          "width": 287,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/testimonials/usman/",
+      "kind": "diagram",
+      "headline": [
+        "Usman.",
+        "Prestige Media."
+      ],
+      "label": "Usman",
+      "line": "Supplied client video perspectives",
+      "nodes": [
+        "A conversation",
+        "A perspective",
+        "A real person"
+      ],
+      "alt": "Usman — Prestige Media Video Testimonial — a dedicated HAMID editorial preview.",
+      "image": "/images/social/hamid-testimonials-usman-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 55741,
+      "sha256": "6bc51e3afb6f2a657557c2e299b4ddb6bf1e1d85ab56c60d184d51bb0485cc92",
+      "textFrames": [
+        {
+          "text": "A conversation",
+          "x": 736,
+          "y": 190,
+          "width": 176,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "A perspective",
+          "x": 736,
+          "y": 310,
+          "width": 162,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "A real person",
+          "x": 736,
+          "y": 430,
+          "width": 152,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Usman",
+          "x": 66,
+          "y": 151,
+          "width": 54,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Usman.",
+          "x": 62,
+          "y": 226,
+          "width": 231,
+          "height": 51,
+          "size": 68
+        },
+        {
+          "text": "Prestige Media.",
+          "x": 64,
+          "y": 342,
+          "width": 456,
+          "height": 85,
+          "size": 88
+        },
+        {
+          "text": "Supplied client video perspectives",
+          "x": 66,
+          "y": 509,
+          "width": 287,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    },
+    {
+      "path": "/editorial-policy/",
+      "kind": "diagram",
+      "headline": [
+        "Clear examples.",
+        "Honest context."
+      ],
+      "label": "Content standards",
+      "line": "Practical decisions · Clear next steps",
+      "nodes": [
+        "Question",
+        "Context",
+        "Next step"
+      ],
+      "alt": "How Portfolio Examples & Guides Are Presented — a dedicated HAMID editorial preview.",
+      "image": "/images/social/hamid-editorial-policy-v2.jpg",
+      "width": 1200,
+      "height": 630,
+      "type": "image/jpeg",
+      "bytes": 59313,
+      "sha256": "ffe62ac27420d0c506714ab1f0e8157454e2c9e6f1637367825e5e58c97e0bf6",
+      "textFrames": [
+        {
+          "text": "Question",
+          "x": 736,
+          "y": 190,
+          "width": 108,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Context",
+          "x": 736,
+          "y": 310,
+          "width": 95,
+          "height": 18,
+          "size": 25
+        },
+        {
+          "text": "Next step",
+          "x": 736,
+          "y": 430,
+          "width": 113,
+          "height": 24,
+          "size": 25
+        },
+        {
+          "text": "HAMID",
+          "x": 64,
+          "y": 55,
+          "width": 117,
+          "height": 27,
+          "size": 38
+        },
+        {
+          "text": "Content standards",
+          "x": 66,
+          "y": 151,
+          "width": 149,
+          "height": 13,
+          "size": 17
+        },
+        {
+          "text": "Clear examples.",
+          "x": 62,
+          "y": 226,
+          "width": 493,
+          "height": 66,
+          "size": 68
+        },
+        {
+          "text": "Honest context.",
+          "x": 64,
+          "y": 342,
+          "width": 455,
+          "height": 65,
+          "size": 88
+        },
+        {
+          "text": "Practical decisions · Clear next steps",
+          "x": 66,
+          "y": 509,
+          "width": 301,
+          "height": 17,
+          "size": 18
+        },
+        {
+          "text": "itshamid.com",
+          "x": 66,
+          "y": 578,
+          "width": 123,
+          "height": 14,
+          "size": 20
+        }
+      ]
+    }
+  ]
+}

@@ -41,7 +41,7 @@ const redirects = [
 await writeFile("out/_redirects", redirects.join("\n") + "\n");
 await writeFile(
   "out/_headers",
-  `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n${process.env.SEO_NOINDEX === "true" ? "  X-Robots-Tag: noindex, nofollow\n" : ""}/_next/static/*\n  Cache-Control: public, max-age=31536000, immutable\n/images/*\n  Cache-Control: public, max-age=86400, must-revalidate\n`,
+  `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n${process.env.SEO_NOINDEX === "true" ? "  X-Robots-Tag: noindex, nofollow\n" : ""}/_next/static/*\n  Cache-Control: public, max-age=31536000, immutable\n/images/*\n  Cache-Control: public, max-age=86400, must-revalidate\n/images/social/*\n  Cache-Control: public, max-age=31536000, immutable\n`,
 );
 const br = promisify(brotliCompress),
   gz = promisify(gzip);

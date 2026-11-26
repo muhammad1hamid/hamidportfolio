@@ -91,6 +91,8 @@ const server = http
       );
       if (url.pathname.startsWith("/_next/static/")) {
         res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+      } else if (url.pathname.startsWith("/images/social/")) {
+        res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
       } else if (url.pathname.startsWith("/images/")) {
         res.setHeader(
           "Cache-Control",

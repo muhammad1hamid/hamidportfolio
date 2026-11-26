@@ -1,0 +1,119 @@
+{
+  "version": 2,
+  "home": {
+    "title": "Hamid — Web Development, SEO & AI Automation",
+    "description": "Independent developer building distinctive websites, improving search visibility, and creating practical AI systems for businesses.",
+    "twitterDescription": "Independent developer building distinctive websites and practical AI systems."
+  },
+  "portrait": {
+    "source": "/images/hamid-hero-warm.webp",
+    "representativeSource": "/images/hamid-hero.webp",
+    "image": "/images/social/hamid-portrait-square-v1.jpg",
+    "width": 1100,
+    "height": 1100,
+    "alt": "Muhammad Hamid, independent web developer based in Pakistan."
+  },
+  "pages": [
+    {
+      "path": "/",
+      "kind": "portrait",
+      "headline": ["Build. Grow.", "Automate."],
+      "label": "Independent Developer",
+      "line": "Web Development · SEO · AI Automation",
+      "alt": "Hamid, independent web developer, with the Build. Grow. Automate. headline."
+    },
+    {
+      "path": "/about/",
+      "kind": "portrait",
+      "headline": ["The person", "behind the work."],
+      "label": "About Hamid",
+      "line": "Independent developer · Based in Pakistan",
+      "alt": "Natural portrait of Hamid beside The person behind the work."
+    },
+    {
+      "path": "/contact/",
+      "kind": "portrait",
+      "headline": ["Let’s", "talk."],
+      "label": "A direct conversation",
+      "line": "Have an idea? Tell me a little about it.",
+      "alt": "Hamid’s portrait with Let’s talk. contact messaging."
+    },
+    {
+      "path": "/for-agencies/",
+      "kind": "portrait",
+      "headline": ["Your vision.", "My build."],
+      "label": "For agencies",
+      "line": "White-label development · Partner directly with Hamid",
+      "alt": "Hamid, independent white-label development partner for agencies."
+    },
+    {
+      "path": "/work/",
+      "kind": "collage",
+      "headline": ["The work.", "The thinking."],
+      "label": "Selected portfolio",
+      "line": "Real website captures · Demos & experience notes",
+      "alt": "Actual Bridal House, Ink Grail and Qadeer Jewellers website captures in Hamid’s portfolio."
+    },
+    {
+      "path": "/case-studies/",
+      "kind": "collage",
+      "headline": ["A closer look", "at the work."],
+      "label": "Project walkthroughs",
+      "line": "Demos clearly labelled · Decisions explained",
+      "alt": "Actual website captures with Hamid’s project walkthroughs."
+    },
+    {
+      "path": "/services/",
+      "kind": "diagram",
+      "headline": ["Build. Grow.", "Connect."],
+      "label": "Services",
+      "line": "Start with the problem. Define a useful scope.",
+      "nodes": ["Web experiences", "Search visibility", "Smart systems"],
+      "alt": "HAMID service overview covering websites, search visibility and automation."
+    },
+    {
+      "path": "/growth/",
+      "kind": "diagram",
+      "headline": ["Get found.", "Understood."],
+      "label": "Growth Engine",
+      "line": "SEO · AEO · GEO · Clear conversion paths",
+      "nodes": ["Discover", "Understand", "Enquire"],
+      "alt": "Growth Engine search visibility diagram: discover, understand and enquire, without ranking or traffic claims."
+    },
+    {
+      "path": "/blog/",
+      "kind": "editorial",
+      "headline": ["Better questions.", "Clearer projects."],
+      "label": "Practical guides",
+      "line": "Useful decisions before the build.",
+      "source": "/images/insights/portfolio-demo-evidence.webp",
+      "alt": "Hamid’s practical website and automation planning guides."
+    },
+    {
+      "path": "/insights/",
+      "kind": "editorial",
+      "headline": ["The thinking", "behind the work."],
+      "label": "HAMID Insights",
+      "line": "Websites · Search · Practical automation",
+      "source": "/images/insights/first-workflow-to-automate.webp",
+      "alt": "Original editorial artwork for Hamid’s website, search and automation insights."
+    },
+    {
+      "path": "/privacy/",
+      "kind": "diagram",
+      "headline": ["Your enquiry.", "Your privacy."],
+      "label": "Privacy notice",
+      "line": "How project information is handled.",
+      "nodes": ["Share", "Review", "Respond"],
+      "alt": "Hamid’s project enquiry privacy notice."
+    }
+  ],
+  "articleSources": {
+    "business-website-brief": "portfolio-demo-evidence",
+    "landing-page-or-full-website": "mobile-website-launch-checklist",
+    "what-affects-website-cost": "portfolio-demo-evidence",
+    "ai-agent-chatbot-workflow": "first-workflow-to-automate",
+    "website-enquiry-follow-up-workflow": "first-workflow-to-automate",
+    "chatbot-human-handover": "whatsapp-enquiry-path"
+  }
+}

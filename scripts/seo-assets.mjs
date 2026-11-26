@@ -42,35 +42,6 @@ for (const project of projects) {
     );
   }
 }
-const cards = [
-  [
-    "home",
-    "Stand out online. Get found. Work smarter.",
-    "INDEPENDENT DEVELOPER / PAKISTAN",
-  ],
-  ["services", "Find the right starting point.", "SERVICES"],
-  ["about", "The person behind the work.", "ABOUT HAMID"],
-  ["contact", "A good project starts here.", "CONTACT"],
-  ["privacy", "Enquiry privacy notice.", "PRIVACY / HAMID"],
-  ["work", "The work. The thinking behind it.", "THE PORTFOLIO"],
-  ["case-studies", "The thinking behind the experience.", "PROJECT STORIES"],
-  ["blog", "Better questions. Clearer projects.", "PRACTICAL GUIDES"],
-  ["insights", "Website and automation insights", "HAMID / INSIGHTS"],
-  ...experiencePages.map((p) => [
-    p.path.split("/").filter(Boolean).join("-"),
-    p.title.replace(/ \| Hamid$/, ""),
-    p.label.toUpperCase(),
-  ]),
-  ...services
-    .filter((service) => service.slug !== "growth")
-    .map((service) => [service.slug, service.name, "SERVICES / HAMID"]),
-  ...articles.map((a) => [`blog-${a.slug}`, a.title, a.category.toUpperCase()]),
-  ...storyProjects.map((project) => [
-    `work-${project.slug}`,
-    project.title,
-    projectProofLabels[project.proofType].toUpperCase(),
-  ]),
-];
 const escape = (value) =>
   value.replace(
     /[&<>"']/g,
@@ -83,69 +54,7 @@ const escape = (value) =>
         "'": "&apos;",
       })[character],
   );
-function lines(text, length = 27) {
-  const output = [""];
-  for (const word of text.split(" ")) {
-    if ((output.at(-1) + " " + word).trim().length > length) output.push(word);
-    else output[output.length - 1] = `${output.at(-1)} ${word}`.trim();
-  }
-  return output;
-}
-await mkdir("public/images/share", { recursive: true });
-for (const [slug, title, label] of cards) {
-  const rows = lines(title);
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#101112"/><path d="M60 146H1140M60 552H1140" stroke="#343739"/><circle cx="1070" cy="87" r="23" fill="#ff8651"/><text x="65" y="104" fill="#f0f0ec" font-family="Arial,sans-serif" font-size="48" font-weight="700" letter-spacing="-2">HAMID</text><text x="65" y="204" fill="#ff8651" font-family="Arial,sans-serif" font-size="19" letter-spacing="3">${escape(label)}</text>${rows.map((row, i) => `<text x="62" y="${295 + i * 82}" fill="#f0f0ec" font-family="Arial,sans-serif" font-size="${rows.length > 3 ? 60 : 70}" font-weight="500" letter-spacing="-2">${escape(row)}</text>`).join("")}<text x="65" y="593" fill="#a6aaa9" font-family="Arial,sans-serif" font-size="18">WEB DEVELOPMENT · AI AUTOMATION · CHATBOTS</text><text x="1100" y="593" text-anchor="end" fill="#ff8651" font-family="Arial,sans-serif" font-size="24">↗</text></svg>`;
-  await sharp(Buffer.from(svg)).png().toFile(`public/images/share/${slug}.png`);
-}
-const growthArt = await sharp(
-  "public/images/growth/discovery-field-charcoal.webp",
-)
-  .resize(528, 630)
-  .toBuffer();
-const growthCard = Buffer.from(`
-  <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
-    <rect width="1200" height="630" fill="#101112"/>
-    <path d="M54 119H625M54 560H625" stroke="#343739"/>
-    <text x="54" y="90" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#f0f0ec">HAMID</text>
-    <text x="54" y="171" font-family="Arial,sans-serif" font-size="24" letter-spacing="2" font-weight="700" fill="#ff8651">GROWTH ENGINE</text>
-    <text x="54" y="278" font-family="Arial,sans-serif" font-size="71" letter-spacing="-4" font-weight="700" fill="#f0f0ec">Get found.</text>
-    <text x="54" y="359" font-family="Arial,sans-serif" font-size="70" letter-spacing="-4" font-weight="700" fill="#f0f0ec">Get understood.</text>
-    <text x="54" y="438" font-family="Georgia,serif" font-size="46" font-style="italic" fill="#ff8651">Give people a reason</text>
-    <text x="54" y="491" font-family="Georgia,serif" font-size="46" font-style="italic" fill="#ff8651">to choose you.</text>
-    <text x="54" y="597" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#a6aaa9">SEO · AEO · GEO · CONVERSION PATHS</text>
-  </svg>`);
-await sharp(growthCard)
-  .composite([{ input: growthArt, left: 672, top: 0 }])
-  .png()
-  .toFile("public/images/share/growth.png");
-
-const agencyCard = Buffer.from(`
-  <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
-    <rect width="1200" height="630" fill="#101112"/>
-    <path d="M56 126H1144M56 549H1144" stroke="#343739"/>
-    <text x="56" y="91" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#f0f0ec">HAMID</text>
-    <circle cx="244" cy="76" r="8" fill="#ff8651"/>
-    <text x="56" y="186" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="2" fill="#ff8651">AGENCY PARTNERSHIPS</text>
-    <text x="56" y="293" font-family="Arial,sans-serif" font-size="74" letter-spacing="-4" fill="#f0f0ec">Your client.</text>
-    <text x="56" y="376" font-family="Arial,sans-serif" font-size="74" letter-spacing="-4" fill="#f0f0ec">Your vision.</text>
-    <text x="57" y="470" font-family="Georgia,serif" font-size="92" font-style="italic" fill="#ff8651">My build.</text>
-    <rect x="664" y="185" width="275" height="254" rx="15" fill="#191b1d" stroke="#343739" transform="rotate(-8 664 185)"/>
-    <path d="M694 215H814M698 237H783M702 259H841" stroke="#a6aaa9" stroke-opacity=".55" stroke-width="3"/>
-    <rect x="727" y="220" width="417" height="290" rx="16" fill="#191b1d" stroke="#ff8651"/>
-    <circle cx="748" cy="239" r="3" fill="#a6aaa9"/>
-    <circle cx="761" cy="239" r="3" fill="#a6aaa9"/>
-    <circle cx="774" cy="239" r="3" fill="#ff8651"/>
-    <text x="56" y="592" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#a6aaa9">WHITE-LABEL WEB DEVELOPMENT FOR AGENCIES</text>
-    <text x="1144" y="592" text-anchor="end" font-family="Arial,sans-serif" font-size="19" fill="#a6aaa9">ITSHAMID.COM</text>
-  </svg>`);
-const agencyPreview = await sharp("public/images/projects/bridal-house.webp")
-  .resize(399, 239, { fit: "cover", position: "north" })
-  .toBuffer();
-await sharp(agencyCard)
-  .composite([{ input: agencyPreview, left: 736, top: 257 }])
-  .png()
-  .toFile("public/images/share/for-agencies.png");
-
+// Versioned social banners are generated by social-assets.mjs.
 await mkdir("public/images/responsive", { recursive: true });
 for (const { slug, cover } of insights) {
   const source = `public/images/insights/${slug}.webp`;
@@ -192,7 +101,12 @@ await mkdir("public/images/curve", { recursive: true });
 for (const project of projects) {
   for (const width of [160, 960]) {
     await sharp(`public${project.thumbnail}`)
-      .extract({ left: 0, top: 0, width: 1440, height: project.crop?.desktop ?? 960 })
+      .extract({
+        left: 0,
+        top: 0,
+        width: 1440,
+        height: project.crop?.desktop ?? 960,
+      })
       .resize({ width })
       .webp({ quality: width === 160 ? 65 : 85 })
       .toFile(`public/images/curve/${project.id}-${width}.webp`);
@@ -208,6 +122,4 @@ for (const name of originals) {
       );
   }
 }
-console.log(
-  `Prepared ${cards.length + insights.length + 2} page-specific share images and responsive portrait, project and insight assets.`,
-);
+console.log("Prepared responsive portrait, project and insight assets.");

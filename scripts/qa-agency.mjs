@@ -79,12 +79,14 @@ try {
       ]) {
         assert.equal(
           await page.getAttribute(property, "content"),
-          "https://itshamid.com/images/share/for-agencies.png",
+          "https://itshamid.com/images/social/hamid-for-agencies-v2.jpg",
         );
       }
-      const cover = await fetch(base + "/images/share/for-agencies.png");
+      const cover = await fetch(
+        base + "/images/social/hamid-for-agencies-v2.jpg",
+      );
       assert.equal(cover.status, 200);
-      assert.match(cover.headers.get("content-type"), /image\/png/);
+      assert.match(cover.headers.get("content-type"), /image\/jpeg/);
       const schemas = await page
         .locator('script[type="application/ld+json"]')
         .evaluateAll((nodes) =>

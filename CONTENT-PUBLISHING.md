@@ -26,26 +26,28 @@ Use the [brief and proof register](docs/content/authority-editorial.md) before d
 
 After an edit, run `npm run build`. This regenerates the static pages, metadata, sitemap, page share images, responsive images, llms overview and host rules. There is no runtime CMS or dynamic server to update an already-deployed export. Publish a fresh build when appropriate. `npm run dev` is for editing; production search files and host rules should be checked against `npm start` after a build.
 
+Social previews use `data/social-preview-design.json`, `scripts/social/catalog.mjs` and `scripts/social-assets.mjs`. The build refreshes `data/social-images.json` and `scripts/social/asset-manifest.json` before Next resolves metadata. A new article or public route must have a corresponding catalog entry and genuine supporting visual. Increment the social design version when changing already-published images; retain their prior files. See [the social preview implementation](docs/social-preview-system.md) and run `npm run test:social` before publishing.
+
 ## Search intent map
 
-| Route | Primary visitor need | Related topics |
-| --- | --- | --- |
-| `/` | Identify Hamid and assess the work | Independent developer, Pakistan, remote collaboration |
-| `/web-development/` | Commission a business website | Responsive design, website brief, enquiries |
-| `/for-agencies/` | Scope a white-label agency collaboration | Approved designs, technical delivery, client communication, review and handover |
-| `/landing-page-development/` | Launch a focused offer/campaign page | Messaging, genuine proof, enquiry measurement |
-| `/ai-automation/` | Scope AI-assisted operational work | Documents, approved replies, evaluation |
-| `/whatsapp-ai-chatbot/` | Plan customer conversations on WhatsApp | Approved FAQs, leads, human handover |
-| `/restaurant-whatsapp-automation/` | Structure restaurant enquiries/order requests | Menu source, availability, staff confirmation |
-| `/ai-receptionist/` | Route front-desk enquiries | Callbacks, appointment requests, channel feasibility |
-| `/website-chatbot/` | Help visitors find answers and enquire | Knowledge source, accessibility, existing site |
-| `/ai-agents/` | Assess bounded tool-using AI | Permissions, human approvals, pilot evaluation |
-| `/workflow-automation/` | Connect a predictable process | Forms, routing, duplicate checks, retries |
-| `/business-dashboards/` | See operational information clearly | Data definitions, roles, freshness |
-| `/work/` | Inspect supplied website examples | Live demos, mobile/desktop captures |
-| `/case-studies/` | Read verified experience notes | Features and visitor journeys |
-| `/blog/` | Make project-planning decisions | Website briefs, agents/workflows, lead handling |
-| `/insights/` | Learn from practical website and automation articles | Enquiry design, measurement, launch QA, workflow selection, project evidence |
+| Route                              | Primary visitor need                                 | Related topics                                                                  |
+| ---------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `/`                                | Identify Hamid and assess the work                   | Independent developer, Pakistan, remote collaboration                           |
+| `/web-development/`                | Commission a business website                        | Responsive design, website brief, enquiries                                     |
+| `/for-agencies/`                   | Scope a white-label agency collaboration             | Approved designs, technical delivery, client communication, review and handover |
+| `/landing-page-development/`       | Launch a focused offer/campaign page                 | Messaging, genuine proof, enquiry measurement                                   |
+| `/ai-automation/`                  | Scope AI-assisted operational work                   | Documents, approved replies, evaluation                                         |
+| `/whatsapp-ai-chatbot/`            | Plan customer conversations on WhatsApp              | Approved FAQs, leads, human handover                                            |
+| `/restaurant-whatsapp-automation/` | Structure restaurant enquiries/order requests        | Menu source, availability, staff confirmation                                   |
+| `/ai-receptionist/`                | Route front-desk enquiries                           | Callbacks, appointment requests, channel feasibility                            |
+| `/website-chatbot/`                | Help visitors find answers and enquire               | Knowledge source, accessibility, existing site                                  |
+| `/ai-agents/`                      | Assess bounded tool-using AI                         | Permissions, human approvals, pilot evaluation                                  |
+| `/workflow-automation/`            | Connect a predictable process                        | Forms, routing, duplicate checks, retries                                       |
+| `/business-dashboards/`            | See operational information clearly                  | Data definitions, roles, freshness                                              |
+| `/work/`                           | Inspect supplied website examples                    | Live demos, mobile/desktop captures                                             |
+| `/case-studies/`                   | Read verified experience notes                       | Features and visitor journeys                                                   |
+| `/blog/`                           | Make project-planning decisions                      | Website briefs, agents/workflows, lead handling                                 |
+| `/insights/`                       | Learn from practical website and automation articles | Enquiry design, measurement, launch QA, workflow selection, project evidence    |
 
 Pakistan is the factual base; Islamabad/Rawalpindi are mentioned only as remote service markets. Do not create near-duplicate city pages or invent an office.
 

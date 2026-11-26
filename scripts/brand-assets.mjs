@@ -1,6 +1,9 @@
 import sharp from "sharp";
 
-await sharp("public/social-card.svg").png().toFile("public/social-card.png");
+await import("./social-assets.mjs");
+await sharp("public/images/social/hamid-home-v2.jpg")
+  .png()
+  .toFile("public/social-card.png");
 await sharp("public/favicon.svg")
   .resize(180, 180)
   .png()

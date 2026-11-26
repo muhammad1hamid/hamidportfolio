@@ -1,5 +1,6 @@
 import { ResponsiveImage } from "@/components/seo/ResponsiveImage";
 import Link from "next/link";
+import { representativePortrait } from "@/data/social-preview";
 
 export function About() {
   return (
@@ -14,10 +15,10 @@ export function About() {
       <div className="about-grid">
         <div className="about-photo" data-reveal>
           <ResponsiveImage
-            src="/images/hamid-hero.webp"
-            alt="Hamid, web developer and AI automation builder"
-            width={1000}
-            height={1000}
+            src={representativePortrait.image}
+            alt={representativePortrait.alt}
+            width={representativePortrait.width}
+            height={representativePortrait.height}
             sizes="(max-width: 500px) 88vw, (max-width: 767px) 440px, 40vw"
           />
           <span className="photo-caption">HAMID / PAKISTAN</span>

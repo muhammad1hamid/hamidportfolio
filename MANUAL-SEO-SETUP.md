@@ -14,7 +14,7 @@ Update, 19 November 2026. Hamid selected `https://itshamid.com` as the canonical
 - [ ] At the host, redirect HTTP and the alternate hostname directly to the chosen HTTPS hostname. Preserve path and query parameters; avoid redirect chains.
 - [ ] Serve unknown URLs with HTTP 404 and the exported `404.html`, rather than a homepage fallback with 200.
 - [ ] Apply the generated `out/_redirects` and `out/_headers` if your host supports that format. Otherwise translate them to the host's settings. These files do not configure Sites or every other hosting provider automatically.
-- [ ] Enable Brotli/gzip delivery or let the CDN compress HTML, JS, CSS and text. The local preview supports the generated `.br`/`.gz` files. Retain immutable caching only for versioned `/_next/static/` assets; refresh other images when they change.
+- [ ] Enable Brotli/gzip delivery or let the CDN compress HTML, JS, CSS and text. The local preview supports the generated `.br`/`.gz` files. Immutable caching applies to versioned `/_next/static/` and `/images/social/` assets. Publish a new social image filename when the design changes; refresh other images when they change. See [the social preview setup](docs/social-preview-system.md) for platform inspection and cache limitations.
 - [ ] Confirm `/robots.txt`, `/sitemap.xml`, `/llms.txt`, one service page and one missing URL from a signed-out browser. Allow public crawler access through any CDN or firewall.
 
 ## 2. Google Search Console

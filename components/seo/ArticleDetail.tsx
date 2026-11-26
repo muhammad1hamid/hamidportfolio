@@ -4,6 +4,7 @@ import { insightCover, readingTitle, type Insight } from "@/data/insights";
 import { serviceBySlug } from "@/data/services";
 import { site } from "@/data/site";
 import { absolute } from "@/data/seo";
+import { socialImageFor } from "@/data/social-preview";
 import { ContentPage, ProjectCta } from "./ContentPage";
 import { InsightImage } from "./InsightImage";
 import { JsonLd } from "./JsonLd";
@@ -19,7 +20,7 @@ export function ArticleDetail(props: ArticleDetailProps) {
   const path = `${collection}${article.slug}/`;
   const image = insight
     ? insightCover(insight.slug)
-    : `/images/share/blog-${article.slug}.png`;
+    : socialImageFor(path).image;
   return (
     <ContentPage
       path={path}

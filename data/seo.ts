@@ -5,6 +5,11 @@ import { articles } from "./articles";
 import { insights, insightPath } from "./insights";
 import { storyProjects } from "./projects";
 import experiencePages from "./experience-pages.json";
+import {
+  homepageSocial,
+  representativePortrait,
+  socialImageFor,
+} from "./social-preview";
 
 export const absolute = (path: string) => new URL(path, `${site.url}/`).href;
 export const pageMeta = (
@@ -14,54 +19,60 @@ export const pageMeta = (
   image?: string,
   articleDate?: string,
   modifiedDate = articleDate,
-): Metadata => ({
-  title: { absolute: title },
-  description,
-  alternates: { canonical: path },
-  robots: site.noindex
-    ? { index: false, follow: false }
-    : {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
-      },
-  openGraph: {
-    title,
+): Metadata => {
+  const preview = socialImageFor(path);
+  const socialTitle = path === "/" ? homepageSocial.title : title;
+  const socialDescription =
+    path === "/" ? homepageSocial.description : description;
+  const imageUrl = absolute(image || preview.image);
+  const imageType = /\.png$/i.test(imageUrl) ? "image/png" : "image/jpeg";
+  return {
+    title: { absolute: title },
     description,
-    url: path,
-    type: articleDate ? "article" : "website",
-    siteName: "Hamid",
-    locale: "en_US",
-    ...(articleDate
-      ? {
-          publishedTime: articleDate,
-          modifiedTime: modifiedDate,
-          authors: [absolute("/about/")],
-        }
-      : {}),
-    images: [
-      {
-        url:
-          image ||
-          `/images/share/${path === "/" ? "home" : path.split("/").filter(Boolean).join("-")}.png`,
-        width: 1200,
-        height: 630,
-        alt: title,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title,
-    description,
-    images: [
-      image ||
-        `/images/share/${path === "/" ? "home" : path.split("/").filter(Boolean).join("-")}.png`,
-    ],
-  },
-});
+    alternates: { canonical: path },
+    robots: site.noindex
+      ? { index: false, follow: false }
+      : {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+        },
+    openGraph: {
+      title: socialTitle,
+      description: socialDescription,
+      url: absolute(path),
+      type: articleDate ? "article" : "website",
+      siteName: "HAMID",
+      locale: "en_US",
+      ...(articleDate
+        ? {
+            publishedTime: articleDate,
+            modifiedTime: modifiedDate,
+            authors: [absolute("/about/")],
+          }
+        : {}),
+      images: [
+        {
+          url: imageUrl,
+          secureUrl: imageUrl,
+          type: imageType,
+          width: 1200,
+          height: 630,
+          alt: preview.alt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: socialTitle,
+      description:
+        path === "/" ? homepageSocial.twitterDescription : description,
+      images: [{ url: imageUrl, alt: preview.alt }],
+    },
+  };
+};
 
 export const publicRoutes: {
   path: string;
@@ -110,7 +121,7 @@ export const entityGraph = {
       name: site.personName,
       alternateName: site.name,
       url: absolute("/about/"),
-      image: absolute("/images/hamid-hero.webp"),
+      image: absolute(representativePortrait.image),
       jobTitle: "Independent Developer & Digital Growth Builder",
       description: site.description,
       homeLocation: { "@type": "Country", name: "Pakistan" },
@@ -173,6 +184,27 @@ export function pageSchema(
     name,
     description,
     isPartOf: { "@id": absolute("/#website") },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      "@id": absolute(`${path === "/about/" ? "/" : path}#primaryimage`),
+      url: absolute(
+        path === "/" || path === "/about/"
+          ? representativePortrait.image
+          : socialImageFor(path).image,
+      ),
+      width:
+        path === "/" || path === "/about/"
+          ? representativePortrait.width
+          : 1200,
+      height:
+        path === "/" || path === "/about/"
+          ? representativePortrait.height
+          : 630,
+      caption:
+        path === "/" || path === "/about/"
+          ? representativePortrait.alt
+          : socialImageFor(path).alt,
+    },
     ...(mainEntity && { mainEntity: { "@id": absolute(mainEntity) } }),
     inLanguage: "en",
   };
